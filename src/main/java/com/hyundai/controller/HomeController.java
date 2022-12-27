@@ -36,4 +36,15 @@ public class HomeController {
 		return "home";
 	}
 	
+	@RequestMapping(value = "/main", method = RequestMethod.GET)
+	public String main(Model model) {
+		logger.info("main.jsp");
+		
+		String context = "메인페이지";
+		
+		model.addAttribute("context", context );
+		
+		return "main";
+	}
+	
 }
