@@ -7,10 +7,10 @@
 <meta http-equiv="Content-Style-Type" content="text/css" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
 <meta name="format-detection" content="telephone=no" />
-<link rel="stylesheet" href="resources/css/jquery.mCustomScrollbar.css">
-<link rel="stylesheet" href="resources/css/olive.css">
-<link rel="stylesheet" href="resources/css/style.css">
-<link rel="stylesheet" href="resources/css/join.css">
+<link rel="stylesheet" href="/resources/css/jquery.mCustomScrollbar.css">
+<link rel="stylesheet" href="/resources/css/olive.css">
+<link rel="stylesheet" href="/resources/css/style.css">
+<link rel="stylesheet" href="/resources/css/join.css">
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script>
 	$(document).ready(function() {
@@ -39,10 +39,10 @@
       <div class="top_util">
         <ul class="menu_list" id="menu_list_header">
           <li class="join">
-            <a href="javascript:common.link.moveJoinMember();" data-attr="공통^헤더^회원가입">회원가입</a>
+            <a href="/join" data-attr="공통^헤더^회원가입">회원가입</a>
           </li>
           <li class="login">
-            <a href="javascript:common.link.moveLoginPage();" data-attr="공통^헤더^로그인">로그인</a>
+            <a href="/login" data-attr="공통^헤더^로그인">로그인</a>
           </li>
         </ul>
       </div>
@@ -64,7 +64,7 @@
         </div>
         <ul class="mymenu_area">
           <li id="todayDeliveryContainer" class="delivery">
-            <a href="javascript:;" id="tddlvr_header_today_icon" class="mymenu_layer" title="오늘드림 자세히보기 열기/닫기">장바구니</a>
+            <a href="./cart" id="tddlvr_header_today_icon" class="mymenu_layer" title="오늘드림 자세히보기 열기/닫기">장바구니</a>
           </li>
         </ul>
       </div>
@@ -239,12 +239,12 @@
         <!--// 전체 카테고리 레이어 -->
         <ul class="gnb_menu_list">
           <li style="">
-            <a href="https://www.oliveyoung.co.kr/store/main/getBestList.do" data-ref-linkurl="main/getBestList.do" data-attr="공통^GNB^랭킹">
+            <a href="/best" data-ref-linkurl="main/getBestList.do" data-attr="공통^GNB^랭킹">
               <span>랭킹</span>
             </a>
           </li>
           <li style="">
-            <a href="https://www.oliveyoung.co.kr/store/main/getSaleList.do" data-ref-linkurl="main/getSaleList.do" data-attr="공통^GNB^세일">
+            <a href="/sale" data-ref-linkurl="main/getSaleList.do" data-attr="공통^GNB^세일">
               <span>세일</span>
             </a>
           </li>

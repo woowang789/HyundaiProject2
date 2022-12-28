@@ -1328,7 +1328,7 @@ button, input[type=submit] {
 }
 
 #Gnb .all_menu_wrap>li:first-child {
-	width: 508px;
+	width: 1016px;
 	border-left: none
 }
 
@@ -1344,7 +1344,7 @@ button, input[type=submit] {
 
 #Gnb .all_menu_wrap>li .sub_menu_box {
 	float: left;
-	min-height: 400px;
+	min-height: 300px;
 	padding: 0 10px 0 30px;
 	width: 155px
 }
@@ -2535,7 +2535,7 @@ i.ntc {
 	right: 0;
 	width: 1px;
 	height: 18px;
-	background: #d6d6d6
+/* 	background: #d6d6d6 */
 }
 
 .header_inner .mymenu_area>li.delivery .mymenu_layer {
