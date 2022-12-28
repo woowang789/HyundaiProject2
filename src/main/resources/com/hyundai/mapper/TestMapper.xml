@@ -5,7 +5,7 @@
 <!-- SQL Mapping -->
 <mapper namespace="com.hyundai.mapper.TestMapper">
 
-	<select id="getInteger" resultType="int">
-		select '1' from dual
+	<select id="getData" resultType="int">
+		select column1 from connect_test
 	</select>
 </mapper>
