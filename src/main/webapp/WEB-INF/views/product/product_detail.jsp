@@ -546,7 +546,7 @@
 				<span>쇼핑계속하기</span>
 			</button>
 			<button class="btnG01 pdzero w130"
-				onclick="common.link.moveCartPage();common.wlog('goods_cart_check');">
+				onclick="location.href='/cart'">
 				<span>장바구니 확인</span>
 			</button>
 		</div>

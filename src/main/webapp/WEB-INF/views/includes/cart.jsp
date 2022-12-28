@@ -706,7 +706,7 @@
         </div>
       </div>
       <div class="order_btn_area order_cart">
-        <button type="button" class="btnOrange" name="allOrderBtn" data-attr="장바구니^주문유형^전체주문">전체주문</button>
+        <button type="button" class="btnOrange" name="allOrderBtn" onclick="location.href='/order-form'" data-attr="장바구니^주문유형^전체주문">주문</button>
       </div>
       <!-- Y  -->
       <div class="basket_btmBox" id="curation_area_a015">
