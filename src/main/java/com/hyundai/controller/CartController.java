@@ -14,7 +14,7 @@ public class CartController {
 	public String cart() {
 		log.info("/cart");
 		
-		return "cart";
+		return "includes/cart";
 	}
 
 }

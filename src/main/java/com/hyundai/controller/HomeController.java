@@ -36,14 +36,8 @@ public class HomeController {
 
 		model.addAttribute("serverTime", formattedDate);
 
-		return "mypage/like_page";
+		return "home";
 	}
 
-	@RequestMapping(value = "/main", method = RequestMethod.GET)
-	public String main() {
-		logger.info("main.jsp");
-
-		return "main";
-	}
 
 }

@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="resources/css/jquery.mCustomScrollbar.css">
 <link rel="stylesheet" href="resources/css/olive.css">
 <link rel="stylesheet" href="resources/css/style.css">
+<link rel="stylesheet" href="resources/css/join.css">
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script>
 	$(document).ready(function() {
