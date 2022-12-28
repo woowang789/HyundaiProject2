@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-메인페이지
+로그인
 </body>
 </html>

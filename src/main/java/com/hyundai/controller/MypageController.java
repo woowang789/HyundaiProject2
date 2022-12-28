@@ -9,33 +9,48 @@ import lombok.extern.log4j.Log4j;
 
 @Controller
 @Log4j
-@RequestMapping("/mypage/*")
+@RequestMapping("/mypage")
 public class MypageController {
 	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String mypage(Model model) {
+	@RequestMapping(value = "", method = RequestMethod.GET)
+	public String mypage() {
 		log.info("mypage");
-		String context = "마이페이지";
-		model.addAttribute("context", context);
 		
 		return "mypage/mypage";
 	}
 	
 	@RequestMapping(value = "/order-lists", method = RequestMethod.GET)
-	public String mypageOrderLists(Model model) {
+	public String mypageOrderLists() {
 		log.info("mypage/order-lists");
-		String context = "마이페이지 주문리스트";
-		model.addAttribute("context", context);
 		
 		return "mypage/order_lists";
 	}
 	
 	@RequestMapping(value="/wish-lists", method=RequestMethod.GET)
-	public String mypageWishLists(Model model) {
+	public String mypageWishLists() {
 		log.info("mypage/wish-lists");
-		String context = "마이페이지 위시리스트";
-		model.addAttribute("context", context);
 		
 		return "mypage/wish_lists";
+	}
+	
+	@RequestMapping(value="/reviews-completion", method=RequestMethod.GET)
+	public String mypageReviewCompletion() {
+		log.info("mypage/reviews-completion");
+		
+		return "mypage/reviews_completion";
+	}
+	
+	@RequestMapping(value="/info-change", method=RequestMethod.GET)
+	public String mypageInfoChange() {
+		log.info("mypage/info-change");
+		
+		return "mypage/info_change";
+	}
+	
+	@RequestMapping(value="/info-remove", method=RequestMethod.GET)
+	public String mypageInfoRemove(Model model) {
+		log.info("mypage/info-remove");
+		
+		return "mypage/info_remove";
 	}
 }

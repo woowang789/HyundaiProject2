@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-${context}
+마이페이지 주문리스트
 </body>
 </html>
