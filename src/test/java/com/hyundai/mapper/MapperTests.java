@@ -19,8 +19,7 @@ public class MapperTests {
 	
 	@Test
 	public void test() {
-		int t = mapper.getInteger();
+		int t = mapper.getData();
 		log.info(t);
 	}
-
 }
