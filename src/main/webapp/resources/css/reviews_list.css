@@ -1,0 +1,459 @@
+a, address, blockquote, body, dd, div, dl, dt, em, fieldset, form, h1, h2, h3, h4, h5, h6, img, input, label, li, ol, p, pre, select, span, strong, textarea, ul {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+ol, ul {
+  list-style: none;
+}
+.mypage-conts {
+  float: left;
+  width: 850px;
+  min-height: 640px;
+  padding: 0 29px 40px;
+  background: #fff;
+}
+.mypage-conts .title-area {
+  padding-top: 25px;
+}
+.title-area {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  padding: 36px 0 7px;
+  border-bottom: 1px solid #666;
+  font-size: 0;
+  line-height: 0;
+}
+.title-area .tit {
+  float: left;
+  color: #333;
+  font-size: 20px;
+  line-height: 30px;
+}
+.comm1sTabs {
+  overflow: hidden;
+  width: 100%;
+  margin: 15px 0 0;
+}
+.mgzero {
+  margin: 0!important;
+}
+.comm1sTabs>li:first-child {
+  border-left: 0;
+}
+.comm1sTabs>li {
+  float: left;
+  width: 50%;
+  border-left: 1px solid #e3e3e3;
+  border-bottom: 2px solid #9bce26;
+  text-align: center;
+  background: #f6f6f6;
+}
+.comm1sTabs>li>a {
+  display: block;
+  height: 50px;
+  padding-top: 15px;
+  color: #333;
+  font-size: 18px;
+}
+.comm1sTabs>li.on {
+  border-left: 2px solid #9bce26;
+  border-top: 2px solid #9bce26;
+  border-right: 2px solid #9bce26;
+  border-bottom: 0;
+  background: #fff;
+}
+.comm1sTabs>li {
+  float: left;
+  width: 50%;
+  border-left: 1px solid #e3e3e3;
+  border-bottom: 2px solid #9bce26;
+  text-align: center;
+  background: #f6f6f6;
+}
+.comm1sTabs>li.on>a {
+  padding-top: 13px;
+}
+.comm1sTabs>li>a {
+  display: block;
+  height: 50px;
+  padding-top: 15px;
+  color: #333;
+  font-size: 18px;
+}
+a {
+  color: #666;
+  text-decoration: none;
+}
+.mypage-conts .dot_list {
+  margin-top: 17px;
+}
+.mypage-conts .dot_list li {
+  padding: 0 0 0 10px;
+}
+.dot_list>li {
+  position: relative;
+  padding: 0 0 0 9px;
+  font-size: 14px;
+  color: #777;
+  line-height: 24px;
+}
+.dot_list>li:after {
+  content: "";
+  display: block;
+  width: 2px;
+  height: 2px;
+  background-color: #777;
+  position: absolute;
+  top: 10px;
+  left: 0;
+}
+.mypage-conts .con_txt h3 {
+  margin-top: 21px;
+  font-size: 18px;
+  line-height: 1.67;
+  letter-spacing: -.5px;
+  color: #333;
+}
+.mypage-conts .con_txt h3 span {
+  padding: 0 5px;
+  color: #f27370;
+}
+.board-list-2s {
+  table-layout: fixed;
+  width: 100%;
+  border-top: 2px solid #d6d6d6;
+  border-bottom: 1px solid #e6e6e6;
+}
+.mgT20 {
+  margin-top: 20px!important;
+}
+caption {
+  width: 0;
+  height: 0;
+  text-indent: -9999px;
+}
+.board-list-2s tr th {
+  padding: 11px 0 10px;
+  background: #fafafa;
+  color: #666;
+}
+.board-list-2s_myreview tr td.subject:first-child {
+  padding-left: 8px;
+}
+.board-list-2s.new tr td.subject {
+  vertical-align: top;
+}
+.board-list-2s_myreview tr td.subject {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.board-list-2s tr td.subject {
+  padding-left: 20px;
+  text-align: left;
+}
+.board-list-2s tr td {
+  padding: 30px 5px;
+  color: #333;
+  text-align: center;
+  border-top: 1px solid #e6e6e6;
+}
+.board-list-2s tr td, .board-list-2s tr th {
+  font-size: 14px;
+  line-height: 18px;
+}
+.board-list-2s tr td .area {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+.board-list-2s_myreview tr td .area .thum {
+  margin-right: 16px;
+}
+.board-list-2s tr td .area .thum {
+  float: left;
+  position: relative;
+  width: 85px;
+  height: 85px;
+  margin-right: 20px;
+  text-align: center;
+}
+a {
+  color: #666;
+  text-decoration: none;
+}
+.board-list-2s tr td .area .thum img {
+  width: auto!important;
+  max-width: 85px;
+  height: auto!important;
+  max-height: 85px;
+}
+.board-list-2s_myreview tr td.subject:first-child .area .textus {
+  width: 240px;
+}
+.board-list-2s tr td .area .textus {
+  float: left;
+  width: 66%;
+  text-align: left;
+}
+.board-list-2s.new tr td .area .textus dl.data {
+  font-weight: 700;
+}
+.board-list-2s tr td .area .textus dl.data {
+  overflow: hidden;
+  margin-bottom: 7px;
+  text-indent: 0;
+}
+.board-list-2s.new tr td.subject .data {
+  padding-top: 0;
+}
+.board-list-2s tr td.subject .data {
+  padding: 5px 0 0;
+  text-indent: 0;
+  color: #888;
+}
+.board-list-2s tr td .data {
+  display: block;
+  text-indent: 10px;
+  color: #333;
+}
+.board-list-2s tr td .area .textus dl.data dt {
+  float: left;
+}
+.board-list-2s tr td .area .textus dl.data dd, .board-list-2s tr td .area .textus dl.data dt {
+  font-size: 13px;
+}
+.board-list-2s.new tr td .area .textus dl.data.review-data dd {
+  margin-left: 15px;
+  padding-left: 0;
+  background: 0 0;
+}
+.board-list-2s tr td .area .textus dl.data dd {
+  font-weight: 500;
+}
+.board-list-2s tr td .area .textus dl.data dd {
+  float: left;
+  margin: 0 0 0 10px;
+  padding-left: 10px;
+  background: url("https://static.oliveyoung.co.kr/pc-static-root/image/comm/bar_1x10.gif") 0 4px no-repeat;
+}
+.board-list-2s tr td .area .textus dl.data dd, .board-list-2s tr td .area .textus dl.data dt {
+  font-size: 13px;
+}
+.board-list-2s.new tr td .area .textus dl.data.review-data dd span {
+  margin-left: 5px;
+  padding-left: 5px;
+  background: url("https://static.oliveyoung.co.kr/pc-static-root/image/comm/bar_1x10.gif") center left no-repeat;
+}
+.board-list-2s tr td .area .textus a {
+  display: block;
+}
+.board-list-2s tr td .area .textus .tit {
+  overflow: hidden;
+  height: 20px;
+  color: #777;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 700;
+}
+.board-list-2s tr td .area .textus a span {
+  overflow: hidden;
+  display: inline-block;
+  width: 100%;
+}
+.board-list-2s.new tr td .area .textus .txt.oneline {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.board-list-2s tr td .area .textus .txt {
+  overflow: hidden;
+  max-height: 36px;
+  color: #333;
+}
+.board-list-2s tr td .area .textus a span {
+  overflow: hidden;
+  display: inline-block;
+  width: 100%;
+}.board-list-2s tr td .area .textus a span {
+  overflow: hidden;
+  display: inline-block;
+  width: 100%;
+}
+.board-list-2s.new tr td.subject {
+  vertical-align: top;
+}
+.board-list-2s_myreview tr td.subject {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.board-list-2s tr td.subject {
+  padding-left: 20px;
+  text-align: left;
+}
+.board-list-2s tr td {
+  padding: 30px 5px;
+  color: #333;
+  text-align: center;
+  border-top: 1px solid #e6e6e6;
+}
+.board-list-2s tr td, .board-list-2s tr th {
+  font-size: 14px;
+  line-height: 18px;
+}
+.board-list-2s tr td .area {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+.board-list-2s tr td .area .textus {
+  float: left;
+  width: 66%;
+  text-align: left;
+}
+.board-list-2s.new tr td .area .textus dl.data {
+  font-weight: 700;
+}
+.board-list-2s tr td .area .textus dl.data {
+  overflow: hidden;
+  margin-bottom: 7px;
+  text-indent: 0;
+}
+.board-list-2s.new tr td.subject .data {
+  padding-top: 0;
+}
+.board-list-2s tr td.subject .data {
+  padding: 5px 0 0;
+  text-indent: 0;
+  color: #888;
+}
+.board-list-2s tr td .data {
+  display: block;
+  text-indent: 10px;
+  color: #333;
+}
+.board-list-2s.new tr td .area .textus dl.data {
+  font-weight: 700;
+}
+.board-list-2s tr td .area .textus dl.data {
+  overflow: hidden;
+  margin-bottom: 7px;
+  text-indent: 0;
+}
+.board-list-2s tr td.subject .data {
+  padding: 5px 0 0;
+  text-indent: 0;
+  color: #888;
+}
+.board-list-2s.new tr td .area .textus dl.data.review-data dd {
+  margin-left: 15px;
+  padding-left: 0;
+  background: 0 0;
+}
+.board-list-2s tr td .area .textus dl.data dd {
+  font-weight: 500;
+}
+.board-list-2s tr td .area .textus dl.data dd {
+  float: left;
+  margin: 0 0 0 10px;
+  padding-left: 10px;
+  background: url("https://static.oliveyoung.co.kr/pc-static-root/image/comm/bar_1x10.gif") 0 4px no-repeat;
+}
+.board-list-2s tr td .area .textus dl.data dd, .board-list-2s tr td .area .textus dl.data dt {
+  font-size: 13px;
+}
+.board-list-2s.new.board-list-2s_myreview tr td .area .textus .rating {
+  display: inline-block;
+}
+.board-list-2s tr td .area .textus .rating {
+  margin-bottom: 5px;
+  font-weight: 700;
+}
+.board-list-2s tr td .area .textus .txt {
+  overflow: hidden;
+  max-height: 36px;
+  color: #333;
+}
+.board-list-2s.new.board-list-2s_myreview tr td .area .textus .point.pt5 {
+  background-position: 0 -79px;
+}
+.board-list-2s.new.board-list-2s_myreview tr td .area .textus .point {
+  width: 80px;
+  background-image: url("https://static.oliveyoung.co.kr/pc-static-root/css/../image/comm/ico_review_point2.png");
+  background-size: 80px 95px;
+}
+.board-list-2s.new tr td .area .textus .point {
+  margin: 2px 0 0;
+}
+.board-list-2s tr td .area .textus .point {
+  display: inline-block;
+  width: 98px;
+  height: 16px;
+  margin-left: 5px;
+  text-indent: -9999px;
+  background: url("https://static.oliveyoung.co.kr/pc-static-root/image/comm/ico_review_point.png") right 0/auto 80px no-repeat;
+  vertical-align: -2px;
+}
+.board-list-2s_myreview .review-flag-wrap {
+  margin-left: 8px;
+}
+.board-list-2s tr td .link {
+  display: inline-block;
+  overflow: hidden;
+  width: 290px;
+  margin: 0;
+  color: #333;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+.board-list-2s_myreview .btn-review--small {
+  width: 109px;
+  position: relative;
+}
+.btn-review--small {
+  width: 80px;
+  line-height: 28px;
+  border: 1px solid #dadde0;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #50585f;
+  font-size: 12px;
+  font-weight: 400;
+}
+button {
+  text-align: center;
+  color: #fff;
+}
+button, input[type=submit] {
+  border: 0;
+  padding: 0;
+  box-shadow: none;
+  cursor: pointer;
+}
+button, input[type=submit] {
+  font-family: Montserrat,-apple-system,NotoSansCJKkr,AppleSDGothicNeo,Roboto,sans-serif;
+  font-weight: 700;
+}
+.board-list-2s tr td .area .textus {
+  float: left;
+  width: 66%;
+  text-align: left;
+}
+.board-list-2s tr td .area {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+.linezero {
+  border: 0!important;
+}
+.board-list-2s_myreview tr td .area .thum {
+  margin-right: 16px;
+}

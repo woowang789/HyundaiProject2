@@ -1,13 +1,7 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="remove_member.css">
-</head>
-<body>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ include file="./my_top.jsp"%>
   <div class="mypage-conts">
     <div class="title-area">
       <h2 class="tit">회원탈퇴</h2>
@@ -23,6 +17,8 @@
     <p class="common2s-text">올리브영 회원 탈퇴(이용약관 동의 철회)를 하시겠습니까?</p>
     <div class="area1sButton mgT10"><a class="btnGreen">회원 탈퇴</a></div>
   </div>
-</body>
-
-</html>
+</div>
+</div>
+</div>
+</div>
+<%@ include file="../includes/footer.jsp"%>

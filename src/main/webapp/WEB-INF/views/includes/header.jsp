@@ -7,11 +7,14 @@
 <meta http-equiv="Content-Style-Type" content="text/css" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
 <meta name="format-detection" content="telephone=no" />
-<link rel="stylesheet" href="resources/css/jquery.mCustomScrollbar.css">
-<link rel="stylesheet" href="resources/css/olive.css">
-<link rel="stylesheet" href="resources/css/style.css">
-<link rel="stylesheet" href="resources/css/join.css">
-<link rel="stylesheet" href="resources/css/login.css">
+<link rel="stylesheet" href="/resources/css/jquery.mCustomScrollbar.css">
+<link rel="stylesheet" href="/resources/css/olive.css">
+<link rel="stylesheet" href="/resources/css/style.css">
+<link rel="stylesheet" href="/resources/css/join.css">
+<link rel="stylesheet" href="/resources/css/login.css">
+<link rel="stylesheet" href="/resources/css/info_change.css">
+<link rel="stylesheet" href="/resources/css/reviews.css">
+<link rel="stylesheet" href="/resources/css/info_remove.css">
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script>
 	$(document).ready(function() {
