@@ -25,7 +25,7 @@
 						</ul>
 
 						<div class="linkChk">
-							<div class="save">
+							<div class="save" style="margin-bottom:5px;">
 								<input type="checkbox" id="chk01" name="saveLoginIdYn"
 									title="아이디 저장 선택" value="Y" checked="checked"><label
 									for="chk01">아이디 저장</label> <input type="hidden"
