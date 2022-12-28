@@ -4,89 +4,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="my_top.jsp"%>
 
-<div id="Container">
-	<div class="mypage-ix">
-		<!-- //마이페이지 SUB 메뉴 -->
-
-		<!-- //마이페이지 SUB -->
-		<script
-			src="https://static.oliveyoung.co.kr/pc-static-root/js/mypage/mypage.side.js?dumm=20221223001"></script>
-		<script>
-			$(window)
-					.ready(
-							function() {
-								mypage.side.init();
-
-								if (_isLogin) {
-									var gdasPossibleTotCnt = sessionStorage
-											.getItem("gdasPossibleTotCnt");
-									// if( common.isEmpty(gdasPossibleTotCnt) ) {
-									common.Ajax
-											.sendJSONRequest(
-													"POST",
-													_baseUrl
-															+ "mypage/getGdasPossibleTotCnt.do",
-													null,
-													function(res) {
-														if (res.result != null
-																&& res.result > 0) {
-															sessionStorage
-																	.setItem(
-																			"gdasPossibleTotCnt",
-																			res.result
-																					.numberFormat());
-														} else {
-															sessionStorage
-																	.setItem(
-																			"gdasPossibleTotCnt",
-																			"0");
-														}
-														$(
-																"#_gdasPossibleTotCnt")
-																.text(
-																		sessionStorage
-																				.getItem("gdasPossibleTotCnt"));
-													});
-									//} else {
-									//	$("#_gdasPossibleTotCnt").text( gdasPossibleTotCnt );
-									//}
-
-									// [3283136] 마이페이지 PC GUI 개편 및 장바구니 버튼 추가 요청의 件(CHY)
-									// 신규 리뷰 작성 여부의 따라 N 아이콘 표출
-									var lastCheckDtime = localStorage
-											.getItem("lastCheckDtime");
-									common.Ajax
-											.sendJSONRequest(
-													"POST",
-													_baseUrl
-															+ "mypage/getNewGdasPossibleCnt.do",
-													{
-														lastCheckDtime : lastCheckDtime
-													},
-													function(res) {
-														if (res.result > 0) {
-															$(
-																	"#_newGdasPossible")
-																	.show();
-														} else {
-															$(
-																	"#_newGdasPossible")
-																	.hide();
-														}
-													});
-								}
-							});
-		</script>
-
-		<div class="mypage-conts">
-			<script
-				src="https://static.oliveyoung.co.kr/pc-static-root/js/mypage/mypage.header.js?dumm=20221223001"></script>
-			<script>
-				$(window).ready(function() {
-					mypage.header.init();
-				});
-			</script>
-
 			<div class="title-area2">
 				<h2 class="tit">주문/배송 조회</h2>
 			</div>
@@ -298,8 +215,6 @@
 					});
 				}
 			</script>
-		</div>
-	</div>
 </div>
 
 </div>

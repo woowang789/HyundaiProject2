@@ -1,22 +1,15 @@
-<!DOCTYPE html>
-<html lang="ko">
-
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="write_review.css">
-</head>
-<body>
-  <div class="mypage-conts">
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ include file="my_top.jsp"%>
     <div class="title-area linezero">
       <h2 class="tit">리뷰</h2>
     </div>
 
     <ul class="comm1sTabs mgzero">
       <li class="on" title="선택됨"><a href="javascript:void(0);" data-attr="리뷰^리뷰_SortingTab^리뷰 작성">리뷰 작성</a></li>
-      <li><a href="#n" onclick="javascript:mypage.gdasList.goCompleteList();" data-attr="리뷰^리뷰_SortingTab^나의 리뷰">나의
+      <li><a href="/mypage/reviews-completion">나의
           리뷰</a></li>
     </ul>
     <ul class="dot_list">
@@ -112,7 +105,9 @@
         </tr>
       </tbody>
     </table>
+    
   </div>
-</body>
-
-</html>
+  </div>
+  </div>
+  </div>
+<%@ include file="../includes/footer.jsp"%>

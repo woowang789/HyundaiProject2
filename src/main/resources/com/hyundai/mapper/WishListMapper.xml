@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- SQL Mapping -->
+<mapper namespace="com.hyundai.mapper.WishListMapper">
+
+	<select id="getWishList" resultType="com.hyundai.vo.ProductVO">
+		select
+			p.PRODUCT_ID id,
+			p.PRODUCT_NAME name,
+			p.PRODUCT_THUMB thumb,
+			p.PRODUCT_CONTENT content,
+			p.PRODUCT_DATE pDate,
+			p.CATEGORY_ID cateId,
+			p.BRAND_ID brandId,
+			p.PRODUCT_IMG img
+		from product p
+		where exists (
+		select 1 from wish_list w
+		where w.user_id = #{userId}
+		and w.product_id = p.product_id
+		)
+	</select>
+</mapper>
