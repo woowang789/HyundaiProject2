@@ -16,7 +16,7 @@ public class MypageController {
 	public String mypage() {
 		log.info("mypage");
 		
-		return "mypage/mypage";
+		return "mypage";
 	}
 	
 	@RequestMapping(value = "/order-lists", method = RequestMethod.GET)

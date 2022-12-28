@@ -27,16 +27,16 @@
             <h2>마이 쇼핑</h2>
             <ul>
               <li class="subMenu on">
-                <a href="javascript:;" mymenuid="0101" data-ref-linkurl="https://www.oliveyoung.co.kr/store/mypage/getOrderList.do" data-attr="마이페이지^메뉴^주문/배송 조회">주문 조회</a>
+                <a href="order-lists" mymenuid="0101" data-ref-linkurl="https://www.oliveyoung.co.kr/store/mypage/getOrderList.do" data-attr="마이페이지^메뉴^주문/배송 조회">주문 조회</a>
               <li class="subMenu">
-                <a href="javascript:;" mymenuid="0103" data-ref-linkurl="https://www.oliveyoung.co.kr/store/mypage/getDealList.do" data-attr="마이페이지^메뉴^거래증빙서류 확인">좋아요</a>
+                <a href="wish-lists" mymenuid="0103" data-ref-linkurl="https://www.oliveyoung.co.kr/store/mypage/getDealList.do" data-attr="마이페이지^메뉴^거래증빙서류 확인">좋아요</a>
               </li>
           </li>
           <li class="subMenu">
             <a href="javascript:;" mymenuid="0102" data-ref-linkurl="https://www.oliveyoung.co.kr/store/mypage/getOrderCancelList.do" data-attr="마이페이지^메뉴^취소/반품/교환 내역">장바구니</a>
           </li>
           <li class="subMenu">
-            <a href="javascript:;" mymenuid="0103" data-ref-linkurl="https://www.oliveyoung.co.kr/store/mypage/getDealList.do" data-attr="마이페이지^메뉴^거래증빙서류 확인">리뷰</a>
+            <a href="reviews" mymenuid="0103" data-ref-linkurl="https://www.oliveyoung.co.kr/store/mypage/getDealList.do" data-attr="마이페이지^메뉴^거래증빙서류 확인">리뷰</a>
           </li>
         </ul>
         </li>
@@ -44,10 +44,10 @@
           <h2>마이 정보</h2>
           <ul>
             <li class="subMenu">
-              <a href="javascript:;" mymenuid="0501" data-ref-linkurl="https://www.oliveyoung.co.kr/store/mypage/getMktReceiptInfo.do" data-attr="마이페이지^메뉴^회원정보 수정">회원정보 수정</a>
+              <a href="info-change" mymenuid="0501" data-ref-linkurl="https://www.oliveyoung.co.kr/store/mypage/getMktReceiptInfo.do" data-attr="마이페이지^메뉴^회원정보 수정">회원정보 수정</a>
             </li>
             <li class="subMenu">
-              <a href="javascript:;" mymenuid="0504" data-ref-linkurl="https://www.oliveyoung.co.kr/store/mypage/custInfoOut.do" data-attr="마이페이지^메뉴^회원탈퇴">회원탈퇴</a>
+              <a href="info-remove" mymenuid="0504" data-ref-linkurl="https://www.oliveyoung.co.kr/store/mypage/custInfoOut.do" data-attr="마이페이지^메뉴^회원탈퇴">회원탈퇴</a>
             </li>
           </ul>
         </li>

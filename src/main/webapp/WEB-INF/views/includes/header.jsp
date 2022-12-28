@@ -13,7 +13,6 @@
 <link rel="stylesheet" href="/resources/css/join.css">
 <link rel="stylesheet" href="/resources/css/login.css">
 <link rel="stylesheet" href="/resources/css/info_change.css">
-<link rel="stylesheet" href="/resources/css/reviews.css">
 <link rel="stylesheet" href="/resources/css/info_remove.css">
 <link rel="stylesheet" href="/resources/css/reviews_write.css">
 <script src="http://code.jquery.com/jquery-latest.js"></script>
@@ -48,6 +47,9 @@
           </li>
           <li class="login">
             <a href="/login" data-attr="공통^헤더^로그인">로그인</a>
+          </li>
+          <li class="mypage">
+            <a href="/mypage/reviews" data-attr="공통^헤더^로그인">마이페이지</a>
           </li>
         </ul>
       </div>
