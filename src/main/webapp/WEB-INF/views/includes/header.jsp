@@ -55,7 +55,7 @@
       </div>
       <div class="header_inner s_yearend">
         <h1>
-          <a href="javascript:common.link.moveMainHome();">
+          <a href="/home">
             <img src="https://static.oliveyoung.co.kr/pc-static-root/image/comm/h1_logo_yearend.png" alt="올리브영" />
           </a>
         </h1>
