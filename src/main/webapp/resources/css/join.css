@@ -32,7 +32,11 @@
 
 .btnwrap {
 	margin-top: 40px;
-	text-align: center;
+    text-align: center;
+    display: flex;
+    width: 300px;
+    margin: 0 auto;
+    margin-top: 40px;
 }
 
 .tblwrap {
@@ -87,7 +91,7 @@ input[type=text], input[type=password], input[type=email], input[type=number],
 	margin-right: 5px;
 	height: 28px;
 	line-height: 30px;
-	text-indent: 10px;
+	text-indent: 5px;
 	border: 1px solid #ccc;
 	border-radius: 5px;
 }
@@ -137,7 +141,7 @@ select {
 	padding-top: 10px !important;
 }
 
-input[type=radio], input[type=checkbox] {
+input[type=radio] {
 	width: 13px;
 	height: 13px;
 	margin: 3px 3px 0 0;
@@ -165,6 +169,7 @@ input[type=radio], input[type=checkbox] {
 	background: #888;
 	border: 1px solid #a3a3a3;
 	font-size: 14px;
+	color: white;
 }
 
 .btn.gray {

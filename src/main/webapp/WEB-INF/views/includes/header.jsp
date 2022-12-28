@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="resources/css/olive.css">
 <link rel="stylesheet" href="resources/css/style.css">
 <link rel="stylesheet" href="resources/css/join.css">
+<link rel="stylesheet" href="resources/css/login.css">
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script>
 	$(document).ready(function() {
