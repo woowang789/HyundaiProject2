@@ -7,8 +7,7 @@
       <h2 class="tit">리뷰</h2>
     </div>
     <ul class="comm1sTabs mgzero">
-      <li><a href="#n" onclick="javascript:mypage.gdasCompleteList.goGdasList();" data-attr="리뷰^리뷰_SortingTab^리뷰 작성">리뷰
-          작성</a></li>
+      <li><a href="/mypage/reviews">리뷰 작성</a></li>
       <li class="on" title="선택됨"><a href="javascript:void(0);" data-attr="리뷰^리뷰_SortingTab^나의 리뷰">나의 리뷰</a></li>
     </ul>
     <ul class="dot_list">
