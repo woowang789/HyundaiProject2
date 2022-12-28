@@ -9,8 +9,7 @@
 
     <ul class="comm1sTabs mgzero">
       <li class="on" title="선택됨"><a href="javascript:void(0);" data-attr="리뷰^리뷰_SortingTab^리뷰 작성">리뷰 작성</a></li>
-      <li><a href="/mypage/reviews-completion">나의
-          리뷰</a></li>
+      <li><a href="/mypage/reviews-completion">나의 리뷰</a></li>
     </ul>
     <ul class="dot_list">
       <li>리뷰는 배송 완료 후 90 일 이내 작성 가능합니다. (매장구매는 결제완료 시)</li>

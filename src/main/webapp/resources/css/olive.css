@@ -1328,7 +1328,7 @@ button, input[type="submit"] {
 }
 
 #Gnb .all_menu_wrap>li:first-child {
-	width: 508px;
+	width: 1016px;
 	border-left: none;
 }
 
@@ -1344,7 +1344,7 @@ button, input[type="submit"] {
 
 #Gnb .all_menu_wrap>li .sub_menu_box {
 	float: left;
-	min-height: 400px;
+	min-height: 300px;
 	padding: 0 10px 0 30px;
 	width: 155px;
 }
@@ -2535,7 +2535,7 @@ i.ntc {
 	right: 0;
 	width: 1px;
 	height: 18px;
-	background: #d6d6d6;
+	/* background: #d6d6d6; */
 }
 
 .header_inner .mymenu_area>li.delivery .mymenu_layer {
@@ -61541,7 +61541,7 @@ ul.coupon-tabs.line-e5e5e5>li.on a {
 
 .prd_detail_box.renew .prd_btn_area.new-style.type1 button.btnBasket,
 	.prd_detail_box.renew .prd_btn_area.new-style.type1 button.btnBuy {
-	width: 136px;
+	width: 180px;
 }
 
 .prd_detail_box.renew .prd_btn_area.new-style.type1 button.btnReStock,
@@ -76608,7 +76608,6 @@ input.review-check--input[type="checkbox"]:checked {
 }
 
 .board-list-2s_myreview tr td.subject:first-child .area .textus {
-	width: 240px;
 }
 
 .board-list-2s_myreview tr td .area .textus {
@@ -76616,7 +76615,6 @@ input.review-check--input[type="checkbox"]:checked {
 }
 
 .board-list-2s_myreview tr td.subject:last-child .textus {
-	width: 240px;
 }
 
 .board-list-2s_myreview .btn-review--small {

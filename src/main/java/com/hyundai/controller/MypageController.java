@@ -17,7 +17,7 @@ public class MypageController {
 	public String mypage() {
 		log.info("mypage");
 		
-		return "mypage/mypage";
+		return "mypage";
 	}
 	
 	@GetMapping("/order-lists")
@@ -38,7 +38,7 @@ public class MypageController {
 	public String mypageReviewCompletion() {
 		log.info("mypage/reviews-completion");
 		
-		return "mypage/reviews_completion";
+		return "mypage/reviews_list";
 	}
 	
 	@GetMapping("/info-change")
@@ -53,5 +53,12 @@ public class MypageController {
 		log.info("mypage/info-remove");
 		
 		return "mypage/info_remove";
+	}
+	
+	@RequestMapping(value="/reviews", method=RequestMethod.GET)
+	public String mypageReviews(Model model) {
+		log.info("mypage/reviews");
+		
+		return "mypage/reviews_write";
 	}
 }

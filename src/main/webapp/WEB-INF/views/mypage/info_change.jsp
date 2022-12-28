@@ -1,15 +1,7 @@
-<!DOCTYPE html>
-<html lang="ko">
-
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="change_info.css">
-</head>
-
-<body>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ include file="./my_top.jsp"%>
   <div class="mypage-conts">
     <div class="title-area">
       <h2 class="tit">개인정보 변경</h2>
@@ -210,13 +202,13 @@
                 <div class="receive_choice">
                   <span class="bul_sty01">
                     <span>이메일</span>
-                    <input type="radio" name="emailReceiveYN" value="true" id="emailReceiveYN"><label for="email_y">예</label>
-                    <input type="radio" name="emailReceiveYN" value="false" id="emailReceiveYN" checked="checked"><label for="email_n">아니오</label>
+                    <input type="radio" name="emailReceiveYN" value="true" ><label for="email_y">예</label>
+                    <input type="radio" name="emailReceiveYN" value="false" checked="checked"><label for="email_n">아니오</label>
                   </span>
-                  <span class="bul_sty01">
+                  <span>
                     <span>SMS</span>
-                    <input type="radio" name="smsReceiveYN" id="smsReceiveYN" value="true" style="margin-left: 11px;"><label for="sms_y2">예</label>
-                    <input type="radio" name="smsReceiveYN" id="smsReceiveYN" value="false" checked="checked"><label for="sms_n2">아니오</label>
+                    <input type="radio" name="smsReceiveYN" value="true" style="margin-left: 11px;"><label for="sms_y2">예</label>
+                    <input type="radio" name="smsReceiveYN" value="false" checked="checked"><label for="sms_n2">아니오</label>
                   </span>
                 </div>
               </td>
@@ -229,5 +221,8 @@
         <input type="button" value="회원가입" class="btn gray mr0" id="joinBtn">
       </div>
     </div>
-</body>
-</html>
+</div>
+</div>
+</div>
+</div>
+<%@ include file="../includes/footer.jsp"%>

@@ -8,13 +8,12 @@ import lombok.extern.log4j.Log4j;
 
 @Log4j
 @Controller
-public class BestController {
-
-	@RequestMapping(value = "/best", method = RequestMethod.GET)
-	public String best() {
-		log.info("/best");
-
-		return "tab/best";
+public class ProductController {
+	@RequestMapping(value="/product-detail", method = RequestMethod.GET)
+	public String productDetail() {
+		log.info("/product-detail");
+		
+		return "product/product_detail";
 	}
 
 }
