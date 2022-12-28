@@ -37,7 +37,7 @@ public class MypageController {
 	public String mypageReviewCompletion() {
 		log.info("mypage/reviews-completion");
 		
-		return "mypage/reviews_completion";
+		return "mypage/reviews_list";
 	}
 	
 	@RequestMapping(value="/info-change", method=RequestMethod.GET)
@@ -52,5 +52,12 @@ public class MypageController {
 		log.info("mypage/info-remove");
 		
 		return "mypage/info_remove";
+	}
+	
+	@RequestMapping(value="/reviews", method=RequestMethod.GET)
+	public String mypageReviews(Model model) {
+		log.info("mypage/reviews");
+		
+		return "mypage/reviews_write";
 	}
 }
