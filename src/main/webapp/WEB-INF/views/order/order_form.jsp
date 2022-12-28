@@ -1,14 +1,8 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="./detail.css" />
-</head>
-<body>
-  <div id="Wrapper">
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ include file="../includes/header.jsp"%>
   <div id="Container">
 	<!-- #Contents -->
 	<div id="Contents">
@@ -2275,7 +2269,7 @@
 						</li>
 						
 						<li> <!-- 3440969_PM작업시 오늘드림 레이어 팝업 노출 요청 건 -->
-							<button class="btnPayment" id="btnPay" name="btnPay" type="button" data-attr="최종결제정보^결제하기">결제하기<em id="giftNoti3" style="display: none;">(증정품은 결제 시 확인 가능합니다)</em> <em id="giftNotiQuick" style="display: none;">(오늘드림으로 주문 시 온라인 단독 <br>증정품이 제공되지 않습니다.)</em> <em id="giftNoti4" style="display: none;">(오늘드림 주문은 온라인 전용 증정품이<br>제공되지 않습니다.)</em></button>
+							<button class="btnPayment" id="btnPay" name="btnPay" type="button" onclick="location.href='/order-completion'" data-attr="최종결제정보^결제하기">결제하기<em id="giftNoti3" style="display: none;">(증정품은 결제 시 확인 가능합니다)</em> <em id="giftNotiQuick" style="display: none;">(오늘드림으로 주문 시 온라인 단독 <br>증정품이 제공되지 않습니다.)</em> <em id="giftNoti4" style="display: none;">(오늘드림 주문은 온라인 전용 증정품이<br>제공되지 않습니다.)</em></button>
 							<input type="hidden" id="tempOrdNo" value="">
 						</li>
 					</ul>
@@ -2299,7 +2293,7 @@
 	<!-- //#Contents -->
 </div>
   
-</div>
+
   
 <!-- Code injected by live-server -->
 <script>
@@ -2339,6 +2333,4 @@
 	}
 	// ]]>
 </script>
-
-</body>
-</html>
+<%@ include file="../includes/footer.jsp"%>
