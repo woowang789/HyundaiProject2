@@ -7,7 +7,7 @@
     <div class="loginArea new login">
       <div class="box_type_1">
         <div class="title_wrap clearfix">
-          <h4 class="float_left">회원정보</h4>
+          <h4 class="float_left">회원가입</h4>
         </div>
         <div class="tblwrap">
           <table class="tbl_wtype1">
@@ -19,7 +19,7 @@
             <tbody>
               <tr>
                 <th scope="row">이메일 아이디</th>
-                <td>soool1021@gmail.com</td>
+                <td><input type="text" style="width: 150px" title="아이디"></td>
               </tr>
               <tr>
                 <th scope="row">
@@ -72,13 +72,13 @@
                   <input type="button" class="btn add_s" id="emailDubChkBtn" value="중복확인">
                   <span class="guide_comment" id="emailMsg"></span>
                   <div class="wtype_comment pt10">
-                    <input type="checkbox" id="ck1">
+                    <input type="checkbox">
                     <label for="ck1">이메일 아이디 적용</label>
                   </div>
                   <div class="wtype_comment pt5">
-                    <input type="checkbox" id="emailReceiveYn" name="emailReceiveYn" value="Y">
+                    <input type="checkbox">
                     <label for="emailReceiveYn">이메일을 통한 상품 및 이벤트 정보 수신에 동의합니다. (선택)</label>
-                    <a href="javascript:void(0);" class="email-prev-detail-btn">자세히 보기</a>
+                    <a href="#" >자세히 보기</a>
                   </div>
                 </td>
               </tr>

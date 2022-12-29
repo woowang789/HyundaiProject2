@@ -11,6 +11,10 @@
 <link rel="stylesheet" href="/resources/css/olive.css">
 <link rel="stylesheet" href="/resources/css/style.css">
 <link rel="stylesheet" href="/resources/css/join.css">
+<link rel="stylesheet" href="/resources/css/login.css">
+<link rel="stylesheet" href="/resources/css/info_change.css">
+<link rel="stylesheet" href="/resources/css/info_remove.css">
+<link rel="stylesheet" href="/resources/css/reviews_write.css">
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script>
 	$(document).ready(function() {
@@ -44,11 +48,14 @@
           <li class="login">
             <a href="/login" data-attr="공통^헤더^로그인">로그인</a>
           </li>
+          <li class="mypage">
+            <a href="/mypage/reviews" data-attr="공통^헤더^로그인">마이페이지</a>
+          </li>
         </ul>
       </div>
       <div class="header_inner s_yearend">
         <h1>
-          <a href="javascript:common.link.moveMainHome();">
+          <a href="/home">
             <img src="https://static.oliveyoung.co.kr/pc-static-root/image/comm/h1_logo_yearend.png" alt="올리브영" />
           </a>
         </h1>

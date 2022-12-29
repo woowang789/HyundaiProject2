@@ -1,83 +1,120 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="../includes/header.jsp"%>
-<div id="Container">
-  <!-- #Contents -->
-  <form name="cartForm" id="cartForm">
-    <input type="hidden" id="btnOrderTp" name="btnOrderTp" value="" />
-    <input type="hidden" id="cartNo" name="cartNo" value="" />
-    <input type="hidden" id="partYn" name="partYn" value="" />
-    <input type="hidden" id="optChgYn" name="optChgYn" value="Y" />
-    <input type="hidden" id="quickYn" name="quickYn" value="N" />
-    <input type="hidden" id="quickOrdPsbMaxQty" name="quickOrdPsbMaxQty" value="999" />
-    <input type="hidden" id="quickOrdTimeFrom" name="quickOrdTimeFrom" value="0" />
-    <input type="hidden" id="quickOrdTimeTo" name="quickOrdTimeTo" value="24" />
-    <input type="hidden" id="o2oBlockInfo" name="o2oBlockInfo" value='{"o2oBlockMsg":"시스템점검으로 오늘드림 서비스에 제한이 있습니다.\n빠른 시간안에 서비스 재개 하도록 하겠습니다.","o2oBlockYn":"N"}' />
-    <input type="hidden" id="ktmDestYn" name="ktmDestYn" value="Y" />
-    <input type="hidden" id="oldAddrYn" name="oldAddrYn" value="Y" />
-    <!-- 구주소 유효성 여부 -->
-    <input type="hidden" id="orderStrNo" name="orderStrNo" value="" />
-    <!-- 3440969_PM작업시 오늘드림 레이어 팝업 노출 요청 건 -->
-    <input type="hidden" id="quickInfoYn" name="quickInfoYn" value="N" />
-    <div id="Contents">
-      <!-- title_box -->
-      <div class="title_box">
-        <h1>
-          장바구니
-          <span class="tx_num">3</span>
-        </h1>
-        <ul class="step_list">
-          <li class="on">
-            <span class="hide">현재단계</span>
-            <span class="step_num tx_num">1</span>
-            장바구니
-          </li>
-          <!-- 현재단계 li에 클래스 on과 <span class="hide">현재단계</span> 넣어주세요 -->
-          <li>
-            <span class="step_num tx_num">2</span>
-            주문/결제
-          </li>
-          <li class="last">
-            <span class="step_num tx_num">3 </span>
-            주문완료
-          </li>
-        </ul>
-      </div>
-      <!--// title_box -->
-      <!-- membership_box -->
-      <!--// membership_box -->
-      <!-- 일반배송, 당일배송 탭 -->
-      <ul class="comm5sTabs" id="ulDelivGb">
-        <li quickyn="N" class="on">
-          <button type="button" data-attr="장바구니^Tab^일반 배송" title="선택됨">일반 배송 (3)</button>
-        </li>
-      </ul>
-      <!--// 일반배송, 당일배송 탭 -->
-      <!-- 배송지 선택 -->
-      <div class="box_delivery pickStore" id="divDelivery" style="display: none">
-        <div class="storePick_area" style="display: none">
-          <div class="tBox">
-            <strong>매장에서 픽업 하시겠어요? <a href="javascript:;" data-rel="layer" data-target="storePickPop" class="ico_info_view">매장픽업 안내 레이어열기</a></strong>
-            <span>실제 픽업 매장의 재고는 상이할 수 있습니다.</span>
-          </div>
-          <div class="toggleInput">
-            <label class="switch"> <input type="checkbox" id="pickupDirectYn" name="pickupDirectYn" value="Y" /> <span class="slider"></span>
-            </label>
-          </div>
-        </div>
-        <div class="today_dalivery">
-          <dl class="box_dl">
-            <dd>
-              <div class="prd_option_box sel_delivery">
-                <a href="javascript:;" class="sel_option">배송지를 선택해주세요</a>
-                <input type="hidden" id="dlvpSeqSelect" value="" />
-                <input type="hidden" id="strNoSelect" value="" />
-                <div class="sel_option_fix">
-                  <ul class="sel_option_list"></ul>
-                  <p class="btn_fix">
-                    <a href="javascript:;" class="btn_addadr">+ 배송지 추가</a>
-                  </p>
+      <div id="Container">
+        <!-- #Contents -->
+        <form name="cartForm" id="cartForm">
+          <input type="hidden" id="btnOrderTp" name="btnOrderTp" value="" />
+          <input type="hidden" id="cartNo" name="cartNo" value="" />
+          <input type="hidden" id="partYn" name="partYn" value="" />
+          <input type="hidden" id="optChgYn" name="optChgYn" value="Y" />
+          <input type="hidden" id="quickYn" name="quickYn" value="N" />
+          <input
+            type="hidden"
+            id="quickOrdPsbMaxQty"
+            name="quickOrdPsbMaxQty"
+            value="999"
+          />
+          <input
+            type="hidden"
+            id="quickOrdTimeFrom"
+            name="quickOrdTimeFrom"
+            value="0"
+          />
+          <input
+            type="hidden"
+            id="quickOrdTimeTo"
+            name="quickOrdTimeTo"
+            value="24"
+          />
+
+          <input
+            type="hidden"
+            id="o2oBlockInfo"
+            name="o2oBlockInfo"
+            value='{"o2oBlockMsg":"시스템점검으로 오늘드림 서비스에 제한이 있습니다.\n빠른 시간안에 서비스 재개 하도록 하겠습니다.","o2oBlockYn":"N"}'
+          />
+
+          <input type="hidden" id="ktmDestYn" name="ktmDestYn" value="Y" />
+          <input type="hidden" id="oldAddrYn" name="oldAddrYn" value="Y" />
+          <!-- 구주소 유효성 여부 -->
+          <input type="hidden" id="orderStrNo" name="orderStrNo" value="" />
+          <!-- 3440969_PM작업시 오늘드림 레이어 팝업 노출 요청 건 -->
+          <input type="hidden" id="quickInfoYn" name="quickInfoYn" value="N" />
+
+          <div id="Contents">
+            <!-- title_box -->
+            <div class="title_box">
+              <h1>
+                장바구니
+
+                <span class="tx_num">3</span>
+              </h1>
+              <ul class="step_list">
+                <li class="on">
+                  <span class="hide">현재단계</span
+                  ><span class="step_num tx_num">1</span> 장바구니
+                </li>
+                <!-- 현재단계 li에 클래스 on과 <span class="hide">현재단계</span> 넣어주세요 -->
+                <li><span class="step_num tx_num">2</span> 주문/결제</li>
+                <li class="last">
+                  <span class="step_num tx_num">3 </span> 주문완료
+                </li>
+              </ul>
+            </div>
+            <!--// title_box -->
+
+            <!-- membership_box -->
+
+            <!--// membership_box -->
+
+            <!-- 일반배송, 당일배송 탭 -->
+            <ul class="comm5sTabs" id="ulDelivGb">
+              <li quickyn="N" class="on">
+                <button
+                  type="button"
+                  data-attr="장바구니^Tab^일반 배송"
+                  title="선택됨"
+                >
+                  일반 배송 (3)
+                </button>
+              </li>
+            </ul>
+            <!--// 일반배송, 당일배송 탭 -->
+
+            <!-- 배송지 선택 -->
+
+            <div
+              class="box_delivery pickStore"
+              id="divDelivery"
+              style="display: none"
+            >
+              <div class="storePick_area" style="display: none">
+                <div class="tBox">
+                  <strong
+                    >매장에서 픽업 하시겠어요?
+                    <a
+                      href="javascript:;"
+                      data-rel="layer"
+                      data-target="storePickPop"
+                      class="ico_info_view"
+                      >매장픽업 안내 레이어열기</a
+                    ></strong
+                  >
+                  <span>실제 픽업 매장의 재고는 상이할 수 있습니다.</span>
+                </div>
+                <div class="toggleInput">
+                  <label class="switch">
+                    <input
+                      type="checkbox"
+                      id="pickupDirectYn"
+                      name="pickupDirectYn"
+                      value="Y"
+                    />
+                    <span class="slider"></span>
+                  </label>
                 </div>
               </div>
             </dd>
@@ -723,58 +760,5 @@
         <p>장바구니 상품은 90일동안, 판매종료 된 상품은 10일동안 보관됩니다.</p>
       </div>
     </div>
-  </form>
-  <!-- //#Contents -->
-</div>
-</div>
-<!-- Code injected by live-server -->
-<script>
-	// <![CDATA[  <-- For SVG support
-	if ("WebSocket" in window) {
-		(function() {
-			function refreshCSS() {
-				var sheets = [].slice.call(document
-						.getElementsByTagName("link"));
-				var head = document.getElementsByTagName("head")[0];
-				for (var i = 0; i < sheets.length; ++i) {
-					var elem = sheets[i];
-					var parent = elem.parentElement || head;
-					parent.removeChild(elem);
-					var rel = elem.rel;
-					if ((elem.href && typeof rel != "string")
-							|| rel.length == 0
-							|| rel.toLowerCase() == "stylesheet") {
-						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/,
-								"");
-						elem.href = url + (url.indexOf("?") >= 0 ? "&" : "?")
-								+ "_cacheOverride=" + new Date().valueOf();
-					}
-					parent.appendChild(elem);
-				}
-			}
-			var protocol = window.location.protocol === "http:" ? "ws://"
-					: "wss://";
-			var address = protocol + window.location.host
-					+ window.location.pathname + "/ws";
-			var socket = new WebSocket(address);
-			socket.onmessage = function(msg) {
-				if (msg.data == "reload")
-					window.location.reload();
-				else if (msg.data == "refreshcss")
-					refreshCSS();
-			};
-			if (sessionStorage
-					&& !sessionStorage
-							.getItem("IsThisFirstTime_Log_From_LiveServer")) {
-				console.log("Live reload enabled.");
-				sessionStorage.setItem("IsThisFirstTime_Log_From_LiveServer",
-						true);
-			}
-		})();
-	} else {
-		console
-				.error("Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.");
-	}
-	// ]]>
-</script>
+
 <%@ include file="../includes/footer.jsp"%>

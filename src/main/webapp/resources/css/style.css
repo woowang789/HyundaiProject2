@@ -76580,7 +76580,6 @@ input.review-check--input[type=checkbox]:checked {
 }
 
 .board-list-2s_myreview tr td.subject:first-child .area .textus {
-	width: 240px
 }
 
 .board-list-2s_myreview tr td .area .textus {
@@ -76588,7 +76587,6 @@ input.review-check--input[type=checkbox]:checked {
 }
 
 .board-list-2s_myreview tr td.subject:last-child .textus {
-	width: 240px
 }
 
 .board-list-2s_myreview .btn-review--small {
