@@ -6,7 +6,6 @@
 $(document).ready(function(){
 	$('#id').focusout(function(){
 		let id = $('#id').val();
-		console.log(id);
 			
 			$.ajax({
 				url:"join/check-id",
@@ -25,7 +24,23 @@ $(document).ready(function(){
 					alert("서버요청 실패");
 				}
 			})
-		})
+		});
+		
+		$("#pwd2").focusout(function(){
+			let pwd1 = $("#pwd1").val();
+			let pwd2 = $("#pwd2").val();			
+			
+			if ( pwd1 != '' && pwd2 == '' ) {
+	             null;
+	         } else if (pwd1 != "" || pwd2 != "") {
+	           if (pwd1 == pwd2) {
+	               $("#checkPwd").text("비밀번호가 일치합니다.");
+	           } else {
+	        	   $("#checkPwd").text("비밀번호가 일치하지 않습니다.");
+	           }
+	       }
+		});
+		
 })
 
 </script>
@@ -56,7 +71,7 @@ $(document).ready(function(){
                   <label for="pw">비밀번호</label>
                 </th>
                 <td>
-                  <input type="password" id="pw" name="user_pwd" style="width: 150px" title="비밀번호">
+                  <input type="password" id="pwd1" name="user_pwd" style="width: 150px" title="비밀번호">
                   <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                   <span class="guide_comment lh_30" id="pwMsg"></span>
                   <span class="guide_comment lh_30" id="pwcapsLockMsg"></span>
@@ -67,9 +82,8 @@ $(document).ready(function(){
                   <label for="pw2">비밀번호 확인</label>
                 </th>
                 <td>
-                  <input type="password" id="pwc" style="width: 150px" title="비밀번호 확인">
-                  <span class="guide_comment" id="pwcMsg"></span>
-                  <span class="guide_comment" id="pwcCapsLockMsg"></span>
+                  <input type="password" id="pwd2" style="width: 150px" title="비밀번호 확인">
+                  <span id="checkPwd"></span>
                 </td>
               </tr>
               <tr>
