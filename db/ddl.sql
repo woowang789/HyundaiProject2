@@ -136,13 +136,13 @@ CREATE TABLE sale (
 ALTER TABLE sale ADD CONSTRAINT sale_pk PRIMARY KEY ( sale_id );
 
 CREATE TABLE sale_list (
-    sale_sale_id              VARCHAR2(20) NOT NULL,
+    sale_id              VARCHAR2(20) NOT NULL,
     option_id          VARCHAR2(30) NOT NULL,
     product_id VARCHAR2(20) NOT NULL
 );
 
 ALTER TABLE sale_list
-    ADD CONSTRAINT sale_option_pk PRIMARY KEY ( sale_sale_id,
+    ADD CONSTRAINT sale_option_pk PRIMARY KEY ( sale_id,
                                                 option_id,
                                                 product_id );
 
@@ -248,7 +248,7 @@ ALTER TABLE sale_list
                              product_id );
 
 ALTER TABLE sale_list
-    ADD CONSTRAINT sale_list_sale_fk FOREIGN KEY ( sale_sale_id )
+    ADD CONSTRAINT sale_list_sale_fk FOREIGN KEY ( sale_id )
         REFERENCES sale ( sale_id );
 
 ALTER TABLE tag
