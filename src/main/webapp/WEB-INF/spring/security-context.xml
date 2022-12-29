@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-5.7.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="bcryptPasswordEncoder"
+		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+	</bean>
+
+
+	<!-- <bean id="customPasswordEncoder" class="org.kosa.security.CustomNoOpPasswordEncoder"> 
+		</bean> -->
+
+	<security:http>
+		<security:intercept-url pattern="/cart"
+			access="hasRole('ROLE_MEMBER')" />
+		<security:intercept-url pattern="/"
+			access="permitAll" />
+		<security:form-login />
+
+		<security:logout invalidate-session="true"
+			delete-cookies="remember-me,JSESSION_ID" />
+
+		<!-- <security:remember-me data-source-ref="dataSource" token-validity-seconds="604800"/> -->
+
+	</security:http>
+
+	<security:authentication-manager>
+		<security:authentication-provider>
+
+			<security:jdbc-user-service
+				data-source-ref="dataSource"
+				users-by-username-query="select userid, userpw, enabled from tbl_member where userid=?"
+				authorities-by-username-query="select userid, auth from tbl_member_auth where userid=?" />
+
+			<!-- <security:password-encoder ref="customPasswordEncoder" /> -->
+			<security:password-encoder
+				ref="bcryptPasswordEncoder" />
+		</security:authentication-provider>
+	</security:authentication-manager>
+
+</beans>
