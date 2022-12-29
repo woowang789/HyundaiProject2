@@ -3,22 +3,22 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:security="http://www.springframework.org/schema/security"
 	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-5.7.xsd
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+      http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<bean id="bcryptPasswordEncoder"
 		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
 	</bean>
-
-
-	<!-- <bean id="customPasswordEncoder" class="org.kosa.security.CustomNoOpPasswordEncoder"> 
-		</bean> -->
+	<bean id="customPasswordEncoder" class="com.hyundai.security.CustomNoOpPasswordEncoder"> 
+	</bean>
 
 	<security:http>
-		<security:intercept-url pattern="/cart"
-			access="hasRole('ROLE_MEMBER')" />
+		<!-- <security:intercept-url pattern="/cart"
+			access="hasRole('ROLE_MEMBER')" /> -->
+		<!-- <security:intercept-url pattern="/mypage/**"
+			access="hasRole('ROLE_MEMBER')" /> -->
 		<security:intercept-url pattern="/"
 			access="permitAll" />
-		<security:form-login />
+		<security:form-login login-page="/login" />
 
 		<security:logout invalidate-session="true"
 			delete-cookies="remember-me,JSESSION_ID" />
@@ -32,8 +32,8 @@
 
 			<security:jdbc-user-service
 				data-source-ref="dataSource"
-				users-by-username-query="select userid, userpw, enabled from tbl_member where userid=?"
-				authorities-by-username-query="select userid, auth from tbl_member_auth where userid=?" />
+				users-by-username-query="select user_id, user_password from users where user_id=?"
+				authorities-by-username-query="select userid, authority from authorities where user_id=?" />
 
 			<!-- <security:password-encoder ref="customPasswordEncoder" /> -->
 			<security:password-encoder

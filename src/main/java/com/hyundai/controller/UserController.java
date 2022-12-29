@@ -1,16 +1,21 @@
 package com.hyundai.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.hyundai.service.UserService;
+import com.hyundai.vo.UserVO;
+
+import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
 @Controller
 @Log4j
-public class MemberController {
+@AllArgsConstructor
+public class UserController {
 	
+	private UserService service;
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login() {
@@ -24,6 +29,14 @@ public class MemberController {
 		log.info("join");
 		
 		return "member/join";
+	}
+	
+	@RequestMapping(value="/join", method=RequestMethod.POST)
+	public String register(UserVO user) throws Exception {
+		
+		service.register(user);
+		
+		return "member/login";
 	}
 
 }
