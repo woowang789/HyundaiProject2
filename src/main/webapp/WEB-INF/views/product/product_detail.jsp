@@ -328,7 +328,26 @@
     <!--// 구매정보 컨텐츠 영역 -->
     <div class="tabConts prd_detail_cont" id="reviewInfo" data-tab="reviewInfo">
       <div class="review_wrap renew review-reward-notice">
-        <!-- ## 리뷰 고도화 1차 : 영역 부모 div 추가 ## -->
+<!--       등록된 리뷰가 없습니다 -->
+        <div class="product_rating_none">
+          <div class="review_list_wrap">
+            <ul class="inner_list" id="gdasList">
+              <li class="banner"></li>
+              <li class="no_data">
+                <p>등록된 리뷰가 없습니다</p>
+              </li>
+            </ul>
+          </div>
+          <!-- pageing start -->
+          <div class="pageing" style="display: none;"></div>
+          <!-- //pageing end -->
+          <script type="text/javascript">
+											$(document).ready(function() {
+												$('.pageing').hide();
+
+											});
+										</script>
+        </div>
       </div>
     </div>
   </div>
