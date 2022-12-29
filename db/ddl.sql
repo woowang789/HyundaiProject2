@@ -11,6 +11,7 @@ drop table sale_list cascade constraint purge;
 drop table product cascade constraint purge;
 drop table options cascade constraint purge;
 drop table order_list cascade constraint purge;
+drop table authorities cascade constraint purge;
 
 
 -- 생성자 Oracle SQL Developer Data Modeler 21.2.0.183.1957
