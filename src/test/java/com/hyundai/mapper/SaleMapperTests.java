@@ -21,9 +21,6 @@ public class SaleMapperTests {
 	@Setter(onMethod_ = @Autowired)
 	private SaleMapper saleMapper;
 
-	private final String userId = "user1@email.com";
-	private final String prodId = "A000000168893";
-
 	@Test
 	public void getTest() {
 //		Criteria cri = new Criteria();

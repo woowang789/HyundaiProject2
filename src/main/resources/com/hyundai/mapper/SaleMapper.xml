@@ -8,24 +8,21 @@
 	<select id="getSaleList"
 		resultType="com.hyundai.vo.ProductOptionDTO">
 	<![CDATA[
-		SELECT pId, name, thumb, pDate, oId, stock, originPrice, marketPrice
-		FROM (
-		SELECT /*+ index_desc(p product_date_idx)*/ rownum rn,
-			    p.product_id pId, 
-			    p.product_name name, 
-			    p.product_thumb thumb, 
-			    p.product_date pDate,
-			    o.option_id oId, 
-			    o.option_stock stock, 
-			    o.option_origin_price originPrice, 
-			    o.option_market_price marketPrice
-		FROM product p
-		JOIN options o
-		ON p.product_id = o.product_id
-		WHERE o.option_origin_price <> o.option_market_price AND
-		ROWNUM <= 50
-		)
-		WHERE rn >= 1
+SELECT id, name, thumb, pdate, oid, stock, originprice, marketprice, bid, brandname
+FROM (
+  SELECT ROWNUM                rn, p.product_id          id, p.product_name        name, p.product_thumb       thumb, p.product_date        pdate
+  , o.option_id           oid, o.option_stock        stock, o.option_origin_price originprice, o.option_market_price marketprice, b.brand_id            bid
+  , b.brand_name          brandname
+  FROM product p
+  INNER JOIN options o
+  ON ( p.product_id = o.product_id AND
+       o.option_id  = concat(p.product_id, '001') )
+  INNER JOIN brand   b
+  ON ( p.brand_id = b.brand_id )
+  WHERE o.option_origin_price <> o.option_market_price AND
+        ROWNUM <= 50
+)
+WHERE rn >= 1  	
 	]]>
 	</select>
 </mapper>
