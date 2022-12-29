@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class ProductOptionDTO {
 
-	private String pId;
+	private String id;
 	private String name;
 	private String thumb;
 	private Date pDate;
@@ -16,4 +16,10 @@ public class ProductOptionDTO {
 	private String stock;
 	private String originPrice;
 	private String marketPrice;
+	
+	private String brandName;
+	private String bId;
+	
+	private boolean wished;
+	private Date wDate;
 }
