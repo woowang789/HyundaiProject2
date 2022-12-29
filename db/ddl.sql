@@ -176,6 +176,14 @@ CREATE UNIQUE INDEX wish__idx ON
         user_id,
         product_id
     ASC );
+    
+create table authorities(
+    user_id varchar2(20) not null,
+    authority varchar2(50) not null,
+    constraint fk_authorities_users foreign key(user_id) references users(user_id));
+    
+create unique index ix_auth_user_name on authorities (user_id,authority);
+    
 
 ALTER TABLE wish_list ADD CONSTRAINT wish_list_pk PRIMARY KEY ( user_id,
                                                                 product_id );
