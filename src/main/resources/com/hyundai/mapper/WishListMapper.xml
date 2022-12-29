@@ -5,21 +5,44 @@
 <!-- SQL Mapping -->
 <mapper namespace="com.hyundai.mapper.WishListMapper">
 
-	<select id="getWishList" resultType="com.hyundai.vo.ProductVO">
+	<select id="getWishLists" resultType="com.hyundai.vo.ProductVO">
 		select
-			p.PRODUCT_ID id,
-			p.PRODUCT_NAME name,
-			p.PRODUCT_THUMB thumb,
-			p.PRODUCT_CONTENT content,
-			p.PRODUCT_DATE pDate,
-			p.CATEGORY_ID cateId,
-			p.BRAND_ID brandId,
-			p.PRODUCT_IMG img
+		p.PRODUCT_ID id,
+		p.PRODUCT_NAME name,
+		p.PRODUCT_THUMB thumb,
+		p.PRODUCT_CONTENT content,
+		p.PRODUCT_DATE pDate,
+		p.CATEGORY_ID cateId,
+		p.BRAND_ID brandId,
+		p.PRODUCT_IMG img
 		from product p
 		where exists (
-		select 1 from wish_list w
+		select 1
+		from wish_list w
 		where w.user_id = #{userId}
 		and w.product_id = p.product_id
 		)
 	</select>
+
+	<select id="isExist" resultType="boolean">
+		select count(*)
+		from wish_list
+		where user_id = #{userId}
+		and product_id = #{prodId}
+	</select>
+
+
+
+	<insert id="insertWishList">
+		insert into wish_list (USER_ID, PRODUCT_ID,
+		WISH_DATE)
+		values (#{userId},#{prodId}, sysdate)
+	</insert>
+
+	<delete id="removeWishList">
+		delete from wish_list
+		where user_id = #{userId}
+		and product_id = #{prodId}
+	</delete>
+
 </mapper>
