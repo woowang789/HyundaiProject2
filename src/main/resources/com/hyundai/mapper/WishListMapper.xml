@@ -5,31 +5,27 @@
 <!-- SQL Mapping -->
 <mapper namespace="com.hyundai.mapper.WishListMapper">
 
-	<select id="getWishLists" resultType="com.hyundai.vo.ProductVO">
+	<select id="getWishLists" resultType="com.hyundai.vo.ProductOptionDTO">
 	<![CDATA[
-		select 
-			id, name,thumb, content, pDate, cateId, brandId, img
-		from(
-			select
-				rownum rn,
-				p.PRODUCT_ID id,
-				p.PRODUCT_NAME name,
-				p.PRODUCT_THUMB thumb,
-				p.PRODUCT_CONTENT content,
-				p.PRODUCT_DATE pDate,
-				p.CATEGORY_ID cateId,
-				p.BRAND_ID brandId,
-				p.PRODUCT_IMG img
+		select pId, name, thumb, pDate, oId, stock, originPrice, marketPrice
+		from (
+			select 
+			    rownum rn,
+			    p.product_id pId, 
+			    p.product_name name, 
+			    p.product_thumb thumb, 
+			    p.product_date pDate,
+			    o.option_id oId, 
+			    o.option_stock stock, 
+			    o.option_origin_price originPrice, 
+			    o.option_market_price marketPrice
 			from product p
-			where exists (
-					select 1
-					from wish_list w
-					where w.user_id = #{userId}
-					and w.product_id = p.product_id
-				) 
-				and rownum <= #{cri.pageNum} * #{cri.amount}
+			inner join options o on (p.product_id = o.product_id and 
+			            o.option_id = concat(p.product_id,'001') )
+			inner join wish_list w on (w.product_id = p.product_id and w.user_id = #{userId})
+			where rownum <= #{cri.pageNum} * #{cri.amount}
 		)
-		where rn > (#{cri.pageNum} -1 ) * #{cri.amount}
+		where rn > (#{cri.pageNum} - 1) * #{cri.amount}
 		]]>
 	</select>
 

@@ -11,6 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.hyundai.vo.Criteria;
+import com.hyundai.vo.ProductOptionDTO;
 import com.hyundai.vo.ProductVO;
 
 import lombok.Setter;
@@ -30,8 +31,8 @@ public class WishListMapperTests {
 	@Test
 	public void getTest() {
 		Criteria cri = new Criteria();
-		List<ProductVO> products = wishListMapper.getWishLists(cri, userId);
-		for (ProductVO p : products) {
+		List<ProductOptionDTO> products = wishListMapper.getWishLists(cri, userId);
+		for (ProductOptionDTO p : products) {
 			log.info(p.getName());
 		}
 	}
