@@ -30,7 +30,7 @@ public class WishListMapperTests {
 
 	@Test
 	public void getTest() {
-		Criteria cri = new Criteria();
+		Criteria cri = new Criteria(2,5);
 		List<ProductOptionDTO> products = wishListMapper.getWishLists(cri, userId);
 		for (ProductOptionDTO p : products) {
 			log.info(p.getName());
@@ -53,5 +53,11 @@ public class WishListMapperTests {
 
 		int result2 = wishListMapper.removeWishList(userId, prodId);
 		Assert.assertEquals(result2, 1);
+	}
+	
+	@Test
+	public void getCount() {
+		int result = wishListMapper.getCount(userId);
+		log.info(result);
 	}
 }

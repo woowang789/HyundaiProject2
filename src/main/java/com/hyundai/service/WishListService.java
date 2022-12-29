@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.hyundai.mapper.WishListMapper;
 import com.hyundai.vo.Criteria;
+import com.hyundai.vo.ProductOptionDTO;
 import com.hyundai.vo.ProductVO;
 
 import lombok.RequiredArgsConstructor;
@@ -39,10 +40,12 @@ public class WishListService {
 		}
 	}
 	
-//	public List<ProductVO> getWishList(Criteria cri, String userId){
-//		List<ProductVO> result = wishListMapper.getWishLists(null);
-//		
-//		return result;
-//	}
+	public List<ProductOptionDTO> getWishList(Criteria cri, String userId){
+		List<ProductOptionDTO> result = wishListMapper.getWishLists(cri,userId);
+		return result;
+	}
+	public int getCount(String userId) {
+		return wishListMapper.getCount(userId);
+	}
 	
 }

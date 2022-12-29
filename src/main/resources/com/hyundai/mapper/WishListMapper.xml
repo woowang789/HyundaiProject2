@@ -7,26 +7,36 @@
 
 	<select id="getWishLists" resultType="com.hyundai.vo.ProductOptionDTO">
 	<![CDATA[
-		select pId, name, thumb, pDate, oId, stock, originPrice, marketPrice
+		select id, name, thumb, pDate, oId, stock, originPrice, marketPrice, '1' wished, bId, brandName, wDate
 		from (
 			select 
 			    rownum rn,
-			    p.product_id pId, 
+			    p.product_id id, 
 			    p.product_name name, 
 			    p.product_thumb thumb, 
 			    p.product_date pDate,
 			    o.option_id oId, 
 			    o.option_stock stock, 
 			    o.option_origin_price originPrice, 
-			    o.option_market_price marketPrice
+			    o.option_market_price marketPrice,
+			    b.brand_id bId,
+			    b.brand_name brandName,
+			    w.wish_date wDate
 			from product p
 			inner join options o on (p.product_id = o.product_id and 
 			            o.option_id = concat(p.product_id,'001') )
 			inner join wish_list w on (w.product_id = p.product_id and w.user_id = #{userId})
+			inner join brand b on (p.brand_id = b.brand_id)
 			where rownum <= #{cri.pageNum} * #{cri.amount}
 		)
 		where rn > (#{cri.pageNum} - 1) * #{cri.amount}
 		]]>
+	</select>
+	
+	<select id="getCount" resultType="int">
+		select count(*) 
+		from wish_list 
+		where user_id = #{userId}
 	</select>
 
 	<select id="isExist" resultType="boolean">
@@ -35,8 +45,6 @@
 		where user_id = #{userId}
 		and product_id = #{prodId}
 	</select>
-
-
 
 	<insert id="insertWishList">
 		insert into wish_list (USER_ID, PRODUCT_ID,
