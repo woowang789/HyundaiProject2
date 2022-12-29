@@ -17,7 +17,7 @@ public class MypageController {
 	public String mypage() {
 		log.info("mypage");
 		
-		return "mypage";
+		return "mypage/mypage";
 	}
 	
 	@GetMapping("/order-lists")
