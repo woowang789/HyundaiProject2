@@ -28,11 +28,9 @@
             <ul>
               <li class="subMenu on">
                 <a href="/mypage/order-lists">주문 조회</a>
-                
               <li class="subMenu">
                 <a href="/mypage">좋아요</a>
               </li>
-            
           </li>
           <li class="subMenu">
             <a href="/cart">장바구니</a>

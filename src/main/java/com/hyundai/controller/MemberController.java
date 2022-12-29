@@ -10,19 +10,18 @@ import lombok.extern.log4j.Log4j;
 @Controller
 @Log4j
 public class MemberController {
-	
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login() {
 		log.info("login");
-		
+
 		return "member/login";
 	}
-	
-	@RequestMapping(value="/join", method=RequestMethod.GET)
-	public String join(){
+
+	@RequestMapping(value = "/join", method = RequestMethod.GET)
+	public String join() {
 		log.info("join");
-		
+
 		return "member/join";
 	}
 

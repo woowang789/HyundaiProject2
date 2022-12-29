@@ -11,6 +11,7 @@ drop table sale_list cascade constraint purge;
 drop table product cascade constraint purge;
 drop table options cascade constraint purge;
 drop table order_list cascade constraint purge;
+drop table authorities cascade constraint purge;
 
 
 -- 생성자 Oracle SQL Developer Data Modeler 21.2.0.183.1957
@@ -176,6 +177,14 @@ CREATE UNIQUE INDEX wish__idx ON
         user_id,
         product_id
     ASC );
+    
+create table authorities(
+    user_id varchar2(20) not null,
+    authority varchar2(50) not null,
+    constraint fk_authorities_users foreign key(user_id) references users(user_id));
+    
+create unique index ix_auth_user_name on authorities (user_id,authority);
+    
 
 ALTER TABLE wish_list ADD CONSTRAINT wish_list_pk PRIMARY KEY ( user_id,
                                                                 product_id );
