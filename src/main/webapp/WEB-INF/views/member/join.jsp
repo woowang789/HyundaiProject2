@@ -6,7 +6,7 @@
 $(document).ready(function(){
 	$('#id').focusout(function(){
 		let id = $('#id').val();
-			
+		if(id !=''){
 			$.ajax({
 				url:"join/check-id",
 				type:"post",
@@ -24,6 +24,7 @@ $(document).ready(function(){
 					alert("서버요청 실패");
 				}
 			})
+		}
 		});
 		
 		$("#pwd2").focusout(function(){
