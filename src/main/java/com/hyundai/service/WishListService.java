@@ -39,10 +39,10 @@ public class WishListService {
 		}
 	}
 	
-	public List<ProductVO> getWishList(Criteria cri, String userId){
-		List<ProductVO> result = wishListMapper.getWishLists(null);
-		
-		return result;
-	}
+//	public List<ProductVO> getWishList(Criteria cri, String userId){
+//		List<ProductVO> result = wishListMapper.getWishLists(null);
+//		
+//		return result;
+//	}
 	
 }

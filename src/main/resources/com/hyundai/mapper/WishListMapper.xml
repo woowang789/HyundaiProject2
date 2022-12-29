@@ -6,22 +6,31 @@
 <mapper namespace="com.hyundai.mapper.WishListMapper">
 
 	<select id="getWishLists" resultType="com.hyundai.vo.ProductVO">
-		select
-		p.PRODUCT_ID id,
-		p.PRODUCT_NAME name,
-		p.PRODUCT_THUMB thumb,
-		p.PRODUCT_CONTENT content,
-		p.PRODUCT_DATE pDate,
-		p.CATEGORY_ID cateId,
-		p.BRAND_ID brandId,
-		p.PRODUCT_IMG img
-		from product p
-		where exists (
-		select 1
-		from wish_list w
-		where w.user_id = #{userId}
-		and w.product_id = p.product_id
+	<![CDATA[
+		select 
+			id, name,thumb, content, pDate, cateId, brandId, img
+		from(
+			select
+				rownum rn,
+				p.PRODUCT_ID id,
+				p.PRODUCT_NAME name,
+				p.PRODUCT_THUMB thumb,
+				p.PRODUCT_CONTENT content,
+				p.PRODUCT_DATE pDate,
+				p.CATEGORY_ID cateId,
+				p.BRAND_ID brandId,
+				p.PRODUCT_IMG img
+			from product p
+			where exists (
+					select 1
+					from wish_list w
+					where w.user_id = #{userId}
+					and w.product_id = p.product_id
+				) 
+				and rownum <= #{cri.pageNum} * #{cri.amount}
 		)
+		where rn > (#{cri.pageNum} -1 ) * #{cri.amount}
+		]]>
 	</select>
 
 	<select id="isExist" resultType="boolean">
@@ -42,7 +51,8 @@
 	<delete id="removeWishList">
 		delete from wish_list
 		where user_id = #{userId}
-		and product_id = #{prodId}
+		and
+		product_id = #{prodId}
 	</delete>
 
 </mapper>
