@@ -2,6 +2,33 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="../includes/header.jsp"%>
+<script>
+$(document).ready(function(){
+	$('#id').focusout(function(){
+		let id = $('#id').val();
+		console.log(id);
+			
+			$.ajax({
+				url:"join/check-id",
+				type:"post",
+				data:{id:id},
+				success:function(result){
+					if(result ==1){
+						$("#id_check").text('이미 사용중인 아이디입니다.');
+						$("#id_check").attr('color','#dc3545');
+					}else{
+						$("#id_check").text('사용할 수 있는 아이디입니다.');
+						$("#id_check").attr('color','2fb380');
+					}
+				},
+				error : function(){
+					alert("서버요청 실패");
+				}
+			})
+		})
+})
+
+</script>
 <div id="Container" class="bgf6">
   <div id="Contents">
     <div class="loginArea new login">
@@ -20,7 +47,7 @@
             <tbody>
               <tr>
                 <th scope="row">아이디</th>
-                <td><input type="text" name="user_id" style="width: 150px" title="아이디">
+                <td><input type="text" name="user_id" style="width: 150px" title="아이디" id="id">
                  <span id="id_check"></span>
                 </td>
               </tr>

@@ -22,35 +22,27 @@ public class UserTests {
 	@Setter(onMethod_= {@Autowired})
 	private UserService service;
 	
-	@Setter(onMethod_= @Autowired)
-	private PasswordEncoder pwencoder;
-	
 	@Test
 	public void testRegister() {
 		UserVO user = new UserVO();
-		user.setUser_id("user3");
+		user.setUser_id("user7");
 		user.setUser_pwd("user3");
 		user.setUser_name("유저3");
 		user.setUser_address("주소");
 		user.setUser_tel("010-0000-3333");
-		user.setUser_birth("19/10/10");
+		user.setBirth_year("19");
+		user.setBirth_month("12");
+		user.setBirth_day("05");
 		
 		service.register(user);
 		log.info("회원가입 테스트");
 	}
 	
 	@Test
-	public void testSecuRegister() {
-		UserVO user = new UserVO();
-		user.setUser_id("user4");
-		user.setUser_pwd(pwencoder.encode("user4"));
-		user.setUser_name("유저3");
-		user.setUser_address("주소");
-		user.setUser_tel("010-0000-3333");
-		user.setUser_birth("19/10/10");
-		
-		service.register(user);
-		log.info("회원가입 secu 테스트");
+	public void checkId() {
+		String id="user3";
+		int idcheck = service.idCheck(id);
+		log.info("아이디 체크" + idcheck);
 	}
 	
 }

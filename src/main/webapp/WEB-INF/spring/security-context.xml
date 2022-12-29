@@ -16,7 +16,9 @@
 			access="hasRole('ROLE_MEMBER')" /> -->
 		<!-- <security:intercept-url pattern="/mypage/**"
 			access="hasRole('ROLE_MEMBER')" /> -->
-		<security:intercept-url pattern="/"
+		<security:intercept-url pattern="/*"
+			access="permitAll" />
+			<security:intercept-url pattern="/check-id"
 			access="permitAll" />
 		<security:form-login login-page="/login" />
 

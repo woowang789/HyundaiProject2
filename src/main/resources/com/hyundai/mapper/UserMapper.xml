@@ -8,5 +8,9 @@
 		insert into users (user_id, user_password, user_name, user_address,user_tel,user_birth)
 		values(#{user_id},#{user_pwd},#{user_name},#{user_address},#{user_tel},#{user_birth})
 	</insert>
+	
+	<select id="idCheckSelect" parameterType="String" resultType="int">
+		select count(*) from users where user_id = #{user_id}
+	</select>
 
 </mapper>

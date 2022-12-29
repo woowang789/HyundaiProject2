@@ -27,5 +27,12 @@ public class UserServiceImpl implements UserService {
 		log.info("service join");
 		mapper.insert(uservo);
 	}
+	
+	@Override
+	public int idCheck(String id) {
+		int result = mapper.idCheckSelect(id);
+		System.out.println("id="+id);
+		return result;
+	}
 
 }
