@@ -181,7 +181,7 @@ CREATE UNIQUE INDEX wish__idx ON
     
 create table authorities(
     user_id varchar2(20) not null,
-    authority varchar2(50) not null,
+    authority varchar2(500) not null,
     constraint fk_authorities_users foreign key(user_id) references users(user_id));
     
 create unique index ix_auth_user_name on authorities (user_id,authority);
@@ -264,7 +264,7 @@ ALTER TABLE wish_list
     ADD CONSTRAINT wish_list_users_fk FOREIGN KEY ( user_id )
         REFERENCES users ( user_id );
 
-
+create index product_date_idx on product(product_date);
 
 -- Oracle SQL Developer Data Modeler 요약 보고서: 
 -- 
