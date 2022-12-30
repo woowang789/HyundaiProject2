@@ -20083,7 +20083,7 @@ rotate
 
 .prd_detail_tab>li {
 	float: left;
-	width: 25%
+	width: 33.33%
 }
 
 .prd_detail_tab>li>a {
@@ -22955,7 +22955,7 @@ rotate
 
 .order_payment_box .total_payment_box>li.line_top2 {
 	border-top: 1px solid #e6e6e6;
-	border-bottom: 1px solid #e6e6e6;
+order-bottom: 1px solid #e6e6e6;
 	margin: 10px 0;
 	padding: 10px 20px
 }

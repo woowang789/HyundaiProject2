@@ -9,7 +9,7 @@
 					<h2>로그인</h2>
 					<p>올리브영의 다양한 서비스와 혜택을 누리세요.</p>
 				</div>
-				<form id="formLogin" name="formLogin">
+				<form id="formLogin" name="formLogin" method="post" action="loginAction">
 					<input type="hidden" id="bSId" name="bSId" value=""> <input
 						type="hidden" id="captchaYn" name="captchaYn" value="N">
 
@@ -20,8 +20,8 @@
 								value="" autocomplete="off" title="아이디를 입력해 주세요."></li>
 							<li><input type="password" value="" id="password"
 								placeholder="비밀번호 (8-12자 영문자+숫자+특수문자)" name="password"
-								width="100" onkeyup="javascript:login.tryLogin(event);"
-								autocomplete="off" title="비밀번호를 입력해 주세요."></li>
+								width="100" autocomplete="off" title="비밀번호를 입력해 주세요.">
+							</li>
 						</ul>
 
 						<div class="linkChk">

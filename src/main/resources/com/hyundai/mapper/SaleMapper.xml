@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- SQL Mapping -->
+<mapper namespace="com.hyundai.mapper.SaleMapper">
+
+	<select id="getSaleList"
+		resultType="com.hyundai.vo.ProductOptionDTO">
+	<![CDATA[
+SELECT id, name, thumb, pdate, oid, stock, originprice, marketprice, bid, brandname
+FROM (
+  SELECT ROWNUM                rn, p.product_id          id, p.product_name        name, p.product_thumb       thumb, p.product_date        pdate
+  , o.option_id           oid, o.option_stock        stock, o.option_origin_price originprice, o.option_market_price marketprice, b.brand_id            bid
+  , b.brand_name          brandname
+  FROM product p
+  INNER JOIN options o
+  ON ( p.product_id = o.product_id AND
+       o.option_id  = concat(p.product_id, '001') )
+  INNER JOIN brand   b
+  ON ( p.brand_id = b.brand_id )
+  WHERE o.option_origin_price <> o.option_market_price AND
+        ROWNUM <= 50
+)
+WHERE rn >= 1  	
+	]]>
+	</select>
+</mapper>

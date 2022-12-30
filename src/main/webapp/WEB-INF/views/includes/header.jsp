@@ -73,7 +73,7 @@
         </div>
         <ul class="mymenu_area">
           <li id="todayDeliveryContainer" class="delivery">
-            <a href="./cart" id="tddlvr_header_today_icon" class="mymenu_layer" title="오늘드림 자세히보기 열기/닫기">장바구니</a>
+            <a href="/cart" id="tddlvr_header_today_icon" class="mymenu_layer" title="오늘드림 자세히보기 열기/닫기">장바구니</a>
           </li>
         </ul>
       </div>
