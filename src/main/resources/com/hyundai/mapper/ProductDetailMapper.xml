@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- SQL Mapping -->
+<mapper namespace="com.hyundai.mapper.ProductDetailMapper">
+	<resultMap type="com.hyundai.vo.ProductDetailDTO"
+		id="productDetailMap">
+		<id property="pid" column="product_id" />
+		<result property="bid" column="brand_id" />
+		<result property="bname" column="brand_name" />
+		<result property="pname" column="product_name" />
+		<result property="pctnt" column="product_content" />
+		<result property="pimg" column="product_img" />
+		<result property="cid" column="category_id" />
+		<result property="cname" column="category_name" />
+		<collection property="optionList" resultMap="optionMap"></collection>
+	</resultMap>
+
+	<resultMap type="com.hyundai.vo.OptionDTO" id="optionMap">
+		<result property="oid" column="option_id" />
+		<result property="oname" column="option_name" />
+		<result property="othumb" column="option_thumb" />
+		<result property="stock" column="option_stock" />
+		<result property="originPrice" column="option_origin_price" />
+		<result property="marketPrice" column="option_market_price" />
+	</resultMap>
+
+	<select id="getProductDetail" resultMap="productDetailMap">
+		select p.product_id,b.brand_id, brand_name, product_name, product_content,
+		product_img,
+		o.option_id, option_name, option_thumb, option_stock, option_origin_price,
+		option_market_price, c.category_name
+		from brand b join product p on b.brand_id= p.brand_id
+		join options o on p.product_id = o.product_id
+		join categories c on p.category_id = c.category_id
+		where p.product_id = #{product_id}
+	</select>
+
+
+
+</mapper>
