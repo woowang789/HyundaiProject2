@@ -16,6 +16,8 @@
 <link rel="stylesheet" href="/resources/css/info_remove.css">
 <link rel="stylesheet" href="/resources/css/reviews_write.css">
 <script src="http://code.jquery.com/jquery-latest.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script>
 	$(document).ready(function() {
 		//카테고리 레이어 열기/닫기
@@ -71,7 +73,7 @@
         </div>
         <ul class="mymenu_area">
           <li id="todayDeliveryContainer" class="delivery">
-            <a href="./cart" id="tddlvr_header_today_icon" class="mymenu_layer" title="오늘드림 자세히보기 열기/닫기">장바구니</a>
+            <a href="/cart" id="tddlvr_header_today_icon" class="mymenu_layer" title="오늘드림 자세히보기 열기/닫기">장바구니</a>
           </li>
         </ul>
       </div>

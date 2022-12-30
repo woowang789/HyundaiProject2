@@ -1,22 +1,39 @@
 package com.hyundai.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.hyundai.service.WishListService;
+import com.hyundai.vo.Criteria;
+import com.hyundai.vo.PageDTO;
+import com.hyundai.vo.ProductOptionDTO;
+
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
 @Controller
 @Log4j
 @RequestMapping("/mypage")
+@RequiredArgsConstructor
 public class MypageController {
 	
+	private final WishListService wishListService;
+	
+	private String userId = "user1@email.com";
+	
 	@GetMapping
-	public String mypage() {
+	public String mypage(Criteria cri, Model model) {
 		log.info("mypage");
 		
+		List<ProductOptionDTO> list = wishListService.getWishList(cri, userId);
+		int count = wishListService.getCount(userId);
+		model.addAttribute("list", list);
+		model.addAttribute("pageMaker", new PageDTO(cri, count));
 		return "mypage/mypage";
 	}
 	

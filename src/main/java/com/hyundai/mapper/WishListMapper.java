@@ -12,6 +12,8 @@ public interface WishListMapper {
 	
 	List<ProductOptionDTO> getWishLists(@Param("cri") Criteria cri ,@Param("userId") String userId);
 
+	int getCount(String userId);
+	
 	int insertWishList(@Param("userId") String userId, @Param("prodId") String prodId);
 	
 	int removeWishList(@Param("userId")String userId, @Param("prodId") String prodId);
