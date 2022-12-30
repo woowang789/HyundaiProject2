@@ -34,12 +34,19 @@ public class UserController {
 		return "member/join";
 	}
 	
+	@RequestMapping(value="/completion-join", method=RequestMethod.GET)
+	public String completionJoin(){
+		log.info("/completion-join");
+		
+		return "member/completion_join";
+	}
+	
 	@RequestMapping(value="/join", method=RequestMethod.POST)
 	public String register(UserVO user) throws Exception {
 		
 		service.register(user);
 		
-		return "member/login";
+		return "member/completion_join";
 	}
 	
 	@PostMapping("/join/check-id")
