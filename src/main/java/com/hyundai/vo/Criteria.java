@@ -7,7 +7,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Criteria {
+public class Criteria { 
 
 	private int pageNum;
 	private int amount;
