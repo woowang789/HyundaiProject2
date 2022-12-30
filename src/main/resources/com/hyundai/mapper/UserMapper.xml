@@ -13,8 +13,14 @@
 		select count(*) from users where user_id = #{user_id}
 	</select>
 	
-	<select id="selectLogin" resultType="com.hyundai.vo.UserVO">
-		select * from users where user_id=#{user_id} and user_password=#{user_pwd}
+	<select id="loginCheck" resultType="String">
+		select user_name
+		from users where user_id=#{user_id} and user_password=#{user_pwd}
+	</select>
+	
+	<select id="viewUser" resultType="com.hyundai.vo.UserVO">
+		select user_id, user_password user_pwd, user_name, user_address,user_tel, user_birth
+		from users where user_id=#{user_id} and user_password=#{user_pwd}
 	</select>
 
 </mapper>

@@ -34,11 +34,17 @@ public class UserServiceImpl implements UserService {
 		System.out.println("id="+id);
 		return result;
 	}
+	@Override
+	public boolean loginCheck(UserVO uservo) {
+		String name = mapper.loginCheck(uservo);
+		return (name == null) ? false: true;		
+	}
 	
 	@Override
-	public UserVO Login(UserVO uservo) {
-		UserVO vo = mapper.selectLogin(uservo);
-		return vo;
+	public UserVO viewUser(UserVO vo) {
+		UserVO uservo = new UserVO();
+		uservo = mapper.viewUser(vo);
+		return uservo;
 	}
 
 }

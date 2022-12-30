@@ -8,6 +8,8 @@ public interface UserMapper {
 	
 	public int idCheckSelect(String user_id);
 	
-	public UserVO selectLogin(UserVO vo);
+	public String loginCheck(UserVO vo);
+	
+	public UserVO viewUser(UserVO vo);
 
 }

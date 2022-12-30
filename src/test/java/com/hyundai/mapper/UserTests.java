@@ -47,11 +47,21 @@ public class UserTests {
 	@Test
 	public void testLogin() {
 		UserVO user = new UserVO();
-		user.setUser_id("user3");
-		user.setUser_pwd("user3");
-		service.Login(user);
-		
-		log.info("로그인성공");
+		user.setUser_id("test");
+		user.setUser_pwd("$2a$10$3HMJX9WRx1OmY5x0QVoaa.TB3ssXdfkvmh8QYNP0zF.gKlCYDkQm2");
+		boolean result =service.loginCheck(user);
+		log.info(result);
+		log.info("로그인 시도 " + result);
 	}
 	
+	@Test
+	public void testUser() {
+		UserVO user = new UserVO();
+		user.setUser_id("user3");
+		user.setUser_pwd("user3");
+		UserVO loginVO = service.viewUser(user);
+		log.info("이름은" + loginVO.getUser_name());
+		log.info("주소는 " +loginVO.getUser_address());
+		log.info("생일은" + loginVO.getUser_birth());
+	}
 }
