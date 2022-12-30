@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.hyundai.mapper.UserMapper">
+
+	<insert id="insert">
+		insert into users (user_id, user_password, user_name, user_address,user_tel,user_birth)
+		values(#{user_id},#{user_pwd},#{user_name},#{user_address},#{user_tel},#{user_birth})
+	</insert>
+	
+	<select id="idCheckSelect" parameterType="String" resultType="int">
+		select count(*) from users where user_id = #{user_id}
+	</select>
+
+</mapper>
