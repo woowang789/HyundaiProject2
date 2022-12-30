@@ -12,5 +12,9 @@
 	<select id="idCheckSelect" parameterType="String" resultType="int">
 		select count(*) from users where user_id = #{user_id}
 	</select>
+	
+	<select id="selectLogin" resultType="com.hyundai.vo.UserVO">
+		select * from users where user_id=#{user_id} and user_password=#{user_pwd}
+	</select>
 
 </mapper>

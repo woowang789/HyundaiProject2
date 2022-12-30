@@ -3,7 +3,6 @@ package com.hyundai.mapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -19,7 +18,7 @@ import lombok.extern.log4j.Log4j;
 						"file:src/main/webapp/WEB-INF/spring/security-context.xml"})
 public class UserTests {
 	
-	@Setter(onMethod_= {@Autowired})
+	@Setter(onMethod_= @Autowired)
 	private UserService service;
 	
 	@Test
@@ -43,6 +42,16 @@ public class UserTests {
 		String id="user3";
 		int idcheck = service.idCheck(id);
 		log.info("아이디 체크" + idcheck);
+	}
+	
+	@Test
+	public void testLogin() {
+		UserVO user = new UserVO();
+		user.setUser_id("user3");
+		user.setUser_pwd("user3");
+		service.Login(user);
+		
+		log.info("로그인성공");
 	}
 	
 }
