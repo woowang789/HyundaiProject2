@@ -5,15 +5,32 @@
 <%@ include file="../includes/header.jsp"%>
 <script>
 	$(document).ready(function() {
+
 		$('.prd_detail_tab li').click(function() {
 			var tab_id = $(this).attr('data-tab');
-			console.log(tab_id)
 			$('.prd_detail_tab li').removeClass('on');
 			$('.tabConts').removeClass('show');
+
 			$(this).addClass('on');
 			$("#" + tab_id).addClass('show');
 		});
+
+		$('.sel_option').click(function(e) {
+			e.preventDefault();
+			if ($(this).parent().hasClass('open')) {
+				$(this).parent().removeClass('open')
+			} else {
+				$(this).parent().addClass('open')
+
+			}
+
+		})
+
 	});
+
+	function select_toggle(e) {
+
+	}
 </script>
 <div id="Container">
   <div id="Contents">
@@ -49,7 +66,7 @@
             <c:out value="${product_detail.pname}" />
           </p>
           <!-- 202005 상품개선 : 추가 -->
-          <!-- 					<p class="prd-txt1">1회 최대 구매수량 5개 입니다.</p> -->
+          <!--                <p class="prd-txt1">1회 최대 구매수량 5개 입니다.</p> -->
           <div class="price">
             <span class="price-1">
               <strike><fmt:formatNumber value="${product_detail.optionList[0].originPrice}" /></strike>
@@ -78,7 +95,7 @@
             </div>
           </div>
           <input type="hidden" id="goodsItemYn" value="Y" />
-          <div class="prd_option_box optionType1 type2 open" id="buy_option_box">
+          <div class="prd_option_box optionType1 type2" id="buy_option_box">
             <a href="javascript:;" class="sel_option" id="buyOpt"> 상품을 선택해주세요 </a>
             <ul class="sel_option_list new" id="option_list">
               <c:forEach var="option" items="${product_detail.optionList}">
@@ -238,13 +255,13 @@
           <p class="txt">고객님을 위한 상품 추천중이에요</p>
         </div>
       </div>
-      <!-- 				<div class="curation_area_a003_lead"></div> -->
-      <!-- 				<div id="recobell_area_a003" class="cura_pord curation_area_003 btm" style="display:none;"> -->
-      <!-- 					<h4 class="tit_h4">함께 보면 좋은 상품이에요</h4> -->
-      <!-- 					<div class="loading_box"> -->
-      <!-- 						<p class="txt">고객님을 위한 상품 추천중이에요</p> -->
-      <!-- 					</div> -->
-      <!-- 				</div> -->
+      <!--             <div class="curation_area_a003_lead"></div> -->
+      <!--             <div id="recobell_area_a003" class="cura_pord curation_area_003 btm" style="display:none;"> -->
+      <!--                <h4 class="tit_h4">함께 보면 좋은 상품이에요</h4> -->
+      <!--                <div class="loading_box"> -->
+      <!--                   <p class="txt">고객님을 위한 상품 추천중이에요</p> -->
+      <!--                </div> -->
+      <!--             </div> -->
       <div id="relPlanShop_area" class="related_plan"></div>
     </div>
     <div class="tabConts prd_detail_cont" id="buyInfo" data-tab="buyInfo">
@@ -323,6 +340,200 @@
     <div class="tabConts prd_detail_cont" id="reviewInfo" data-tab="reviewInfo">
       <div class="review_wrap renew review-reward-notice">
         <!-- ## 리뷰 고도화 1차 : 영역 부모 div 추가 ## -->
+        <!-- 옵션start -->
+        <input type="hidden" name="gdasItemNo" id="gdasItemNo" value="all_search">
+        <input type="hidden" name="gdasLgcGoodsNo" id="gdasLgcGoodsNo" value="all_search">
+        <input type="hidden" name="selectedNum" id="selectedNum" value="">
+        <!-- //## 리뷰 고도화 1차 ## 추가 -->
+        <input type="hidden" name="itemCnt" id="itemCnt" value="1">
+        <input type="hidden" id="dispImgUrl" value="https://image.oliveyoung.co.kr/uploads/images/display/">
+        <input type="hidden" id="bnrImgUrl" value="900000100050003/131/1936525083404364428.jpg">
+        <input type="hidden" id="bnrImgTxtCont" value="올영체험단 PC 배너">
+        <div class="product_rating_area review-write-delete">
+          <div class="inner clrfix">
+            <div class="star_area">
+              <p class="total">
+                총 <em>1,592 </em>건
+              </p>
+              <!-- ## 리뷰 고도화 2차 ## 리뷰 전체 건수(본상품+연관상품) -->
+              <p class="num">
+                <strong>4.7</strong>
+                <span>점</span>
+              </p>
+              <ul class="star_list">
+                <li>
+                  <span class="rating"></span>
+                  <img src="https://static.oliveyoung.co.kr/pc-static-root/image//product/bg_rating_star.png">
+                </li>
+                <li>
+                  <span class="rating"></span>
+                  <img src="https://static.oliveyoung.co.kr/pc-static-root/image//product/bg_rating_star.png">
+                </li>
+                <li>
+                  <span class="rating"></span>
+                  <img src="https://static.oliveyoung.co.kr/pc-static-root/image//product/bg_rating_star.png">
+                </li>
+                <li>
+                  <span class="rating"></span>
+                  <img src="https://static.oliveyoung.co.kr/pc-static-root/image//product/bg_rating_star.png">
+                </li>
+                <li>
+                  <span class="rating" style="width: 70%;"></span>
+                  <img src="https://static.oliveyoung.co.kr/pc-static-root/image//product/bg_rating_star.png">
+                </li>
+              </ul>
+            </div>
+            <div class="graph_area">
+              <ul class="graph_list">
+                <li>
+                  <span class="per">77%</span>
+                  <div class="graph">
+                    <span style="height: 77%;"></span>
+                  </div>
+                  <span class="txt">5점</span>
+                </li>
+                <li>
+                  <span class="per">16%</span>
+                  <div class="graph">
+                    <span style="height: 16%;"></span>
+                  </div>
+                  <span class="txt">4점</span>
+                </li>
+                <li>
+                  <span class="per">6%</span>
+                  <div class="graph">
+                    <span style="height: 6%;"></span>
+                  </div>
+                  <span class="txt">3점</span>
+                </li>
+                <li>
+                  <span class="per">1%</span>
+                  <div class="graph">
+                    <span style="height: 1%;"></span>
+                  </div>
+                  <span class="txt">2점</span>
+                </li>
+                <li>
+                  <span class="per">1%</span>
+                  <div class="graph">
+                    <span style="height: 1%;"></span>
+                  </div>
+                  <span class="txt">1점</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="cate_align_box prodLine review_N2" id="searchType">
+          <div class="align_sort">
+            <!-- 리뷰 고도화 1차 : 항목 변경 -->
+            <ul id="gdasSort">
+              <li class="is-layer on">
+                <a href="javascript:;" data-value="05" data-attr="상품상세^리뷰정렬^유용한순">유용한순</a>
+                <button type="button" class="btn-open-layer">
+                  <span>자세히 보기</span>
+                </button>
+                <div class="comment-layer">리뷰의 글자수, '도움이 돼요'수 , 등록된 사진, 최신 작성일등을 점수화하여 올리브영이 추천하는 리뷰를 정렬합니다.</div>
+              </li>
+              <li>
+                <a href="javascript:;" data-value="01" data-attr="상품상세^리뷰정렬^도움순">도움순</a>
+              </li>
+              <li>
+                <a href="javascript:;" data-value="02" data-attr="상품상세^리뷰정렬^최신순">최신순</a>
+              </li>
+            </ul>
+            <!-- // 리뷰 고도화 1차 : 항목 변경 -->
+          </div>
+          <input type="hidden" name="showFilter" id="showFilter" value="Y">
+        </div>
+        <div class="review_list_wrap">
+          <ul class="inner_list" id="gdasList">
+            <li>
+              <div class="info">
+                <div class="user clrfix">
+                  <a href="javascript:;" onclick="goods.gdas.goReviewerProfile('eVZUZitnek53RHFHaTVMbFNETDM5dz09')" data-attr="상품상세^리뷰어프로필^프로필이미지 또는 닉네임 클릭">
+                    <img src="https://image.oliveyoung.co.kr/uploads/images/mbrProfile/2019/12/16/1576470324427.png" onerror="common.errorProfileImg(this);" onload="common.onLoadProfileImg(this, 60)" style="display: none;">
+                    <div class="thum">
+                      <span class="bg"></span>
+                      <img src="https://image.oliveyoung.co.kr/uploads/images/mbrProfile/2019/12/16/1576470324427.png?RS=97x60&amp;CS=60x60" class="profileThum_s"
+                        style="background: url(https://static.oliveyoung.co.kr/pc-static-root/image/comm/my_picture_base.jpg) no-repeat 0 0; background-size: 60px"
+                      >
+                    </div>
+                  </a>
+                  <!--## 리뷰 고도화 1차 ## : top, id 위치 변경 및 마크업 변경 -->
+                  <p class="info_user">
+                    <a href="javascript:;" onclick="goods.gdas.goReviewerProfile('eVZUZitnek53RHFHaTVMbFNETDM5dz09')" class="id" data-attr="상품상세^리뷰어프로필^프로필이미지 또는 닉네임 클릭">러브굿</a>
+                    <!--## 리뷰 고도화 1차 ## :  탑리뷰어 라운지로 이동시킴 -->
+                  </p>
+                </div>
+              </div>
+              <div class="review_cont">
+                <div class="score_area">
+                  <span class="review_point">
+                    <span class="point" style="width: 100%">5점만점에 5점</span>
+                  </span>
+                  <span class="date">2022.12.27</span>
+                </div>
+                <div class="txt_inner">
+                  솔직히&nbsp;관리&nbsp;자체가&nbsp;귀찮아서&nbsp;꾸준히&nbsp;쓰지는&nbsp;않았어요ㅠㅋㅋㅋ&nbsp;아이세럼스틱&nbsp;정말&nbsp;쓰기&nbsp;편하게&nbsp;생겨서&nbsp;좋거든요&nbsp;한번만&nbsp;딱&nbsp;짜서&nbsp;눈가에&nbsp;발라주면&nbsp;되고,&nbsp;롤러가&nbsp;시원해서&nbsp;느낌도&nbsp;좋고&nbsp;눈&nbsp;주위엔&nbsp;확실히&nbsp;영양이&nbsp;부족한지&nbsp;주름지기&nbsp;쉬우니까&nbsp;집중관리해주면&nbsp;촉촉해지는것도&nbsp;보이고&nbsp;좋은데&nbsp;꾸준히&nbsp;쓰기는&nbsp;쉽지않네요&nbsp;ㅋㅋ&nbsp;지금도&nbsp;리뷰&nbsp;쓴다고&nbsp;생각난김에&nbsp;발라줬어요&nbsp;<br>눈가에&nbsp;쓰면&nbsp;시릴수도&nbsp;있는데&nbsp;그렇지도&nbsp;않고&nbsp;피부가&nbsp;간지럽거나&nbsp;한것도&nbsp;없어요&nbsp;자극이&nbsp;없고&nbsp;사용감이&nbsp;좋습니다&nbsp;<br>
+                  <br>아이세럼&nbsp;필요하신분들에게&nbsp;강추해요&nbsp;아주&nbsp;편해요👍🏻
+                </div>
+                <!-- ## 리뷰 고도화 1차 ## : 태그 추가 -->
+                <div class="review_thum type1">
+                  <ul class="inner clrfix">
+                    <li>
+                      <a href="#" data-attr="상품상세^포토리뷰^포토 클릭^1">
+                        <span>
+                          <img src="https://image.oliveyoung.co.kr/uploads/images/gdasEditor/2022/12/27/1672145255473.png?RS=165x165&amp;CS=165x165" onload="common.imgLoads(this,165);" data-value="16677214_1" class="thum" alt=""
+                            onerror="common.errorResizeImg(this,165)"
+                          >
+                        </span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="rw-photo-slide" style="display: none">
+                  <div>
+                    <img src="https://image.oliveyoung.co.kr/uploads/images/gdasEditor/2022/12/27/1672145255473.png">
+                  </div>
+                </div>
+                <!--## 리뷰 고도화 2차 ## 연관상품 -->
+                <!--## 리뷰 고도화 1차 ## 위치변경 및 삭제-->
+                <!-- ## 리뷰 고도화 1차 ##  : 리뷰제한 카테고리 일경우 안보이게 -->
+              </div>
+            </li>
+          </ul>
+        </div>
+        <!-- pageing start -->
+        <div class="pageing" style="display: block;">
+          <a href="javascript:void(0);" data-page-no="1">1</a>
+          <strong title="현재 페이지">2</strong>
+          <a href="javascript:void(0);" data-page-no="3">3</a>
+          <a href="javascript:void(0);" data-page-no="4">4</a>
+          <a href="javascript:void(0);" data-page-no="5">5</a>
+          <a href="javascript:void(0);" data-page-no="6">6</a>
+          <a href="javascript:void(0);" data-page-no="7">7</a>
+          <a href="javascript:void(0);" data-page-no="8">8</a>
+          <a href="javascript:void(0);" data-page-no="9">9</a>
+          <a href="javascript:void(0);" data-page-no="10">10</a>
+          <a class="next" href="javascript:void(0);" data-page-no="11">다음 10 페이지</a>
+        </div>
+        <!-- //pageing end -->
+        <script type="text/javascript">
+									$(document).ready(function() {
+										$('.pageing').hide();
+
+									});
+								</script>
+        <!-- pageing start -->
+        <!-- //pageing end -->
+        <script type="text/javascript">
+									$(document).ready(function() {
+										$('.pageing').hide();
+
+									});
+								</script>
+        <!-- 상품평 리스트 end -->
       </div>
     </div>
   </div>
