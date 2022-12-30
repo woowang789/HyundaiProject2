@@ -2,9 +2,53 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="../includes/header.jsp"%>
+<script>
+$(document).ready(function(){
+	$('#id').focusout(function(){
+		let id = $('#id').val();
+		if(id !=''){
+			$.ajax({
+				url:"join/check-id",
+				type:"post",
+				data:{id:id},
+				success:function(result){
+					if(result ==1){
+						$("#id_check").text('이미 사용중인 아이디입니다.');
+						$("#id_check").attr('color','#dc3545');
+					}else{
+						$("#id_check").text('사용할 수 있는 아이디입니다.');
+						$("#id_check").attr('color','2fb380');
+					}
+				},
+				error : function(){
+					alert("서버요청 실패");
+				}
+			})
+		}
+		});
+		
+		$("#pwd2").focusout(function(){
+			let pwd1 = $("#pwd1").val();
+			let pwd2 = $("#pwd2").val();			
+			
+			if ( pwd1 != '' && pwd2 == '' ) {
+	             null;
+	         } else if (pwd1 != "" || pwd2 != "") {
+	           if (pwd1 == pwd2) {
+	               $("#checkPwd").text("비밀번호가 일치합니다.");
+	           } else {
+	        	   $("#checkPwd").text("비밀번호가 일치하지 않습니다.");
+	           }
+	       }
+		});
+		
+})
+
+</script>
 <div id="Container" class="bgf6">
   <div id="Contents">
     <div class="loginArea new login">
+    <form method="post" action="/join">
       <div class="box_type_1">
         <div class="title_wrap clearfix">
           <h4 class="float_left">회원가입</h4>
@@ -18,15 +62,18 @@
             </colgroup>
             <tbody>
               <tr>
-                <th scope="row">이메일 아이디</th>
-                <td><input type="text" style="width: 150px" title="아이디"></td>
+                <th scope="row">아이디</th>
+                <td><input type="text" name="user_id" style="width: 150px" title="아이디" id="id">
+                 <span id="id_check"></span>
+                </td>
               </tr>
               <tr>
                 <th scope="row">
                   <label for="pw">비밀번호</label>
                 </th>
                 <td>
-                  <input type="password" id="pw" name="passwd" style="width: 150px" title="비밀번호">
+                  <input type="password" id="pwd1" name="user_pwd" style="width: 150px" title="비밀번호">
+                  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                   <span class="guide_comment lh_30" id="pwMsg"></span>
                   <span class="guide_comment lh_30" id="pwcapsLockMsg"></span>
                 </td>
@@ -36,9 +83,8 @@
                   <label for="pw2">비밀번호 확인</label>
                 </th>
                 <td>
-                  <input type="password" id="pwc" style="width: 150px" title="비밀번호 확인">
-                  <span class="guide_comment" id="pwcMsg"></span>
-                  <span class="guide_comment" id="pwcCapsLockMsg"></span>
+                  <input type="password" id="pwd2" style="width: 150px" title="비밀번호 확인">
+                  <span id="checkPwd"></span>
                 </td>
               </tr>
               <tr>
@@ -46,9 +92,9 @@
                   <label for="email">E-mail (정보수신용)</label>
                 </th>
                 <td>
-                  <input type="text" style="width: 120px" title="이메일" id="email">
+                  <input type="text" style="width: 120px" title="이메일" id="email" name="user_email">
                   <span class="andmail">@</span>
-                  <select id="emailDomainSel" style="width: 120px" title="이메일">
+                  <select id="emailDomainSel" style="width: 120px" title="이메일" >
                     <option value="">직접입력</option>
                     <option value="naver.com">naver.com</option>
                     <option value="daum.net">daum.net</option>
@@ -87,7 +133,23 @@
                   <label for="name">이름</label>
                 </th>
                 <td>
-                  <input type="text" style="width: 120px" id="name" name="name">
+                  <input type="text" style="width: 120px" id="name" name="user_name">
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">
+                  <label for="name">핸드폰</label>
+                </th>
+                <td>
+                  <input type="text" style="width: 200px" name="user_tel">
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">
+                  <label for="name">주소</label>
+                </th>
+                <td>
+                  <input type="text" style="width: 500px" id="name" name="user_address">
                 </td>
               </tr>
               <tr>
@@ -95,7 +157,7 @@
                   <label for="birth">생년월일</label>
                 </th>
                 <td>
-                  <select style="width: 80px" id="selYear" title="년도">
+                  <select style="width: 80px" id="selYear" title="년도" name="birth_year">
                     <option value="">년</option>
                     <option value="2008">2008</option>
                     <option value="2007">2007</option>
@@ -156,7 +218,7 @@
                     <option value="1952">1952</option>
                     <option value="1951">1951</option>
                     <option value="1950">1950</option>
-                  </select> <select style="width: 80px" id="selMonth" title="월">
+                  </select> <select style="width: 80px" id="selMonth" title="월" name="birth_month">
                     <option value="">월</option>
                     <option value="01">01</option>
                     <option value="02">02</option>
@@ -170,7 +232,7 @@
                     <option value="10">10</option>
                     <option value="11">11</option>
                     <option value="12">12</option>
-                  </select> <select style="width: 80px" id="selDay" title="일">
+                  </select> <select style="width: 80px" id="selDay" title="일" name="birth_day">
                     <option value="">일</option>
                     <option value="01">01</option>
                     <option value="02">02</option>
@@ -211,9 +273,10 @@
         </div>
         <div class="btnwrap">
           <input type="button" value="취소" class="btn wt" id="cancleBtn">
-          <input type="button" value="회원가입" class="btn gray mr0" id="joinBtn">
+          <input type="submit" value="회원가입" class="btn gray mr0" id="joinBtn">
         </div>
       </div>
+      </form>
     </div>
   </div>
 </div>
