@@ -70,10 +70,8 @@
 		
 		function showList(page){
 			let str = '';
-			let body = {
-					userId : userId
-			};
-			wishService.getList({page:page||1, userId:body}, function(count,list){
+			
+			wishService.getList({page:page||1, userId: userId }, function(count,list){
 				console.log(count);
 				console.log(list);
 				

@@ -3,11 +3,15 @@ console.log('wishList.js loaded....');
 const wishService = (function() {
 	function getList(param,callback, error){
 		let page = param.page || 1;
+		let body = {
+			userId : param.userId
+		};
 		
 		$.ajax({
-			type:'get',
+			type:'post',
 			url:"/api/mypage/getWishList/"+page,
-			data: param.userId,
+			data: JSON.stringify(body),
+			contentType:'application/json; charset=utf-8',
 			success: function(data, status,xhr){
 				if(callback) callback(data.count, data.list);
 			},

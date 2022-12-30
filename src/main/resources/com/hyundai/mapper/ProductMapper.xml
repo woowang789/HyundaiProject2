@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- SQL Mapping -->
+<mapper namespace="com.hyundai.mapper.ProductMapper">
+
+	<select id="getOrderProductById" resultType="com.hyundai.vo.OrderProductDTO">
+		select 
+		    p.product_id id,
+		    p.product_name name,
+		    p.product_thumb thumb,
+		    o.option_id oId,
+		    o.option_name optionName,
+		    o.option_origin_price originPrice,
+		    o.option_market_price marketPrice,
+		    b.brand_id bId,
+		    b.brand_name brandName
+		from options o
+		inner join product p on (p.product_id = o.product_id)
+		inner join brand b on (p.brand_id = b.brand_id)
+		where o.option_id = #{optionId}
+	</select>
+</mapper>
