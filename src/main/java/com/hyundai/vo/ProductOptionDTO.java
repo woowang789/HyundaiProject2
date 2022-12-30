@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class ProductOptionDTO {
 
-	private String pId;
+	private String id;
 	private String name;
 	private String thumb;
 	private Date pDate;

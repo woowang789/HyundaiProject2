@@ -14,8 +14,8 @@
 		</bean> -->
 
 	<security:http>
-		<security:intercept-url pattern="/cart"
-			access="hasRole('ROLE_MEMBER')" />
+		<!-- <security:intercept-url pattern="/cart"
+			access="hasRole('ROLE_MEMBER')" /> -->
 		<security:intercept-url pattern="/"
 			access="permitAll" />
 		<security:form-login />
