@@ -1,5 +1,7 @@
 package com.hyundai.vo;
 
+import java.util.List;
+
 import lombok.Data;
 
 @Data
@@ -13,5 +15,5 @@ public class UserVO {
 	private String birth_year;
 	private String birth_month;
 	private String birth_day;
-	
+	private List<AuthVO> authList;
 }

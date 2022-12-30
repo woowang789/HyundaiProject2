@@ -4,12 +4,18 @@
 <%@ include file="../includes/header.jsp"%>
 <script>
 $(document).ready(function(){
+	var csrfHeaderName="${_csrf.headerName}";
+	var csrfTokenValue="${_csrf.token}"
+	
 	$('#id').focusout(function(){
 		let id = $('#id').val();
 		if(id !=''){
 			$.ajax({
 				url:"join/check-id",
 				type:"post",
+				beforeSend:function(xhr){
+					xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+				},
 				data:{id:id},
 				success:function(result){
 					if(result ==1){
