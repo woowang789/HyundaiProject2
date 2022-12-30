@@ -1,5 +1,6 @@
 package com.hyundai.mapper;
 
+import com.hyundai.vo.UserOrderInfoDTO;
 import com.hyundai.vo.UserVO;
 
 public interface UserMapper {
@@ -9,5 +10,9 @@ public interface UserMapper {
 	public int idCheckSelect(String user_id);
 	
 	public UserVO selectLogin(UserVO vo);
+	
+	public UserOrderInfoDTO getInfoById(String user_id);
+	
+	
 
 }

@@ -1,6 +1,7 @@
 package com.hyundai.controller;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Controller;
@@ -13,9 +14,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.hyundai.mapper.UserMapper;
+import com.hyundai.service.OrderService;
 import com.hyundai.service.ProductService;
 import com.hyundai.vo.BeforeOrderDTO;
+import com.hyundai.vo.OrderDTO;
 import com.hyundai.vo.OrderProductDTO;
+import com.hyundai.vo.UserOrderInfoDTO;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -25,24 +30,37 @@ import lombok.extern.log4j.Log4j;
 @RequiredArgsConstructor
 public class OrderController {
 	
-	private final ProductService prodcutService;
+	private String userId = "user1@email.com";
+	
+	private final OrderService orderService;
+	private final UserMapper userMapper;
 	
 	@GetMapping("/order-form")
 	public String orderForm(BeforeOrderDTO orderItems, Model model) {
 		log.info("/order-form");
 		
-		List<OrderProductDTO> list = orderItems.getList().stream()
-				.map(l -> {
-					OrderProductDTO p = prodcutService.getOrderProductById(l.getOId());
-					p.setQty(l.getQty());
-					return p;
-				})
-			.collect(Collectors.toList());
+		UserOrderInfoDTO userInfo = userMapper.getInfoById(userId);
+		
+		List<OrderProductDTO> list = orderService.getOrderProductList(orderItems);
 
 		
 		model.addAttribute("list",list);
+		model.addAttribute("userInfo", userInfo);
 		
 		return "order/order_form";
+	}
+	
+	@PostMapping("/order-form")
+	public String doOrder(
+			OrderDTO order, 
+			RedirectAttributes redirct
+			) {
+		int result = orderService.insertOrder(userId, order);
+		System.out.println(order);
+		
+		
+		return "redirect:/order-completion";
+		
 	}
 	
 	@GetMapping("/order-completion")

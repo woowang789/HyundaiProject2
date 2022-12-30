@@ -10,7 +10,7 @@
 		    p.product_id id,
 		    p.product_name name,
 		    p.product_thumb thumb,
-		    o.option_id oId,
+		    o.option_id oid,
 		    o.option_name optionName,
 		    o.option_origin_price originPrice,
 		    o.option_market_price marketPrice,

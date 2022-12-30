@@ -9,11 +9,11 @@
 <body>
 	<form id="actionForm" action="/order-form" method="get">
 			
-		<input type='text' name='list[0].pId' value='pId1'>
-		<input type='text' name='list[0].oId' value='oId1'>
+		<input type='text' name='list[0].pid' value='pId1'>
+		<input type='text' name='list[0].oid' value='A000000158874002'>
 		<input type='text' name='list[0].qty' value='1'>
-		<input type='text' name='list[1].pId' value='pId2'>
-		<input type='text' name='list[1].oId' value='oId2'>
+		<input type='text' name='list[1].pid' value='pId2'>
+		<input type='text' name='list[1].oid' value='A000000104173001'>
 		<input type='text' name='list[1].qty' value='2'>
 		
 		<input type="submit" value="제출">

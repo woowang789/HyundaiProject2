@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import com.hyundai.mapper.WishListMapper;
 import com.hyundai.vo.Criteria;
 import com.hyundai.vo.ProductOptionDTO;
-import com.hyundai.vo.ProductVO;
 
 import lombok.RequiredArgsConstructor;
 

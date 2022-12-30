@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- SQL Mapping -->
+<mapper namespace="com.hyundai.mapper.OrderMapper">
+
+	<insert id="insertOrder">
+		<selectKey keyProperty="order.orderId" order="BEFORE" resultType="String">
+			select sysdate from dual
+		</selectKey>
+		insert into orders 
+			(ORDER_ID, RECEIVER_NAME, 
+			RECEIVER_ADDRESS_ROAD, RECEIVER_ADDRESS_JIBUN, RECEIVER_TEL,
+			PAYMENT, ORDER_DATE, TOTAL_PRICE, USER_ID) 
+		values
+			(#{order.orderId},#{order.receiverName},
+			#{order.receiverAddrRoad}, #{order.receiverAddrJibun}, #{order.receiverTel},
+			#{order.payment}, sysdate, #{order.totalPrice}, #{userId})
+	</insert>
+	
+	<insert id="insertOrderList">
+		insert into order_list
+			(OPTION_ID, PRODUCT_ID, ORDER_ID,
+			ORDER_LIST_QTY, ORDERED_PRICE, USER_ID)
+		values 
+			(#{orderList.oid}, #{orderList.pid}, #{orderId},
+			#{orderList.qty}, #{orderList.marketPrice}, #{userId})
+	</insert>
+</mapper>

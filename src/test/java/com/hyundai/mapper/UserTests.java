@@ -7,6 +7,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.hyundai.service.UserService;
+import com.hyundai.vo.UserOrderInfoDTO;
 import com.hyundai.vo.UserVO;
 
 import lombok.Setter;
@@ -20,6 +21,9 @@ public class UserTests {
 	
 	@Setter(onMethod_= @Autowired)
 	private UserService service;
+	
+	@Setter(onMethod_ = @Autowired)
+	private UserMapper mapper;
 	
 	@Test
 	public void testRegister() {
@@ -54,4 +58,10 @@ public class UserTests {
 		log.info("로그인성공");
 	}
 	
+	@Test
+	public void getUserOrderInfo() {
+		UserOrderInfoDTO dto = mapper.getInfoById("user1@email.com");
+		log.info(dto.getName());
+		log.info(dto.getTel());
+	}
 }

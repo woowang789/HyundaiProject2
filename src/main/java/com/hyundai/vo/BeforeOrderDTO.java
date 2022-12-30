@@ -13,10 +13,12 @@ import lombok.ToString;
 @Setter
 public class BeforeOrderDTO {
 
-	private String pId;
-	private String oId;
+	private String pid;
+	private String oid;
 	private int qty;
 
+	private int marketPrice;
+	
 	private List<BeforeOrderDTO> list;
 	
 	public List<BeforeOrderDTO> getList(){
