@@ -9,13 +9,31 @@
 
 		$('.prd_detail_tab li').click(function() {
 			var tab_id = $(this).attr('data-tab');
-			console.log(tab_id)
 			$('.prd_detail_tab li').removeClass('on');
 			$('.tabConts').removeClass('show');
+			
 			$(this).addClass('on');
 			$("#" + tab_id).addClass('show');
 		});
+
+		$('.sel_option').click(function(e) {
+			e.preventDefault();
+			if ($(this).parent().hasClass('open')) {
+				$(this).parent().removeClass('open')
+			} else {
+				$(this).parent().addClass('open')
+
+			}
+		
+
+		})
+
 	});
+	
+	function select_toggle(e){
+		
+	}
+
 </script>
 
 
@@ -81,7 +99,7 @@
 						</div>
 					</div>
 					<input type="hidden" id="goodsItemYn" value="Y" />
-					<div class="prd_option_box optionType1 type2 open"
+					<div class="prd_option_box optionType1 type2"
 						id="buy_option_box">
 						<a href="javascript:;" class="sel_option" id="buyOpt"> 상품을
 							선택해주세요 </a>
@@ -354,7 +372,7 @@
 				<input type="hidden" id="bnrImgUrl"
 					value="900000100050003/131/1936525083404364428.jpg"> <input
 					type="hidden" id="bnrImgTxtCont" value="올영체험단 PC 배너">
-	
+
 				<div class="product_rating_area review-write-delete">
 					<div class="inner clrfix">
 
@@ -577,9 +595,9 @@
 				<!-- 상품평 리스트 end -->
 
 
-		
 
-		
+
+
 
 			</div>
 		</div>

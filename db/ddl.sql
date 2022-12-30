@@ -161,7 +161,8 @@ CREATE TABLE users (
     user_name     VARCHAR2(20) NOT NULL,
     user_address  VARCHAR2(200) NOT NULL,
     user_tel      VARCHAR2(20) NOT NULL,
-    user_birth    DATE NOT NULL
+    user_birth    DATE NOT NULL,
+    enabled       char(1) default '1'
 );
 
 ALTER TABLE users ADD CONSTRAINT users_pk PRIMARY KEY ( user_id );
