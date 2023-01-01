@@ -583,8 +583,8 @@
 			let receiverName = $('#rmitNm_new').val();
 			let receiverAddrRoad = $('#stnmPostAddr_new').text() +" "+ $('#tempRmitDtlAddr_new').val();
 			let receiverAddrJibun = $('#baseAddr_new').text() + " "+$('#tempRmitDtlAddr_new').val();
-			let receiverTel = $('#rmitCellSctNo_new option:selected').attr('value') + 
-								$('#rmitCellTxnoNo_new').val() + $('#rmitCellEndNo_new').val();
+			let receiverTel = $('#rmitCellSctNo_new option:selected').attr('value') + "-"+
+								$('#rmitCellTxnoNo_new').val() +"-"+ $('#rmitCellEndNo_new').val();
 			let payment = 'payment';
 			let totalPrice = '<c:out value="${totalPrice}"/>';
 			
@@ -639,8 +639,6 @@
                 $('#stnmPostAddr_new').text(roadAddr);
                 $('#baseAddr_new').text(data.jibunAddress)
 
-                
-              
             }
         }).open();
     }

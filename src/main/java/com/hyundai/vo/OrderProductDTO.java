@@ -19,5 +19,7 @@ public class OrderProductDTO {
 	private String brandName;
 	private String bId;
 	
+	// delivery status
+	
 	// isSaled?? 
 }

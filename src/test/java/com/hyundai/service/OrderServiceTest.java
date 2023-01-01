@@ -11,7 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.hyundai.vo.BeforeOrderDTO;
-import com.hyundai.vo.OrderDTO;
+import com.hyundai.vo.InsertOrderDTO;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -29,7 +29,7 @@ public class OrderServiceTest {
 	
 	@Test
 	public void test() {
-		OrderDTO order = new OrderDTO();
+		InsertOrderDTO order = new InsertOrderDTO();
 		order.setReceiverName("receiverName");
 		order.setReceiverAddrRoad("road");
 		order.setReceiverAddrJibun("jibun");

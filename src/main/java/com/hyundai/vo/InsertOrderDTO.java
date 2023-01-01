@@ -5,7 +5,7 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-public class OrderDTO {
+public class InsertOrderDTO {
 
 	private String orderId;
 	

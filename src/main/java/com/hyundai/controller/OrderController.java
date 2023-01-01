@@ -1,24 +1,17 @@
 package com.hyundai.controller;
 
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.hyundai.mapper.UserMapper;
 import com.hyundai.service.OrderService;
-import com.hyundai.service.ProductService;
 import com.hyundai.vo.BeforeOrderDTO;
-import com.hyundai.vo.OrderDTO;
+import com.hyundai.vo.InsertOrderDTO;
 import com.hyundai.vo.OrderProductDTO;
 import com.hyundai.vo.UserOrderInfoDTO;
 
@@ -52,11 +45,14 @@ public class OrderController {
 	
 	@PostMapping("/order-form")
 	public String doOrder(
-			OrderDTO order, 
+			InsertOrderDTO order, 
+			
 			RedirectAttributes redirct
 			) {
 		int result = orderService.insertOrder(userId, order);
-		System.out.println(order);
+		log.info(order.getList()+" list ");
+		
+		redirct.addFlashAttribute("order", order);
 		
 		
 		return "redirect:/order-completion";
