@@ -1,11 +1,5 @@
 package com.hyundai.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -69,10 +63,15 @@ public class UserController {
 		return "home";
 	}
 	
-	@RequestMapping(value="/search-id", method=RequestMethod.GET)
+	@RequestMapping(value="/search-id-form", method=RequestMethod.GET)
 	public String searchId() {
 		log.info("아이디 찾기");
-		return "member/searchId";
+		return "member/search_id_form";
+	}
+	
+	@RequestMapping(value="/search-id", method=RequestMethod.GET)
+	public String searchIdForm() {
+		return "member/search_id";
 	}
 
 }
