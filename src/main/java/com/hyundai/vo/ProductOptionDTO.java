@@ -19,17 +19,9 @@ public class ProductOptionDTO {
 
 	private String brandName;
 	private String bId;
-<<<<<<< HEAD
 	
 	private String cName;
 	private String cId;
-	
-=======
-
-	private String cName;
-	private String cId;
-
->>>>>>> cf4565c12f13173f23c08a07284b225892bcd259
 	private boolean wished;
 	private Date wDate;
 	
