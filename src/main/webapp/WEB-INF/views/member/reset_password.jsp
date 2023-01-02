@@ -6,7 +6,7 @@
 <script>
 $(document).ready(function(){
 	
-	$("#pwd2").focusout(function(){
+	$("#pwd2").keyup(function(){
 		let pwd1 = $("#pwd1").val();
 		let pwd2 = $("#pwd2").val();
 		
@@ -38,7 +38,7 @@ $(document).ready(function(){
 							<tbody>
 								<tr>
 									<th scope="row"><label for="pw">새 비밀번호 설정</label></th>
-									<td><input type="password" id="pwd1" name="user_pwd"
+									<td><input type="password" id="pwd1"
 										style="width: 190px" placeholder="비밀번호를 입력해 주세요"></td>
 								</tr>
 								<tr>

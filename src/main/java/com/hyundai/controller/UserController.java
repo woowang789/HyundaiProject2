@@ -121,5 +121,11 @@ public class UserController {
 		model.addAttribute("userId", userId);
 		return "member/reset_password";
 	}
+	
+	@RequestMapping(value="/reset-password", method=RequestMethod.POST)
+	public String resetPasswordPost(UserVO user) {
+		service.updatePwd(user);
+		return "member/login";
+	}
 
 }
