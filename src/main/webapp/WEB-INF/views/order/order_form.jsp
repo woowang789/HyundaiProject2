@@ -565,6 +565,7 @@
 	<input type="hidden" name="receiverTel">
 	<input type="hidden" name="payment">
 	<input type="hidden" name="totalPrice">
+	<input type="hidden" name="isCart" value="<c:out value="${isCart}"/>" >
 	
 	<c:forEach items="${list }" var="item" varStatus="status">
 		<input type="hidden" name="list[<c:out value="${status.index }"/>].pid" value="<c:out value="${item.id }"/>" />

@@ -5,7 +5,6 @@
 <%@ include file="../includes/header.jsp"%>
 <div id="Container">
 	<!-- #Contents -->
-	<form name="cartForm" id="cartForm">
 		<div id="Contents">
 			<!-- title_box -->
 			<div class="title_box">
@@ -125,9 +124,12 @@
 				<p>장바구니 상품은 90일동안, 판매종료 된 상품은 10일동안 보관됩니다.</p>
 			</div>
 		</div>
-	</form>
 	<!-- //#Contents -->
 </div>
+
+<form id='cartForm' action="/order-form" method="get">
+	
+</form>
 <script src="/resources/js/cartService.js" defer></script>
 <script>
 	$(document).ready(function(){
@@ -241,10 +243,30 @@
 			주문버튼
 		*/
 		$('.order_btn').click(function(e){
+			let base = `
+				<input type='hidden' name='list[{idx}].pid' value='{prodId}'>
+				<input type='hidden' name='list[{idx}].oid' value='{optId}'>
+				<input type='hidden' name='list[{idx}].qty' value='{qty}'>
+			`;
 			e.preventDefault();
 			console.log('test');
 			let cartForm = $('#cartForm');
-			cartForm.append('<h1>test</h1>');
+			let str = '';
+			$('.chkSmall:checked').each(function(idx, item){
+				let tr = $(this).closest('tr');
+				let prodId = tr.attr('goodsno');
+				let optId = tr.attr('itemno');
+				let qty = tr.find('.prd_cnt input').val();
+				
+				str += base.replaceAll('{idx}',idx)
+						.replace('{prodId}', prodId)
+						.replace('{optId}', optId)
+						.replace('{qty}', qty)
+			})
+			str += `<input type='hidden' name='isCart' value="true">`
+			cartForm.html(str);
+			
+			cartForm.submit();
 		})
 		
 		/*
