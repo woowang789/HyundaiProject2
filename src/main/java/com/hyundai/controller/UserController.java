@@ -68,5 +68,11 @@ public class UserController {
 		log.info("로그인 성공");
 		return "home";
 	}
+	
+	@RequestMapping(value="/search-id", method=RequestMethod.GET)
+	public String searchId() {
+		log.info("아이디 찾기");
+		return "member/searchId";
+	}
 
 }

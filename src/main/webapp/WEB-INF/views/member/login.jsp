@@ -28,9 +28,8 @@
 								name="loginFormYn" value="Y">
 						</div>
 						<div class="link">
-							<a href="javascript:;" onclick="javascirpt:login.findId();">아이디
-								찾기</a> <a href="javascript:;"
-								onclick="javascirpt:login.findPasswd();">비밀번호 찾기</a>
+							<a href="/search-id" >아이디 찾기</a> 
+							<a href="javascript:;">비밀번호 찾기</a>
 						</div>
 					</div>
 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
