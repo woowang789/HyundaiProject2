@@ -49,12 +49,50 @@ $(document).ready(function(){
 		});
 		
 })
-
+</script>
+<script type="text/javascript">
+function check(){
+	if(joinForm.user_id.value==0){
+		alert("아이디를 입력해주세요");
+		joinForm.user_id.focus();
+		return false;
+	}
+	else if(joinForm.pwd1.value==0 || joinForm.pwd2.value==0){
+		alert("비밀번호를 입력해주세요");
+		joinForm.pwd1.focus();
+		return false;
+	}
+	else if(joinForm.name.value==0){
+		alert("이름을 입력해주세요");
+		joinForm.name.focus();
+		return false;
+	}
+	else if(joinForm.tel.value==0){
+		alert("전화번호를 입력해주세요");
+		joinForm.tel.focus();
+		return false;
+	}
+	else if(joinForm.tel.value==0){
+		alert("전화번호를 입력해주세요");
+		joinForm.tel.focus();
+		return false;
+	}
+	if(joinForm.address.value==0){
+		alert("주소를 입력해주세요");
+		joinForm.address.focus();
+		return false;
+	}
+	if(joinForm.selYear.value==0 || joinForm.selMonth.value==0 || joinForm.selDay.value==0 ){
+		alert("생일을 입력해주세요");
+		joinForm.address.focus();
+		return false;
+	}
+}
 </script>
 <div id="Container" class="bgf6">
   <div id="Contents">
     <div class="loginArea new login">
-    <form method="post" action="/join">
+    <form method="post" action="/join" name="joinForm" onsubmit="return check();">
       <div class="box_type_1">
         <div class="title_wrap clearfix">
           <h4 class="float_left">회원가입</h4>
@@ -138,7 +176,7 @@ $(document).ready(function(){
                   <label for="name">핸드폰</label>
                 </th>
                 <td>
-                  <input type="text" style="width: 200px" name="user_tel">
+                  <input type="text" style="width: 200px" name="user_tel" id="tel">
                 </td>
               </tr>
               <tr>
@@ -146,7 +184,7 @@ $(document).ready(function(){
                   <label for="name">주소</label>
                 </th>
                 <td>
-                  <input type="text" style="width: 500px" id="name" name="user_address">
+                  <input type="text" style="width: 500px" id="address" name="user_address">
                 </td>
               </tr>
               <tr>
@@ -285,4 +323,5 @@ $(document).ready(function(){
     </div>
   </div>
 </div>
+
 <%@ include file="../includes/footer.jsp"%>

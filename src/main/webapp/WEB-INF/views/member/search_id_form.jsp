@@ -22,7 +22,7 @@
 								<tr>
 									<th scope="row"><label for="pw">이름</label></th>
 									<td><input type="text" id="pw" name="user_name"
-										style="width: 150px" placeholder="이름을 입력해주세요.">
+										style="width: 170px" placeholder="이름을 입력해주세요.">
 								</tr>
 								<tr>
 									<th scope="row"><label for="pw2">생년월일</label></th>
@@ -31,7 +31,7 @@
 								</tr>
 								<tr>
 									<th scope="row"><label for="name">휴대폰 번호</label></th>
-									<td><input type="text" style="width: 310px"
+									<td><input type="text" style="width: 360px;"
 										name="user_tel" id="name"
 										placeholder="휴대폰 번호를 입력해 주세요(ex: 010-0000-0000)"></td>
 								</tr>
