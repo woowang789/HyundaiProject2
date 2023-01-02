@@ -56,6 +56,7 @@ $(document).ready(function(){
 						<input type="button" value="취소" class="btn wt" id="cancleBtn"> 
 						<input type="submit" value="비밀번호 재설정" class="btn gray mr0" id="joinBtn"> 
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+						<input type="hidden" name="user_id" value="${userId}" />
 					</div>
 				</form>
 			</div>

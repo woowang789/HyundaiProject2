@@ -55,5 +55,10 @@
 		select count(*) from users
 		where user_id = #{user_id} and user_birth=#{user_birth} and user_tel=#{user_tel}
 	</select>
+	
+	<update id="updatePwd">
+		update users set user_password = #{user_pwd}
+		where user_id = #{user_id}
+	</update>
 
 </mapper>

@@ -19,4 +19,6 @@ public interface UserMapper {
 	public UserVO searchId(UserVO vo);
 	
 	public int searchPwd(UserVO vo);
+	
+	public void updatePwd(UserVO vo);
 }

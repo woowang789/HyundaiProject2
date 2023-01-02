@@ -71,4 +71,14 @@ public class UserTests {
 		int result = mapper.searchPwd(user);
 		log.info(result);
 	}
+	
+	@Test
+	public void updatePwd() {
+		UserVO user = new UserVO();
+		user.setUser_id("user3");
+		user.setUser_pwd("user333");
+		mapper.updatePwd(user);
+		log.info("비밀번호 변경");
+		log.info(user.getUser_pwd());
+	}
 }

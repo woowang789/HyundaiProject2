@@ -117,6 +117,8 @@ public class UserController {
 			model.addAttribute("msg",msg);
 			return "member/search_id";
 		}
+		String userId = user.getUser_id();
+		model.addAttribute("userId", userId);
 		return "member/reset_password";
 	}
 

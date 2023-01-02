@@ -54,4 +54,8 @@ public class UserServiceImpl implements UserService {
 		return checkUser;
 	}
 	
+	@Override
+	public void updatePwd(UserVO vo) {
+		mapper.updatePwd(vo);
+	}
 }
