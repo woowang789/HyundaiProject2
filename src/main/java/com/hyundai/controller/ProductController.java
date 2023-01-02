@@ -21,7 +21,7 @@ public class ProductController {
 	@Autowired
 	private ProductDetailMapper mapper;
 	
-	
+	private String pid ="B000000144271";
 	
 	@RequestMapping(value="/product-detail", method = RequestMethod.GET)
 	public String productDetail(@RequestParam String pid, Model model) {
@@ -31,6 +31,7 @@ public class ProductController {
 		return "product/product_detail";
 	}
 	
+
 	@ResponseBody
 	@RequestMapping(value="/product-detail2", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ProductDetailDTO productDetail2(@RequestParam String pid, Model model) {

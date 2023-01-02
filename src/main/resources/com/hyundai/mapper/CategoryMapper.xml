@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- SQL Mapping -->
+<mapper namespace="com.hyundai.mapper.CategoryMapper">
+	
+		<select id="getCategoryWithPaging" resultType="com.hyundai.vo.ProductOptionDTO">
+	<![CDATA[
+select
+             p.product_id id, 
+             p.product_name name, 
+             p.product_thumb thumb, 
+             p.product_date pDate,
+             o.option_id oId,
+             o.option_stock stock, 
+             o.option_origin_price originPrice, 
+             o.option_market_price marketPrice,
+             b.brand_id bId,
+             b.brand_name brandName,
+             w.wish_date wDate,
+                c.category_id cId,
+                c.category_name cName
+         from product p
+         inner join options o on (p.product_id = o.product_id and 
+                     o.option_id = concat(p.product_id,'001') )
+         left join wish_list w on (w.product_id = p.product_id and w.user_id = 'user1@email.com')
+         inner join brand b on (p.brand_id = b.brand_id)
+            join categories c on p.category_id=c.category_id
+            order by p.product_date ,p.product_id
+            OFFSET (#{pageNum}-1)*#{amount} ROWS FETCH NEXT #{amount} ROWS ONLY
+		]]>
+		</select>
+	<select id="getTotalCount" resultType="int">
+	select count(*) from product
+	</select>
+	
+	</mapper>

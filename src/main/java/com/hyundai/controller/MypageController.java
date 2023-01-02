@@ -28,12 +28,6 @@ public class MypageController {
 	
 	@GetMapping
 	public String mypage(Criteria cri, Model model) {
-		log.info("mypage");
-		
-		List<ProductOptionDTO> list = wishListService.getWishList(cri, userId);
-		int count = wishListService.getCount(userId);
-		model.addAttribute("list", list);
-		model.addAttribute("pageMaker", new PageDTO(cri, count));
 		return "mypage/mypage";
 	}
 	

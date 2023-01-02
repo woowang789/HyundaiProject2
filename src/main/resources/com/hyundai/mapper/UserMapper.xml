@@ -22,5 +22,11 @@
 		select user_id, user_password user_pwd, user_name, user_address,user_tel, user_birth
 		from users where user_id=#{user_id} and user_password=#{user_pwd}
 	</select>
+	
+	<select id="getInfoById" resultType="com.hyundai.vo.UserOrderInfoDTO">
+		select user_name name, user_tel tel
+		from users
+		where user_id = #{user_id}
+	</select>
 
 </mapper>

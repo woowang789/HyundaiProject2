@@ -1,27 +1,78 @@
 package com.hyundai.controller;
 
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.hyundai.mapper.UserMapper;
+import com.hyundai.service.OrderService;
+import com.hyundai.service.ProductService;
+import com.hyundai.vo.BeforeOrderDTO;
+import com.hyundai.vo.OrderDTO;
+import com.hyundai.vo.OrderProductDTO;
+import com.hyundai.vo.UserOrderInfoDTO;
+
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
 @Controller
+@RequiredArgsConstructor
 public class OrderController {
 	
-	@RequestMapping(value="/order-form", method = RequestMethod.GET)
-	public String orderForm() {
+	private String userId = "user1@email.com";
+	
+	private final OrderService orderService;
+	private final UserMapper userMapper;
+	
+	@GetMapping("/order-form")
+	public String orderForm(BeforeOrderDTO orderItems, Model model) {
 		log.info("/order-form");
+		
+		UserOrderInfoDTO userInfo = userMapper.getInfoById(userId);
+		
+		List<OrderProductDTO> list = orderService.getOrderProductList(orderItems);
+
+		
+		model.addAttribute("list",list);
+		model.addAttribute("userInfo", userInfo);
 		
 		return "order/order_form";
 	}
 	
-	@RequestMapping(value="/order-completion", method = RequestMethod.GET)
+	@PostMapping("/order-form")
+	public String doOrder(
+			OrderDTO order, 
+			RedirectAttributes redirct
+			) {
+		int result = orderService.insertOrder(userId, order);
+		System.out.println(order);
+		
+		
+		return "redirect:/order-completion";
+		
+	}
+	
+	@GetMapping("/order-completion")
 	public String orderCompletion() {
 		log.info("/order-completion");
 		
 		return "order/order_completion";
+	}
+	
+	@GetMapping("/before-order")
+	public String beforeOrder() {
+		return "order/before_order";
 	}
 
 }
