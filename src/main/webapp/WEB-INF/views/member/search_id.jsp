@@ -23,8 +23,8 @@
 				</p>
 
 				<p>바로가기 버튼을 클릭하면 로그인 페이지로 이동합니다.</p>
-				<div class="btnArea" style="width: 200px; margin: 0 auto; margin-top: 50px; display: flex;">
-					<button type="button" class="btnGreen" ><a onclick="goBack();" style="color:white; margin-right:10px;">뒤로가기</a></button>
+				<div class="btnArea" style="width: 200px; margin: 0 auto; margin-top: 50px; display: flex; ">
+					<button type="button" class="btnGreen" style="margin-right:20px; background-color:#888;"><a onclick="goBack();" style="color:white; ">뒤로가기</a></button>
 					<button type="button" class="btnGreen" ><a href="/login" style="color:white">바로가기</a></button>
 				</div>
 			</div>
