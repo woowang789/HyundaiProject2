@@ -32,6 +32,7 @@ public class SaleController {
 		}
 		model.addAttribute("sale_list", mapper.getSaleListAll(cri, userId));
 		model.addAttribute("pageMaker", new PageDTO(cri, count));
+		model.addAttribute("categ", mapper.getCate(cri));
 
 		return "tab/sale";
 	}

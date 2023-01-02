@@ -1,5 +1,11 @@
 package com.hyundai.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,6 +61,12 @@ public class UserController {
 		System.out.println(id);
 		int result = service.idCheck(id);
 		return result;
+	}
+	
+	@RequestMapping(value="/login", method=RequestMethod.POST)
+	public String loginComplete() {
+		log.info("로그인 성공");
+		return "home";
 	}
 
 }

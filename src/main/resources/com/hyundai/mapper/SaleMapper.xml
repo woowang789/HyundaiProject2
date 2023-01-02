@@ -8,67 +8,46 @@
 	<select id="getSaleListAll"
 		resultType="com.hyundai.vo.ProductOptionDTO">
 	<![CDATA[
-		select id, name, thumb, pDate, oId, stock, originPrice, marketPrice, nvl2(wDate ,1,0) wished, bId, brandName, wDate, cid, cName
-	      from (
-	         select
-	             rownum rn,
-	             p.product_id id, 
-	             p.product_name name, 
-	             p.product_thumb thumb, 
-	             p.product_date pDate,
-	             o.option_id oId, 
-	             o.option_stock stock, 
-	             o.option_origin_price originPrice, 
-	             o.option_market_price marketPrice,
-	             b.brand_id bId,
-	             b.brand_name brandName,
-	             w.wish_date wDate,
-	             c.category_id cid,
-	             c.category_name cName
-	         from product p
-	         inner join options o on (p.product_id = o.product_id and 
-	                     o.option_id = concat(p.product_id,'001') )
-	         left join wish_list w on (w.product_id = p.product_id and w.user_id = #{userId})
-	         inner join brand b on (p.brand_id = b.brand_id)
-	         join categories c on p.category_id=c.category_id
-	         where rownum <= #{cri.pageNum} * #{cri.amount}
-	      )
-	      where rn > (#{cri.pageNum} - 1) * #{cri.amount}
+      select
+             p.product_id id, 
+             p.product_name name, 
+             p.product_thumb thumb, 
+             p.product_date pDate,
+             o.option_id oId,
+             o.option_stock stock, 
+             o.option_origin_price originPrice, 
+             o.option_market_price marketPrice,
+             b.brand_id bId,
+             b.brand_name brandName,
+             w.wish_date wDate,
+             nvl2(wish_date, 'y', 'n') wished,
+                c.category_id cId,
+                c.category_name cName
+         from product p
+         inner join options o on (p.product_id = o.product_id and 
+                     o.option_id = concat(p.product_id,'001') )
+         left join wish_list w on (w.product_id = p.product_id and w.user_id = #{userId})
+         inner join brand b on (p.brand_id = b.brand_id)
+            join categories c on p.category_id=c.category_id
+            where o.option_origin_price != o.option_market_price and c.category_id like #{cri.cateId}||'%' 	
+         order by  ]]>
+		<choose>
+			<when test="cri.sort =='01'.toString()">
+				(p.product_date)
+			</when>
+			<when test="cri.sort =='02'.toString()">
+				(o.option_market_price)
+			</when>
+			<when test="cri.sort =='03'.toString()">
+				o.option_market_price desc
+			</when>
+		</choose>
+		<![CDATA[ ,p.product_id
+            
+            OFFSET (#{cri.pageNum}-1)*#{cri.amount} ROWS FETCH NEXT #{cri.amount} rows only
 	]]>
 	</select>
 
-	<select id="getSaleListDetail"
-		resultType="com.hyundai.vo.ProductOptionDTO">
-	<![CDATA[
-		select id, name, thumb, pDate, oId, stock, originPrice, marketPrice, nvl2(wDate ,1,0) wished, bId, brandName, wDate, cid, cName
-	      from (
-	         select
-	             rownum rn,
-	             p.product_id id, 
-	             p.product_name name, 
-	             p.product_thumb thumb, 
-	             p.product_date pDate,
-	             o.option_id oId, 
-	             o.option_stock stock, 
-	             o.option_origin_price originPrice, 
-	             o.option_market_price marketPrice,
-	             b.brand_id bId,
-	             b.brand_name brandName,
-	             w.wish_date wDate,
-	                c.category_id cid,
-	                c.category_name cName
-	         from product p
-	         inner join options o on (p.product_id = o.product_id and 
-	                     o.option_id = concat(p.product_id,'001') )
-	         left join wish_list w on (w.product_id = p.product_id and w.user_id = #{userId})
-	         inner join brand b on (p.brand_id = b.brand_id)
-	            join categories c on p.category_id=c.category_id
-	            
-	         where rownum <= #{cri.pageNum} * #{cri.amount} and c.category_id=#{cId}
-	      )
-	      where rn > (#{cri.pageNum} - 1) * #{cri.amount}
-	]]>
-	</select>
 
 	<select id="getCount" resultType="int">
 	<![CDATA[
@@ -79,4 +58,11 @@
 		WHERE o.option_origin_price != o.option_market_price
 	]]>
 	</select>
+	<select id="getCate" resultType="com.hyundai.vo.CategoryDTO">
+	<![CDATA[
+		select category_name cateName, category_id cateId,category_pid catePid
+		from categories where category_pid is null
+	]]>
+	</select>
+
 </mapper>

@@ -47,7 +47,7 @@
           <h2>하나은행 구매안전 서비스</h2>
           <p>
             올리브영은 현금 결제한 금액에 대해<br /> 하나은행과 채무지급보증 계약을체결<br /> 하여 안전한 거래를 보장하고 있습니다<br />
-            <a class="link" href="javascript:common.link.openEscrowPopup('https://static.oliveyoung.co.kr/pc-static-root/html/etc/escrowPopup.html','agree',665,925);" title="새창 열림">서비스 가입사실 확인&gt;</a>
+            <a class="link" title="새창 열림">서비스 가입사실 확인</a>
           </p>
         </li>
       </ul>
