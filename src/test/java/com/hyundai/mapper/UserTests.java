@@ -21,8 +21,8 @@ public class UserTests {
 	
 	@Setter(onMethod_= @Autowired)
 	private UserService service;
-	
-	@Setter(onMethod_ = @Autowired)
+
+	@Setter(onMethod_=@Autowired)
 	private UserMapper mapper;
 	
 	@Test
@@ -51,13 +51,20 @@ public class UserTests {
 	@Test
 	public void testLogin() {
 		UserVO user = new UserVO();
-		user.setUser_id("user3");
-		user.setUser_pwd("user3");
-		service.Login(user);
-		
-		log.info("로그인성공");
+		user.setUser_id("test");
+		user.setUser_pwd("$2a$10$3HMJX9WRx1OmY5x0QVoaa.TB3ssXdfkvmh8QYNP0zF.gKlCYDkQm2");
+		boolean result =service.loginCheck(user);
+		log.info(result);
+		log.info("로그인 시도 " + result);
 	}
 	
+	@Test
+	public void testRead() {
+		UserVO vo = mapper.read("test5");
+		log.info(vo);
+		vo.getAuthList().forEach(authVO -> log.info(authVO));
+	}
+		
 	@Test
 	public void getUserOrderInfo() {
 		UserOrderInfoDTO dto = mapper.getInfoById("user1@email.com");

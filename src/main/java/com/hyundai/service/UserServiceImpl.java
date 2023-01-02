@@ -3,8 +3,10 @@ package com.hyundai.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.hyundai.mapper.UserMapper;
+import com.hyundai.vo.AuthVO;
 import com.hyundai.vo.UserVO;
 
 import lombok.Setter;
@@ -16,7 +18,8 @@ public class UserServiceImpl implements UserService {
 
 	@Setter(onMethod_ = @Autowired)
 	private UserMapper mapper;
-
+	
+	@Transactional
 	@Override
 	public void register(UserVO uservo) {
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(); 
@@ -26,6 +29,11 @@ public class UserServiceImpl implements UserService {
 		uservo.setUser_birth(birth);
 		log.info("service join");
 		mapper.insert(uservo);
+		
+		AuthVO auth = new AuthVO();
+		auth.setUser_id(uservo.getUser_id());
+		auth.setAuthority("ROLE_MEMBER");
+		mapper.insertAuth(auth);
 	}
 	
 	@Override
@@ -34,11 +42,13 @@ public class UserServiceImpl implements UserService {
 		System.out.println("id="+id);
 		return result;
 	}
-	
 	@Override
-	public UserVO Login(UserVO uservo) {
-		UserVO vo = mapper.selectLogin(uservo);
-		return vo;
+	public boolean loginCheck(UserVO uservo) {
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(); 
+		uservo.setUser_pwd(passwordEncoder.encode(uservo.getUser_pwd()));
+		System.out.println(passwordEncoder.encode(uservo.getUser_pwd()));
+		String name = mapper.loginCheck(uservo);
+		return (name == null) ? false: true;		
 	}
-
+	
 }

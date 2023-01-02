@@ -275,7 +275,7 @@
 		function getList(){
 			let str = '';
 			cartService.getList({userId:userId},function (list){
-				$('.list_count').text(list.length);
+				$('.list_count').text(list.length ||0);
 				
 				list.forEach((el)=>{
 					str += baseTr.replaceAll('{prodId}', el.id)

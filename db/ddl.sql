@@ -12,6 +12,7 @@ drop table product cascade constraint purge;
 drop table options cascade constraint purge;
 drop table order_list cascade constraint purge;
 drop table authorities cascade constraint purge;
+drop table persistent_logins cascade constraint purge;
 
 
 -- 생성자 Oracle SQL Developer Data Modeler 21.2.0.183.1957
@@ -164,7 +165,8 @@ CREATE TABLE users (
     user_name     VARCHAR2(20) NOT NULL,
     user_address  VARCHAR2(200) NOT NULL,
     user_tel      VARCHAR2(20) NOT NULL,
-    user_birth    DATE NOT NULL
+    user_birth    DATE NOT NULL,
+    enabled       char(1) default '1'
 );
 
 ALTER TABLE users ADD CONSTRAINT users_pk PRIMARY KEY ( user_id );
@@ -188,6 +190,12 @@ create table authorities(
     
 create unique index ix_auth_user_name on authorities (user_id,authority);
     
+
+    create table persistent_logins(
+user_name varchar2(64) not null,
+series varchar2(64) PRIMARY key,
+token varchar2(64) not null,
+last_used timestamp not null);
 
 ALTER TABLE wish_list ADD CONSTRAINT wish_list_pk PRIMARY KEY ( user_id,
                                                                 product_id );
@@ -266,7 +274,7 @@ ALTER TABLE wish_list
     ADD CONSTRAINT wish_list_users_fk FOREIGN KEY ( user_id )
         REFERENCES users ( user_id );
 
-create index product_date_idx on product(product_date);
+
 
 -- Oracle SQL Developer Data Modeler 요약 보고서: 
 -- 

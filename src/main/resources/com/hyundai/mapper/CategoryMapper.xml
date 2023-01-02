@@ -3,12 +3,12 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!-- SQL Mapping -->
-<mapper namespace="com.hyundai.mapper.SaleMapper">
+<mapper namespace="com.hyundai.mapper.CategoryMapper">
 
-	<select id="getSaleListAll"
+	<select id="getCategoryWithPaging"
 		resultType="com.hyundai.vo.ProductOptionDTO">
 	<![CDATA[
-      select
+select
              p.product_id id, 
              p.product_name name, 
              p.product_thumb thumb, 
@@ -20,7 +20,7 @@
              b.brand_id bId,
              b.brand_name brandName,
              w.wish_date wDate,
-             nvl2(wish_date, 'y', 'n') wished,
+             nvl2(wish_date, '1', '0') wished,
                 c.category_id cId,
                 c.category_name cName
          from product p
@@ -29,40 +29,27 @@
          left join wish_list w on (w.product_id = p.product_id and w.user_id = #{userId})
          inner join brand b on (p.brand_id = b.brand_id)
             join categories c on p.category_id=c.category_id
-            where o.option_origin_price != o.option_market_price and c.category_id like #{cri.cateId}||'%' 	
-         order by  ]]>
+            where c.category_id like #{cri.cateId}||'%'
+            order by ]]>
 		<choose>
-			<when test="cri.sort =='01'.toString()">
-				(p.product_date)
-			</when>
-			<when test="cri.sort =='02'.toString()">
-				(o.option_market_price)
-			</when>
-			<when test="cri.sort =='03'.toString()">
-				o.option_market_price desc
-			</when>
-		</choose>
-		<![CDATA[ ,p.product_id
-            
-            OFFSET (#{cri.pageNum}-1)*#{cri.amount} ROWS FETCH NEXT #{cri.amount} rows only
-	]]>
+            <when test ="cri.sort =='01'.toString()">
+            (p.product_date)
+            </when>
+            <when test ="cri.sort =='02'.toString()">
+            (o.option_market_price)
+            </when>
+            <otherwise>
+            o.option_market_price desc
+            </otherwise>
+            </choose>
+             <![CDATA[,p.product_id
+            OFFSET (#{cri.pageNum}-1)*#{cri.amount} ROWS FETCH NEXT #{cri.amount} ROWS ONLY
+		]]>
 	</select>
-
-
-	<select id="getCount" resultType="int">
-	<![CDATA[
-		SELECT COUNT(*)
-		FROM product p
-		JOIN options o
-		ON ( p.product_id = o.product_id )
-		WHERE o.option_origin_price != o.option_market_price
-	]]>
+	<select id="getTotalCount" resultType="int">
+		select count(*) from product
 	</select>
-	<select id="getCate" resultType="com.hyundai.vo.CategoryDTO">
-	<![CDATA[
-		select category_name cateName, category_id cateId,category_pid catePid
-		from categories where category_pid is null
-	]]>
+	<select id="getCate" resultType="String">
+select  category_id cateId,category_pid catePid, category_name cName  from categories where category_id like #{cateId}||'%'
 	</select>
-
 </mapper>

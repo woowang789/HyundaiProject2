@@ -1,46 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xmlns:security="http://www.springframework.org/schema/security"
-   xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-5.7.xsd
-      http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security
+	 http://www.springframework.org/schema/security/spring-security.xsd
+	 http://www.springframework.org/schema/beans
+	 http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-   <bean id="bcryptPasswordEncoder"
-      class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
-   </bean>
-   <bean id="customPasswordEncoder" class="com.hyundai.security.CustomNoOpPasswordEncoder"> 
-   </bean>
+	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
+	<bean id="customAccessDenied" class="com.hyundai.security.CustomAccessDeniedHandler"></bean>
+	<bean id="customLoginSuccess" class="com.hyundai.security.CustomLoginSuccessHandler"></bean>
+	<bean id="CustomUserDetailsService" class="com.hyundai.security.CustomUserDetailsService"></bean>
 
-   <security:http>
-      <!-- <security:intercept-url pattern="/cart"
-         access="hasRole('ROLE_MEMBER')" /> -->
-      <!-- <security:intercept-url pattern="/mypage/**"
-         access="hasRole('ROLE_MEMBER')" /> -->
-      <security:intercept-url pattern="/*"
-         access="permitAll" />
-         <security:intercept-url pattern="/check-id"
-         access="permitAll" />
-      <security:form-login login-page="/login" />
+	<security:http>
+		<!-- <security:intercept-url pattern="/cart"
+			access="hasRole('ROLE_MEMBER')" /> -->
+		<!-- <security:intercept-url pattern="/mypage/**"
+			access="hasRole('ROLE_MEMBER')" /> -->
+		<security:intercept-url pattern="/**"
+			access="permitAll"/>
+		<!-- <security:intercept-url pattern="/admin"
+		access="hasRole('ROLE_ADMIN')"/> -->
+		
+		<security:access-denied-handler ref="customAccessDenied"/>	
+		<security:form-login login-page="/login" authentication-success-handler-ref=""/>
+				
+		<!-- 자동로그인 -->
+		<security:remember-me data-source-ref="dataSource" token-validity-seconds="604800"/>
 
-      <security:logout invalidate-session="true"
-         delete-cookies="remember-me,JSESSION_ID" />
+		<security:logout logout-url="/customLogout" invalidate-session="true" delete-cookies="remember-me,JSESSION_ID"/>
+		
+		<security:csrf disabled="true"/>
+	</security:http>
 
-      <!-- <security:remember-me data-source-ref="dataSource" token-validity-seconds="604800"/> -->
-
-   </security:http>
-
-   <security:authentication-manager>
-      <security:authentication-provider>
-
-         <security:jdbc-user-service
-            data-source-ref="dataSource"
-            users-by-username-query="select user_id, user_password from users where user_id=?"
-            authorities-by-username-query="select userid, authority from authorities where user_id=?" />
-
-         <!-- <security:password-encoder ref="customPasswordEncoder" /> -->
-         <security:password-encoder
-            ref="bcryptPasswordEncoder" />
-      </security:authentication-provider>
-   </security:authentication-manager>
+	<security:authentication-manager>
+		<security:authentication-provider user-service-ref="CustomUserDetailsService">
+		
+			<security:password-encoder ref="bcryptPasswordEncoder" />
+			
+		</security:authentication-provider>
+	</security:authentication-manager>
 
 </beans>

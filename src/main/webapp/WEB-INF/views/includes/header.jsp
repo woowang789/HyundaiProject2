@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <!DOCTYPE html>
 <html lang="ko" class="-webkit-">
 <head>
@@ -35,6 +36,7 @@
 			$(this).removeClass("active");
 			$(".layer_all_menu").removeClass("active");
 		});
+		
 	});
 </script>
 </head>
@@ -43,15 +45,29 @@
     <div id="Header">
       <div class="top_util">
         <ul class="menu_list" id="menu_list_header">
-          <li class="join">
-            <a href="/join" data-attr="공통^헤더^회원가입">회원가입</a>
-          </li>
-          <li class="login">
-            <a href="/login" data-attr="공통^헤더^로그인">로그인</a>
-          </li>
-          <li class="mypage">
-            <a href="/mypage/reviews" data-attr="공통^헤더^로그인">마이페이지</a>
-          </li>
+        	<sec:authorize access="isAnonymous()">
+          		<li class="join">
+            		<a href="/join" data-attr="공통^헤더^회원가입">회원가입</a>
+          		</li>
+          		<li class="login">
+            		<a href="/login" data-attr="공통^헤더^로그인">로그인</a>
+          		</li>
+          	</sec:authorize>
+          	<sec:authorize access="isAuthenticated()">
+        		<li>
+            		<span><sec:authentication property="principal.user.user_name"/>님</span>
+          		</li>
+          		<li class="mypage">
+            		<a href="/mypage">마이페이지</a>
+          		</li>
+	          	<li class="mypage">
+          			<form role="form" action="/customLogout" method="post">
+	            		<a href="/home" class="btn-success">
+	            		<input type="submit" style="background-color:white; font-weight:100; height: 35px;"value="로그아웃"></button></a>
+	          			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+          			</form>
+	          	</li>
+          	</sec:authorize>
         </ul>
       </div>
       <div class="header_inner s_yearend">
