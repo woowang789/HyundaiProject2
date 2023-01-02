@@ -13,19 +13,19 @@ import lombok.ToString;
 @Setter
 public class BeforeOrderDTO {
 
-	private String pid;
-	private String oid;
-	private int qty;
+   private String pid;
+   private String oid;
+   private int qty;
 
-	private int marketPrice;
-	
-	private List<BeforeOrderDTO> list;
-	
-	public List<BeforeOrderDTO> getList(){
-		return this.list;
-	}
-	public void setList(List<BeforeOrderDTO> list) {
-		this.list = list;
-	}
-	
+   private int marketPrice;
+   
+   private List<BeforeOrderDTO> list;
+   
+   public List<BeforeOrderDTO> getList(){
+      return this.list;
+   }
+   public void setList(List<BeforeOrderDTO> list) {
+      this.list = list;
+   }
+   
 }
