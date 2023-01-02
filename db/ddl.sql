@@ -48,10 +48,12 @@ CREATE TABLE cart_list (
     product_id VARCHAR2(20) NOT NULL
 );
 
-CREATE UNIQUE INDEX cart__idx ON
-    cart_list (
-        user_id
-    ASC );
+-- CREATE UNIQUE INDEX cart__idx ON
+--     cart_list (
+--         option_id,
+--         product_id,
+--         user_id
+--     ASC );
 
 ALTER TABLE cart_list
     ADD CONSTRAINT cart_list_pk PRIMARY KEY ( option_id,

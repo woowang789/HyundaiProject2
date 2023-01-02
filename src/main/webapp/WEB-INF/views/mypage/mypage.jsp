@@ -96,7 +96,6 @@
 			    		prodId:$(this).data('ref-goodsno')
 			    		},function(data){
 			    			console.log("result : ",data);
-			    			
 			    			showList(pageNum);
 			    		})
 			    })
