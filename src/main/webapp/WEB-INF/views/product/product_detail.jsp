@@ -55,9 +55,12 @@
 					<!-- 202005 상품개선 : 추가 -->
 					<!-- 					<p class="prd-txt1">1회 최대 구매수량 5개 입니다.</p> -->
 					<div class="price">
+					<c:if
+						test="${product_detail.optionList[0].originPrice ne product_detail.optionList[0].marketPrice}">
 						<span class="price-1"> <strike><fmt:formatNumber
 									value="${product_detail.optionList[0].originPrice}" /></strike> <span>원</span>
-						</span> <span class="price-2"> <strong><fmt:formatNumber
+						</span>
+						</c:if> <span class="price-2"> <strong><fmt:formatNumber
 									value="${product_detail.optionList[0].marketPrice}" /> </strong> <span>원</span>
 						</span>
 					</div>

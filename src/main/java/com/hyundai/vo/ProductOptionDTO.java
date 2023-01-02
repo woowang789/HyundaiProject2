@@ -20,6 +20,9 @@ public class ProductOptionDTO {
 	private String brandName;
 	private String bId;
 	
+	private String cName;
+	private String cId;
+	
 	private boolean wished;
 	private Date wDate;
 }
