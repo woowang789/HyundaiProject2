@@ -79,15 +79,39 @@
         <div class="count_sort tx_num">
           <span class="tx_view">VIEW</span>
           <ul>
-            <li class="on">
-              <a href="javascript:;" title="24개씩 보기">24</a>
-            </li>
-            <li>
-              <a href="javascript:;" title="36개씩 보기">36</a>
-            </li>
-            <li>
-              <a href="javascript:;" title="48개씩 보기">48</a>
-            </li>
+            <c:if test="${pageMaker.cri.amount eq 24}">
+              <li class="on">
+                <a href="javascript:;" title="24개씩 보기" data-value="24">24</a>
+              </li>
+              <li>
+                <a href="javascript:;" title="36개씩 보기" data-value="36">36</a>
+              </li>
+              <li>
+                <a href="javascript:;" title="48개씩 보기" data-value="48">48</a>
+              </li>
+            </c:if>
+            <c:if test="${pageMaker.cri.amount eq 36}">
+              <li>
+                <a href="javascript:;" title="24개씩 보기" data-value="24">24</a>
+              </li>
+              <li class="on">
+                <a href="javascript:;" title="36개씩 보기" data-value="36">36</a>
+              </li>
+              <li>
+                <a href="javascript:;" title="48개씩 보기" data-value="48">48</a>
+              </li>
+            </c:if>
+            <c:if test="${pageMaker.cri.amount eq 48}">
+              <li>
+                <a href="javascript:;" title="24개씩 보기" data-value="24">24</a>
+              </li>
+              <li>
+                <a href="javascript:;" title="36개씩 보기" data-value="36">36</a>
+              </li>
+              <li class="on">
+                <a href="javascript:;" title="48개씩 보기" data-value="48">48</a>
+              </li>
+            </c:if>
           </ul>
         </div>
         <div class="type_sort">
@@ -147,14 +171,7 @@
                   <span class="icon_flag sale">세일</span>
                 </c:if>
               </p>
-              <p class="prd_point_area tx_num">
-                <span class="review_point">
-                  <span class="point" style="width: 96.0%">10점만점에 5.5점</span>
-                </span>
-                (999+)
-              </p>
               <p class="prd_btn_area">
-                <button class="cartBtn" data-ref-goodsno="A000000174974" data-ref-dispcatno="90000010009" data-ref-itemno="001">장바구니</button>
                 <button class="btn_new_pop goodsList">새창보기</button>
               </p>
             </div>
@@ -162,19 +179,61 @@
         </c:forEach>
       </ul>
     </div>
+    <form id="actionForm" action="/sale" method="get">
+      <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }" />
+      <input type="hidden" name="amount" value="${pageMaker.cri.amount }" />
+    </form>
     <div class="pageing">
-      <strong title="현재 페이지">1</strong>
-      <a href="javascript:void(0);" data-page-no="2">2</a>
-      <a href="javascript:void(0);" data-page-no="3">3</a>
-      <a href="javascript:void(0);" data-page-no="4">4</a>
-      <a href="javascript:void(0);" data-page-no="5">5</a>
-      <a href="javascript:void(0);" data-page-no="6">6</a>
-      <a href="javascript:void(0);" data-page-no="7">7</a>
-      <a href="javascript:void(0);" data-page-no="8">8</a>
-      <a href="javascript:void(0);" data-page-no="9">9</a>
-      <a href="javascript:void(0);" data-page-no="10">10</a>
-      <a class="next" href="javascript:void(0);" data-page-no="11">다음 10 페이지</a>
+      <c:if test="${pageMaker.prev }">
+        <a class="prev" href="${pageMaker.startPage-1 }">이전 10 페이지</a>
+      </c:if>
+      <c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
+        <a href="${num }">${num }</a>
+      </c:forEach>
+      <c:if test="${pageMaker.next }">
+        <a class="next" href="${pageMaker.endPage+1 }">다음 10 페이지</a>
+      </c:if>
     </div>
   </div>
 </div>
+<script type="text/javascript">
+	$(document).ready(
+			function() {
+				const actionForm = $('#actionForm');
+				$('.pageing a').click(
+						function(e) {
+							e.preventDefault();
+							actionForm.find("input[name='pageNum']").val(
+									$(this).attr("href"));
+							actionForm.submit();
+						})
+
+				$('.count_sort>ul>li>a').click(
+						function(e) {
+							e.preventDefault();
+							actionForm.find("input[name='amount']").val(
+									$(this).attr("data-value"));
+							actionForm.submit();
+						})
+				$('.btn_list').click(function(e) {
+					if ($(this).hasClass('active')) {
+					} else {
+
+						$(".btn_thumb").removeClass('active')
+						$(this).addClass('active')
+
+						$(".gtm_sale_list").addClass('list_type')
+					}
+				})
+				$('.btn_thumb').click(function(e) {
+					if ($(this).hasClass('active')) {
+					} else {
+						$(".btn_list").removeClass('active')
+						$(this).addClass('active')
+						$(".gtm_sale_list").removeClass('list_type')
+					}
+				})
+
+			})
+</script>
 <%@ include file="../includes/footer.jsp"%>

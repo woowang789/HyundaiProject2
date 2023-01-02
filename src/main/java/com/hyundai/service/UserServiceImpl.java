@@ -34,5 +34,11 @@ public class UserServiceImpl implements UserService {
 		System.out.println("id="+id);
 		return result;
 	}
+	
+	@Override
+	public UserVO Login(UserVO uservo) {
+		UserVO vo = mapper.selectLogin(uservo);
+		return vo;
+	}
 
 }

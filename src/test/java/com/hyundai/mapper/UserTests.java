@@ -3,11 +3,11 @@ package com.hyundai.mapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.hyundai.service.UserService;
+import com.hyundai.vo.UserOrderInfoDTO;
 import com.hyundai.vo.UserVO;
 
 import lombok.Setter;
@@ -19,8 +19,11 @@ import lombok.extern.log4j.Log4j;
 						"file:src/main/webapp/WEB-INF/spring/security-context.xml"})
 public class UserTests {
 	
-	@Setter(onMethod_= {@Autowired})
+	@Setter(onMethod_= @Autowired)
 	private UserService service;
+	
+	@Setter(onMethod_ = @Autowired)
+	private UserMapper mapper;
 	
 	@Test
 	public void testRegister() {
@@ -45,4 +48,20 @@ public class UserTests {
 		log.info("아이디 체크" + idcheck);
 	}
 	
+	@Test
+	public void testLogin() {
+		UserVO user = new UserVO();
+		user.setUser_id("user3");
+		user.setUser_pwd("user3");
+		service.Login(user);
+		
+		log.info("로그인성공");
+	}
+	
+	@Test
+	public void getUserOrderInfo() {
+		UserOrderInfoDTO dto = mapper.getInfoById("user1@email.com");
+		log.info(dto.getName());
+		log.info(dto.getTel());
+	}
 }

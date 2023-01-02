@@ -86,9 +86,9 @@ CREATE TABLE order_list (
     order_list_qty            NUMBER NOT NULL,
     ordered_price             NUMBER NOT NULL,
     user_id      VARCHAR2(20) NOT NULL,
-    review_date               DATE NOT NULL,
-    review_score              NUMBER NOT NULL,
-    review_content            VARCHAR2(500) NOT NULL,
+    review_date               DATE,
+    review_score              NUMBER,
+    review_content            VARCHAR2(500),
     review_img                VARCHAR2(200)
 );
 
@@ -101,7 +101,8 @@ ALTER TABLE order_list
 CREATE TABLE orders (
     order_id         VARCHAR2(20) NOT NULL,
     receiver_name    VARCHAR2(20) NOT NULL,
-    receiver_address VARCHAR2(200) NOT NULL,
+    receiver_address_road VARCHAR2(200) NOT NULL,
+    receiver_address_jibun VARCHAR2(200),
     receiver_tel     VARCHAR2(20) NOT NULL,
     payment          VARCHAR2(20) NOT NULL,
     order_date       DATE NOT NULL,
@@ -161,7 +162,8 @@ CREATE TABLE users (
     user_name     VARCHAR2(20) NOT NULL,
     user_address  VARCHAR2(200) NOT NULL,
     user_tel      VARCHAR2(20) NOT NULL,
-    user_birth    DATE NOT NULL
+    user_birth    DATE NOT NULL,
+    enabled       char(1) default '1'
 );
 
 ALTER TABLE users ADD CONSTRAINT users_pk PRIMARY KEY ( user_id );

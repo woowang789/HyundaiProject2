@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Param;
 
 import com.hyundai.vo.Criteria;
 import com.hyundai.vo.ProductOptionDTO;
-import com.hyundai.vo.ProductVO;
 
 public interface WishListMapper {
 	
