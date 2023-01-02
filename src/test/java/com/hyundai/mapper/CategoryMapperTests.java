@@ -19,24 +19,15 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class CategoryMapperTests {
 
+	private final String userId="user1@email.com";
 	@Setter(onMethod_ = @Autowired)
 	private CategoryMapper categoryMapper;
-
-	@Test
-	public void test() {
-
-		List<ProductOptionDTO> dto = categoryMapper.getCategory();
-		log.info(dto);
-	}
 
 	@Test
 	public void testPaging() throws Exception{
 		Criteria cri = new Criteria();
 
-		cri.setPageNum(2);
-		cri.setAmount(10);
-
-		List<ProductOptionDTO> list = categoryMapper.getCategoryWithPaging(cri);
+		List<ProductOptionDTO> list = categoryMapper.getCategoryWithPaging(cri,userId);
 		list.forEach(productOption -> log.info(productOption.getBId()));
 	}
 }
