@@ -51,4 +51,10 @@ public class UserServiceImpl implements UserService {
 		return (name == null) ? false: true;		
 	}
 	
+	@Override
+	public UserVO searchId(UserVO vo) {
+		UserVO user = mapper.searchId(vo);
+		return user;
+	}
+	
 }

@@ -17,5 +17,7 @@ public interface UserMapper {
 	public void insertAuth(AuthVO authvo);
 	
 	public UserOrderInfoDTO getInfoById(String user_id);
+	
+	public UserVO searchId(UserVO vo);
 
 }

@@ -29,7 +29,7 @@
 						</div>
 						<div class="link">
 							<a href="/search-id-form" >아이디 찾기</a> 
-							<a href="javascript:;">비밀번호 찾기</a>
+							<a href="/search-password">비밀번호 찾기</a>
 						</div>
 					</div>
 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />

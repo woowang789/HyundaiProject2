@@ -50,5 +50,10 @@
 		from users
 		where user_id = #{user_id}
 	</select>
+	
+	<select id="searchId" resultType="com.hyundai.vo.UserVO">	
+		select * from users
+		where user_tel = #{user_tel} and user_name=#{user_name} and user_birth=#{user_birth}
+	</select>
 
 </mapper>

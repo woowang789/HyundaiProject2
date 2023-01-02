@@ -1,6 +1,7 @@
 package com.hyundai.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -69,9 +70,36 @@ public class UserController {
 		return "member/search_id_form";
 	}
 	
-	@RequestMapping(value="/search-id", method=RequestMethod.GET)
-	public String searchIdForm() {
+	@RequestMapping(value="/search-id-form", method=RequestMethod.POST)
+	public String searchIdForm(UserVO user, Model model) {
+		UserVO vo = service.searchId(user);
+		if(vo==null) {
+			String msg = "입력하신 정보와 일치하는 아이디가 존재하지 않습니다.";
+			model.addAttribute("msg",msg);
+		}
+		else {
+			String id = vo.getUser_id();
+			String name = vo.getUser_name();
+			model.addAttribute("id",id);
+			model.addAttribute("name",name);
+		}
+		
 		return "member/search_id";
+	}
+	
+	@RequestMapping(value="/search-id", method=RequestMethod.GET)
+	public String checkId() {
+		return "member/search_id";
+	}
+	
+	@RequestMapping(value="/search-password", method=RequestMethod.GET)
+	public String searchPasswordForm() {
+		return "member/search_password_form";
+	}
+	
+	@RequestMapping(value="/reset-password", method=RequestMethod.GET)
+	public String resetPwd() {
+		return "member/reset_password";
 	}
 
 }
