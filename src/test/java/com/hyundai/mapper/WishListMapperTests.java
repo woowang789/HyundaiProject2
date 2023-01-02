@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.hyundai.vo.Criteria;
 import com.hyundai.vo.ProductOptionDTO;
-import com.hyundai.vo.ProductVO;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;

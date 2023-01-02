@@ -4,6 +4,105 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ include file="../includes/header.jsp"%>
 <script>
+	//레이어 팝업 공통(열기, 닫기) 퍼블리싱
+	var fnLayerSet = function(layer, status, removeYn) { //layer : 레이어 아이디 , status : open/close
+		var _obj = $('#' + layer);
+
+		if (status == 'open') {
+			_obj.show();
+
+			var popPos = 0;
+			var popWid = parseInt(_obj.width(), 10) / 2;
+			var popHgt = parseInt(_obj.height(), 10);
+
+			if (popHgt == 0 && _obj.find('.popup-contents').length > 0) {
+				popHgt = _obj.find('.popup-contents').height();
+			}
+
+			popPos = parseInt($(window).scrollTop(), 10)
+					+ ((parseInt($(window).height(), 10) - popHgt) / 2);
+
+			if (popHgt > $(window).height()) {
+				popPos = parseInt($(window).scrollTop(), 10);
+			}
+
+			if (layer == 'passwdLayer' || layer == 'lockLayer') {
+				popPos2 = _obj.height() / 2;
+				//_obj.css({'left':'50%' , 'margin-left':-(popWid) , 'top':'50%' , 'margin-top':-(popPos)}).show()
+				_obj.css({
+					'left' : '50%',
+					'margin-left' : -(popWid) + 'px',
+					'top' : '50%',
+					'margin-top' : -(popPos2) + 'px'
+				});
+				$('body').append('<div id="dim"></div>');
+			} else if (layer == 'basketOption'
+					&& $("#basketOption div").attr('class') == 'popup-contents') {
+				_obj.removeClass('hide');
+
+				if (popHgt > $(window).height()) {
+					popPos = parseInt($(window).scrollTop(), 10);
+				} else {
+					popPos = parseInt($(window).scrollTop(), 10)
+							+ ((parseInt($(window).height(), 10) - 747) / 2);
+				}
+
+				_obj.css({
+					'left' : '50%',
+					'margin-left' : -(popWid) + 'px',
+					'top' : popPos + 'px'
+				});
+				$('body').append(
+						'<div class="dimm" style="\z-index:990;\"></div>');
+			} else {
+				var popHgt = _obj.height();
+				//_obj.removeClass('hide').css({'margin-top': -_obj.height()/2 +'px'});
+				_obj.removeClass('hide');
+				popHgt = parseInt(_obj.height(), 10);
+				popWid = parseInt(_obj.width(), 10) / 2;
+
+				if (popHgt > $(window).height()) {
+					popPos = parseInt($(window).scrollTop(), 10) + 40;
+				} else {
+					popPos = parseInt($(window).scrollTop(), 10)
+							+ ((parseInt($(window).height(), 10) - popHgt) / 2);
+				}
+
+				_obj.css({
+					'left' : '50%',
+					'margin-left' : -(popWid) + 'px',
+					'top' : popPos + 'px'
+				});
+				$('body').append(
+						'<div class="dimm" style="\z-index:990;\"></div>');
+				console.log(popPos, popHgt);
+			}
+		} else if (status == 'close') {
+			_obj.hide();
+			_obj.addClass('hide');
+			_obj.html("");
+
+			console.log("jhbj")
+			if (layer == 'passwdLayer' || layer == 'lockLayer') {
+				$('#dim').remove();
+				$('#layer_pop_wrap').css('top', '');
+				$('#layer_pop_wrap').css('margin-left', '');
+				$('#layer_pop_wrap').css('margin-top', '');
+				
+			} else {
+				$('.dimm').remove();
+				$('#layer_pop_wrap').css('top', '');
+				$('#layer_pop_wrap').css('margin-left', '');
+				$('#layer_pop_wrap').css('margin-top', '');
+				
+			}
+
+			// 레코벨 추천상품을 장바구니에서 담든 안담든 레이어 닫을때 N 값으로 초기화
+
+		}
+	};
+</script>
+<script>
 	$(document).ready(function() {
 
 		$('.prd_detail_tab li').click(function() {
@@ -598,7 +697,7 @@
       <div class="left_area">
         <div class="prd_img">
           <span class="thumb_flag best">베스트</span>
-          <img id="mainImg" src="<c:out value="${product_detail.pimg}" />" alt="상품명 이미지" onerror="common.errorImg(this);" />
+          <img id="mainImg" src="<c:out value="${product_detail.pimg}" />" alt="상품명 이미지" />
           <input type="hidden" id="mainImgSize" value="550" />
           <!-- 20200526 상품개선 : 추가 / 발색비교 옵션 선택 시 옵션명 변경 및 관련 썸네일로 변경 -->
           <div class="prd-option-name">
@@ -705,7 +804,7 @@
             <!-- //today_dvChk e -->
             <div class="today_dvArea">
               <div class="today_dvArea_inner">
-                <a href="javascript:common.zipcodequick.pop.deliveryRegistFormOnlyRegist();" class="btn_noDv" style="display: none">+ 배송지 추가</a>
+                <a href="" class="btn_noDv" style="display: none">+ 배송지 추가</a>
                 <a href="#" class="btn_todayDV">
                   <dl></dl>
                 </a>
@@ -733,7 +832,7 @@
           <!-- //today_dv e -->
           <!-- 20191213 e -->
           <div class="prd_btn_area new-style type1">
-            <button class="btnBasket dupItem goods_cart" onclick="javascript:common.popLayer.todayDelivery.openTodayDeliveryNotice('goodsdetail.cart');" data-attr="상품상세^주문유형^장바구니">장바구니</button>
+            <button class="btnBasket dupItem goods_cart" data-attr="상품상세^주문유형^장바구니">장바구니</button>
             <!-- <button class="btnBuy goods_buy" id="cartBtn" onClick="javascript:goods.detail.bindBtnBuy();">구매하기</button> -->
             <button class="btnBuy goods_buy" id="cartBtn" onclick="javascript:common.popLayer.todayDelivery.openTodayDeliveryNotice('goodsdetail.order');" data-attr="상품상세^주문유형^바로구매">바로구매</button>
             <button class="btnSoldout dupItem goods_cart" style="display: none" onclick="javascript:;">일시품절</button>
@@ -781,18 +880,6 @@
       <div class="detail_area">
         <!-- 협력사, 온라인브랜드, 상품 카테고리 노출 -->
         <div class="contEditor">
-          <script>
-											$(window)
-													.load(
-															function() {
-																// 2017-02-18 : txs : 상품 상세 레이아웃 크기 재조정
-																goods.detail.tagHandler
-																		.inittGoodsDetailObjects();
-																$("#tempHtml")
-																		.html(
-																				"");
-															});
-										</script>
           <c:set var="pctnts" value="${fn:split(product_detail.pctnt,',')}" />
           <c:forEach var="pctnt" items="${pctnts}">
             <img alt="" src="<c:out value= " ${pctnt}"/>" />
@@ -1011,7 +1098,7 @@
               <div class="info">
                 <div class="user clrfix">
                   <a href="javascript:;" onclick="goods.gdas.goReviewerProfile('eVZUZitnek53RHFHaTVMbFNETDM5dz09')" data-attr="상품상세^리뷰어프로필^프로필이미지 또는 닉네임 클릭">
-                    <img src="https://image.oliveyoung.co.kr/uploads/images/mbrProfile/2019/12/16/1576470324427.png" onerror="common.errorProfileImg(this);" onload="common.onLoadProfileImg(this, 60)" style="display: none;">
+                    <img src="https://image.oliveyoung.co.kr/uploads/images/mbrProfile/2019/12/16/1576470324427.png" style="display: none;">
                     <div class="thum">
                       <span class="bg"></span>
                       <img src="https://image.oliveyoung.co.kr/uploads/images/mbrProfile/2019/12/16/1576470324427.png?RS=97x60&amp;CS=60x60" class="profileThum_s"
@@ -1043,9 +1130,7 @@
                     <li>
                       <a href="#" data-attr="상품상세^포토리뷰^포토 클릭^1">
                         <span>
-                          <img src="https://image.oliveyoung.co.kr/uploads/images/gdasEditor/2022/12/27/1672145255473.png?RS=165x165&amp;CS=165x165" onload="common.imgLoads(this,165);" data-value="16677214_1" class="thum" alt=""
-                            onerror="common.errorResizeImg(this,165)"
-                          >
+                          <img src="https://image.oliveyoung.co.kr/uploads/images/gdasEditor/2022/12/27/1672145255473.png?RS=165x165&amp;CS=165x165" data-value="16677214_1" class="thum" alt="">
                         </span>
                       </a>
                     </li>
@@ -1097,24 +1182,26 @@
     </div>
   </div>
 </div>
-<div class="popup-contents" style="top: 70%; width: 534px; margin: -365px 0 0 -268px;">
-  <div class="pop-conts">
-    <h1 class="ptit">선택완료</h1>
-    <div class="popCont contPd01">
-      <p class="txt_onbag">
-      <p class="txt_onbag">장바구니에 추가되었습니다.</p>
-      </p>
+<div class="layer_pop_wrap w490" id="basketOption" style="z-index: 999; display: block; left: 50%; margin-left: -245px; top: 140px;" data-quick-yn="N">
+  <div class="popup-contents" style="top: 70%; width: 534px; margin: -365px 0 0 -268px;">
+    <div class="pop-conts">
+      <h1 class="ptit">선택완료</h1>
+      <div class="popCont contPd01">
+        <p class="txt_onbag">
+        <p class="txt_onbag">장바구니에 추가되었습니다.</p>
+        </p>
+      </div>
+      <!-- popCont -->
+      <div class="area2sButton pdTz">
+        <button class="btnlG01 pdzero w130" onclick="fnLayerSet('basketOption', 'close')">
+          <span>쇼핑계속하기</span>
+        </button>
+        <button class="btnG01 pdzero w130" onclick="location.href='/cart'">
+          <span>장바구니 확인</span>
+        </button>
+      </div>
+      <button type="button" class="ButtonClose" onclick="fnLayerSet('basketOption', 'close');">팝업창 닫기</button>
     </div>
-    <!-- popCont -->
-    <div class="area2sButton pdTz">
-      <button class="btnlG01 pdzero w130" onclick="fnLayerSet('basketOption', 'close');common.wlog('goods_cart_curation_popup_continue');">
-        <span>쇼핑계속하기</span>
-      </button>
-      <button class="btnG01 pdzero w130" onclick="location.href='/cart'">
-        <span>장바구니 확인</span>
-      </button>
-    </div>
-    <button type="button" class="ButtonClose" onclick="fnLayerSet('basketOption', 'close');common.wlog('goods_cart_curation_popup_close');">팝업창 닫기</button>
   </div>
 </div>
 <%@ include file="../includes/footer.jsp"%>
