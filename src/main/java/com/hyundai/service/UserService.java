@@ -8,8 +8,8 @@ public interface UserService {
 	
 	public int idCheck(String id);
 	
-	public boolean loginCheck(UserVO uservo);
-	
 	public UserVO searchId(UserVO vo);
+	
+	public int searchPwd(UserVO vo);
 	
 }

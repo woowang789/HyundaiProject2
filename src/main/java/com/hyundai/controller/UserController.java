@@ -72,7 +72,13 @@ public class UserController {
 	
 	@RequestMapping(value="/search-id-form", method=RequestMethod.POST)
 	public String searchIdForm(UserVO user, Model model) {
+		 
 		UserVO vo = service.searchId(user);
+		String siteType = "입력하신 정보와 일치하는 아이디는 다음과 같습니다.";
+		String siteTitle = "아이디 확인";
+		
+		model.addAttribute("siteType",siteType);
+		model.addAttribute("siteTitle",siteTitle);
 		if(vo==null) {
 			String msg = "입력하신 정보와 일치하는 아이디가 존재하지 않습니다.";
 			model.addAttribute("msg",msg);
@@ -97,8 +103,20 @@ public class UserController {
 		return "member/search_password_form";
 	}
 	
-	@RequestMapping(value="/reset-password", method=RequestMethod.GET)
-	public String resetPwd() {
+	@RequestMapping(value="/search-password", method=RequestMethod.POST)
+	public String searchPasswordFormPost(UserVO user, Model model) {
+		int result  = service.searchPwd(user);
+		if(result ==0) {
+			String siteType = "입력하신 정보와 일치하는 유저가 존재하지 않습니다.";
+			String siteTitle = "비밀번호 찾기";
+			
+			model.addAttribute("siteType", siteType);
+			model.addAttribute("siteTitle", siteTitle);			
+			
+			String msg = "입력하신 정보가 일치하지 않습니다.";
+			model.addAttribute("msg",msg);
+			return "member/search_id";
+		}
 		return "member/reset_password";
 	}
 

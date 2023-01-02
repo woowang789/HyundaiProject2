@@ -49,16 +49,6 @@ public class UserTests {
 	}
 	
 	@Test
-	public void testLogin() {
-		UserVO user = new UserVO();
-		user.setUser_id("test");
-		user.setUser_pwd("$2a$10$3HMJX9WRx1OmY5x0QVoaa.TB3ssXdfkvmh8QYNP0zF.gKlCYDkQm2");
-		boolean result =service.loginCheck(user);
-		log.info(result);
-		log.info("로그인 시도 " + result);
-	}
-	
-	@Test
 	public void testRead() {
 		UserVO vo = mapper.read("test5");
 		log.info(vo);
@@ -70,5 +60,15 @@ public class UserTests {
 		UserOrderInfoDTO dto = mapper.getInfoById("user1@email.com");
 		log.info(dto.getName());
 		log.info(dto.getTel());
+	}
+	
+	@Test
+	public void searchPwd() {
+		UserVO user = new UserVO();
+		user.setUser_id("user1@email.com");
+		user.setUser_birth("220101");
+		user.setUser_tel("010-0000-0000");
+		int result = mapper.searchPwd(user);
+		log.info(result);
 	}
 }

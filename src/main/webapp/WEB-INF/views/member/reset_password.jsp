@@ -10,6 +10,7 @@
 				<div class="title_wrap clearfix">
 					<h4 class="float_left">비밀번호 재설정</h4>
 				</div>
+				<form>
 				<div class="tblwrap">
 					<table class="tbl_wtype1">
 						<caption>비밀번호 찾기</caption>
@@ -33,13 +34,12 @@
 						</tbody>
 					</table>
 				</div>
-
-
 				<div class="btnwrap">
 					<input type="button" value="취소" class="btn wt" id="cancleBtn" href="/home">
 					<input type="button" value="비밀번호 재설정" class="btn gray mr0" href="/login"
 						id="joinBtn">
 				</div>
+				</form>
 			</div>
 		</div>
 	</div>

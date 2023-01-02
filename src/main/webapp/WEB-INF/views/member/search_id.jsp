@@ -7,8 +7,8 @@
 	<div id="Contents">
 		<div class="loginArea new login">
 			<div class="loginTit">
-				<h2>아이디 확인</h2>
-				<p style="margin-bottom: 20px;">입력하신 정보와 일치하는 아이디는 다음과 같습니다.</p>
+				<h2>${siteTitle}</h2>
+				<p style="margin-bottom: 20px;">${siteType}</p>
 			</div>
 
 			<div class="searchIdBox" style="text-align: center;  background-color: rgb(245, 244, 244); width: 700px; margin:0 auto; padding: 70px 50px;">
@@ -23,11 +23,17 @@
 				</p>
 
 				<p>바로가기 버튼을 클릭하면 로그인 페이지로 이동합니다.</p>
-				<div class="btnArea" style="width: 200px; margin: 0 auto; margin-top: 50px;">
+				<div class="btnArea" style="width: 200px; margin: 0 auto; margin-top: 50px; display: flex;">
+					<button type="button" class="btnGreen" ><a onclick="goBack();" style="color:white; margin-right:10px;">뒤로가기</a></button>
 					<button type="button" class="btnGreen" ><a href="/login" style="color:white">바로가기</a></button>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
+<script>
+function goBack(){
+	window.history.back();
+}
+</script>
 <%@ include file="../includes/footer.jsp"%>
