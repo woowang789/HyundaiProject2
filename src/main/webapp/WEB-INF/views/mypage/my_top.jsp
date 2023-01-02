@@ -44,10 +44,10 @@
           <h2>마이 정보</h2>
           <ul>
             <li class="subMenu">
-              <a href="info-change" mymenuid="0501" data-ref-linkurl="https://www.oliveyoung.co.kr/store/mypage/getMktReceiptInfo.do" data-attr="마이페이지^메뉴^회원정보 수정">회원정보 수정</a>
+              <a href="/mypage/info-change">회원정보 수정</a>
             </li>
             <li class="subMenu">
-              <a href="info-remove" mymenuid="0504" data-ref-linkurl="https://www.oliveyoung.co.kr/store/mypage/custInfoOut.do" data-attr="마이페이지^메뉴^회원탈퇴">회원탈퇴</a>
+              <a href="/mypage/info-remove">회원탈퇴</a>
             </li>
           </ul>
         </li>

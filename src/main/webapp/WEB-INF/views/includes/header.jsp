@@ -59,7 +59,7 @@
             		<span><sec:authentication property="principal.user.user_name"/>님</span>
           		</li>
           		<li class="mypage">
-            		<a href="/mypage/reviews" data-attr="공통^헤더^로그인">마이페이지</a>
+            		<a href="/mypage">마이페이지</a>
           		</li>
 	          	<li class="mypage">
           			<form role="form" action="/customLogout" method="post">
