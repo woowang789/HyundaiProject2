@@ -1,14 +1,17 @@
 package com.hyundai.controller;
 
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.hyundai.service.UserService;
 import com.hyundai.vo.UserVO;
@@ -36,8 +39,6 @@ public class UserController {
 		
 		return "member/join";
 	}
-	
-	
 	
 	@RequestMapping(value="/completion-join", method=RequestMethod.GET)
 	public String completionJoin(){
@@ -67,25 +68,5 @@ public class UserController {
 		log.info("로그인 성공");
 		return "home";
 	}
-//	public ModelAndView loginUser(UserVO user, HttpSession session) throws Exception{
-//		boolean loginResult = service.loginCheck(user);
-//		System.out.println(loginResult);
-//		ModelAndView mav = new ModelAndView();
-//		if(loginResult) {
-//			UserVO uservo = service.viewUser(user);
-//			session.setAttribute("user_id", uservo.getUser_id());
-//			session.setAttribute("user_name", uservo.getUser_name());
-//			session.setAttribute("user_birth", uservo.getUser_birth());
-//			session.setAttribute("user_address", uservo.getUser_address());
-//			session.setAttribute("user_tel", uservo.getUser_tel());
-//			mav.setViewName("home");
-//			mav.addObject("msg", "success");
-//		}else {
-//			System.out.println("로그인실패");
-//			mav.setViewName("member/login");
-//			mav.addObject("msg","failure");
-//		}
-//		return mav;
-//	}
 
 }

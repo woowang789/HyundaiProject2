@@ -51,11 +51,4 @@ public class UserServiceImpl implements UserService {
 		return (name == null) ? false: true;		
 	}
 	
-//	@Override
-//	public UserVO viewUser(UserVO vo) {
-//		UserVO uservo = new UserVO();
-//		uservo = mapper.viewUser(vo);
-//		return uservo;
-//	}
-
 }

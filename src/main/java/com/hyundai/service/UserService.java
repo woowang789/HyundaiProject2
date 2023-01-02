@@ -11,6 +11,4 @@ public interface UserService {
 	
 	public boolean loginCheck(UserVO uservo);
 	
-//	public UserVO viewUser(UserVO vo);
-
 }

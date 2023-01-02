@@ -15,7 +15,7 @@
             <img src="https://static.oliveyoung.co.kr/pc-static-root/image/comm/my_picture_base.jpg" alt="" onerror="common.errorImg(this);">
           </div>
           <p class="txt">
-            <strong class="name">이승규</strong>님 반갑습니다.
+            <strong class="name"><sec:authentication property="principal.user.user_name"/></strong>님 반갑습니다.
           </p>
         </div>
       </div>
