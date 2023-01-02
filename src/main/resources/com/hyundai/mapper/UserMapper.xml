@@ -4,9 +4,29 @@
   
 <mapper namespace="com.hyundai.mapper.UserMapper">
 
+	<resultMap type="com.hyundai.vo.UserVO" id="memberMap">
+		<id property="user_id" column="user_id"/>
+		<result property="user_id" column="user_id"/>
+		<result property="user_pwd" column="user_pwd"/>
+		<result property="user_name" column="user_name"/>
+		<result property="user_address" column="user_address"/>
+		<result property="user_tel" column="user_tel"/>
+		<result property="user_birth" column="user_birth"/>
+		<collection property="authList" resultMap="authMap"/>
+	</resultMap>
+	
+	<resultMap type="com.hyundai.vo.AuthVO" id="authMap">
+		<result property="user_id" column="user_id"/>
+		<result property="authority" column="authority"/>
+	</resultMap>
+
 	<insert id="insert">
 		insert into users (user_id, user_password, user_name, user_address,user_tel,user_birth)
 		values(#{user_id},#{user_pwd},#{user_name},#{user_address},#{user_tel},#{user_birth})
+	</insert>
+	
+	<insert id="insertAuth">
+		insert into authorities (user_id, authority) values (#{user_id},#{authority})
 	</insert>
 	
 	<select id="idCheckSelect" parameterType="String" resultType="int">
@@ -18,9 +38,11 @@
 		from users where user_id=#{user_id} and user_password=#{user_pwd}
 	</select>
 	
-	<select id="viewUser" resultType="com.hyundai.vo.UserVO">
-		select user_id, user_password user_pwd, user_name, user_address,user_tel, user_birth
-		from users where user_id=#{user_id} and user_password=#{user_pwd}
+	<select id="read" resultMap="memberMap">
+		select  u.user_id, u.user_password user_pwd, u.user_name, u.user_address, u.user_tel, u.user_birth, auth.authority
+		from users u left outer join authorities auth 
+		on u.user_id = auth.user_id
+		where u.user_id = #{user_id}
 	</select>
 	
 	<select id="getInfoById" resultType="com.hyundai.vo.UserOrderInfoDTO">

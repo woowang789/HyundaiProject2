@@ -21,8 +21,8 @@ public class UserTests {
 	
 	@Setter(onMethod_= @Autowired)
 	private UserService service;
-	
-	@Setter(onMethod_ = @Autowired)
+
+	@Setter(onMethod_=@Autowired)
 	private UserMapper mapper;
 	
 	@Test
@@ -59,14 +59,10 @@ public class UserTests {
 	}
 	
 	@Test
-	public void testUser() {
-		UserVO user = new UserVO();
-		user.setUser_id("user3");
-		user.setUser_pwd("user3");
-		UserVO loginVO = service.viewUser(user);
-		log.info("이름은" + loginVO.getUser_name());
-		log.info("주소는 " +loginVO.getUser_address());
-		log.info("생일은" + loginVO.getUser_birth());
+	public void testRead() {
+		UserVO vo = mapper.read("test5");
+		log.info(vo);
+		vo.getAuthList().forEach(authVO -> log.info(authVO));
 	}
 		
 	@Test

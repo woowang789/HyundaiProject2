@@ -1,5 +1,6 @@
 package com.hyundai.service;
 
+import com.hyundai.vo.AuthVO;
 import com.hyundai.vo.UserVO;
 
 public interface UserService {
@@ -10,6 +11,4 @@ public interface UserService {
 	
 	public boolean loginCheck(UserVO uservo);
 	
-	public UserVO viewUser(UserVO vo);
-
 }

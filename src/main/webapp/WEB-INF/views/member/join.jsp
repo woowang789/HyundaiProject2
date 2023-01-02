@@ -4,12 +4,18 @@
 <%@ include file="../includes/header.jsp"%>
 <script>
 $(document).ready(function(){
+	var csrfHeaderName="${_csrf.headerName}";
+	var csrfTokenValue="${_csrf.token}"
+	
 	$('#id').focusout(function(){
 		let id = $('#id').val();
 		if(id !=''){
 			$.ajax({
 				url:"join/check-id",
 				type:"post",
+				beforeSend:function(xhr){
+					xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+				},
 				data:{id:id},
 				success:function(result){
 					if(result ==1){
@@ -87,7 +93,7 @@ $(document).ready(function(){
                   <span id="checkPwd"></span>
                 </td>
               </tr>
-              <tr>
+             <!--  <tr>
                 <th scope="row">
                   <label for="email">E-mail (정보수신용)</label>
                 </th>
@@ -117,17 +123,8 @@ $(document).ready(function(){
                   <input type="text" id="emailDomain" style="width: 120px" value="" title="이메일 도메인">
                   <input type="button" class="btn add_s" id="emailDubChkBtn" value="중복확인">
                   <span class="guide_comment" id="emailMsg"></span>
-                  <div class="wtype_comment pt10">
-                    <input type="checkbox">
-                    <label for="ck1">이메일 아이디 적용</label>
-                  </div>
-                  <div class="wtype_comment pt5">
-                    <input type="checkbox">
-                    <label for="emailReceiveYn">이메일을 통한 상품 및 이벤트 정보 수신에 동의합니다. (선택)</label>
-                    <a href="#" >자세히 보기</a>
-                  </div>
                 </td>
-              </tr>
+              </tr> -->
               <tr>
                 <th scope="row">
                   <label for="name">이름</label>
@@ -271,6 +268,14 @@ $(document).ready(function(){
             </tbody>
           </table>
         </div>
+        	<div class="wtype_comment pt10">
+            	<input type="checkbox">
+                <label for="ck1">이메일 아이디 적용</label>
+             </div>
+             <div class="wtype_comment pt5">
+             	<input type="checkbox">
+               	<label for="emailReceiveYn">이메일을 통한 상품 및 이벤트 정보 수신에 동의합니다. (선택)</label>
+              </div>
         <div class="btnwrap">
           <input type="button" value="취소" class="btn wt" id="cancleBtn">
           <input type="submit" value="회원가입" class="btn gray mr0" id="joinBtn">
