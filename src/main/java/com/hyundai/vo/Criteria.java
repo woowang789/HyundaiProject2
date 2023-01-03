@@ -20,7 +20,7 @@ public class Criteria {
    private String sort;
 
    public Criteria() {
-      this(1, 10, "01", "1000001");
+      this(1, 10, "01", "1000001","100000100010008");
    }
 
    public Criteria(int pageNum, int amount) {
@@ -29,10 +29,11 @@ public class Criteria {
 
    }
 
-   public Criteria(int pageNum, int amount, String sort, String cateId) {
+   public Criteria(int pageNum, int amount, String sort, String cateId, String catePid) {
       this.pageNum = pageNum;
       this.amount = amount;
       this.sort = sort;
       this.cateId = cateId;
+      this.catePid = catePid;
    }
 }

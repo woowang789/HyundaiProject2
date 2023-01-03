@@ -48,17 +48,18 @@ select
 	</select>
 	<select id="getTotalCount" resultType="int">
 		select count(*) from
-		product
+		product where category_id like #{cateId}||'%'
 	</select>
-	<select id="getCate" resultType="com.hyundai.vo.CategoryDTO">
-		select category_id cateId,category_pid catePid, category_name cateName 
-		from categories 
-		where category_id like #{cateId}||'%'
-	</select>
-	
-		<select id="getPCate" resultType="com.hyundai.vo.CategoryDTO">
-		select category_id cateId,category_pid catePid, category_name cateName 
-		from categories 
-		where category_pid = #{catePid}
+
+	<select id="getPCate" resultType="com.hyundai.vo.CategoryDTO">
+
+		select ca.category_id catePid, ca.category_name catePname, cb.category_id
+		cateId, cb.category_name cateName
+		from categories ca
+		join categories cb
+		on ca.category_id=cb.category_pid
+		where ca.category_id like #{catePid}||'%'
+		order by cb.category_id
+
 	</select>
 </mapper>
