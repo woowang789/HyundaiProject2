@@ -1,5 +1,6 @@
 package com.hyundai.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -26,21 +27,23 @@ import lombok.extern.log4j.Log4j;
 @RequiredArgsConstructor
 public class OrderController {
 	
-	private String userId = "user1@email.com";
-	
 	private final OrderService orderService;
 	private final CartService cartService;
 	private final UserMapper userMapper;
 	
 	@GetMapping("/order-form")
-	public String orderForm(@RequestParam("isCart")Boolean isCart , BeforeOrderDTO orderItems, Model model) {
+	public String orderForm(
+			@RequestParam(value = "isCart", defaultValue = "false")Boolean isCart , 
+			BeforeOrderDTO orderItems, 
+			Principal principal,
+			Model model) {
 		log.info("/order-form");
 		if(isCart == null) isCart = false;
 		
 		log.info(isCart);
 		log.info(orderItems);
 		
-		UserOrderInfoDTO userInfo = userMapper.getInfoById(userId);
+		UserOrderInfoDTO userInfo = userMapper.getInfoById(principal.getName());
 		
 		List<OrderProductDTO> list = orderService.getOrderProductList(orderItems);
 
@@ -55,11 +58,12 @@ public class OrderController {
 	public String doOrder(
 			@RequestParam("isCart") Boolean isCart,
 			InsertOrderDTO order, 
+			Principal principal,
 			RedirectAttributes redirct
 			) {
-		int result = orderService.insertOrder(userId, order);
+		int result = orderService.insertOrder(principal.getName(), order);
 		
-		if(isCart)deleteCart(order);
+		if(isCart)deleteCart(order, principal.getName());
 		
 		redirct.addFlashAttribute("order", order);
 		
@@ -82,7 +86,7 @@ public class OrderController {
 	/*
 	 * 장바구니에서 주문한 경우 주문한 장바구니 삭제
 	 * */
-	private void deleteCart(InsertOrderDTO order) {
+	private void deleteCart(InsertOrderDTO order,String userId) {
 		order.getList().stream().forEach(item ->{
 			UpdateCartDTO dto = new UpdateCartDTO();
 			dto.setOptId(item.getOid());

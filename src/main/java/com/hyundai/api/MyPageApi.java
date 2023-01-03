@@ -42,7 +42,7 @@ public class MyPageApi {
 		int result = wishListService.toggleWishList(body.get("userId"), body.get("prodId"));
 		if (result == -1)
 			return new ResponseEntity<>("error", HttpStatus.INTERNAL_SERVER_ERROR);
-		return new ResponseEntity<>("success", HttpStatus.OK);
+		return new ResponseEntity<>(result+"", HttpStatus.OK);
 	}
 
 

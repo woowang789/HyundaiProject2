@@ -1,5 +1,6 @@
 package com.hyundai.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -27,21 +28,19 @@ public class MypageController {
 	
 	private final OrderService orderService;
 	
-	private String userId = "user1@email.com";
-	
 	@GetMapping
 	public String mypage(Criteria cri, Model model) {
 		return "mypage/mypage";
 	}
 	
 	@GetMapping("/order-lists")
-	public String mypageOrderLists(Criteria cri, Model model) {
+	public String mypageOrderLists(Criteria cri, Principal principal ,Model model) {
 		log.info("mypage/order-lists");
 		if(cri.getAmount() == 10) cri.setAmount(3);
 		if(cri.getType() == null) cri.setType("-1");
 		
-		List<ShowOrderDTO> list = orderService.getOrderList(userId,cri);
-		int total = orderService.getOrderListCount(userId);
+		List<ShowOrderDTO> list = orderService.getOrderList(principal.getName(),cri);
+		int total = orderService.getOrderListCount(principal.getName());
 		
 		model.addAttribute("list", list);
 		model.addAttribute("pageMaker", new PageDTO(cri, total));

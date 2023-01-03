@@ -161,7 +161,7 @@ ALTER TABLE tag ADD CONSTRAINT tag_pk PRIMARY KEY ( user_id,
 
 CREATE TABLE users (
     user_id       VARCHAR2(20) NOT NULL,
-    user_password VARCHAR2(20) NOT NULL,
+    user_password VARCHAR2(500) NOT NULL,
     user_name     VARCHAR2(20) NOT NULL,
     user_address  VARCHAR2(200) NOT NULL,
     user_tel      VARCHAR2(20) NOT NULL,
