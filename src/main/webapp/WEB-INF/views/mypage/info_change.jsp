@@ -3,6 +3,41 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="./my_top.jsp"%>
+<script>
+$(document).ready(function(){
+	var csrfHeaderName = "${_csrf.headerName}";
+	var csrfTokenValue = "${_csrf.token}";
+	
+	$("#curPwd").focusout(function(){
+		let pwd = $("#curPwd").val();
+		let id = $("#id").val();
+			
+		if(pwd != ''){
+			$.ajax({
+				url:"api/checkPwd",
+				type:"post",
+				boforeSend:function(xhr){
+					xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+				},
+				data:{pwd:pwd, id:id},
+				dataType:"json",
+				success:function(result){
+					if(result ==1){
+						$("#pwd_check").text('비밀번호가 일치합니다.');
+					}else{
+						$("#pwd_check").text('비밀번호가 일치하지 않습니다.');
+					}
+				},
+				error : function(){
+					alert("서버요청 실패");
+				}
+			})
+		}
+	});
+	
+})
+</script>
+
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 window.onload = function(){
@@ -35,12 +70,14 @@ window.onload = function(){
 				<tbody>
 					<tr>
 						<th scope="row">이메일 아이디</th>
-						<td><sec:authentication property="principal.user.user_id" /></td>
+						<td><input type="text" id="id" readonly value="<sec:authentication property="principal.user.user_id" />"></td>
 					</tr>
 					<tr>
 						<th scope="row"><label for="pw">현재 비밀번호</label></th>
-						<td><input type="password" id="pwc" style="width: 150px"
-							title="비밀번호 확인"></td>
+						<td><input type="password" id="curPwd" style="width: 150px"
+							title="비밀번호 확인">
+							<span id="pwd_check"></span>
+						</td>
 					</tr>
 					<tr>
 						<th scope="row"><label for="pw">새 비밀번호</label></th>
@@ -54,15 +91,20 @@ window.onload = function(){
 							<span class="guide_comment" id="pwcCapsLockMsg"></span></td>
 					</tr>
 					<tr>
+						<th scope="row"><label for="name">휴대폰 번호</label></th>
+						<td><input type="text" style="width: 150px;" id="name"
+							name="name" value="<sec:authentication property="principal.user.user_tel" />"></td>
+					</tr>
+					<tr>
 						<th scope="row"><label for="name">이름</label></th>
 						<td><input type="text" style="width: 120px" id="name"
-							name="name"></td>
+							name="name" value="<sec:authentication property="principal.user.user_id" />"></td>
 					</tr>
 					<tr>
 						<th scope="row"><label for="name">주소</label></th>
 						<td><input type="text" style="width: 350px" id="address"
-							name="user_address"> <a id="search-address">주소찾기</a> <input
-							type="text" style="width: 300px" id="address_detail"
+							name="user_address" value="<sec:authentication property="principal.user.user_address" />"> <a id="search-address">주소찾기</a> <input
+							type="text" style="width: 300px" id="address_detail" 
 							name="user_address"></td>
 					</tr>
 					<tr>
