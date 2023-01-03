@@ -192,7 +192,7 @@ create unique index ix_auth_user_name on authorities (user_id,authority);
     
 
     create table persistent_logins(
-user_name varchar2(64) not null,
+username varchar2(64) not null,
 series varchar2(64) PRIMARY key,
 token varchar2(64) not null,
 last_used timestamp not null);
