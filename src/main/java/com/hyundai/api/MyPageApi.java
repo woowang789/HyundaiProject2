@@ -28,7 +28,8 @@ public class MyPageApi {
 	private final WishListService wishListService;
 	
 	@PostMapping("/getWishList/{pageNum}")
-	public ResponseEntity<ApiPageDTO<ProductOptionDTO>> getWishList(@RequestBody Map<String, String> body,
+	public ResponseEntity<ApiPageDTO<ProductOptionDTO>> getWishList(
+			@RequestBody Map<String, String> body,
 			@PathVariable("pageNum") int page) {
 		int count = wishListService.getCount(body.get("userId"));
 		List<ProductOptionDTO> list = wishListService.getWishList(new Criteria(page, 8), body.get("userId"));
@@ -41,7 +42,7 @@ public class MyPageApi {
 		int result = wishListService.toggleWishList(body.get("userId"), body.get("prodId"));
 		if (result == -1)
 			return new ResponseEntity<>("error", HttpStatus.INTERNAL_SERVER_ERROR);
-		return new ResponseEntity<>("success", HttpStatus.OK);
+		return new ResponseEntity<>(result+"", HttpStatus.OK);
 	}
 
 

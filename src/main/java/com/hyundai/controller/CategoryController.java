@@ -29,9 +29,9 @@ public class CategoryController {
 	@RequestMapping(value = "/category", method = RequestMethod.GET)
 	public String category(Criteria cri,Model model) {
 		log.info("/category" +cri);
-		if(cri.getAmount()==10) {
+		if(cri.getAmount()==10) 
 			cri.setAmount(24);
-		}
+		if(cri.getCatePid() == null) cri.setCatePid("100000100010008");
 //		cri.setCateId("100000100010008");
 
 

@@ -49,10 +49,12 @@ CREATE TABLE cart_list (
     product_id VARCHAR2(20) NOT NULL
 );
 
-CREATE UNIQUE INDEX cart__idx ON
-    cart_list (
-        user_id
-    ASC );
+-- CREATE UNIQUE INDEX cart__idx ON
+--     cart_list (
+--         option_id,
+--         product_id,
+--         user_id
+--     ASC );
 
 ALTER TABLE cart_list
     ADD CONSTRAINT cart_list_pk PRIMARY KEY ( option_id,
@@ -159,7 +161,7 @@ ALTER TABLE tag ADD CONSTRAINT tag_pk PRIMARY KEY ( user_id,
 
 CREATE TABLE users (
     user_id       VARCHAR2(20) NOT NULL,
-    user_password VARCHAR2(20) NOT NULL,
+    user_password VARCHAR2(500) NOT NULL,
     user_name     VARCHAR2(20) NOT NULL,
     user_address  VARCHAR2(200) NOT NULL,
     user_tel      VARCHAR2(20) NOT NULL,
@@ -190,7 +192,7 @@ create unique index ix_auth_user_name on authorities (user_id,authority);
     
 
     create table persistent_logins(
-user_name varchar2(64) not null,
+username varchar2(64) not null,
 series varchar2(64) PRIMARY key,
 token varchar2(64) not null,
 last_used timestamp not null);
