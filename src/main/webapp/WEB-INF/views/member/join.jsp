@@ -97,7 +97,7 @@ window.onload = function(){
         new daum.Postcode({
             oncomplete: function(data) { //선택시 입력값 세팅
                 document.getElementById("address").value = data.address; // 주소 넣기
-                document.querySelector("input[name=address_detail]").focus(); //상세입력 포커싱
+                document.querySelector("input[id=address_detail]").focus(); //상세입력 포커싱
             }
         }).open();
     });
@@ -200,7 +200,7 @@ window.onload = function(){
                 <td>
                   <input type="text" style="width: 350px" id="address" name="user_address">
                   <a style="cusor:pointer" id="search-address">주소찾기</a>
-                  <input type="text" style="width: 300px" name="address_detail">                  
+                  <input type="text" style="width: 300px" id="address_detail" name="user_address">                  
                 </td>
               </tr>
               <tr>
