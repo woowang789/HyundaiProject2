@@ -26,7 +26,7 @@ public class SaleController {
 
 	@RequestMapping(value = "/sale", method = RequestMethod.GET)
 	public String sale(Criteria cri, Model model) {
-		int count = mapper.getCount();
+		int count = mapper.getCount(cri);
 		if (cri.getAmount() == 10) {
 			cri.setAmount(24);
 		}

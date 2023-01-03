@@ -32,24 +32,33 @@ select
             where c.category_id like #{cri.cateId}||'%'
             order by ]]>
 		<choose>
-            <when test ="cri.sort =='01'.toString()">
-            (p.product_date)
-            </when>
-            <when test ="cri.sort =='02'.toString()">
-            (o.option_market_price)
-            </when>
-            <otherwise>
-            o.option_market_price desc
-            </otherwise>
-            </choose>
+			<when test="cri.sort =='01'.toString()">
+				(p.product_date)
+			</when>
+			<when test="cri.sort =='02'.toString()">
+				(o.option_market_price)
+			</when>
+			<otherwise>
+				o.option_market_price desc
+			</otherwise>
+		</choose>
              <![CDATA[,p.product_id
             OFFSET (#{cri.pageNum}-1)*#{cri.amount} ROWS FETCH NEXT #{cri.amount} ROWS ONLY
 		]]>
 	</select>
 	<select id="getTotalCount" resultType="int">
-		select count(*) from product
+		select count(*) from
+		product
 	</select>
-	<select id="getCate" resultType="String">
-select  category_id cateId,category_pid catePid, category_name cName  from categories where category_id like #{cateId}||'%'
+	<select id="getCate" resultType="com.hyundai.vo.CategoryDTO">
+		select category_id cateId,category_pid catePid, category_name cateName 
+		from categories 
+		where category_id like #{cateId}||'%'
+	</select>
+	
+		<select id="getPCate" resultType="com.hyundai.vo.CategoryDTO">
+		select category_id cateId,category_pid catePid, category_name cateName 
+		from categories 
+		where category_pid = #{catePid}
 	</select>
 </mapper>

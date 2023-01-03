@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 <!DOCTYPE html>
 <html lang="ko" class="-webkit-">
 <head>
@@ -18,26 +18,27 @@
 <link rel="stylesheet" href="/resources/css/reviews_write.css">
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
 <script>
-	$(document).ready(function() {
-		//카테고리 레이어 열기/닫기
-		$("#btnGnbOpen").click(function(e) {
-			e.preventDefault();
-			if ($(this).hasClass("active")) {
-				$(this).removeClass("active");
-				$(".layer_all_menu").removeClass("active");
-			} else {
-				$(this).addClass("active");
-				$(".layer_all_menu").addClass("active");
-			}
-		});
-		$("#btnGnbClose").click(function(e) {
-			e.preventDefault();
-			$(this).removeClass("active");
-			$(".layer_all_menu").removeClass("active");
-		});
-		
-	});
+   $(document).ready(function() {
+      //카테고리 레이어 열기/닫기
+      $("#btnGnbOpen").click(function(e) {
+         e.preventDefault();
+         if ($(this).hasClass("active")) {
+            $(this).removeClass("active");
+            $(".layer_all_menu").removeClass("active");
+         } else {
+            $(this).addClass("active");
+            $(".layer_all_menu").addClass("active");
+         }
+      });
+      $("#btnGnbClose").click(function(e) {
+         e.preventDefault();
+         $(this).removeClass("active");
+         $(".layer_all_menu").removeClass("active");
+      });
+
+   });
 </script>
 </head>
 <body>
@@ -45,29 +46,34 @@
     <div id="Header">
       <div class="top_util">
         <ul class="menu_list" id="menu_list_header">
-        	<sec:authorize access="isAnonymous()">
-          		<li class="join">
-            		<a href="/join" data-attr="공통^헤더^회원가입">회원가입</a>
-          		</li>
-          		<li class="login">
-            		<a href="/login" data-attr="공통^헤더^로그인">로그인</a>
-          		</li>
-          	</sec:authorize>
-          	<sec:authorize access="isAuthenticated()">
-        		<li>
-            		<span><sec:authentication property="principal.user.user_name"/>님</span>
-          		</li>
-          		<li class="mypage">
-            		<a href="/mypage">마이페이지</a>
-          		</li>
-	          	<li class="mypage">
-          			<form role="form" action="/customLogout" method="post">
-	            		<a href="/home" class="btn-success">
-	            		<input type="submit" style="background-color:white; font-weight:100; height: 35px;"value="로그아웃"></button></a>
-	          			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-          			</form>
-	          	</li>
-          	</sec:authorize>
+          <sec:authorize access="isAnonymous()">
+            <li class="join">
+              <a href="/join" data-attr="공통^헤더^회원가입">회원가입</a>
+            </li>
+            <li class="login">
+              <a href="/login" data-attr="공통^헤더^로그인">로그인</a>
+            </li>
+          </sec:authorize>
+          <sec:authorize access="isAuthenticated()">
+            <li>
+              <span>
+                <sec:authentication property="principal.user.user_name" />
+                님
+              </span>
+            </li>
+            <li class="mypage">
+              <a href="/mypage">마이페이지</a>
+            </li>
+            <li class="mypage">
+              <form role="form" action="/customLogout" method="post">
+                <a href="/home" class="btn-success">
+                  <input type="submit" style="background-color: white; font-weight: 100; height: 35px;" value="로그아웃">
+                  </button>
+                </a>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+              </form>
+            </li>
+          </sec:authorize>
         </ul>
       </div>
       <div class="header_inner s_yearend">
@@ -273,13 +279,13 @@
             </a>
           </li>
           <script type="text/javascript">
-											$(".gnb_menu_list")
-													.click(
-															function() {
-																localStorage
-																		.removeItem("prdSort");
-															});
-										</script>
+                                 $(".gnb_menu_list")
+                                       .click(
+                                             function() {
+                                                localStorage
+                                                      .removeItem("prdSort");
+                                             });
+                              </script>
         </ul>
       </div>
     </div>

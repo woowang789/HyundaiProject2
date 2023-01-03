@@ -42,13 +42,22 @@ public class UserServiceImpl implements UserService {
 		System.out.println("id="+id);
 		return result;
 	}
+	
 	@Override
-	public boolean loginCheck(UserVO uservo) {
-		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(); 
-		uservo.setUser_pwd(passwordEncoder.encode(uservo.getUser_pwd()));
-		System.out.println(passwordEncoder.encode(uservo.getUser_pwd()));
-		String name = mapper.loginCheck(uservo);
-		return (name == null) ? false: true;		
+	public UserVO searchId(UserVO vo) {
+		UserVO user = mapper.searchId(vo);
+		return user;
+	}
+	@Override
+	public int searchPwd(UserVO vo) {
+		int checkUser = mapper.searchPwd(vo);
+		return checkUser;
 	}
 	
+	@Override
+	public void updatePwd(UserVO vo) {
+		BCryptPasswordEncoder pwdencoder = new BCryptPasswordEncoder();
+		vo.setUser_pwd(pwdencoder.encode(vo.getUser_pwd()));
+		mapper.updatePwd(vo);
+	}
 }

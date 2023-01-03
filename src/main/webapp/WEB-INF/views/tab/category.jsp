@@ -17,50 +17,16 @@
 		<ul class="cate_list_box">
 
 
-			<li class="first on"><a href="javascript:;"
-				class="100000100010008" data-attr="카테고리상세^카테고리리스트^전체"> 전체</a></li>
 
 
+			<c:forEach var="item" items="${p_categ}">
+				<li><a href="javascript:;"
+					data-cid="<c:out value="${item.catePid}"/>"><c:out
+							value="${item.cateName}" /></a></li>
 
-
-			<li><a href="javascript:;" class="1000001000100080001"
-				data-attr="카테고리상세^카테고리리스트^스킨/토너">스킨/토너</a></li>
-
-
-
-
-
-			<li><a href="javascript:;" class="1000001000100080002"
-				data-attr="카테고리상세^카테고리리스트^로션/에멀젼">로션/에멀젼</a></li>
-
-
-
-
-
-			<li><a href="javascript:;" class="1000001000100080003"
-				data-attr="카테고리상세^카테고리리스트^올인원">올인원</a></li>
-
-
-
-
-
-			<li><a href="javascript:;" class="1000001000100080004"
-				data-attr="카테고리상세^카테고리리스트^스킨케어 세트">스킨케어 세트</a></li>
-
-
-
-
-
-
-
-
-
-
-
-
+			</c:forEach>
 
 			<li>&nbsp;</li>
-
 
 
 
@@ -83,23 +49,26 @@
 			<div class="align_sort">
 				<ul>
 
-					<li class=<c:if test="${pageMaker.cri.sort eq '01'}">"on"</c:if> >
-					<a href="javascript:;" data-prdsoting="01">최근등록순</a>
+					<li class=<c:if test="${pageMaker.cri.sort eq '01'}">"on"</c:if>>
+						<a href="javascript:;" data-prdsoting="01">최근등록순</a>
 					</li>
-					<li class=<c:if test="${pageMaker.cri.sort eq '02'}">"on"</c:if> >
-					<a href="javascript:;" data-prdsoting="02">낮은 가격순</a>
+					<li class=<c:if test="${pageMaker.cri.sort eq '02'}">"on"</c:if>>
+						<a href="javascript:;" data-prdsoting="02">낮은 가격순</a>
 					</li>
-					<li class=<c:if test="${pageMaker.cri.sort eq '03'}">"on"</c:if> >
-					<a href="javascript:;" data-prdsoting="03">높은 가격순</a>
+					<li class=<c:if test="${pageMaker.cri.sort eq '03'}">"on"</c:if>>
+						<a href="javascript:;" data-prdsoting="03">높은 가격순</a>
 					</li>
 				</ul>
 			</div>
 			<div class="count_sort tx_num">
 				<span class="tx_view">VIEW</span>
 				<ul>
-					<li class=<c:if test="${pageMaker.cri.amount eq 24}">"on"</c:if> ><a href="javascript:;" title="24개씩 보기" data-value="24">24</a></li>
-					<li class=<c:if test="${pageMaker.cri.amount eq 36}">"on"</c:if> ><a href="javascript:;" title="36개씩 보기" data-value="36">36</a></li>
-					<li class=<c:if test="${pageMaker.cri.amount eq 48}">"on"</c:if> ><a href="javascript:;" title="48개씩 보기" data-value="48">48</a></li>
+					<li class=<c:if test="${pageMaker.cri.amount eq 24}">"on"</c:if>><a
+						href="javascript:;" title="24개씩 보기" data-value="24">24</a></li>
+					<li class=<c:if test="${pageMaker.cri.amount eq 36}">"on"</c:if>><a
+						href="javascript:;" title="36개씩 보기" data-value="36">36</a></li>
+					<li class=<c:if test="${pageMaker.cri.amount eq 48}">"on"</c:if>><a
+						href="javascript:;" title="48개씩 보기" data-value="48">48</a></li>
 				</ul>
 			</div>
 			<div class="type_sort">
@@ -152,7 +121,13 @@
 									<c:out value="${ctgy.name}" />
 								</p> </a>
 						</div>
+<<<<<<< HEAD
 						<button class="btn_zzim jeem <c:if test="${ctgy.wished eq true }"> on</c:if>" data-ref-goodsno="<c:out value="${ctgy.id}"/>">
+=======
+						<button
+							class="btn_zzim jeem <c:if test="${ctgy.wished eq true }"> on</c:if>"
+							data-ref-goodsno="A000000117541">
+>>>>>>> origin/develop
 							<span>찜하기전</span>
 						</button>
 						<p class="prd_price">
@@ -172,8 +147,9 @@
 							</c:if>
 						</p>
 						<p class="prd_btn_area">
-						
-							<button class="btn_new_pop goodsList" onclick="window.open('/product-detail/?pid=${ctgy.id} ')"
+
+							<button class="btn_new_pop goodsList"
+								onclick="window.open('/product-detail/?pid=${ctgy.id} ')"
 								name="Cat100000100010008_Small">새창보기</button>
 						</p>
 				</li>
@@ -188,7 +164,8 @@
 		<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }" />
 		<input type="hidden" name="amount" value="${pageMaker.cri.amount }" />
 		<input type="hidden" name="sort" value="${pageMaker.cri.sort }" /> <input
-			type="hidden" name="category" value="${pageMaker.cri.cateId }" />
+			type="hidden" name="catePid" value="${pageMaker.cri.catePid }" /> <input
+			type="hidden" name="cateId" value="${p_categ.cri.cateId }" />
 	</form>
 	<div class="pageing">
 		<c:if test="${pageMaker.prev }">
@@ -261,6 +238,7 @@
 					actionForm.submit();
 
 				})
+
 				$('.btn_zzim').click(function(e){
 					e.preventDefault();
 					
@@ -271,6 +249,13 @@
 			    			console.log("result : ",data);
 							$(this).toggleClass("on");
 			    		})
+
+				$('.cate_list_box>li>a').click(function(e){
+					e.preventDefault();
+					actionForm.find("input[name='cateId']").val(
+							$(this).data("cid"));
+					actionForm.submit();
+
 				})
 			})
 </script>

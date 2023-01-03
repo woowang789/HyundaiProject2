@@ -13,7 +13,7 @@ public interface SaleMapper {
 
 	List<ProductOptionDTO> getSaleListAll(@Param("cri") Criteria cri, @Param("userId") String userId);
 
-	int getCount();
+	int getCount(Criteria cri);
 
 	List<CategoryDTO> getCate(Criteria cri);
 }
