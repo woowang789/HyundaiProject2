@@ -16,11 +16,10 @@ $(document).ready(function(){
 			$.ajax({
 				url:"api/checkPwd",
 				type:"post",
-				boforeSend:function(xhr){
+				beforeSend:function(xhr){
 					xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
 				},
 				data:{pwd:pwd, id:id},
-				dataType:"json",
 				success:function(result){
 					if(result ==1){
 						$("#pwd_check").text('비밀번호가 일치합니다.');
