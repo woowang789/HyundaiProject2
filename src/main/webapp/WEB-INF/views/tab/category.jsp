@@ -271,7 +271,6 @@
 			    			console.log("result : ",data);
 							$(this).toggleClass("on");
 			    		})
-					
 				})
 			})
 </script>
