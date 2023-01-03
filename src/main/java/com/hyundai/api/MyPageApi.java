@@ -28,7 +28,8 @@ public class MyPageApi {
 	private final WishListService wishListService;
 	
 	@PostMapping("/getWishList/{pageNum}")
-	public ResponseEntity<ApiPageDTO<ProductOptionDTO>> getWishList(@RequestBody Map<String, String> body,
+	public ResponseEntity<ApiPageDTO<ProductOptionDTO>> getWishList(
+			@RequestBody Map<String, String> body,
 			@PathVariable("pageNum") int page) {
 		int count = wishListService.getCount(body.get("userId"));
 		List<ProductOptionDTO> list = wishListService.getWishList(new Criteria(page, 8), body.get("userId"));

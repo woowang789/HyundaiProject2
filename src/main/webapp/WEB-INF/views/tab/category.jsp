@@ -152,7 +152,7 @@
 									<c:out value="${ctgy.name}" />
 								</p> </a>
 						</div>
-						<button class="btn_zzim jeem <c:if test="${ctgy.wished eq true }"> on</c:if>" data-ref-goodsno="A000000117541">
+						<button class="btn_zzim jeem <c:if test="${ctgy.wished eq true }"> on</c:if>" data-ref-goodsno="<c:out value="${ctgy.id}"/>">
 							<span>찜하기전</span>
 						</button>
 						<p class="prd_price">
@@ -269,7 +269,7 @@
 			    		prodId:$(this).data('ref-goodsno')
 			    		},function(data){
 			    			console.log("result : ",data);
-							$(this).css('on');
+							$(this).toggleClass("on");
 			    		})
 					
 				})

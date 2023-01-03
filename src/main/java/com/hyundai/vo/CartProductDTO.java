@@ -1,25 +1,24 @@
 package com.hyundai.vo;
 
+import java.util.Date;
+
 import lombok.Data;
 
 @Data
-public class OrderProductDTO {
-
+public class CartProductDTO {
 	private String id;
 	private String name;
 	private String thumb;
-	
-	private String oid;
+
+	private String oId;
 	private String optionName;
-	private int originPrice;
-	private int marketPrice;
-	
-	private int qty;
-	
+	private String stock;
+	private String originPrice;
+	private String marketPrice;
+
 	private String brandName;
 	private String bId;
 	
-	// delivery status
-	
-	// isSaled?? 
+	private int qty;
+	private Date cDate;
 }
