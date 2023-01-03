@@ -16,7 +16,7 @@ $(document).ready(function(){
 				beforeSend:function(xhr){
 					xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
 				},
-				data:{pwd,pwd},
+				data:{id:id},
 				success:function(result){
 					if(result ==1){
 						$("#id_check").text('이미 사용중인 아이디입니다.');
