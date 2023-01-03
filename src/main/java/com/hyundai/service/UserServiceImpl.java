@@ -61,4 +61,10 @@ public class UserServiceImpl implements UserService {
 		mapper.updatePwd(vo);
 	}
 	
+	@Override
+	public void updateUser(UserVO vo) {
+		BCryptPasswordEncoder pwdencoder = new BCryptPasswordEncoder();
+		vo.setUser_pwd(pwdencoder.encode(vo.getUser_pwd()));
+		mapper.updateUser(vo);
+	}
 }

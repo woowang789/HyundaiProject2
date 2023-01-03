@@ -127,7 +127,5 @@ public class UserController {
 		service.updatePwd(user);
 		return "member/login";
 	}
-	
-	
 
 }

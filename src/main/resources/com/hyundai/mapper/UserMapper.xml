@@ -65,5 +65,15 @@
 		select user_password from users 
 		where user_id = #{user_id}
 	</select>
+	
+	<update id="updateUser">
+		update users
+		set
+		user_password = #{user_pwd},
+		user_name = #{user_name},
+		user_address  = #{user_address},
+		user_tel = #{user_tel}
+		where user_id = #{user_id}
+	</update>
 
 </mapper>

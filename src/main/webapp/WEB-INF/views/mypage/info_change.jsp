@@ -59,6 +59,8 @@ window.onload = function(){
 		<div class="title_wrap clearfix">
 			<h4 class="float_left">회원정보</h4>
 		</div>
+		<form method="post" action="/mypage/info-change">
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 		<div class="tblwrap">
 			<table class="tbl_wtype1">
 				<caption>회원가입 입력항목</caption>
@@ -69,7 +71,7 @@ window.onload = function(){
 				<tbody>
 					<tr>
 						<th scope="row">이메일 아이디</th>
-						<td><input type="text" id="id" readonly value="<sec:authentication property="principal.user.user_id" />"></td>
+						<td><input type="text" id="id" name="user_id" readonly value="<sec:authentication property="principal.user.user_id" />"></td>
 					</tr>
 					<tr>
 						<th scope="row"><label for="pw">현재 비밀번호</label></th>
@@ -85,26 +87,26 @@ window.onload = function(){
 					</tr>
 					<tr>
 						<th scope="row"><label for="pw2">새 비밀번호 확인</label></th>
-						<td><input type="password" id="pwc" style="width: 150px"
-							title="비밀번호 확인"> <span class="guide_comment" id="pwcMsg"></span>
+						<td><input type="password" id="pwc" style="width: 150px" name="user_pwd"> 
+						<span class="guide_comment" id="pwcMsg"></span>
 							<span class="guide_comment" id="pwcCapsLockMsg"></span></td>
 					</tr>
 					<tr>
 						<th scope="row"><label for="name">휴대폰 번호</label></th>
 						<td><input type="text" style="width: 150px;" id="name"
-							name="name" value="<sec:authentication property="principal.user.user_tel" />"></td>
+							name="user_tel" value="<sec:authentication property="principal.user.user_tel" />"></td>
 					</tr>
 					<tr>
 						<th scope="row"><label for="name">이름</label></th>
-						<td><input type="text" style="width: 120px" id="name"
-							name="name" value="<sec:authentication property="principal.user.user_id" />"></td>
+						<td><input type="text" style="width: 120px" id="name" name="user_name" value="<sec:authentication property="principal.user.user_id" />">
+						</td>
 					</tr>
 					<tr>
 						<th scope="row"><label for="name">주소</label></th>
-						<td><input type="text" style="width: 350px" id="address"
-							name="user_address" value="<sec:authentication property="principal.user.user_address" />"> <a id="search-address">주소찾기</a> <input
-							type="text" style="width: 300px" id="address_detail" 
-							name="user_address"></td>
+						<td><input type="text" style="width: 350px" id="address" name="user_address" value="<sec:authentication property="principal.user.user_address" />">
+							<a id="search-address">주소찾기</a>
+							<input type="text" style="width: 300px" id="address_detail" name="user_address">
+						</td>
 					</tr>
 					<tr>
 						<th scope="row" class="th_space">이메일 / SMS <br> 수신여부
@@ -134,8 +136,9 @@ window.onload = function(){
 		</div>
 		<div class="btnwrap">
 			<input type="button" value="취소" class="btn wt" id="cancleBtn">
-			<input type="button" value="회원가입" class="btn gray mr0" id="joinBtn">
+			<input type="submit" value="회원가입" class="btn gray mr0" id="joinBtn">
 		</div>
+		</form>
 	</div>
 </div>
 </div>

@@ -23,4 +23,6 @@ public interface UserMapper {
 	public void updatePwd(UserVO vo);
 	
 	public String checkCurPwd(String user_id);
+	
+	public void updateUser(UserVO vo);
 }
