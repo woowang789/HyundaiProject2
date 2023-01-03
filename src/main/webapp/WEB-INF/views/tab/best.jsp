@@ -18,24 +18,23 @@
     </ul>
     <!-- 판매 베스트 -->
     <div class="common-menu">
+      <%
+      String cateId = request.getParameter("cateId");
+      %>
       <ul>
-        <li class="on">
-          <button type="button" data-ref-dispcatno="" title="선택됨">전체</button>
+        <li class="<c:if test="${pageMaker.cri.cateId eq ''}">on</c:if>">
+          <button type="button" data-ref-dispcatno="1000001" data-attr="세일^세일카테고리_핫인기세일^전체">전체</button>
         </li>
         <!-- 그 외 -->
-        <li>
-          <button type="button" data-ref-dispcatno="10000010001">스킨케어</button>
-        </li>
+        <c:forEach var="cate" items="${categ}">
+          <li class="<c:if test="${pageMaker.cri.cateId eq cate.cateId }">on</c:if> ">
+            <button type="button" data-cid="${cate.cateId}" data-attr="">
+              <c:out value="${cate.cateName }" />
+            </button>
+          </li>
+        </c:forEach>
         <!-- 그 외 -->
-        <!-- 카테고리 베스트 반려동물 카테고리의 경우 -->
-        <li>
-          <button id="sub-cat-tab" type="button" data-ref-dispcatno="10000030003">반려동물</button>
-        </li>
         <!-- [3411773] '20년상반기 웹앱접근성 개선필요항목(PC-국문 웹) 빈태그일때 빈박스 삭제 -->
-        <li class="disabled"></li>
-        <!-- 2017-02-02 빈 태그일때 class=disabled 추가 -->
-        <li class="disabled"></li>
-        <!-- 2017-02-02 빈 태그일때 class=disabled 추가 -->
         <li class="disabled"></li>
         <!-- 2017-02-02 빈 태그일때 class=disabled 추가 -->
         <li class="disabled"></li>

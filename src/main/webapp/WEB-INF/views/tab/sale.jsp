@@ -236,6 +236,7 @@
 				$('.common-menu ul li > button').click(
 						function(e) {
 							e.preventDefault();
+							actionForm.find("input[name='pageNum']").val(1);
 							actionForm.find("input[name='cateId']").val(
 									$(this).data("cid"));
 							actionForm.submit();
