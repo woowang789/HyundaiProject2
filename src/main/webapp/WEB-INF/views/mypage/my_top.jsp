@@ -53,6 +53,5 @@
         </li>
         </ul>
       </div>
-      <!-- //마이페이지 SUB 메뉴 -->
-      <!-- //마이페이지 SUB -->
+
       <div class="mypage-conts">

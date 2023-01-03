@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.hyundai.service.OrderService;
+import com.hyundai.service.ReviewService;
 import com.hyundai.service.WishListService;
 import com.hyundai.vo.Criteria;
 import com.hyundai.vo.PageDTO;
 import com.hyundai.vo.ProductOptionDTO;
+import com.hyundai.vo.ReviewDTO;
 import com.hyundai.vo.ShowOrderDTO;
 
 import lombok.RequiredArgsConstructor;
@@ -27,6 +29,7 @@ import lombok.extern.log4j.Log4j;
 public class MypageController {
 	
 	private final OrderService orderService;
+	private final ReviewService reviewService;
 	
 	@GetMapping
 	public String mypage(Criteria cri, Model model) {
@@ -50,14 +53,20 @@ public class MypageController {
 	
 	
 	@GetMapping("/reviews-write")
-	public String myPageReviewWrite() {
+	public String myPageReviewWrite(
+			Principal pricipal ,Model model) {
 		log.info("mypage/reviews-write");
+		List<ReviewDTO> reviews = reviewService.getReviewByUserId(pricipal.getName(), false);
+		model.addAttribute("reviews",reviews );
 		return "mypage/reviews_write";
 	}
 	
 	@GetMapping("/reviews-completion")
-	public String mypageReviewCompletion() {
+	public String mypageReviewCompletion(
+			Principal pricipal ,Model model) {
 		log.info("mypage/reviews-completion");
+		List<ReviewDTO> reviews = reviewService.getReviewByUserId(pricipal.getName(), true);
+		model.addAttribute("reviews",reviews );
 		
 		return "mypage/reviews_list";
 	}

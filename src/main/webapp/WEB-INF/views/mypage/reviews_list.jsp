@@ -31,114 +31,62 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td class="subject">
-            <div class="area">
-              <div class="area">
-                <a class="thum" href="javascript:mypage.gdasList.moveGoodsDetailReview('A000000176104','리뷰_리뷰상품');"
-                  data-attr="리뷰^리뷰상품^상품클릭">
-                  <img src="https://image.oliveyoung.co.kr/uploads/images/goods/10/0000/0017/A00000017610403ko.jpg?l=ko"
-                    alt="[2022어워즈]아누아 어성초 77 토너 어워즈 한정 기획 (500ml+250ml)" onerror="common.errorImg(this);">
-                </a>
-                <div class="textus">
-                  <dl class="data review-data">
-                    <dt>구매일자</dt>
-                    <dd>2022.12.14
-                      <span>매장</span>
-                    </dd>
-                  </dl>
-                  <a class="" href="javascript:mypage.gdasList.moveGoodsDetailReview('A000000176104','리뷰_리뷰상품');"
-                    data-attr="리뷰^리뷰상품^상품클릭">
-                    <span class="tit">아누아</span>
-                    <span class="txt oneline">[2022어워즈]아누아 어성초 77 토너 어워즈 한정 기획 (500ml+250ml)</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </td>
-          <td class="subject">
-            <div class="area">
-              <div class="textus" style="width:90%;">
-                <dl class="data review-data">
-                  <dt>작성일자</dt>
-                  <dd>2022.12.26</dd>
-                </dl>
-                <div class="rating">
-                  <span class="txt">
-                  </span>
-                  <span class="point pt5"></span>
-                </div>
-                <div class="review-flag-wrap">
-                </div>
-                <span class="link " data-gdas-seq="16654086" data-ord-no="12022121413110306100200056"
-                  data-goods-no="A000000176104" data-gdas-tp-cd="20" data-gdas-sct-cd="60"></span>
-                  아주 좋네요~~~ 촉촉하니 ㅇ좋습니당~!!!!ㅇㅇ111
-                </span>
-              </div>
-            </div>
-          </td>
-          <td>
-            <button type="button" class="btn-review--small">리뷰수정</button><br>
-            <br>
-          </td>
-        </tr>
-        <tr>
-          <td class="subject">
-            <div class="area">
-              <div class="area">
-                <a class="thum" href="javascript:mypage.gdasList.moveGoodsDetailReview('A000000129772','리뷰_리뷰상품');"
-                  data-attr="리뷰^리뷰상품^상품클릭">
-                  <img src="https://image.oliveyoung.co.kr/uploads/images/goods/10/0000/0012/A00000012977209ko.jpg?l=ko"
-                    alt="피지오겔 레드수딩 AI 진정보습 로션 100ml" onerror="common.errorImg(this);">
-                </a>
-                <div class="textus">
-                  <dl class="data review-data">
-                    <dt>구매일자</dt>
-                    <dd>2022.12.14
-                      <span>매장</span>
-                    </dd>
-                  </dl>
-                  <a class="" href="javascript:mypage.gdasList.moveGoodsDetailReview('A000000129772','리뷰_리뷰상품');"
-                    data-attr="리뷰^리뷰상품^상품클릭">
-                    <span class="tit">피지오겔</span>
-                    <span class="txt oneline">피지오겔 레드수딩 AI 진정보습 로션 100ml</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </td>
-          <td class="subject">
-            <div class="area">
-              <div class="textus" style="width:90%;">
-                <dl class="data review-data">
-                  <dt>작성일자</dt>
-                  <dd>2022.12.26</dd>
-                </dl>
-                <div class="rating">
-                  <span class="txt">
-                  </span>
-                  <span class="point pt5"></span>
-                </div>
-                <div class="review-flag-wrap">
-                  <span class="review-flag">재구매</span>
-                </div>
-                <span class="link " data-gdas-seq="16649950" data-ord-no="12022121413110306100200056"
-                  data-goods-no="A000000129772" data-gdas-tp-cd="20" data-gdas-sct-cd="60">
-                  아주 좋아요!!!!!!! 여드름이 안나고 좋네용ㅇ굿굿
-                </span>
-              </div>
-            </div>
-          </td>
-          <td>
-            <button type="button" class="btn-review--small">리뷰수정</button><br>
-            <br>
-          </td>
-        </tr>
+        <c:forEach items="${reviews }" var="review">
+	        <tr>
+	          <td class="subject">
+	            <div class="area">
+	              <div class="area">
+	                <a class="thum" href="<c:out value="${review.productId }"/>">
+	                  <img src="<c:out value="${review.productThumb}"/>">
+	                </a>
+	                <div class="textus">
+	                  <dl class="data review-data">
+	                    <dt>구매일자</dt>
+	                    <dd><fmt:formatDate value="${review.orderDate}" pattern="yyyy.MM.dd" />
+	                      <span>매장</span>
+	                    </dd>
+	                  </dl>
+	                  <a class="" href="<c:out value="${review.productId }"/>">
+	                    <span class="tit"><c:out value="${review.brandName }"/></span>
+	                    <span class="txt oneline"><c:out value="${review.productName }"/></span>
+	                  </a>
+	                </div>
+	              </div>
+	            </div>
+	          </td>
+	          <td class="subject">
+	            <div class="area">
+	              <div class="textus" style="width:90%;">
+	                <dl class="data review-data">
+	                  <dt>작성일자</dt>
+	                  <dd><fmt:formatDate value="${review.reivewDate}" pattern="yyyy.MM.dd" /></dd>
+	                </dl>
+	                <div class="rating">
+	                  <span class="txt">
+	                  </span>
+	                  <span class="point pt<c:out value="${reivew.reviewScore}"/>"></span>
+	                </div>
+	                <div class="review-flag-wrap">
+	                </div>
+	                <span class="link " data-gdas-seq="16654086" data-ord-no="12022121413110306100200056"
+	                  data-goods-no="A000000176104" data-gdas-tp-cd="20" data-gdas-sct-cd="60">
+	                  <c:out value="${review.reviewContent}"/>
+	                </span>
+	              </div>
+	            </div>
+	          </td>
+	          <td>
+	            <button type="button" class="btn-review--small">리뷰수정</button><br>
+	            <br>
+	          </td>
+	        </tr>
+        </c:forEach>
       </tbody>
     </table>
   </div>
+  
 </div>
 </div>
 </div>
-</div>
+
 <%@ include file="../includes/footer.jsp"%>

@@ -20,4 +20,6 @@ public interface OrderMapper {
 	public List<ShowOrderDTO> getOrderListByUserId(@Param("userId") String userId, @Param("cri")Criteria cri);
 	
 	public int getOrderListCount(String userId);
+	
+	
 }

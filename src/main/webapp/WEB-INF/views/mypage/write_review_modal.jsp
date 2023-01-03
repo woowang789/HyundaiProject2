@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="write_review_modal.css">
+<link rel="stylesheet" href="/resources/write_review_modal.css">
 <div class="popup-contents rw-form-wrap type-write" id="gdasLayerPop">
   <div class="pop-conts type40">
     <h1 class="ptit">리뷰 작성</h1>

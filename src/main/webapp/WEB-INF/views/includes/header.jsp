@@ -41,8 +41,12 @@
    });
 </script>
 </head>
+<div class="popup-background" 
+style="display:none; background-color:none;width: 100%;height: 100%;z-index: 100;position: absolute;"></div>
 <body>
   <div id="Wrapper">
+  <%@ include file="write_review_modal.jsp"%>
+  <%@ include file="view_review_modal.jsp"%>
     <div id="Header">
       <div class="top_util">
         <ul class="menu_list" id="menu_list_header">
@@ -278,15 +282,6 @@
               <span>세일</span>
             </a>
           </li>
-          <script type="text/javascript">
-                                 $(".gnb_menu_list")
-                                       .click(
-                                             function() {
-                                                localStorage
-                                                      .removeItem("prdSort");
-                                             });
-                              </script>
         </ul>
       </div>
     </div>
-  </div>

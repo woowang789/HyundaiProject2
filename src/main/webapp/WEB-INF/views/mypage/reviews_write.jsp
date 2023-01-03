@@ -39,69 +39,39 @@
         </tr>
       </thead>
       <tbody id="tbGdast">
-        <tr>
-          <td class="subject">
-            <div class="area">
-              <a class="thum" href="javascript:mypage.gdasList.moveGoodsDetailReview('A000000111272','리뷰_리뷰상품');"
-                data-attr="리뷰^리뷰상품^상품클릭">
-                <img src="https://image.oliveyoung.co.kr/uploads/images/goods/10/0000/0011/A00000011127202ko.jpg?l=ko"
-                  alt="닥터텅스 구역질없는 혀클리너(파우치 증정)(색상 랜덤)" onerror="common.errorImg(this);">
-              </a>
-              <div class="textus">
-                <dl class="data review-data">
-                  <dt>구매일자</dt>
-                  <dd>2022.10.26
-                    <span>매장</span>
-                  </dd>
-                </dl>
-                <a class="" href="javascript:mypage.gdasList.moveGoodsDetailReview('A000000111272','리뷰_리뷰상품');"
-                  data-attr="리뷰^리뷰상품^상품클릭">
-                  <span class="tit">닥터텅스</span>
-                  <span class="txt oneline">닥터텅스 구역질없는 혀클리너(파우치 증정)(색상 랜덤)</span>
-                </a>
-              </div>
-            </div>
-          </td>
-          <td class="col777"><strong>~ 2023.01.24</strong></td>
-          <td data-ord-no="12022102613030803100100250" data-goods-no="A000000111272">
-            <button type="button" class="btn-review--small" data-pur-mbr-yn="Y" data-gdas-sct-cd="60" data-gdas-seq=""
-              data-ord-no="12022102613030803100100250" data-goods-no="A000000111272" data-gdas-tp-cd="00"
-              data-item-no="001" data-item-nm=" " data-lgc-goods-no="8809400340257" data-ord-goods-seq=""
-              data-ord-con-yn="" data-thnl-path-nm="10/0000/0011/A00000011127202ko.jpg?l=ko" data-oper-dt="20221026"
-              data-str-no="D383" data-origin-bizpl-cd="D383" data-pos-no="1001" data-receipt-no="00250"
-              data-brnd-nm="닥터텅스" data-prgs-stat-cd="20" data-renew-used1mm-gdas-yn=""
-              onclick="mypage.gdasList.appraisalRegist(this, 'Y');" data-attr="리뷰^작성버튼^리뷰 작성">리뷰 작성</button>
-          </td>
-        </tr>
-        <tr>
-          <td class="subject">
-            <div class="area">
-              <a class="thum" href="javascript:mypage.gdasList.moveGoodsDetailReview('A000000163992','리뷰_리뷰상품');"
-                data-attr="리뷰^리뷰상품^상품클릭">
-                <img src="https://image.oliveyoung.co.kr/uploads/images/goods/10/0000/0016/A00000016399232ko.jpg?l=ko"
-                  alt="아로마티카 바디오일 100ml 리츄얼 기획(괄사증정) 4종 택1" onerror="common.errorImg(this);">
-              </a>
-              <div class="textus">
-                <dl class="data review-data">
-                  <dt>주문일자</dt>
-                  <dd>2022.09.25
+		<c:forEach items="${reviews }" var="review">
+	        <tr>
+	          <td class="subject">
+	            <div class="area">
+	              <a class="thum" href="<c:out value="${review.productId }"/>"
+	                data-attr="리뷰^리뷰상품^상품클릭">
+	                <img src="<c:out value="${review.productThumb }"/>">
+	              </a>
+	              <div class="textus">
+	                <dl class="data review-data">
+	                  <dt>주문일자</dt>
+	                  <dd>
+	                  <fmt:formatDate value="${review.orderDate}" pattern="yyyy.MM.dd" />
+	                  </dd>
+	                </dl>
+	                <a class="" href="<c:out value="${review.productId }"/>">
+	                  <span class="tit"><c:out value="${review.brandName }"/></span>
+	                  <span class="txt oneline"><c:out value="${review.productName }"/></span>
+	                  <p class="txt_option"><em>옵션</em><c:out value="${review.optionName}"/></p>
+	                </a>
+	              </div>
+	            </div>
+	          </td>
+	          <td class="col777"><strong>~ 2022.12.30</strong></td>
+	          <td 
+	          	data-goods-no="<c:out value="${review.productId }"/>"
+	          	data-option-no="<c:out value="${review.optionId }"/>"
+	          >
+	            <button type="button" class="btn-review--small">리뷰 작성</button>
+	          </td>
+	        </tr>
+		</c:forEach>
 
-                  </dd>
-                </dl>
-                <a class="" href="javascript:mypage.gdasList.moveGoodsDetailReview('A000000163992','리뷰_리뷰상품');"
-                  data-attr="리뷰^리뷰상품^상품클릭">
-                  <span class="tit">아로마티카</span>
-                  <span class="txt oneline">아로마티카 바디오일 100ml 리츄얼 기획(괄사증정) 4종 택1</span>
-                  <p class="txt_option"><em>옵션</em>서렌 바디오일 기획</p>
-                </a>
-              </div>
-            </div>
-          </td>
-          <td class="col777"><strong>~ 2022.12.30</strong></td>
-          <td data-ord-no="Y2209253287246" data-goods-no="A000000163992">
-            <button type="button" class="btn-review--small">리뷰 작성</button>
-          </td>
-        </tr>
       </tbody>
     </table>
     
@@ -109,4 +79,23 @@
   </div>
   </div>
   </div>
+
+<script type="text/javascript" src="/resources/js/productService.js" defer> </script>
+<script type="text/javascript" src="/resources/js/review.js" defer> </script>
+<script type="text/javascript">
+	$(document).ready(function(){
+// 		console.log(writeBase);
+		$('.btn-review--small').click(function(){
+			let td = $(this).closest('td');
+			let prodId = td.data('goods-no');
+			let optId = td.data('option-no')
+			productService.get({
+				productId : prodId, optionId: optId 
+			},function(data){
+				console.log(data);
+			})
+			
+		})
+	})
+</script>
 <%@ include file="../includes/footer.jsp"%>
