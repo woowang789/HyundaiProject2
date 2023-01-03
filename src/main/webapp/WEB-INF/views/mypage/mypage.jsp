@@ -24,7 +24,7 @@
 <script src="/resources/js/wishList.js" defer></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-		const userId = 'user1@email.com';
+		const userId = "<sec:authentication property="principal.user.user_id"/>";
 		let pageNum = 1;
 		const wishUL = $('.cate_prd_list');
 		const pageingUL = $('.pageing');
@@ -96,7 +96,6 @@
 			    		prodId:$(this).data('ref-goodsno')
 			    		},function(data){
 			    			console.log("result : ",data);
-			    			
 			    			showList(pageNum);
 			    		})
 			    })

@@ -22,20 +22,17 @@
 		<div class="order_end_box">
 			<!-- 2017-01-20 수정 : div 추가 -->
 
-
-
-
-
 			<!-- 무통장 입금 결제 시 -->
 			<div class="order_title">
 				<p>
 					주문접수가 <span>완료</span>되었습니다.
 				</p>
 				<p class="tx_sub_cont">입금이 완료되면 주문이 정상적으로 처리됩니다.</p>
-				<span class="tx_order_info">주문번호 : <strong class="tx_num">Y2212270336103</strong></span>
+				<span class="tx_order_info">주문번호 : 
+					<strong class="tx_num"><c:out value="${order.orderId}"/></strong>
+				</span>
 			</div>
 			<!--// 무통장 입금 결제 시 -->
-
 
 
 			<div class="inner_box">
@@ -61,11 +58,11 @@
 						<tr>
 							<th scope="row">총상품금액</th>
 							<!-- 2017-01-20 수정 : 총상품금액, 총배송비, 총 할인금액 추가 -->
-							<td><span class="tx_num">161,540</span>원</td>
+							<td><span class="tx_num"><fmt:formatNumber value="${order.totalPrice }" pattern="#,###" /></span>원</td>
 						</tr>
 						<tr>
 							<th scope="row">총할인금액</th>
-							<td><span class="tx_price">-<span class="tx_num">4,000</span>원
+							<td><span class="tx_price">-<span class="tx_num">0</span>원
 							</span></td>
 						</tr>
 						<tr>
@@ -93,23 +90,7 @@
 						<!-- 2017-01-20 수정 : 최종 결제금액 영역 추가  -->
 						<tr class="last_tot_price">
 							<th scope="row">최종 결제금액</th>
-							<td><span class="tx_price"><span class="tx_num">157,540</span>원</span>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+							<td><span class="tx_price"><span class="tx_num"><fmt:formatNumber value="${order.totalPrice }" pattern="#,###"/></span>원</span>
 							</td>
 						</tr>
 						<!--// 2017-01-20 수정 : 최종 결제금액 영역 추가 -->
@@ -117,8 +98,6 @@
 				</table>
 				<!--// 결제정보 -->
 			</div>
-
-
 			<div class="inner_box">
 
 				<!-- 배송정보 -->
@@ -136,51 +115,29 @@
 
 						<tr>
 							<th scope="row">받는분</th>
-							<td>소규석</td>
+							<td><c:out value="${order.receiverName}"/></td>
 						</tr>
 						<tr>
 							<th scope="row">연락처1</th>
-							<td>010-9559-2602</td>
+							<td><c:out value="${order.receiverTel}"/></td>
 						</tr>
 
 						<tr>
 							<th scope="row">주소</th>
 							<td>
-								<p>도로명 주소 : 경기 하남시 하남대로802번길 55 (신장동, 에코타운) 203동 1502호</p>
-								<p class="colorGrey">지번주소 : 경기 하남시 신장동 561 203동 1502호</p>
+								<p>도로명 주소 : <c:out value="${order.receiverAddrRoad}"/></p>
+								<p class="colorGrey">지번주소 : <c:out value="${order.receiverAddrJibun}"/></p>
 							</td>
 						</tr>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 					</tbody>
 				</table>
-				<!--// 배송정보 -->
-
-
 			</div>
-
-
-
 			<ul class="info_dot_list type2 mgT20 mgL100">
 				<!--  2019-12-13 class 변경 -->
 				<li>주문취소는 [결제완료] 상태까지 가능합니다. [배송준비중], [배송중]에는 상품 수령 후 반품요청
 					부탁드립니다.</li>
 				<!--  2019-12-13 취소문구 추가 -->
 			</ul>
-
-
 			<div class="order_btn_area">
 				<button class="btnGreenW"
 					onclick="location.href='/home'">쇼핑계속</button>
@@ -199,17 +156,6 @@
 					<p class="txt">고객님을 위한 상품 추천중이에요</p>
 				</div>
 				<div id="goods_curation_a008">
-
-
-
-
-
-
-
-
-
-
-
 					<h4 class="tit_h4">
 						<span id="recomm_title_a008">최근 본 상품</span>
 						<button class="moreBtn" id="crt_more_a008">
@@ -223,7 +169,6 @@
 							<button type="button" data-role="none"
 								class="slick-prev slick-arrow" aria-label="Previous"
 								role="button" style="display: block;">Previous</button>
-
 
 							<div aria-live="polite" class="slick-list draggable">
 								<div class="slick-track"
@@ -1173,88 +1118,6 @@
 									</li>
 								</div>
 							</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 							<button type="button" data-role="none"
 								class="slick-next slick-arrow" aria-label="Next" role="button"
 								style="display: block;">Next</button>
@@ -1277,78 +1140,10 @@
 					</div>
 
 					<input type="hidden" id="recoGoodsYn" value="Y">
-					<script type="text/javascript">
-	$(function() {
-		common.wish.init();
-
-		gtm.goods.initProductImpression();
-	});
-
-	$('.gtm_sale_lk_list .thum img').each(function(i){
-		var _item = $(this);
-		var _name = $(this).attr('alt');
-		var _data_goodsno = $(this).parent().attr('data-ref-goodsno');
-
-		_item.attr('data-attr',"세일^주목할만한상품^"+_name+"^"+(i+1));
-		_item.attr('onclick','javascript: gtm.goods.callGoodsGtmInfo("'+_data_goodsno+'", "", "ee-productClick", "세일_주목할만한상품", "'+(i+1)+'");');
-
-
-	});
-	//오특 플래그
-	common.gnb.todaySpecial.setTodaySpecialFlag('.thum .newOyflag');
-</script>
-
-
 				</div>
 			</div>
-
-
-
-
-
-
-
 		</div>
 	</div>
 	<!-- //#Contents -->
 </div>
-
-<!-- Code injected by live-server -->
-<script>
-	// <![CDATA[  <-- For SVG support
-	if ('WebSocket' in window) {
-		(function () {
-			function refreshCSS() {
-				var sheets = [].slice.call(document.getElementsByTagName("link"));
-				var head = document.getElementsByTagName("head")[0];
-				for (var i = 0; i < sheets.length; ++i) {
-					var elem = sheets[i];
-					var parent = elem.parentElement || head;
-					parent.removeChild(elem);
-					var rel = elem.rel;
-					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
-						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
-						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
-					}
-					parent.appendChild(elem);
-				}
-			}
-			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
-			var address = protocol + window.location.host + window.location.pathname + '/ws';
-			var socket = new WebSocket(address);
-			socket.onmessage = function (msg) {
-				if (msg.data == 'reload') window.location.reload();
-				else if (msg.data == 'refreshcss') refreshCSS();
-			};
-			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
-				console.log('Live reload enabled.');
-				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
-			}
-		})();
-	}
-	else {
-		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
-	}
-	// ]]>
-</script>
 <%@ include file="../includes/footer.jsp"%>

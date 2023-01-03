@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- SQL Mapping -->
+<mapper namespace="com.hyundai.mapper.BestMapper">
+
+	<select id="getBestList"
+		resultType="com.hyundai.vo.ProductOptionDTO">
+	<![CDATA[
+      select
+             p.product_id id, 
+             p.product_name name, 
+             p.product_thumb thumb, 
+             p.product_date pDate,
+             o.option_id oId,
+             o.option_stock stock, 
+             o.option_origin_price originPrice, 
+             o.option_market_price marketPrice,
+             b.brand_id bId,
+             b.brand_name brandName,
+             w.wish_date wDate,
+             nvl2(wish_date, 'y', 'n') wished,
+                c.category_id cId,
+                c.category_name cName
+         from product p
+         inner join options o on (p.product_id = o.product_id and 
+                     o.option_id = concat(p.product_id,'001') )
+         left join wish_list w on (w.product_id = p.product_id and w.user_id = #{userId})
+         inner join brand b on (p.brand_id = b.brand_id)
+            join categories c on p.category_id=c.category_id
+            where c.category_id like #{cri.cateId}||'%' 	
+         order by (p.product_date) ,p.product_id
+            
+            OFFSET (#{cri.pageNum}-1)*#{cri.amount} ROWS FETCH NEXT #{cri.amount} rows only
+	]]>
+	</select>
+
+
+	<select id="getCate" resultType="com.hyundai.vo.CategoryDTO">
+	<![CDATA[
+		select category_name cateName, category_id cateId,category_pid catePid
+		from categories where category_pid is null
+	]]>
+	</select>
+
+</mapper>
