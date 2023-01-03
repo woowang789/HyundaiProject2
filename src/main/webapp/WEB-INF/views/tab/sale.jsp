@@ -16,13 +16,16 @@
       </li>
     </ul>
     <div class="common-menu">
+      <%
+      String cateId = request.getParameter("cateId");
+      %>
       <ul>
-        <li class="on">
+        <li class="<c:if test="${pageMaker.cri.cateId eq ''}">on</c:if>">
           <button type="button" data-ref-dispcatno="1000001" data-attr="세일^세일카테고리_핫인기세일^전체">전체</button>
         </li>
         <!-- 그 외 -->
         <c:forEach var="cate" items="${categ}">
-          <li>
+          <li class="<c:if test="${pageMaker.cri.cateId eq cate.cateId }">on</c:if> ">
             <button type="button" data-cid="${cate.cateId}" data-attr="">
               <c:out value="${cate.cateName }" />
             </button>
@@ -41,25 +44,25 @@
     <!-- 서브카테고리 상단 안내화면 -->
     <!-- //서브카테고리 상단 안내화면 -->
     <script type="text/javascript">
-               $(document).ready(function() {
-                  $(".guideBtn").mouseover(function() {
-                     $(".guidePopup").show();
-                  });
-                  $(".guideBtn").mouseout(function() {
-                     if ($('.guidePopup:hover').length <= 0) {
-                        $(".guidePopup").hide();
-                     }
-                  });
-                  $(".guidePopup").mouseover(function() {
-                     $(".guidePopup").show();
-                  });
-                  $(".guidePopup").mouseout(function() {
-                     if ($('.guideBtn:hover').length <= 0) {
-                        $(".guidePopup").hide();
-                     }
-                  });
-               });
-            </script>
+					$(document).ready(function() {
+						$(".guideBtn").mouseover(function() {
+							$(".guidePopup").show();
+						});
+						$(".guideBtn").mouseout(function() {
+							if ($('.guidePopup:hover').length <= 0) {
+								$(".guidePopup").hide();
+							}
+						});
+						$(".guidePopup").mouseover(function() {
+							$(".guidePopup").show();
+						});
+						$(".guidePopup").mouseout(function() {
+							if ($('.guideBtn:hover').length <= 0) {
+								$(".guidePopup").hide();
+							}
+						});
+					});
+				</script>
     <div class="TabsConts on">
       <p class="cate_info_tx"></p>
       <div class="cate_align_box">
@@ -204,59 +207,59 @@
   </div>
 </div>
 <script type="text/javascript">
-   $(document).ready(
-         function() {
-            const actionForm = $('#actionForm');
-            $('.pageing a').click(
-                  function(e) {
-                     e.preventDefault();
-                     actionForm.find("input[name='pageNum']").val(
-                           $(this).attr("href"));
-                     actionForm.submit();
-                  })
+	$(document).ready(
+			function() {
+				const actionForm = $('#actionForm');
+				$('.pageing a').click(
+						function(e) {
+							e.preventDefault();
+							actionForm.find("input[name='pageNum']").val(
+									$(this).attr("href"));
+							actionForm.submit();
+						})
 
-            $('.count_sort>ul>li>a').click(
-                  function(e) {
-                     e.preventDefault();
-                     actionForm.find("input[name='amount']").val(
-                           $(this).attr("data-value"));
-                     actionForm.submit();
-                  })
-            $('.align_sort>ul>li>a').click(
-                  function(e) {
-                     e.preventDefault();
-                     actionForm.find("input[name='sort']").val(
-                           $(this).data("prdsoting"));
-                     actionForm.submit();
+				$('.count_sort>ul>li>a').click(
+						function(e) {
+							e.preventDefault();
+							actionForm.find("input[name='amount']").val(
+									$(this).attr("data-value"));
+							actionForm.submit();
+						})
+				$('.align_sort>ul>li>a').click(
+						function(e) {
+							e.preventDefault();
+							actionForm.find("input[name='sort']").val(
+									$(this).data("prdsoting"));
+							actionForm.submit();
 
-                  })
-            $('.common-menu ul li > button').click(
-                  function(e) {
-                     e.preventDefault();
-                     actionForm.find("input[name='cateId']").val(
-                           $(this).data("cid"));
-                     actionForm.submit();
+						})
+				$('.common-menu ul li > button').click(
+						function(e) {
+							e.preventDefault();
+							actionForm.find("input[name='cateId']").val(
+									$(this).data("cid"));
+							actionForm.submit();
 
-                  })
-            $('.btn_list').click(function(e) {
-               if ($(this).hasClass('active')) {
-               } else {
+						})
+				$('.btn_list').click(function(e) {
+					if ($(this).hasClass('active')) {
+					} else {
 
-                  $(".btn_thumb").removeClass('active')
-                  $(this).addClass('active')
+						$(".btn_thumb").removeClass('active')
+						$(this).addClass('active')
 
-                  $(".gtm_sale_list").addClass('list_type')
-               }
-            })
-            $('.btn_thumb').click(function(e) {
-               if ($(this).hasClass('active')) {
-               } else {
-                  $(".btn_list").removeClass('active')
-                  $(this).addClass('active')
-                  $(".gtm_sale_list").removeClass('list_type')
-               }
-            })
+						$(".gtm_sale_list").addClass('list_type')
+					}
+				})
+				$('.btn_thumb').click(function(e) {
+					if ($(this).hasClass('active')) {
+					} else {
+						$(".btn_list").removeClass('active')
+						$(this).addClass('active')
+						$(".gtm_sale_list").removeClass('list_type')
+					}
+				})
 
-         })
+			})
 </script>
 <%@ include file="../includes/footer.jsp"%>
