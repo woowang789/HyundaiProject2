@@ -20,25 +20,25 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
 <script>
-	$(document).ready(function() {
-		//카테고리 레이어 열기/닫기
-		$("#btnGnbOpen").click(function(e) {
-			e.preventDefault();
-			if ($(this).hasClass("active")) {
-				$(this).removeClass("active");
-				$(".layer_all_menu").removeClass("active");
-			} else {
-				$(this).addClass("active");
-				$(".layer_all_menu").addClass("active");
-			}
-		});
-		$("#btnGnbClose").click(function(e) {
-			e.preventDefault();
-			$(this).removeClass("active");
-			$(".layer_all_menu").removeClass("active");
-		});
+   $(document).ready(function() {
+      //카테고리 레이어 열기/닫기
+      $("#btnGnbOpen").click(function(e) {
+         e.preventDefault();
+         if ($(this).hasClass("active")) {
+            $(this).removeClass("active");
+            $(".layer_all_menu").removeClass("active");
+         } else {
+            $(this).addClass("active");
+            $(".layer_all_menu").addClass("active");
+         }
+      });
+      $("#btnGnbClose").click(function(e) {
+         e.preventDefault();
+         $(this).removeClass("active");
+         $(".layer_all_menu").removeClass("active");
+      });
 
-	});
+   });
 </script>
 </head>
 <body>
@@ -279,13 +279,13 @@
             </a>
           </li>
           <script type="text/javascript">
-											$(".gnb_menu_list")
-													.click(
-															function() {
-																localStorage
-																		.removeItem("prdSort");
-															});
-										</script>
+                                 $(".gnb_menu_list")
+                                       .click(
+                                             function() {
+                                                localStorage
+                                                      .removeItem("prdSort");
+                                             });
+                              </script>
         </ul>
       </div>
     </div>
