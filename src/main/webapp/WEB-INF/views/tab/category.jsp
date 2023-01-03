@@ -3,51 +3,27 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="../includes/header.jsp"%>
 <div id=" Container">
-
-
 	<div id="Contents">
-
-
 		<div class="titBox">
 			<h1>
 				<c:out value="${p_categ[0].catePname}" />
 			</h1>
 		</div>
-
-
-
 		<ul class="cate_list_box">
-
-
-			<li class="<c:if test="${p_categ[0].catePid eq pageMaker.cri.cateId}" >on</c:if>"><a href="javascript:;"
-				data-cid="<c:out value="${p_categ[0].catePid}"/>">전체</a></li>
-
+			<li class="<c:if test="${p_categ[0].catePid eq pageMaker.cri.cateId}" >
+			<c:set var="title" value="${p_categ[0].catePname}" />on</c:if>">
+			<a href="javascript:;" data-cid="<c:out value="${p_categ[0].catePid}"/>">전체</a></li>
 			<c:forEach var="item" items="${p_categ}">
-				<li class="<c:if test="${item.cateId eq pageMaker.cri.cateId}" >on</c:if>"><a href="javascript:;"
+				<li class="<c:if test="${item.cateId eq pageMaker.cri.cateId}" ><c:set var="title" value="${item.cateName}" />on</c:if>"><a href="javascript:;"
 					data-cid="<c:out value="${item.cateId}"/>"><c:out
 							value="${item.cateName}" /></a></li>
-
 			</c:forEach>
-
-
-
-
-
-
-
 		</ul>
-
-
-		<p class="cate_info_tx"></p>
-
-		<!-- 2020.12.01 기획전 개선 -->
-
-		<!-- //2020.12.01 기획전 개선 -->
-
-
-
-
-
+		<p class="cate_info_tx">
+			${title } 카테고리에
+			<span> ${pageMaker.total}  </span>
+			개의 상품이 등록되어 있습니다.
+		</p>
 		<div class="cate_align_box">
 			<div class="align_sort">
 				<ul>
@@ -79,20 +55,7 @@
 					보기</button>
 				<button class="btn_list" data-view-cnt="1">리스트형식으로 보기</button>
 			</div>
-
-
 		</div>
-
-
-
-
-
-
-
-
-
-
-
 		<ul class="cate_prd_list gtm_cate_list">
 			<c:forEach var="ctgy" items="${categories}" varStatus="status">
 
@@ -157,14 +120,12 @@
 
 		</ul>
 	</div>
-
-
 	<form id="actionForm" action="/category" method="get">
 		<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }" />
 		<input type="hidden" name="amount" value="${pageMaker.cri.amount }" />
-		<input type="hidden" name="sort" value="${pageMaker.cri.sort }" /> <input
-			type="hidden" name="catePid" value="${pageMaker.cri.catePid }" /> <input
-			type="hidden" name="cateId" value="${pageMaker.cri.cateId }" />
+		<input type="hidden" name="sort" value="${pageMaker.cri.sort }" /> 
+		<input type="hidden" name="catePid" value="${pageMaker.cri.catePid }" />
+	    <input type="hidden" name="cateId" value="${pageMaker.cri.cateId }" />
 	</form>
 	<div class="pageing">
 		<c:if test="${pageMaker.prev }">
@@ -184,9 +145,6 @@
 		</c:if>
 	</div>
 </div>
-
-
-
 <script type="text/javascript">
 	$(document).ready(
 			function() {
