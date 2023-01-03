@@ -55,9 +55,10 @@
 		FROM product p
 		JOIN options o
 		ON ( p.product_id = o.product_id )
-		WHERE o.option_origin_price != o.option_market_price
+		WHERE o.option_origin_price != o.option_market_price and p.category_id like #{cateId}||'%' 
 	]]>
 	</select>
+
 	<select id="getCate" resultType="com.hyundai.vo.CategoryDTO">
 	<![CDATA[
 		select category_name cateName, category_id cateId,category_pid catePid

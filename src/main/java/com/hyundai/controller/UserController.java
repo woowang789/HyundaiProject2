@@ -1,8 +1,5 @@
 package com.hyundai.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -23,38 +20,38 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 @AllArgsConstructor
 public class UserController {
-	
+
 	private UserService service;
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login() {
 		log.info("login");
-		
+
 		return "member/login";
 	}
-	
-	@RequestMapping(value="/join", method=RequestMethod.GET)
-	public String join(){
+
+	@RequestMapping(value = "/join", method = RequestMethod.GET)
+	public String join() {
 		log.info("join");
-		
+
 		return "member/join";
 	}
-	
-	@RequestMapping(value="/completion-join", method=RequestMethod.GET)
-	public String completionJoin(){
+
+	@RequestMapping(value = "/completion-join", method = RequestMethod.GET)
+	public String completionJoin() {
 		log.info("/completion-join");
-		
+
 		return "member/completion_join";
 	}
-	
-	@RequestMapping(value="/join", method=RequestMethod.POST)
+
+	@RequestMapping(value = "/join", method = RequestMethod.POST)
 	public String register(UserVO user) throws Exception {
-		
+
 		service.register(user);
-		
+
 		return "member/completion_join";
 	}
-	
+
 	@PostMapping("/join/check-id")
 	@ResponseBody
 	public int idCheck(@RequestParam("id") String id) {
@@ -62,8 +59,8 @@ public class UserController {
 		int result = service.idCheck(id);
 		return result;
 	}
-	
-	@RequestMapping(value="/login", method=RequestMethod.POST)
+
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String loginComplete() {
 		log.info("로그인 성공");
 		return "home";
