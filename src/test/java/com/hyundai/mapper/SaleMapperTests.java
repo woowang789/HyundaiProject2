@@ -30,7 +30,7 @@ public class SaleMapperTests {
 	
 	@Test
 	public void getCount() {
-		int result = saleMapper.getCount();
+		int result = saleMapper.getCount(null);
 		log.info(result);
 	}
 
