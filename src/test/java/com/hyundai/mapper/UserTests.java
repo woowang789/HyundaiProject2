@@ -81,4 +81,11 @@ public class UserTests {
 		log.info("비밀번호 변경");
 		log.info(user.getUser_pwd());
 	}
+	
+	@Test
+	public void curPwd() {
+		String id = "user1@email.com";
+		String pwd = mapper.checkCurPwd(id);
+		log.info(pwd);
+	}
 }

@@ -60,4 +60,5 @@ public class UserServiceImpl implements UserService {
 		vo.setUser_pwd(pwdencoder.encode(vo.getUser_pwd()));
 		mapper.updatePwd(vo);
 	}
+	
 }

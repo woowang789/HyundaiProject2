@@ -60,5 +60,10 @@
 		update users set user_password = #{user_pwd}
 		where user_id = #{user_id}
 	</update>
+	
+	<select id="checkCurPwd" resultType="String">
+		select user_password from users 
+		where user_id = #{user_id}
+	</select>
 
 </mapper>
