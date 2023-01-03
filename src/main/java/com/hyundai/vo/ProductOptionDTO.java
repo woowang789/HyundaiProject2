@@ -26,5 +26,4 @@ public class ProductOptionDTO {
    private boolean wished;
    private Date wDate;
 
-   // isSaled??
 }
