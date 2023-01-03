@@ -199,7 +199,7 @@ window.onload = function(){
                 </th>
                 <td>
                   <input type="text" style="width: 350px" id="address" name="user_address">
-                  <a style="cusor:pointer" id="search-address">주소찾기</a>
+                  <a id="search-address">주소찾기</a>
                   <input type="text" style="width: 300px" id="address_detail" name="user_address">                  
                 </td>
               </tr>

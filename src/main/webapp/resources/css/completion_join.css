@@ -1,15 +1,3 @@
-a, address, blockquote, body, dd, div, dl, dt, em, fieldset, form, h1, h2, h3, h4, h5, h6, img, input, label, li, ol, p, pre, select, span, strong, textarea, ul {
-  margin: 0;
-  padding: 0;
-  border: 0;
-}
-#Container, #Footer, #Header, #Wrapper {
-  width: 100%;
-  min-width: 1020px;
-}
-#Container {
-  overflow: hidden;
-}
 #Container.bgf6 {
   background-color: #f6f6f6;
 }
