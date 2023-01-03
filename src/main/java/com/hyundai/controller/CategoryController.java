@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hyundai.mapper.CategoryMapper;
+import com.hyundai.vo.CategoryDTO;
 import com.hyundai.vo.Criteria;
 import com.hyundai.vo.PageDTO;
 import com.hyundai.vo.ProductOptionDTO;
@@ -35,21 +36,23 @@ public class CategoryController {
 //		cri.setCateId("100000100010008");
 
 
-		model.addAttribute("categ",mapper.getCate(cri));
+
 		model.addAttribute("p_categ",mapper.getPCate(cri));
 		int total =mapper.getTotalCount(cri);
 		model.addAttribute("categories", mapper.getCategoryWithPaging(cri,userId));
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
+		
+		log.info("after"+cri);
 
 		return "tab/category";
 	}
 	
-//	@ResponseBody
-//	@RequestMapping(value="/category2", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-//	public List<ProductOptionDTO> category2( Model model) {
-//		log.info("/cccc: ");
-//		
-//		return mapper.getCategory();
-//	}
+	@ResponseBody
+	@RequestMapping(value="/category2", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<CategoryDTO> category2(Criteria cri, Model model) {
+		log.info("/cccc: ");
+		
+		return mapper.getPCate(cri);
+	}
 
 }

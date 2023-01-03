@@ -9,7 +9,9 @@
 
 
 		<div class="titBox">
-			<h1>토너/로션/올인원</h1>
+			<h1>
+				<c:out value="${p_categ[0].catePname}" />
+			</h1>
 		</div>
 
 
@@ -17,16 +19,17 @@
 		<ul class="cate_list_box">
 
 
-
+			<li class="<c:if test="${p_categ[0].catePid eq pageMaker.cri.cateId}" >on</c:if>"><a href="javascript:;"
+				data-cid="<c:out value="${p_categ[0].catePid}"/>">전체</a></li>
 
 			<c:forEach var="item" items="${p_categ}">
-				<li><a href="javascript:;"
-					data-cid="<c:out value="${item.catePid}"/>"><c:out
+				<li class="<c:if test="${item.cateId eq pageMaker.cri.cateId}" >on</c:if>"><a href="javascript:;"
+					data-cid="<c:out value="${item.cateId}"/>"><c:out
 							value="${item.cateName}" /></a></li>
 
 			</c:forEach>
 
-			<li>&nbsp;</li>
+
 
 
 
@@ -35,7 +38,7 @@
 		</ul>
 
 
-
+		<p class="cate_info_tx"></p>
 
 		<!-- 2020.12.01 기획전 개선 -->
 
@@ -139,7 +142,7 @@
 								<span class="icon_flag sale">세일</span>
 							</c:if>
 							<c:if test="${ctgy.originPrice eq ctgy.marketPrice}">
-								<span style="height: 31px"></span>
+								<span style="height: 20.65px"></span>
 							</c:if>
 						</p>
 						<p class="prd_btn_area">
@@ -161,7 +164,7 @@
 		<input type="hidden" name="amount" value="${pageMaker.cri.amount }" />
 		<input type="hidden" name="sort" value="${pageMaker.cri.sort }" /> <input
 			type="hidden" name="catePid" value="${pageMaker.cri.catePid }" /> <input
-			type="hidden" name="cateId" value="${p_categ.cri.cateId }" />
+			type="hidden" name="cateId" value="${pageMaker.cri.cateId }" />
 	</form>
 	<div class="pageing">
 		<c:if test="${pageMaker.prev }">
@@ -180,10 +183,11 @@
 			<a class="next" href="${pageMaker.endPage+1 }">다음 10 페이지</a>
 		</c:if>
 	</div>
+</div>
 
 
 
-	<script type="text/javascript">
+<script type="text/javascript">
 	$(document).ready(
 			function() {
 				const actionForm = $('#actionForm');
@@ -230,12 +234,15 @@
 					e.preventDefault();
 					actionForm.find("input[name='cateId']").val(
 							$(this).data("cid"));
+					actionForm.find("input[name='pageNum']").val(1);
+					
 					actionForm.submit();
 
 				})
+
 			})
 </script>
 
 
 
-	<%@ include file="../includes/footer.jsp"%>
+<%@ include file="../includes/footer.jsp"%>
