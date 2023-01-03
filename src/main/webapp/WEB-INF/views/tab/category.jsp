@@ -21,7 +21,7 @@
 
 			<c:forEach var="item" items="${p_categ}">
 				<li><a href="javascript:;"
-					data-cid="<c:out value="${item.cateId}"/>"><c:out
+					data-cid="<c:out value="${item.catePid}"/>"><c:out
 							value="${item.cateName}" /></a></li>
 
 			</c:forEach>

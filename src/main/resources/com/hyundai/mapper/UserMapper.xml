@@ -33,11 +33,6 @@
 		select count(*) from users where user_id = #{user_id}
 	</select>
 	
-	<select id="loginCheck" resultType="String">
-		select user_name
-		from users where user_id=#{user_id} and user_password=#{user_pwd}
-	</select>
-	
 	<select id="read" resultMap="memberMap">
 		select  u.user_id, u.user_password user_pwd, u.user_name, u.user_address, u.user_tel, u.user_birth, auth.authority
 		from users u left outer join authorities auth 
@@ -50,5 +45,20 @@
 		from users
 		where user_id = #{user_id}
 	</select>
+	
+	<select id="searchId" resultType="com.hyundai.vo.UserVO">	
+		select * from users
+		where user_tel = #{user_tel} and user_name=#{user_name} and user_birth=#{user_birth}
+	</select>
+	
+	<select id="searchPwd" resultType="int">
+		select count(*) from users
+		where user_id = #{user_id} and user_birth=#{user_birth} and user_tel=#{user_tel}
+	</select>
+	
+	<update id="updatePwd">
+		update users set user_password = #{user_pwd}
+		where user_id = #{user_id}
+	</update>
 
 </mapper>
