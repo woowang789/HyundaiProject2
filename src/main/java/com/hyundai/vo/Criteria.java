@@ -16,6 +16,7 @@ public class Criteria {
    private String keyword;
 
    private String cateId;
+   private String catePid;
    private String sort;
 
    public Criteria() {

@@ -32,10 +32,11 @@ public class CategoryController {
 		if(cri.getAmount()==10) {
 			cri.setAmount(24);
 		}
-		
+//		cri.setCateId("100000100010008");
 
 
 		model.addAttribute("categ",mapper.getCate(cri));
+		model.addAttribute("p_categ",mapper.getPCate(cri));
 		int total =mapper.getTotalCount(cri);
 		model.addAttribute("categories", mapper.getCategoryWithPaging(cri,userId));
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
