@@ -209,10 +209,18 @@
 	</div>
 
 
-
+<script src="/resources/js/wishList.js" defer></script>
 	<script type="text/javascript">
 	$(document).ready(
 			function() {
+				const userId =  
+					<sec:authorize access="isAuthenticated()">
+						"<sec:authentication property="principal.user.user_id"/>";
+					</sec:authorize>
+					<sec:authorize access="isAnonymous()">
+						""
+					</sec:authorize>
+					
 				const actionForm = $('#actionForm');
 				$('.pageing a').click(
 						function(e) {
@@ -252,6 +260,18 @@
 							$(this).attr("data-prdsoting"));
 					actionForm.submit();
 
+				})
+				$('.btn_zzim').click(function(e){
+					e.preventDefault();
+					
+			    	wishService.toggleWish({
+			    		userId: userId, 
+			    		prodId:$(this).data('ref-goodsno')
+			    		},function(data){
+			    			console.log("result : ",data);
+							$(this).css('on');
+			    		})
+					
 				})
 			})
 </script>
