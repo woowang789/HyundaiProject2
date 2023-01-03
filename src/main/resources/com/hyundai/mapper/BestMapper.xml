@@ -29,7 +29,7 @@
          left join wish_list w on (w.product_id = p.product_id and w.user_id = #{userId})
          inner join brand b on (p.brand_id = b.brand_id)
             join categories c on p.category_id=c.category_id
-            where o.option_origin_price != o.option_market_price and c.category_id like #{cri.cateId}||'%' 	
+            where c.category_id like #{cri.cateId}||'%' 	
          order by (p.product_date) ,p.product_id
             
             OFFSET (#{cri.pageNum}-1)*#{cri.amount} ROWS FETCH NEXT #{cri.amount} rows only
