@@ -4,67 +4,13 @@
 <%@ include file="../includes/header.jsp"%>
 <div id="Contents">
   <form name="search" id="search" action="/store/search/getSearchMain.do" method="get" onsubmit="return false;">
-    <input type="hidden" name="startCount" value="0">
-    <input type="hidden" name="sort" value="RNK/DESC">
-    <input type="hidden" name="goods_sort" id="goods_sort" value="WEIGHT/DESC,RNK/DESC">
-    <input type="hidden" name="collection" value="ALL">
-    <input type="hidden" name="realQuery" id="realQuery" value="핸드크림">
-    <input type="hidden" name="reQuery" id="reQuery" value="">
-    <input type="hidden" name="viewtype" value="image">
-    <input type="hidden" name="category" value="">
-    <input type="hidden" name="catename" value="LCTG_ID">
-    <input type="hidden" name="catedepth" value="1">
-    <input type="hidden" name="rt" value="">
-    <input type="hidden" name="setMinPrice" value="">
-    <input type="hidden" name="setMaxPrice" value="">
-    <input type="hidden" name="listnum" id="listnum" value="24">
-    <input type="hidden" name="tmp_requery" value="">
-    <input type="hidden" name="tmp_requery2" id="tmp_requery2" value="">
-    <input type="hidden" name="categoryDepthValue" value="">
-    <input type="hidden" name="cateId" value="">
-    <input type="hidden" name="cateId2" value="">
-    <input type="hidden" name="BenefitAll_CHECK" value="">
-    <input type="hidden" name="query" id="query" value="핸드크림">
-    <input type="hidden" name="selectCateNm" id="selectCateNm" value="전체">
-    <input type="hidden" name="firstTotalCount" id="firstTotalCount" value="327">
-    <input type="hidden" name="typeChk" id="typeChk" value="thum">
-    <input type="hidden" name="branChk" id="branChk" value="">
-    <input type="hidden" name="brandTop" id="brandTop" value="">
-    <input type="hidden" name="attrChk" id="attrChk" value="">
-    <input type="hidden" name="attrTop" id="attrTop" value="">
-    <input type="hidden" name="onlyOneBrand" id="onlyOneBrand" value="">
-    <input type="hidden" name="quickYn" id="quickYn" value="N">
-    <input type="hidden" name="cateChk" id="cateChk" value="">
-    <input type="hidden" name="benefitChk" id="benefitChk" value="">
-    <input type="hidden" name="attrCheck0" id="attrCheck0" value="">
-    <input type="hidden" name="attrCheck1" id="attrCheck1" value="">
-    <input type="hidden" name="attrCheck2" id="attrCheck2" value="">
-    <input type="hidden" name="attrCheck3" id="attrCheck3" value="">
-    <input type="hidden" name="attrCheck4" id="attrCheck4" value="">
-    <input type="hidden" name="brandChkList" id="brandChkList" value="">
-    <input type="hidden" name="benefitChkList" id="benefitChkList" value="">
-    <input type="hidden" name="_displayImgUploadUrl" id="_displayImgUploadUrl" value="https://image.oliveyoung.co.kr/uploads/images/display/">
-    <input type="hidden" name="recobellMbrNo" id="recobellMbrNo" value="null">
-    <input type="hidden" name="recobellCuid" id="recobellCuid" value="8b47cf9f-efd1-48e4-8f83-10ee8a07945b">
-    <!-- 20210805 오타 키워드 정타 키워드 변경 알림 S -->
-    <div id="suggestKeywordWrap"></div>
-    <!-- 20210805 오타 키워드 정타 키워드 변경 알림 E -->
-    <!-- 검색어오류 영역 추가 (2017-01-13 추가)  -->
     <div class="searchResultArea">
       <p class="resultTxt">
-        <strong>핸드크림</strong>검색결과
+        <strong>립밤</strong>검색결과 (전체
+        <span>299개</span>
+        의 상품)
       </p>
     </div>
-    <!--// 검색어오류 영역 추가 -->
-    <!-- 연관검색어 -->
-    <div class="relatedSearch" style="display: none;">
-      <div class="tit">
-        <span>연관검색어</span>
-      </div>
-      <div class="link" id="recommend"></div>
-      <button class="btn_more">더보기</button>
-    </div>
-    <!-- //연관검색어 -->
     <!-- 상품 속성 정보 검색 서비스 개선 -->
     <div class="detailSearch new">
       <div class="search_box">
