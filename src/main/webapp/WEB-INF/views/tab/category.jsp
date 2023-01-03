@@ -121,9 +121,7 @@
 									<c:out value="${ctgy.name}" />
 								</p> </a>
 						</div>
-						<button
-							class="btn_zzim jeem <c:if test="${ctgy.wished eq true }"> on</c:if>"
-							data-ref-goodsno="A000000117541">
+						<button class="btn_zzim jeem <c:if test="${ctgy.wished eq true }"> on</c:if>" data-ref-goodsno="<c:out value="${ctgy.id}"/>">
 							<span>찜하기전</span>
 						</button>
 						<p class="prd_price">
@@ -159,9 +157,9 @@
 	<form id="actionForm" action="/category" method="get">
 		<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }" />
 		<input type="hidden" name="amount" value="${pageMaker.cri.amount }" />
-		<input type="hidden" name="sort" value="${pageMaker.cri.sort }" /> <input
-			type="hidden" name="catePid" value="${pageMaker.cri.catePid }" /> <input
-			type="hidden" name="cateId" value="${p_categ.cri.cateId }" />
+		<input type="hidden" name="sort" value="${pageMaker.cri.sort }" /> 
+		<input type="hidden" name="catePid" value="${pageMaker.cri.catePid }" /> 
+	
 	</form>
 	<div class="pageing">
 		<c:if test="${pageMaker.prev }">
@@ -182,10 +180,18 @@
 	</div>
 
 
-
+<script src="/resources/js/wishList.js" defer></script>
 	<script type="text/javascript">
 	$(document).ready(
 			function() {
+				const userId =  
+					<sec:authorize access="isAuthenticated()">
+						"<sec:authentication property="principal.user.user_id"/>";
+					</sec:authorize>
+					<sec:authorize access="isAnonymous()">
+						""
+					</sec:authorize>
+					
 				const actionForm = $('#actionForm');
 				$('.pageing a').click(
 						function(e) {
@@ -226,6 +232,22 @@
 					actionForm.submit();
 
 				})
+
+				$('.btn_zzim').click(function(e){
+					e.preventDefault();
+					let btn = $(this);
+					
+			    	wishService.toggleWish({
+			    		userId: userId, 
+			    		prodId:btn.data('ref-goodsno')
+			    		},function(data){
+			    			let tt ="";
+			    			if(data =='1') alert('찜하기')
+			    			else alert("찜하기 해제")
+			    			btn.toggleClass('on');
+			    		})
+				})
+
 				$('.cate_list_box>li>a').click(function(e){
 					e.preventDefault();
 					actionForm.find("input[name='cateId']").val(
@@ -234,6 +256,7 @@
 
 				})
 			})
+		
 </script>
 
 
