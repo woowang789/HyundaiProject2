@@ -89,6 +89,20 @@ function check(){
 	}
 }
 </script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+window.onload = function(){
+    document.getElementById("search-address").addEventListener("click", function(){ //주소입력칸을 클릭하면
+        //카카오 지도 발생
+        new daum.Postcode({
+            oncomplete: function(data) { //선택시 입력값 세팅
+                document.getElementById("address").value = data.address; // 주소 넣기
+                document.querySelector("input[name=address_detail]").focus(); //상세입력 포커싱
+            }
+        }).open();
+    });
+}
+</script>
 <div id="Container" class="bgf6">
   <div id="Contents">
     <div class="loginArea new login">
@@ -184,7 +198,9 @@ function check(){
                   <label for="name">주소</label>
                 </th>
                 <td>
-                  <input type="text" style="width: 500px" id="address" name="user_address">
+                  <input type="text" style="width: 350px" id="address" name="user_address">
+                  <a style="cusor:pointer" id="search-address">주소찾기</a>
+                  <input type="text" style="width: 300px" name="address_detail">                  
                 </td>
               </tr>
               <tr>
