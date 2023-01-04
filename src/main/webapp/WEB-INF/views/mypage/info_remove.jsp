@@ -22,7 +22,7 @@ function deleteUser(){
       <li>진행 중인 전자상거래 이용내역(결제/배송/교환/반품 중인 상태)이 있거나 고객상담 및 이용하신 서비스가 완료되지 않은 경우 서비스 철회 하실 수 없습니다.</li>
     </ul>
     <p class="common2s-text">올리브영 회원 탈퇴(이용약관 동의 철회)를 하시겠습니까?</p>
-    <div class="area1sButton mgT10"><a type="submit" class="btnGreen" onclick="deleteUser()">회원 탈퇴</a></div>
+    <div class="area1sButton mgT10"><a class="btnGreen" onclick="deleteUser()">회원 탈퇴</a></div>
   </div>
   </form>
 </div>
