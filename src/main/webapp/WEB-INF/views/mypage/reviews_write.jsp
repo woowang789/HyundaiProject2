@@ -133,6 +133,30 @@
 					
 					reviewForm.submit();
 				})
+				
+				$('.btn_img_add').click(function(){
+					console.log('add img');
+					$('#tmpFile1').click();
+				})
+				$('#tmpFile1').change(function(data){
+					console.log(this.files[0]);
+					
+					let formData = new FormData();
+					formData.append("uploadFile", this.files[0]);
+					console.log(formData)
+					
+					$.ajax({
+						url: '/api/image/upload',
+						processData : false,
+						contentType : false,
+						data: formData,
+						type:'POST',
+						success: function(result){
+							console.log(result)
+						}
+						
+					})
+				})
 			})
 			
 		})
