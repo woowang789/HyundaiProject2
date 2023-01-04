@@ -36,7 +36,6 @@ $(document).ready(function(){
 	
 })
 </script>
-
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 window.onload = function(){
@@ -49,6 +48,11 @@ window.onload = function(){
             }
         }).open();
     });
+}
+
+//버튼 alert
+function btn(){
+	alert("회원 정보가 변경 적용됩니다.");
 }
 </script>
 <div class="mypage-conts">
@@ -136,7 +140,7 @@ window.onload = function(){
 		</div>
 		<div class="btnwrap">
 			<input type="button" value="취소" class="btn wt" id="cancleBtn">
-			<input type="submit" value="회원가입" class="btn gray mr0" id="joinBtn">
+			<input type="submit" value="회원가입" class="btn gray mr0" id="joinBtn" onclick="btn();">
 		</div>
 		</form>
 	</div>

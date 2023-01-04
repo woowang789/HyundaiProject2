@@ -26,7 +26,6 @@ public class MypageController {
 	
 	private final WishListService wishListService;
 	
-	private final UserService userService;
 	private final UserMapper userMapper;
 	
 	private String userId = "user1@email.com";
@@ -84,6 +83,7 @@ public class MypageController {
 		BCryptPasswordEncoder pwdencoder = new BCryptPasswordEncoder();
 		vo.setUser_pwd(pwdencoder.encode(vo.getUser_pwd()));
 		userMapper.updateUser(vo);
-		return "mypage/info_change";
+		
+		return "mypage/completion_change_info";
 	}
 }

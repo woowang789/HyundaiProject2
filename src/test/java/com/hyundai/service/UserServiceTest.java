@@ -42,17 +42,4 @@ public class UserServiceTest {
 		log.info("아이디 체크" + idcheck);
 	}
 
-	@Test
-	public void updateUser() {
-		UserVO vo = new UserVO();
-		vo.setUser_pwd("user11");
-		vo.setUser_address("user1 address");
-		vo.setUser_name("유저1");
-		vo.setUser_tel("012-000-0000");
-		vo.setUser_id("user1@email.com");
-		service.updateUser(vo);
-		log.info("회원정보 수정");
-		
-	}
-
 }

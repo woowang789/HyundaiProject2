@@ -11,7 +11,7 @@
 	<bean id="customAccessDenied" class="com.hyundai.security.CustomAccessDeniedHandler"></bean>
 	<bean id="customLoginSuccess" class="com.hyundai.security.CustomLoginSuccessHandler"></bean>
 	<bean id="CustomUserDetailsService" class="com.hyundai.security.CustomUserDetailsService"></bean>
-
+	<bean id="MemberLoginFailService" class="com.hyundai.security.MemberLoginFailService"></bean>
 	<security:http>
 		<!-- <security:intercept-url pattern="/cart"
 			access="hasRole('ROLE_MEMBER')" /> -->
@@ -23,7 +23,8 @@
 		access="hasRole('ROLE_ADMIN')"/> -->
 		
 		<security:access-denied-handler ref="customAccessDenied"/>	
-		<security:form-login login-page="/login" authentication-success-handler-ref=""/>
+		<security:form-login login-page="/login" authentication-success-handler-ref=""
+			authentication-failure-handler-ref="MemberLoginFailService"/>
 				
 		<!-- 자동로그인 -->
 		<security:remember-me data-source-ref="dataSource" token-validity-seconds="604800"/>

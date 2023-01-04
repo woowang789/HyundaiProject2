@@ -13,7 +13,5 @@ public interface UserService {
 	public int searchPwd(UserVO vo);
 	
 	public void updatePwd(UserVO vo);
-	
-	public void updateUser(UserVO vo);
 		
 }
