@@ -20,43 +20,46 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
 <script>
-	$(document).ready(
-			function() {
-				//카테고리 레이어 열기/닫기
-				$("#btnGnbOpen").click(function(e) {
-					e.preventDefault();
-					if ($(this).hasClass("active")) {
-						$(this).removeClass("active");
-						$(".layer_all_menu").removeClass("active");
-					} else {
-						$(this).addClass("active");
-						$(".layer_all_menu").ad
-						Class("active");
-					}
-				});
-				$("#btnGnbClose").click(function(e) {
-					e.preventDefault();
-					$(this).removeClass("active");
-					$(".layer_all_menu").removeClass("active");
-				});
-				$("#searchSubmit").bind(
-						"click",
-						function() {
-							if ($("#query").attr("data-ref-linkUrl") == "") {
-								// 검색어 입력 없을 시
-								return;
-
+	$(document)
+			.ready(
+					function() {
+						//카테고리 레이어 열기/닫기
+						$("#btnGnbOpen").click(function(e) {
+							e.preventDefault();
+							if ($(this).hasClass("active")) {
+								$(this).removeClass("active");
+								$(".layer_all_menu").removeClass("active");
 							} else {
-
-								//검색 결과 처리
-
-								location.href = "search?keyword="
-										+ encodeURIComponent($("#query").val())
-
+								$(this).addClass("active");
+								$(".layer_all_menu").ad
+								Class("active");
 							}
-
 						});
-			});
+						$("#btnGnbClose").click(function(e) {
+							e.preventDefault();
+							$(this).removeClass("active");
+							$(".layer_all_menu").removeClass("active");
+						});
+						$("#searchSubmit")
+								.bind(
+										"click",
+										function() {
+											if ($("#query").attr(
+													"data-ref-linkUrl") == "") {
+												// 검색어 입력 없을 시
+												return;
+
+											} else {
+
+												//검색 결과 처리
+	location.href = "search?keyword="
+														+ encodeURIComponent($(
+																"#query").val());
+
+											}
+
+										});
+					});
 </script>
 <script type="text/javascript">
 	function search() {
