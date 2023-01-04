@@ -21,4 +21,23 @@
 		inner join brand b on (p.brand_id = b.brand_id)
 		where o.option_id = #{optionId}
 	</select>
+	
+	<select id="getProduct" resultType="com.hyundai.vo.ProductOptionDTO">
+			select 
+			    p.product_id id, 
+			    p.product_name name, 
+			    p.product_thumb thumb, 
+			    p.product_date pDate,
+			    o.option_id oId, 
+			    o.option_name oName,
+			    o.option_stock stock, 
+			    o.option_origin_price originPrice, 
+			    o.option_market_price marketPrice,
+			    b.brand_id bId,
+			    b.brand_name brandName
+			from product p
+			inner join options o on (p.product_id = #{productId} and 
+			            o.option_id = #{optionId} )
+			inner join brand b on (p.brand_id = b.brand_id)
+	</select>
 </mapper>

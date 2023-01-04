@@ -22,7 +22,7 @@ import lombok.extern.log4j.Log4j;
 @RestController
 @RequestMapping("/api/cart")
 @RequiredArgsConstructor
-public class CartControllerApi {
+public class CartApi {
 	
 	private final CartService cartService;
 	

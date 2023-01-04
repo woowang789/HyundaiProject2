@@ -3,21 +3,22 @@ package com.hyundai.controller;
 import java.security.Principal;
 import java.util.List;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.hyundai.mapper.UserMapper;
 import com.hyundai.service.OrderService;
-import com.hyundai.service.WishListService;
+import com.hyundai.service.ReviewService;
 import com.hyundai.vo.Criteria;
 import com.hyundai.vo.PageDTO;
+import com.hyundai.vo.ReviewDTO;
 import com.hyundai.vo.ShowOrderDTO;
-
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import com.hyundai.mapper.UserMapper;
 import com.hyundai.vo.UserVO;
 
 import lombok.RequiredArgsConstructor;
@@ -30,6 +31,8 @@ import lombok.extern.log4j.Log4j;
 public class MypageController {
 
 	private final OrderService orderService;
+	private final ReviewService reviewService;
+	
 
 	private final UserMapper userMapper;
 
@@ -56,15 +59,40 @@ public class MypageController {
 	}
 
 	@GetMapping("/reviews-write")
-	public String myPageReviewWrite() {
+	public String myPageReviewWrite(
+			Criteria cri,
+			Principal pricipal ,Model model) {
 		log.info("mypage/reviews-write");
+		
+		int count = reviewService.getTotalCount(pricipal.getName(), false);
+		List<ReviewDTO> reviews = reviewService.getReviewByUserId(cri,pricipal.getName(), false);
+		model.addAttribute("reviews",reviews );
+		model.addAttribute("pageMaker", new PageDTO(cri, count));
 		return "mypage/reviews_write";
 	}
+	
+	@PostMapping("/reviews-write")
+	public String doReviewWrite(
+			ReviewDTO reviewDto,
+			@RequestParam("redirect") String redirect,
+			Principal pricipal) {
+		log.info("post reviews-write" + reviewDto);
+		reviewService.insertReview(reviewDto);
+		
+		return "redirect:"+redirect;
+	}
+	
 
 	@GetMapping("/reviews-completion")
-	public String mypageReviewCompletion() {
+	public String mypageReviewCompletion(
+			Criteria cri,
+			Principal pricipal ,Model model) {
 		log.info("mypage/reviews-completion");
-
+		int count = reviewService.getTotalCount(pricipal.getName(), true);
+		List<ReviewDTO> reviews = reviewService.getReviewByUserId(cri,pricipal.getName(), true);
+		model.addAttribute("reviews",reviews );
+		model.addAttribute("pageMaker", new PageDTO(cri, count));
+		
 		return "mypage/reviews_list";
 	}
 
@@ -81,7 +109,6 @@ public class MypageController {
 
 		return "mypage/info_remove";
 	}
-
 	@RequestMapping(value = "/reviews", method = RequestMethod.GET)
 	public String mypageReviews(Model model) {
 		log.info("mypage/reviews");

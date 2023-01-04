@@ -26,7 +26,7 @@
           <li>
             <h2>마이 쇼핑</h2>
             <ul>
-              <li class="subMenu on">
+              <li class="subMenu">
                 <a href="/mypage/order-lists">주문 조회</a>
               <li class="subMenu">
                 <a href="/mypage">좋아요</a>
@@ -53,6 +53,19 @@
         </li>
         </ul>
       </div>
-      <!-- //마이페이지 SUB 메뉴 -->
-      <!-- //마이페이지 SUB -->
+      
+      <script>
+      $(document).ready(function(){
+    	  let curUrl = `<c:out value="${requestScope['javax.servlet.forward.request_uri']}"/>`
+    	  
+    	  $('li.subMenu a').each(function(){
+    		  if($(this).attr('href') == curUrl)
+    			  $(this).parent().addClass('on');
+    		  if(curUrl == '/mypage/reviews-completion')
+    			  $('li.subMenu a[href="/mypage/reviews-write"]').parent().addClass('on');
+    		  
+    	  })
+      })
+      </script>
+
       <div class="mypage-conts">
