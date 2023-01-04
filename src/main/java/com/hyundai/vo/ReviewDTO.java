@@ -10,6 +10,7 @@ public class ReviewDTO {
 	private Date reviewDate;
 	private String reviewScore;
 	private String reviewContent;
+	private String reviewImg;
 
 	private String orderId;
 	private Date orderDate;

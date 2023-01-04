@@ -21,7 +21,7 @@
     <input type="hidden" id="gdasSort" name="gdasSort" value="recent">
     <div class="reviewN2_list_title">
       <div class="list_title">
-        <p>작성 가능 리뷰 건수 <span>11</span>건</p>
+        <p>작성 가능 리뷰 건수 <span><c:out value="${pageMaker.cri.total }"/></span>건</p>
       </div>
     </div>
     <table class="board-list-2s mgT20 new">
@@ -86,6 +86,8 @@
   	<input type="hidden" name="productId">
   	<input type="hidden" name="optionId">
   	<input type="hidden" name="reviewContent">
+  	<input type="hidden" name="reviewImg">
+  	<input type="hidden" name="redirect" value="/mypage/reviews-write">
   </form>
 
 <script type="text/javascript" src="/resources/js/productService.js" defer> </script>
@@ -93,7 +95,6 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		const reviewForm = $('#reviewForm');
-// 		console.log(writeBase);
 		$('.btn-review--small').click(function(){
 			let td = $(this).closest('td');
 			let orderId = $(this).data('order-id');
@@ -102,7 +103,6 @@
 			productService.get({
 				productId : prodId, optionId: optId 
 			},function(data){
-				console.log(data);
 				let tmp = writeBase
 						.replaceAll('{prodId}',data.id)
 						.replaceAll('{prodThumb}',data.thumb)
@@ -119,18 +119,20 @@
 					$(item).val(idx+1);
 						
 					$(item).click(function(e){
-						console.log($(this).val()+"점");
+						$(this).closest("ul").find('li').each(function(i,t){
+							$(t).removeClass('on');
+							if(i <= idx)
+								$(t).addClass('on');
+						})
 						reviewForm.find('input[name="reviewScore"]').val($(this).val());
 					});
 				})
-				
 				$('#btnGdasReg').click(function(e){
-					console.log('submit review');
 					reviewForm.find('input[name="productId"]').val(data.id);
 					reviewForm.find('input[name="optionId"]').val(data.oid);
 					reviewForm.find('input[name="orderId"]').val(orderId);
 					reviewForm.find('input[name="reviewContent"]').val($('#txtGdasCont').val());
-					
+
 					reviewForm.submit();
 				})
 				
@@ -139,24 +141,40 @@
 					$('#tmpFile1').click();
 				})
 				$('#tmpFile1').change(function(data){
-					console.log(this.files[0]);
-					
-					let formData = new FormData();
-					formData.append("uploadFile", this.files[0]);
-					console.log(formData)
-					
-					$.ajax({
-						url: '/api/image/upload',
-						processData : false,
-						contentType : false,
-						data: formData,
-						type:'POST',
-						success: function(result){
-							console.log(result)
-						}
+					if(data != null){
+						console.log(this.files[0]);
 						
-					})
+						let formData = new FormData();
+						formData.append("uploadFile", this.files[0]);
+						$.ajax({
+							url: '/api/image/upload',
+							processData : false,
+							contentType : false,
+							data: formData,
+							type:'POST',
+							success: function(result){
+								let path = '/api/image/display?fileName='+result;
+								let img = '<img src="'+path+'"/>'
+								let removeBtn = `<button class="btn-del">삭제</button>`
+								
+								$('.imgArea1').append(img);
+								$('.imgArea1').append(removeBtn);
+								$('.btn_img_add').css('display','none');
+								reviewForm.find('input[name="reviewImg"]').val(result);
+								
+								$('.btn-del').click(function(){
+									$(this).siblings('img').remove();
+									$(this).siblings('button').css('display','block');
+									$('#tmpFile1').val(null);
+									reviewForm.find('input[name="productId"]').val(null);
+									$(this).remove();
+								})
+							}
+						})
+					}
+					
 				})
+			
 			})
 			
 		})

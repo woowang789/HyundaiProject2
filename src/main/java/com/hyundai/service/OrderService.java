@@ -31,6 +31,7 @@ public class OrderService {
 
 	@Transactional
 	public int insertOrder(String userId, InsertOrderDTO order) {
+		
 		int result = orderMapper.insertOrder(order, userId);
 		
 		order.getList().forEach(el -> {

@@ -6,27 +6,55 @@
 <mapper namespace="com.hyundai.mapper.ReviewMapper">
 
 	<select id="getReviewByUserId" resultType="com.hyundai.vo.ReviewDTO">
+		<![CDATA[
+		select userId, userName, productId, productName, productThumb,
+			brandId, brandName, optionId, optionName, orderId, orderDate,
+			reviewDate, reviewScore, reviewContent, reviewImg
+		from (
+			select 
+				rownum rn,
+			    u.user_id userId,
+			    u.user_name userName,
+			    p.product_id productId,
+			    p.product_name productName,
+			    p.product_thumb productThumb,
+			    b.brand_id brandId,
+	    		b.brand_name brandName,
+			    po.option_id optionId,
+			    po.option_name optionName,
+			    o.order_id orderId,
+			    o.order_date orderDate,
+			    ol.review_date reviewDate,
+			    ol.review_score reviewScore,
+			    ol.review_content reviewContent,
+			    ol.review_img reviewImg
+			from order_list ol
+			inner join users  u on (ol.user_id = #{userId} and ol.user_id = u.user_id)
+			inner join orders o on (ol.order_id = o.order_id)
+			inner join options po on (po.option_id = ol.option_id)
+			inner join product p on (p.product_id = po.product_id)
+			inner join brand b on (p.brand_id = b.brand_id)
+			]]>
+			<if test='isWritten == true'>
+				where ol.review_date is not null
+			</if>
+			<if test='isWritten == false'>
+				where ol.review_date is null
+			</if>
+			<![CDATA[
+				and rownum <= #{cri.pageNum} * #{cri.amount}
+			)
+			where rn > (#{cri.pageNum} - 1) * #{cri.amount}
+		]]>
+		
+	</select>
+	
+	<select id="getTotalCount" resultType="int">
 		select 
-		    u.user_id userId,
-		    u.user_name userName,
-		    p.product_id productId,
-		    p.product_name productName,
-		    p.product_thumb productThumb,
-		    b.brand_id brandId,
-    		b.brand_name brandName,
-		    po.option_id optionId,
-		    po.option_name optionName,
-		    o.order_id orderId,
-		    o.order_date orderDate,
-		    ol.review_date reviewDate,
-		    ol.review_score reviewScore,
-		    ol.review_content reviewContent
+		    count(*)
 		from order_list ol
-		inner join users  u on (ol.user_id = #{userId} and ol.user_id = u.user_id)
-		inner join orders o on (ol.order_id = o.order_id)
-		inner join options po on (po.option_id = ol.option_id)
-		inner join product p on (p.product_id = po.product_id)
-		inner join brand b on (p.brand_id = b.brand_id)
+			inner join users  u on (ol.user_id = #{userId} and ol.user_id = u.user_id)
+			inner join orders o on (ol.order_id = o.order_id)
 		<if test='isWritten == true'>
 			where ol.review_date is not null
 		</if>
@@ -40,12 +68,14 @@
 		set
 			review_date = sysdate,
 			review_score = #{reviewScore},
-			review_content = #{reviewContent}
+			review_content = #{reviewContent},
+			review_img = #{reviewImg, jdbcType = VARCHAR}
 		where 
 			product_id = #{productId} 
 			and order_id = #{orderId}
 			and option_id = #{optionId}
 	</update>
+	
 	
 	
 </mapper>

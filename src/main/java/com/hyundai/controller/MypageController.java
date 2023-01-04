@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.hyundai.service.OrderService;
 import com.hyundai.service.ReviewService;
@@ -55,28 +56,34 @@ public class MypageController {
 	
 	@GetMapping("/reviews-write")
 	public String myPageReviewWrite(
+			Criteria cri,
 			Principal pricipal ,Model model) {
 		log.info("mypage/reviews-write");
-		List<ReviewDTO> reviews = reviewService.getReviewByUserId(pricipal.getName(), false);
+		int count = reviewService.getTotalCount(pricipal.getName(), false);
+		List<ReviewDTO> reviews = reviewService.getReviewByUserId(cri,pricipal.getName(), false);
 		model.addAttribute("reviews",reviews );
+		model.addAttribute("pageMaker", new PageDTO(cri, count));
 		return "mypage/reviews_write";
 	}
 	
 	@PostMapping("/reviews-write")
 	public String doReviewWrite(
 			ReviewDTO reviewDto,
+			@RequestParam("redirect") String redirect,
 			Principal pricipal) {
-		log.info("post reviews-write");
+		log.info("post reviews-write" + reviewDto);
 		reviewService.insertReview(reviewDto);
 		
-		return "redirect:/mypage/reviews-write";
+		return "redirect:"+redirect;
 	}
 	
 	@GetMapping("/reviews-completion")
 	public String mypageReviewCompletion(
+			Criteria cri,
 			Principal pricipal ,Model model) {
 		log.info("mypage/reviews-completion");
-		List<ReviewDTO> reviews = reviewService.getReviewByUserId(pricipal.getName(), true);
+		int count = reviewService.getTotalCount(pricipal.getName(), true);
+		List<ReviewDTO> reviews = reviewService.getReviewByUserId(cri,pricipal.getName(), true);
 		model.addAttribute("reviews",reviews );
 		
 		return "mypage/reviews_list";
@@ -85,7 +92,7 @@ public class MypageController {
 	public String updateReview(
 			ReviewDTO reviewDto,
 			Principal pricipal) {
-		log.info("mypage/reviews-completion");
+		log.info("mypage/reviews-completion"+reviewDto);
 		reviewService.insertReview(reviewDto);
 				
 		return "redirect:/mypage/reviews-completion";
