@@ -8,19 +8,18 @@
 	<div id="Contents">
 		<div class="loginArea new login">
 			<div class="loginTit">
-				<img src="/resources/img/completion_img.png"
-					style="width: 100px; height: 100px;">
-				<h2>회원가입이 완료 되었습니다.</h2>
-				<p>올리브영의 회원이 되신것을 환영합니다.</p>
+				<img src="/resources/img/verified-user.png"
+					style="width: 150px; height: 150px;">
+				<h2>회원정보 수정</h2>
+
+				<p>회원님의 소중한 정보를 안전하게 관리하세요.</p>
 			</div>
 			<div style="margin-top: 30px;">
 				<div class="box">
-					<h3>올리브영의 다양한 서비스와 혜택을 누리세요.</h3>
+					<h3>회원님의 정보가 수정되었습니다.</h3>
 					<div class="buttonBox">
 						<div class="btnArea">
-							<a href="/login">
-								<button type="button" class="wt">로그인 페이지</button>
-							</a> <a href="/home" style="margin-left: 10px;">
+							<a href="/home" style="margin-left: 10px;">
 								<button type="button" class="btnGreen">메인으로</button>
 							</a>
 						</div>

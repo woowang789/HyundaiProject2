@@ -1200,7 +1200,6 @@ button, input[type="submit"] {
 }
 
 #Gnb {
-	position: relative;
 	width: 100%;
 	min-width: 1020px;
 	height: 47px;
