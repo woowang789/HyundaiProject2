@@ -67,7 +67,7 @@
 	          	data-goods-no="<c:out value="${review.productId }"/>"
 	          	data-option-no="<c:out value="${review.optionId }"/>"
 	          >
-	            <button type="button" class="btn-review--small">리뷰 작성</button>
+	            <button type="button" data-order-id='<c:out value="${review.orderId}"/>' class="btn-review--small">리뷰 작성</button>
 	          </td>
 	        </tr>
 		</c:forEach>
@@ -79,20 +79,60 @@
   </div>
   </div>
   </div>
+  
+  <form id="reviewForm" action="/mypage/reviews-write" method="post">
+  	<input type="hidden" name="reviewScore" >
+  	<input type="hidden" name="orderId">
+  	<input type="hidden" name="productId">
+  	<input type="hidden" name="optionId">
+  	<input type="hidden" name="reviewContent">
+  </form>
 
 <script type="text/javascript" src="/resources/js/productService.js" defer> </script>
 <script type="text/javascript" src="/resources/js/review.js" defer> </script>
 <script type="text/javascript">
 	$(document).ready(function(){
+		const reviewForm = $('#reviewForm');
 // 		console.log(writeBase);
 		$('.btn-review--small').click(function(){
 			let td = $(this).closest('td');
+			let orderId = $(this).data('order-id');
 			let prodId = td.data('goods-no');
 			let optId = td.data('option-no')
 			productService.get({
 				productId : prodId, optionId: optId 
 			},function(data){
 				console.log(data);
+				let tmp = writeBase
+						.replaceAll('{prodId}',data.id)
+						.replaceAll('{prodThumb}',data.thumb)
+						.replaceAll('{brandName}', data.brandName)
+						.replaceAll('{prodName}',data.name)
+						.replaceAll('{optionName}',data.oname);
+						
+				$('body').prepend(tmp);
+				
+				$('.gdasWriteLayer').click(function(){
+					$(this).closest('.popup-contents').remove();
+				})
+				$('.star').each(function(idx,item){
+					$(item).val(idx+1);
+						
+					$(item).click(function(e){
+						console.log($(this).val()+"점");
+						reviewForm.find('input[name="reviewScore"]').val($(this).val());
+					});
+				})
+				
+				$('#btnGdasReg').click(function(e){
+					console.log('submit review');
+					reviewForm.find('input[name="productId"]').val(data.id);
+					reviewForm.find('input[name="optionId"]').val(data.oid);
+					reviewForm.find('input[name="orderId"]').val(orderId);
+					reviewForm.find('input[name="reviewContent"]').val($('#txtGdasCont').val());
+					
+					reviewForm.submit();
+				})
 			})
 			
 		})

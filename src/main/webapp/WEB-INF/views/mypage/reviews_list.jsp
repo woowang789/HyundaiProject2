@@ -7,7 +7,7 @@
       <h2 class="tit">리뷰</h2>
     </div>
     <ul class="comm1sTabs mgzero">
-      <li><a href="/mypage/reviews">리뷰 작성</a></li>
+      <li><a href="/mypage/reviews-write">리뷰 작성</a></li>
       <li class="on" title="선택됨"><a href="javascript:void(0);" data-attr="리뷰^리뷰_SortingTab^나의 리뷰">나의 리뷰</a></li>
     </ul>
     <ul class="dot_list">
@@ -59,7 +59,7 @@
 	              <div class="textus" style="width:90%;">
 	                <dl class="data review-data">
 	                  <dt>작성일자</dt>
-	                  <dd><fmt:formatDate value="${review.reivewDate}" pattern="yyyy.MM.dd" /></dd>
+	                  <dd><fmt:formatDate value="${review.reviewDate}" pattern="yyyy.MM.dd" /></dd>
 	                </dl>
 	                <div class="rating">
 	                  <span class="txt">
@@ -68,15 +68,20 @@
 	                </div>
 	                <div class="review-flag-wrap">
 	                </div>
-	                <span class="link " data-gdas-seq="16654086" data-ord-no="12022121413110306100200056"
-	                  data-goods-no="A000000176104" data-gdas-tp-cd="20" data-gdas-sct-cd="60">
+	                <span class="link " data-ord-no="<c:out value="${review.orderId }"/>"
+	                  data-goods-no="<c:out value="${review.productId }"/>"  data-option-no="<c:out value="${review.optionId }"/>">
 	                  <c:out value="${review.reviewContent}"/>
 	                </span>
 	              </div>
 	            </div>
 	          </td>
 	          <td>
-	            <button type="button" class="btn-review--small">리뷰수정</button><br>
+	            <button type="button" class="btn-review--small"
+	            data-goods-no="<c:out value="${review.productId }"/>"  
+	            data-option-no="<c:out value="${review.optionId }"/>"
+	            data-ord-no="<c:out value="${review.orderId }"/>"
+	            data-content="<c:out value="${review.reviewContent}"/>"
+	            >리뷰수정</button><br>
 	            <br>
 	          </td>
 	        </tr>
@@ -88,5 +93,65 @@
 </div>
 </div>
 </div>
+
+  <form id="reviewForm" action="/mypage/reviews-write" method="post">
+  	<input type="hidden" name="reviewScore" >
+  	<input type="hidden" name="orderId">
+  	<input type="hidden" name="productId">
+  	<input type="hidden" name="optionId">
+  	<input type="hidden" name="reviewContent">
+  </form>
+<script type="text/javascript" src="/resources/js/productService.js" defer> </script>
+<script type="text/javascript" src="/resources/js/review.js" defer> </script>
+<script>
+$(document).ready(function(){
+	const reviewForm = $('#reviewForm');
+	$('.btn-review--small').click(function(e){
+		let prodId = $(this).data('goods-no');
+		let optId = $(this).data('option-no');
+		let ordId = $(this).data('ord-no');
+		let content = $(this).data('content');
+		
+		console.log(prodId, optId, ordId);
+		productService.get({
+			productId : prodId, optionId: optId 
+		},function(data){
+			console.log(data);
+			let tmp = writeBase
+				.replaceAll('{prodId}',data.id)
+				.replaceAll('{prodThumb}',data.thumb)
+				.replaceAll('{brandName}', data.brandName)
+				.replaceAll('{prodName}',data.name)
+				.replaceAll('{optionName}',data.oname);
+			
+			$('body').prepend(tmp);
+			$('#txtGdasCont').val(content);
+			
+			$('.gdasWriteLayer').click(function(){
+				$(this).closest('.popup-contents').remove();
+			})
+			$('.star').each(function(idx,item){
+				$(item).val(idx+1);
+						
+				$(item).click(function(e){
+						console.log($(this).val()+"점");
+						reviewForm.find('input[name="reviewScore"]').val($(this).val());
+				});
+			})
+			
+			$('#btnGdasReg').click(function(e){
+					console.log('submit review');
+					reviewForm.find('input[name="productId"]').val(data.id);
+					reviewForm.find('input[name="optionId"]').val(data.oid);
+					reviewForm.find('input[name="orderId"]').val(ordId);
+					reviewForm.find('input[name="reviewContent"]').val($('#txtGdasCont').val());
+					
+					reviewForm.submit();
+			})
+			
+		})
+	})
+})
+</script>
 
 <%@ include file="../includes/footer.jsp"%>

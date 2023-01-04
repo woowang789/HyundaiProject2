@@ -9,5 +9,7 @@ import com.hyundai.vo.ReviewDTO;
 public interface ReviewMapper {
 	public List<ReviewDTO> getReviewByUserId(
 			@Param("userId") String userId,@Param("isWritten") boolean isWritten);
+	
+	public int insertReview(ReviewDTO dto);
 
 }

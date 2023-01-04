@@ -34,4 +34,18 @@
 			where ol.review_date is null
 		</if>
 	</select>
+	
+	<update id="insertReview">
+		update order_list
+		set
+			review_date = sysdate,
+			review_score = #{reviewScore},
+			review_content = #{reviewContent}
+		where 
+			product_id = #{productId} 
+			and order_id = #{orderId}
+			and option_id = #{optionId}
+	</update>
+	
+	
 </mapper>

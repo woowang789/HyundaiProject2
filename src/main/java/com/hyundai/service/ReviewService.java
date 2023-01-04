@@ -19,6 +19,9 @@ public class ReviewService {
 		return reviewMapper.getReviewByUserId(userId, written);
 	}
 	
+	public int insertReview(ReviewDTO dto) {
+		return reviewMapper.insertReview(dto);
+	}
 	
 	
 }

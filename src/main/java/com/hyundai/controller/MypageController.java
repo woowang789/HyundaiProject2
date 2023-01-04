@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -61,6 +62,16 @@ public class MypageController {
 		return "mypage/reviews_write";
 	}
 	
+	@PostMapping("/reviews-write")
+	public String doReviewWrite(
+			ReviewDTO reviewDto,
+			Principal pricipal) {
+		log.info("post reviews-write");
+		reviewService.insertReview(reviewDto);
+		
+		return "redirect:/mypage/reviews-write";
+	}
+	
 	@GetMapping("/reviews-completion")
 	public String mypageReviewCompletion(
 			Principal pricipal ,Model model) {
@@ -69,6 +80,15 @@ public class MypageController {
 		model.addAttribute("reviews",reviews );
 		
 		return "mypage/reviews_list";
+	}
+	@PostMapping("/reviews-completion")
+	public String updateReview(
+			ReviewDTO reviewDto,
+			Principal pricipal) {
+		log.info("mypage/reviews-completion");
+		reviewService.insertReview(reviewDto);
+				
+		return "redirect:/mypage/reviews-completion";
 	}
 	
 	@GetMapping("/info-change")
@@ -85,10 +105,10 @@ public class MypageController {
 		return "mypage/info_remove";
 	}
 	
-	@RequestMapping(value="/reviews", method=RequestMethod.GET)
-	public String mypageReviews(Model model) {
-		log.info("mypage/reviews");
-		
-		return "mypage/reviews_write";
-	}
+//	@RequestMapping(value="/reviews", method=RequestMethod.GET)
+//	public String mypageReviews(Model model) {
+//		log.info("mypage/reviews");
+//		
+//		return "mypage/reviews_write";
+//	}
 }

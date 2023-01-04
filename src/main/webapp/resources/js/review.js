@@ -6,7 +6,7 @@ const writeBase = `
 
 			<h1 class="ptit">리뷰 작성</h1>
 			<a class="nofc"
-				href="{prodID}">
+				href="{prodId}">
 				<div class="item_info clrfix">
 					<span class="thum"> <img
 						src="{prodThumb}">
@@ -58,13 +58,7 @@ const writeBase = `
 					<div class="step_cont">
 						<!-- 리뷰 고도화 : 리뷰 작성 마크업 변경 -->
 						<div class="rw-textarea-inner">
-							<textarea id="txtGdasCont" title="리뷰작성"
-								placeholder="꿀팁 가득, 상세한 리뷰를 작성해보세요!
-							도움수가 올라가면 포인트도 받고,
-							탑리뷰어가 될 확률도 높아져요!
-							반품, 환불 관련 내용은 고객센터로 별도 문의해주세요.">
-							
-							</textarea>
+							<textarea id="txtGdasCont" title="리뷰작성"></textarea>
 							<div class="line"></div>
 
 							<div class="bottom">
@@ -106,7 +100,7 @@ const writeBase = `
 			</ul>
 			<div class="btn_area">
 				<button type="button" class="btn color1 gdasWriteLayer">닫기</button>
-				<button type="button" class="btn color3" id="btnGdasReg" disabled=""
+				<button type="button" class="btn color3" id="btnGdasReg"
 					data-attr="리뷰작성^리뷰등록^리뷰등록하기 버튼">리뷰 등록 하기</button>
 			</div>
 			<button type="button" class="ButtonClose gdasWriteLayer">팝업창
