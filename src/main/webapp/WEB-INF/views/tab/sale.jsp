@@ -61,39 +61,15 @@
         <div class="count_sort tx_num">
           <span class="tx_view">VIEW</span>
           <ul>
-            <c:if test="${pageMaker.cri.amount eq 24}">
-              <li class="on">
-                <a href="javascript:;" title="24개씩 보기" data-value="24">24</a>
-              </li>
-              <li>
-                <a href="javascript:;" title="36개씩 보기" data-value="36">36</a>
-              </li>
-              <li>
-                <a href="javascript:;" title="48개씩 보기" data-value="48">48</a>
-              </li>
-            </c:if>
-            <c:if test="${pageMaker.cri.amount eq 36}">
-              <li>
-                <a href="javascript:;" title="24개씩 보기" data-value="24">24</a>
-              </li>
-              <li class="on">
-                <a href="javascript:;" title="36개씩 보기" data-value="36">36</a>
-              </li>
-              <li>
-                <a href="javascript:;" title="48개씩 보기" data-value="48">48</a>
-              </li>
-            </c:if>
-            <c:if test="${pageMaker.cri.amount eq 48}">
-              <li>
-                <a href="javascript:;" title="24개씩 보기" data-value="24">24</a>
-              </li>
-              <li>
-                <a href="javascript:;" title="36개씩 보기" data-value="36">36</a>
-              </li>
-              <li class="on">
-                <a href="javascript:;" title="48개씩 보기" data-value="48">48</a>
-              </li>
-            </c:if>
+            <li class=<c:if test="${pageMaker.cri.amount eq 24}">"on"</c:if>>
+              <a href="javascript:;" title="24개씩 보기" data-value="24">24</a>
+            </li>
+            <li class=<c:if test="${pageMaker.cri.amount eq 36}">"on"</c:if>>
+              <a href="javascript:;" title="36개씩 보기" data-value="36">36</a>
+            </li>
+            <li class=<c:if test="${pageMaker.cri.amount eq 48}">"on"</c:if>>
+              <a href="javascript:;" title="48개씩 보기" data-value="48">48</a>
+            </li>
           </ul>
         </div>
         <div class="type_sort">

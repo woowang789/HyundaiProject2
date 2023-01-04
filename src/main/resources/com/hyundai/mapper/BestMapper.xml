@@ -20,7 +20,7 @@
              b.brand_id bId,
              b.brand_name brandName,
              w.wish_date wDate,
-             nvl2(wish_date, 'y', 'n') wished,
+             nvl2(wish_date, '1', '0') wished,
                 c.category_id cId,
                 c.category_name cName
          from product p
@@ -29,10 +29,12 @@
          left join wish_list w on (w.product_id = p.product_id and w.user_id = #{userId})
          inner join brand b on (p.brand_id = b.brand_id)
             join categories c on p.category_id=c.category_id
-            where c.category_id like #{cri.cateId}||'%' 	
-         order by (p.product_date) ,p.product_id
-            
-            OFFSET (#{cri.pageNum}-1)*#{cri.amount} ROWS FETCH NEXT #{cri.amount} rows only
+            join (select product_id,sum(order_list_qty) best
+            from order_list 
+            group by product_id 
+            OFFSET 0 ROWS FETCH NEXT 100 ROWS ONLY) olq on p.product_id=olq.product_id
+            where c.category_id like #{cri.cateId}||'%'
+            order by best desc, p.product_id
 	]]>
 	</select>
 

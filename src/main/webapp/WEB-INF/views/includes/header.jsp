@@ -20,25 +20,49 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
 <script>
-	$(document).ready(function() {
-		//카테고리 레이어 열기/닫기
-		$("#btnGnbOpen").click(function(e) {
-			e.preventDefault();
-			if ($(this).hasClass("active")) {
-				$(this).removeClass("active");
-				$(".layer_all_menu").removeClass("active");
-			} else {
-				$(this).addClass("active");
-				$(".layer_all_menu").addClass("active");
-			}
-		});
-		$("#btnGnbClose").click(function(e) {
-			e.preventDefault();
-			$(this).removeClass("active");
-			$(".layer_all_menu").removeClass("active");
-		});
+	$(document).ready(
+			function() {
+				//카테고리 레이어 열기/닫기
+				$("#btnGnbOpen").click(function(e) {
+					e.preventDefault();
+					if ($(this).hasClass("active")) {
+						$(this).removeClass("active");
+						$(".layer_all_menu").removeClass("active");
+					} else {
+						$(this).addClass("active");
+						$(".layer_all_menu").ad
+						Class("active");
+					}
+				});
+				$("#btnGnbClose").click(function(e) {
+					e.preventDefault();
+					$(this).removeClass("active");
+					$(".layer_all_menu").removeClass("active");
+				});
+				$("#searchSubmit").bind(
+						"click",
+						function() {
+							if ($("#query").attr("data-ref-linkUrl") == "") {
+								// 검색어 입력 없을 시
+								return;
 
-	});
+							} else {
+
+								//검색 결과 처리
+
+								location.href = "search?keyword="
+										+ encodeURIComponent($("#query").val())
+
+							}
+
+						});
+			});
+</script>
+<script type="text/javascript">
+	function search() {
+		location.href = "search?keyword="
+				+ encodeURIComponent($("#query").val())
+	}
 </script>
 </head>
 <body>
@@ -87,7 +111,7 @@
           <div class="placeholder_area">
             <label for="query"></label>
             <input type="text" id="query" name="" value="" class="inp_placeholder" data-placeholder="핫팩 필요하시면 클.릭!" data-ref-linkurl="https://www.oliveyoung.co.kr/store/goods/getGoodsDetail.do?goodsNo=A000000158626"
-              onkeypress="javascript:pressCheck_WEB_MainSearch((event),this);" onkeydown="javascript:downCheck_WEB_MainSearch((event));" autocomplete="off"
+              autocomplete="off" onkeyup="if(window.event.keyCode==13){search()}"
             />
           </div>
           <button id="searchSubmit">검색</button>
