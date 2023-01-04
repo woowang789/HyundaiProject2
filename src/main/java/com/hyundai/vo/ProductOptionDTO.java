@@ -13,6 +13,7 @@ public class ProductOptionDTO {
    private Date pDate;
 
    private String oId;
+   private String oName;
    private String stock;
    private String originPrice;
    private String marketPrice;
