@@ -18,35 +18,9 @@ import lombok.extern.log4j.Log4j;
 @ContextConfiguration({"file:src/main/webapp/WEB-INF/spring/root-context.xml",
 						"file:src/main/webapp/WEB-INF/spring/security-context.xml"})
 public class UserTests {
-	
-	@Setter(onMethod_= @Autowired)
-	private UserService service;
 
 	@Setter(onMethod_=@Autowired)
 	private UserMapper mapper;
-	
-	@Test
-	public void testRegister() {
-		UserVO user = new UserVO();
-		user.setUser_id("user7");
-		user.setUser_pwd("user3");
-		user.setUser_name("유저3");
-		user.setUser_address("주소");
-		user.setUser_tel("010-0000-3333");
-		user.setBirth_year("19");
-		user.setBirth_month("12");
-		user.setBirth_day("05");
-		
-		service.register(user);
-		log.info("회원가입 테스트");
-	}
-	
-	@Test
-	public void checkId() {
-		String id="user3";
-		int idcheck = service.idCheck(id);
-		log.info("아이디 체크" + idcheck);
-	}
 	
 	@Test
 	public void testRead() {
@@ -81,4 +55,24 @@ public class UserTests {
 		log.info("비밀번호 변경");
 		log.info(user.getUser_pwd());
 	}
+	
+	@Test
+	public void curPwd() {
+		String id = "user1@email.com";
+		String pwd = mapper.checkCurPwd(id);
+		log.info(pwd);
+	}
+	
+	@Test
+	public void updateUser() {
+		UserVO vo = new UserVO();
+		vo.setUser_pwd("user11");
+		vo.setUser_address("user1 address");
+		vo.setUser_name("유저1");
+		vo.setUser_tel("012-000-0000");
+		vo.setUser_id("user1@email.com");
+		mapper.updateUser(vo);
+		log.info("회원정보 수정");
+	}
+	
 }

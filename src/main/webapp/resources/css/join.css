@@ -179,3 +179,10 @@ input[type=radio] {
 	color: #fff;
 	font-size: 14px;
 }
+#search-address{
+	cursor: pointer;
+    border: 1px solid #757d86;
+    border-radius: 5px;
+    padding: 5px;
+}
+}

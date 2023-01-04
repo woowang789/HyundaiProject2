@@ -10,6 +10,8 @@
 				<h2>로그인</h2>
 				<p>올리브영의 다양한 서비스와 혜택을 누리세요.</p>
 			</div>
+
+
 			<form action="/login" method="post">
 				<div class="loginForm">
 					<ul>
@@ -28,11 +30,17 @@
 								name="loginFormYn" value="Y">
 						</div>
 						<div class="link">
-							<a href="/search-id-form" >아이디 찾기</a> 
-							<a href="/search-password">비밀번호 찾기</a>
+							<a href="/search-id-form">아이디 찾기</a> <a href="/search-password">비밀번호
+								찾기</a>
 						</div>
 					</div>
-					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+					<c:if test="${LoginFailMessage!=null}">
+						<div>
+							<p style="color:red; font-size=10px;">${LoginFailMessage}</p>
+						</div>
+					</c:if>
+					<input type="hidden" name="${_csrf.parameterName}"
+						value="${_csrf.token}" />
 					<div class="btnArea">
 						<button type="submit" class="btnGreen">로그인</button>
 					</div>

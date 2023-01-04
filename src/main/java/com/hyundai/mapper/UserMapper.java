@@ -21,4 +21,8 @@ public interface UserMapper {
 	public int searchPwd(UserVO vo);
 	
 	public void updatePwd(UserVO vo);
+	
+	public String checkCurPwd(String user_id);
+	
+	public void updateUser(UserVO vo);
 }
