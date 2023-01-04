@@ -126,7 +126,6 @@ public class UserController {
 	public String resetPasswordPost(UserVO user) {
 		service.updatePwd(user);
 		return "member/login";
-
 	}
 
 }

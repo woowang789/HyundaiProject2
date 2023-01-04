@@ -15,6 +15,7 @@ import com.hyundai.vo.Criteria;
 import com.hyundai.vo.PageDTO;
 import com.hyundai.vo.ShowOrderDTO;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import com.hyundai.mapper.UserMapper;
@@ -98,4 +99,13 @@ public class MypageController {
 
 		return "mypage/completion_change_info";
 	}
+	
+	@PostMapping("/info-remove")
+	public String deleteInfo(UserVO vo) {
+		userMapper.deleteAuth(vo.getUser_id());
+		userMapper.deleteUser(vo.getUser_id());
+		SecurityContextHolder.clearContext();
+		return "home";
+	}
+
 }
