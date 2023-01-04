@@ -21,7 +21,7 @@
     <input type="hidden" id="gdasSort" name="gdasSort" value="recent">
     <div class="reviewN2_list_title">
       <div class="list_title">
-        <p>작성 가능 리뷰 건수 <span>11</span>건</p>
+        <p>작성 가능 리뷰 건수 <span><c:out value="${pageMaker.total }"/></span>건</p>
       </div>
     </div>
     <table class="board-list-2s mgT20 new">
@@ -39,74 +39,215 @@
         </tr>
       </thead>
       <tbody id="tbGdast">
-        <tr>
-          <td class="subject">
-            <div class="area">
-              <a class="thum" href="javascript:mypage.gdasList.moveGoodsDetailReview('A000000111272','리뷰_리뷰상품');"
-                data-attr="리뷰^리뷰상품^상품클릭">
-                <img src="https://image.oliveyoung.co.kr/uploads/images/goods/10/0000/0011/A00000011127202ko.jpg?l=ko"
-                  alt="닥터텅스 구역질없는 혀클리너(파우치 증정)(색상 랜덤)" onerror="common.errorImg(this);">
-              </a>
-              <div class="textus">
-                <dl class="data review-data">
-                  <dt>구매일자</dt>
-                  <dd>2022.10.26
-                    <span>매장</span>
-                  </dd>
-                </dl>
-                <a class="" href="javascript:mypage.gdasList.moveGoodsDetailReview('A000000111272','리뷰_리뷰상품');"
-                  data-attr="리뷰^리뷰상품^상품클릭">
-                  <span class="tit">닥터텅스</span>
-                  <span class="txt oneline">닥터텅스 구역질없는 혀클리너(파우치 증정)(색상 랜덤)</span>
-                </a>
-              </div>
-            </div>
-          </td>
-          <td class="col777"><strong>~ 2023.01.24</strong></td>
-          <td data-ord-no="12022102613030803100100250" data-goods-no="A000000111272">
-            <button type="button" class="btn-review--small" data-pur-mbr-yn="Y" data-gdas-sct-cd="60" data-gdas-seq=""
-              data-ord-no="12022102613030803100100250" data-goods-no="A000000111272" data-gdas-tp-cd="00"
-              data-item-no="001" data-item-nm=" " data-lgc-goods-no="8809400340257" data-ord-goods-seq=""
-              data-ord-con-yn="" data-thnl-path-nm="10/0000/0011/A00000011127202ko.jpg?l=ko" data-oper-dt="20221026"
-              data-str-no="D383" data-origin-bizpl-cd="D383" data-pos-no="1001" data-receipt-no="00250"
-              data-brnd-nm="닥터텅스" data-prgs-stat-cd="20" data-renew-used1mm-gdas-yn=""
-              onclick="mypage.gdasList.appraisalRegist(this, 'Y');" data-attr="리뷰^작성버튼^리뷰 작성">리뷰 작성</button>
-          </td>
-        </tr>
-        <tr>
-          <td class="subject">
-            <div class="area">
-              <a class="thum" href="javascript:mypage.gdasList.moveGoodsDetailReview('A000000163992','리뷰_리뷰상품');"
-                data-attr="리뷰^리뷰상품^상품클릭">
-                <img src="https://image.oliveyoung.co.kr/uploads/images/goods/10/0000/0016/A00000016399232ko.jpg?l=ko"
-                  alt="아로마티카 바디오일 100ml 리츄얼 기획(괄사증정) 4종 택1" onerror="common.errorImg(this);">
-              </a>
-              <div class="textus">
-                <dl class="data review-data">
-                  <dt>주문일자</dt>
-                  <dd>2022.09.25
+		<c:forEach items="${reviews }" var="review">
+	        <tr>
+	          <td class="subject">
+	            <div class="area">
+	              <a class="thum" href="<c:out value="${review.productId }"/>"
+	                data-attr="리뷰^리뷰상품^상품클릭">
+	                <img src="<c:out value="${review.productThumb }"/>">
+	              </a>
+	              <div class="textus">
+	                <dl class="data review-data">
+	                  <dt>주문일자</dt>
+	                  <dd>
+	                  <fmt:formatDate value="${review.orderDate}" pattern="yyyy.MM.dd" />
+	                  </dd>
+	                </dl>
+	                <a class="" href="<c:out value="${review.productId }"/>">
+	                  <span class="tit"><c:out value="${review.brandName }"/></span>
+	                  <span class="txt oneline"><c:out value="${review.productName }"/></span>
+	                  <p class="txt_option"><em>옵션</em><c:out value="${review.optionName}"/></p>
+	                </a>
+	              </div>
+	            </div>
+	          </td>
+	          <td class="col777"><strong>~ 2022.12.30</strong></td>
+	          <td 
+	          	data-goods-no="<c:out value="${review.productId }"/>"
+	          	data-option-no="<c:out value="${review.optionId }"/>"
+	          >
+	             <button type="button" class="btn-review--small"
+	            data-goods-no="<c:out value="${review.productId }"/>"  
+	            data-option-no="<c:out value="${review.optionId }"/>"
+	            data-ord-no="<c:out value="${review.orderId }"/>"
+	            data-content="<c:out value="${review.reviewContent}"/>"
+	            data-img="<c:out value="${review.reviewImg}"/>"
+	            data-score="<c:out value="${review.reviewScore}"/>"
+	            >리뷰작성</button>
+	          </td>
+	        </tr>
+		</c:forEach>
 
-                  </dd>
-                </dl>
-                <a class="" href="javascript:mypage.gdasList.moveGoodsDetailReview('A000000163992','리뷰_리뷰상품');"
-                  data-attr="리뷰^리뷰상품^상품클릭">
-                  <span class="tit">아로마티카</span>
-                  <span class="txt oneline">아로마티카 바디오일 100ml 리츄얼 기획(괄사증정) 4종 택1</span>
-                  <p class="txt_option"><em>옵션</em>서렌 바디오일 기획</p>
-                </a>
-              </div>
-            </div>
-          </td>
-          <td class="col777"><strong>~ 2022.12.30</strong></td>
-          <td data-ord-no="Y2209253287246" data-goods-no="A000000163992">
-            <button type="button" class="btn-review--small">리뷰 작성</button>
-          </td>
-        </tr>
       </tbody>
     </table>
-    
+<div class="pageing">
+			<c:if test="${pageMaker.prev }">
+				<a class="prev" href="<c:out value="${pageMaker.startPage-1}"/>">다음 10 페이지</a>
+			</c:if>
+			<c:forEach var="num" begin="${pageMaker.startPage }"
+				end="${pageMaker.endPage }">
+				<c:if test="${num == pageMaker.cri.pageNum }">
+				 	<strong title="현재 페이지"><c:out value="${num }"/></strong>
+				</c:if>
+				<c:if test="${num != pageMaker.cri.pageNum }">
+				 	<a href="<c:out value="${num}"/>"><c:out value="${num}"/></a>
+				</c:if>
+			</c:forEach>
+			<c:if test="${pageMaker.next }">
+				<a class="next" href="<c:out value="${pageMaker.endPage+1}"/>">다음 10 페이지</a>
+			</c:if>
+	
+	</div>
   </div>
   </div>
   </div>
   </div>
+  
+  <form id="reviewForm" action="/mypage/reviews-write" method="post">
+  	<input type="hidden" name="orderId">
+  	<input type="hidden" name="productId">
+  	<input type="hidden" name="optionId">
+  	<input type="hidden" name="reviewContent">
+  	<input type="hidden" name="reviewScore">
+  	<input type="hidden" name="reviewImg">
+  	<input type="hidden" name="redirect" value="/mypage/reviews-write">
+  </form>
+
+<script type="text/javascript" src="/resources/js/productService.js" defer> </script>
+<script type="text/javascript" src="/resources/js/review.js" defer> </script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		const reviewForm = $('#reviewForm');
+		$('.btn-review--small').click(function(e){
+			let prodId = $(this).data('goods-no');
+			let optId = $(this).data('option-no');
+			let ordId = $(this).data('ord-no');
+			
+			let content = $(this).data('content');
+			let img = $(this).data('img');
+			let score = $(this).data('score'); 
+			
+			console.log(prodId, optId, ordId);
+			productService.get({
+				productId : prodId, optionId: optId 
+			},function(data){
+				console.log(data);
+				let tmp = writeBase
+					.replaceAll('{prodId}',data.id)
+					.replaceAll('{prodThumb}',data.thumb)
+					.replaceAll('{brandName}', data.brandName)
+					.replaceAll('{prodName}',data.name)
+					.replaceAll('{optionName}',data.oname);
+				
+				$('body').prepend(tmp);
+				// content 붙이기
+				$('#txtGdasCont').val(content);
+				// star 세팅
+				$('.star').each(function(idx,item){
+					$(this).closest("ul").find('li').each(function(i,t){
+						if(i < score)
+							$(t).addClass('on');
+					})
+				})
+				//이미지 세팅
+				if(img != ''){
+					let path = '/api/image/display?fileName='+img;
+					let imgTag = '<img src="'+path+'"/>'
+					let removeBtn = `<button class="btn-del">삭제</button>`
+					
+					$('.imgArea1').append(imgTag);
+					$('.imgArea1').append(removeBtn);
+					$('.btn_img_add').css('display','none');
+					reviewForm.find('input[name="reviewImg"]').val(img);
+					
+					//사진 삭제 버튼을 누르면
+					$('.btn-del').click(function(){
+						$(this).siblings('img').remove();
+						$(this).siblings('button').css('display','block');
+						$('#tmpFile1').val(null);
+						img = null;
+						$(this).remove();
+					})
+				}
+				
+				
+				
+				$('.gdasWriteLayer').click(function(){
+					$(this).closest('.popup-contents').remove();
+				})
+				// 별 눌렀을 때
+				$('.star').each(function(idx,item){
+					$(item).val(idx+1);
+					
+					$(item).click(function(e){
+						score = $(item).val();
+						$(this).closest("ul").find('li').each(function(i,t){
+							$(t).removeClass('on');
+							if(i <= idx)
+								$(t).addClass('on');
+						})
+					});
+				})
+				
+				// 리뷰 등록
+				$('#btnGdasReg').click(function(e){
+						console.log('submit review');
+						console.log("img : "+img);
+						reviewForm.find('input[name="productId"]').val(data.id);
+						reviewForm.find('input[name="optionId"]').val(data.oid);
+						reviewForm.find('input[name="orderId"]').val(ordId);
+						reviewForm.find('input[name="reviewContent"]').val($('#txtGdasCont').val());
+						reviewForm.find('input[name="reviewImg"]').val(img);
+						reviewForm.find('input[name="reviewScore"]').val(score);
+						
+						reviewForm.submit();
+				})
+				//사진 선택
+				$('.btn_img_add').click(function(){
+					console.log('add img');
+					$('#tmpFile1').click();
+				})
+				
+				//사진이 선택 되면
+				$('#tmpFile1').change(function(data){
+					if(data != null){
+						console.log(this.files[0]);
+							
+						let formData = new FormData();
+						formData.append("uploadFile", this.files[0]);
+						$.ajax({
+							url: '/api/image/upload',
+							processData : false,
+							contentType : false,
+							data: formData,
+							type:'POST',
+							success: function(result){
+								let path = '/api/image/display?fileName='+result;
+								let imgTag = '<img src="'+path+'"/>'
+								let removeBtn = `<button class="btn-del">삭제</button>`
+									
+								$('.imgArea1').append(imgTag);
+								$('.imgArea1').append(removeBtn);
+								$('.btn_img_add').css('display','none');
+								img = result;
+								
+								//사진 삭제 버튼을 누르면
+								$('.btn-del').click(function(){
+									$(this).siblings('img').remove();
+									$(this).siblings('button').css('display','block');
+									$('#tmpFile1').val(null);
+									img = null;
+									$(this).remove();
+								})
+							}
+						})
+					}
+						
+				})
+				
+			})
+		})
+	})
+</script>
 <%@ include file="../includes/footer.jsp"%>
