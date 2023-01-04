@@ -65,13 +65,13 @@ public class UserController {
 		return "member/login";
 	}
 
-	@RequestMapping(value = "/search-id-form", method = RequestMethod.GET)
+	@GetMapping("/search-id-form")
 	public String searchId() {
 		log.info("아이디 찾기");
 		return "member/search_id_form";
 	}
 
-	@RequestMapping(value = "/search-id-form", method = RequestMethod.POST)
+	@PostMapping("/search-id-form")
 	public String searchIdForm(UserVO user, Model model) {
 
 		UserVO vo = service.searchId(user);
@@ -93,17 +93,17 @@ public class UserController {
 		return "member/search_id";
 	}
 
-	@RequestMapping(value = "/search-id", method = RequestMethod.GET)
+	@GetMapping("/search-id")
 	public String checkId() {
 		return "member/search_id";
 	}
 
-	@RequestMapping(value = "/search-password", method = RequestMethod.GET)
+	@GetMapping("/search-password")
 	public String searchPasswordForm() {
 		return "member/search_password_form";
 	}
 
-	@RequestMapping(value = "/search-password", method = RequestMethod.POST)
+	@PostMapping("/search-password")
 	public String searchPasswordFormPost(UserVO user, Model model) {
 		int result = service.searchPwd(user);
 		if (result == 0) {
@@ -122,7 +122,7 @@ public class UserController {
 		return "member/reset_password";
 	}
 
-	@RequestMapping(value = "/reset-password", method = RequestMethod.POST)
+	@PostMapping("/reset-password")
 	public String resetPasswordPost(UserVO user) {
 		service.updatePwd(user);
 		return "member/login";
