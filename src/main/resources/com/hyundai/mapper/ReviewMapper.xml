@@ -69,7 +69,7 @@
 			review_date = sysdate,
 			review_score = #{reviewScore},
 			review_content = #{reviewContent},
-			review_img = #{reviewImg, jdbcType = VARCHAR}
+			review_img = #{reviewImg}
 		where 
 			product_id = #{productId} 
 			and order_id = #{orderId}

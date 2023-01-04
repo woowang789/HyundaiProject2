@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.hyundai.vo.Criteria;
 import com.hyundai.vo.ReviewDTO;
 
 import lombok.Setter;
@@ -23,7 +24,8 @@ public class ReivewMapperTests {
 	
 	@Test
 	public void getNotWritten() {
-		List<ReviewDTO> reviews = mapper.getReviewByUserId("user1",false);
+		Criteria cri = new Criteria();
+		List<ReviewDTO> reviews = mapper.getReviewByUserId(cri,"user1",false);
 		for(ReviewDTO r :reviews) {
 			log.info(r);
 		}
@@ -31,7 +33,8 @@ public class ReivewMapperTests {
 	
 	@Test
 	public void getWritten() {
-		List<ReviewDTO> reviews = mapper.getReviewByUserId("user1",true);
+		Criteria cri = new Criteria();
+		List<ReviewDTO> reviews = mapper.getReviewByUserId(cri,"user1",true);
 		for(ReviewDTO r :reviews) {
 			log.info(r);
 		}

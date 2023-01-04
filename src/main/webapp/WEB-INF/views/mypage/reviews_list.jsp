@@ -2,7 +2,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="./my_top.jsp"%>
-  <div class="mypage-conts">
     <div class="title-area linezero">
       <h2 class="tit">리뷰</h2>
     </div>
@@ -15,7 +14,7 @@
         블라인드 리뷰 운영정책을 확인해주세요.</li>
     </ul>
     <div class="con_txt">
-      <h3 class="tit">누적 리뷰 건수<span><c:out value="${pageMaker.cri.total }"/></span>건</h3>
+      <h3 class="tit">누적 리뷰 건수<span><c:out value="${pageMaker.total }"/></span>건</h3>
     </div>
     <table class="board-list-2s mgT20 new board-list-2s_myreview">
       <caption>상품, 리뷰로 이루어진 리뷰 목록 표</caption>
@@ -89,8 +88,27 @@
         </c:forEach>
       </tbody>
     </table>
+    	
+<div class="pageing">
+			<c:if test="${pageMaker.prev }">
+				<a class="prev" href="<c:out value="${pageMaker.startPage-1}"/>">다음 10 페이지</a>
+			</c:if>
+			<c:forEach var="num" begin="${pageMaker.startPage }"
+				end="${pageMaker.endPage }">
+				<c:if test="${num == pageMaker.cri.pageNum }">
+				 	<strong title="현재 페이지"><c:out value="${num }"/></strong>
+				</c:if>
+				<c:if test="${num != pageMaker.cri.pageNum }">
+				 	<a href="<c:out value="${num}"/>"><c:out value="${num}"/></a>
+				</c:if>
+			</c:forEach>
+			<c:if test="${pageMaker.next }">
+				<a class="next" href="<c:out value="${pageMaker.endPage+1}"/>">다음 10 페이지</a>
+			</c:if>
+	
+	</div>
+    
   </div>
-  
 </div>
 </div>
 </div>
@@ -100,8 +118,8 @@
   	<input type="hidden" name="productId">
   	<input type="hidden" name="optionId">
   	<input type="hidden" name="reviewContent">
-  	<input type="hidden" name="reviewScore" value="<c:out value="${review.reviewScore}"/>">
-  	<input type="hidden" name="reviewImg" value="<c:out value="${review.reviewImg}"/>">
+  	<input type="hidden" name="reviewScore">
+  	<input type="hidden" name="reviewImg">
   	<input type="hidden" name="redirect" value="/mypage/reviews-completion">
   </form>
 <script type="text/javascript" src="/resources/js/productService.js" defer> </script>
@@ -137,11 +155,10 @@ $(document).ready(function(){
 			// star 세팅
 			$('.star').each(function(idx,item){
 				$(this).closest("ul").find('li').each(function(i,t){
-					if(i <= score)
+					if(i < score)
 						$(t).addClass('on');
 				})
 			})
-			console.log(img == '');
 			//이미지 세팅
 			if(img != ''){
 				let path = '/api/image/display?fileName='+img;
@@ -153,14 +170,14 @@ $(document).ready(function(){
 				$('.btn_img_add').css('display','none');
 				reviewForm.find('input[name="reviewImg"]').val(img);
 				
+				//사진 삭제 버튼을 누르면
 				$('.btn-del').click(function(){
 					$(this).siblings('img').remove();
 					$(this).siblings('button').css('display','block');
 					$('#tmpFile1').val(null);
-					reviewForm.find('input[name="productId"]').val(null);
+					img = null;
 					$(this).remove();
 				})
-				
 			}
 			
 			
@@ -168,33 +185,40 @@ $(document).ready(function(){
 			$('.gdasWriteLayer').click(function(){
 				$(this).closest('.popup-contents').remove();
 			})
+			// 별 눌렀을 때
 			$('.star').each(function(idx,item){
 				$(item).val(idx+1);
 				
 				$(item).click(function(e){
+					score = $(item).val();
 					$(this).closest("ul").find('li').each(function(i,t){
 						$(t).removeClass('on');
 						if(i <= idx)
 							$(t).addClass('on');
 					})
-					reviewForm.find('input[name="reviewScore"]').val($(this).val());
 				});
 			})
 			
+			// 리뷰 등록
 			$('#btnGdasReg').click(function(e){
 					console.log('submit review');
+					console.log("img : "+img);
 					reviewForm.find('input[name="productId"]').val(data.id);
 					reviewForm.find('input[name="optionId"]').val(data.oid);
 					reviewForm.find('input[name="orderId"]').val(ordId);
 					reviewForm.find('input[name="reviewContent"]').val($('#txtGdasCont').val());
+					reviewForm.find('input[name="reviewImg"]').val(img);
+					reviewForm.find('input[name="reviewScore"]').val(score);
 					
 					reviewForm.submit();
 			})
-			
+			//사진 선택
 			$('.btn_img_add').click(function(){
 				console.log('add img');
 				$('#tmpFile1').click();
 			})
+			
+			//사진이 선택 되면
 			$('#tmpFile1').change(function(data){
 				if(data != null){
 					console.log(this.files[0]);
@@ -209,19 +233,20 @@ $(document).ready(function(){
 						type:'POST',
 						success: function(result){
 							let path = '/api/image/display?fileName='+result;
-							let img = '<img src="'+path+'"/>'
+							let imgTag = '<img src="'+path+'"/>'
 							let removeBtn = `<button class="btn-del">삭제</button>`
 								
-							$('.imgArea1').append(img);
+							$('.imgArea1').append(imgTag);
 							$('.imgArea1').append(removeBtn);
 							$('.btn_img_add').css('display','none');
-							reviewForm.find('input[name="reviewImg"]').val(result);
-								
+							img = result;
+							
+							//사진 삭제 버튼을 누르면
 							$('.btn-del').click(function(){
 								$(this).siblings('img').remove();
 								$(this).siblings('button').css('display','block');
 								$('#tmpFile1').val(null);
-								reviewForm.find('input[name="productId"]').val(null);
+								img = null;
 								$(this).remove();
 							})
 						}

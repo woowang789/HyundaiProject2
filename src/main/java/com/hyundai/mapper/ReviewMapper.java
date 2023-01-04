@@ -13,6 +13,6 @@ public interface ReviewMapper {
 	
 	public int insertReview(ReviewDTO dto);
 
-	public int getTotalCount(@Param("userId") String userId, @Param("isWritten") boolean written);
+	public int getTotalCount(@Param("userId") String userId, @Param("isWritten") boolean isWritten);
 
 }

@@ -15,10 +15,8 @@
         <button type="button">핫인기세일</button>
       </li>
     </ul>
+    <!-- 세일 베스트 필터-->
     <div class="common-menu">
-      <%
-      String cateId = request.getParameter("cateId");
-      %>
       <ul>
         <li class="<c:if test="${pageMaker.cri.cateId eq ''}">on</c:if>">
           <button type="button" data-ref-dispcatno="1000001" data-attr="세일^세일카테고리_핫인기세일^전체">전체</button>
@@ -41,28 +39,9 @@
         <!-- 2017-02-02 빈 태그일때 class=disabled 추가 -->
       </ul>
     </div>
+    <!-- //세일 베스트 필터-->
     <!-- 서브카테고리 상단 안내화면 -->
     <!-- //서브카테고리 상단 안내화면 -->
-    <script type="text/javascript">
-					$(document).ready(function() {
-						$(".guideBtn").mouseover(function() {
-							$(".guidePopup").show();
-						});
-						$(".guideBtn").mouseout(function() {
-							if ($('.guidePopup:hover').length <= 0) {
-								$(".guidePopup").hide();
-							}
-						});
-						$(".guidePopup").mouseover(function() {
-							$(".guidePopup").show();
-						});
-						$(".guidePopup").mouseout(function() {
-							if ($('.guideBtn:hover').length <= 0) {
-								$(".guidePopup").hide();
-							}
-						});
-					});
-				</script>
     <div class="TabsConts on">
       <p class="cate_info_tx"></p>
       <div class="cate_align_box">
@@ -82,39 +61,15 @@
         <div class="count_sort tx_num">
           <span class="tx_view">VIEW</span>
           <ul>
-            <c:if test="${pageMaker.cri.amount eq 24}">
-              <li class="on">
-                <a href="javascript:;" title="24개씩 보기" data-value="24">24</a>
-              </li>
-              <li>
-                <a href="javascript:;" title="36개씩 보기" data-value="36">36</a>
-              </li>
-              <li>
-                <a href="javascript:;" title="48개씩 보기" data-value="48">48</a>
-              </li>
-            </c:if>
-            <c:if test="${pageMaker.cri.amount eq 36}">
-              <li>
-                <a href="javascript:;" title="24개씩 보기" data-value="24">24</a>
-              </li>
-              <li class="on">
-                <a href="javascript:;" title="36개씩 보기" data-value="36">36</a>
-              </li>
-              <li>
-                <a href="javascript:;" title="48개씩 보기" data-value="48">48</a>
-              </li>
-            </c:if>
-            <c:if test="${pageMaker.cri.amount eq 48}">
-              <li>
-                <a href="javascript:;" title="24개씩 보기" data-value="24">24</a>
-              </li>
-              <li>
-                <a href="javascript:;" title="36개씩 보기" data-value="36">36</a>
-              </li>
-              <li class="on">
-                <a href="javascript:;" title="48개씩 보기" data-value="48">48</a>
-              </li>
-            </c:if>
+            <li class=<c:if test="${pageMaker.cri.amount eq 24}">"on"</c:if>>
+              <a href="javascript:;" title="24개씩 보기" data-value="24">24</a>
+            </li>
+            <li class=<c:if test="${pageMaker.cri.amount eq 36}">"on"</c:if>>
+              <a href="javascript:;" title="36개씩 보기" data-value="36">36</a>
+            </li>
+            <li class=<c:if test="${pageMaker.cri.amount eq 48}">"on"</c:if>>
+              <a href="javascript:;" title="48개씩 보기" data-value="48">48</a>
+            </li>
           </ul>
         </div>
         <div class="type_sort">
@@ -236,6 +191,7 @@
 				$('.common-menu ul li > button').click(
 						function(e) {
 							e.preventDefault();
+							actionForm.find("input[name='pageNum']").val(1);
 							actionForm.find("input[name='cateId']").val(
 									$(this).data("cid"));
 							actionForm.submit();

@@ -3,12 +3,12 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!-- SQL Mapping -->
-<mapper namespace="com.hyundai.mapper.CategoryMapper">
+<mapper namespace="com.hyundai.mapper.SearchMapper">
 
-	<select id="getCategoryWithPaging"
+	<select id="getSearchList"
 		resultType="com.hyundai.vo.ProductOptionDTO">
 	<![CDATA[
-select
+		select
              p.product_id id, 
              p.product_name name, 
              p.product_thumb thumb, 
@@ -28,8 +28,12 @@ select
                      o.option_id = concat(p.product_id,'001') )
          left join wish_list w on (w.product_id = p.product_id and w.user_id = #{userId})
          inner join brand b on (p.brand_id = b.brand_id)
-            join categories c on p.category_id=c.category_id
-            where c.category_id like #{cri.cateId}||'%'
+            join categories c on p.category_id=c.category_id	
+	  		where (o.option_market_price between #{cri.minPrice} and #{cri.maxPrice}) 
+            and (p.product_name like '%'||#{cri.keyword}||'%'
+            or b.brand_name like '%'||#{cri.keyword}||'%'
+            or c.category_id like '%'||#{cri.keyword}||'%')
+            
             order by ]]>
 		<choose>
 			<when test="cri.sort =='01'.toString()">
@@ -44,22 +48,29 @@ select
 		</choose>
              <![CDATA[,p.product_id
             OFFSET (#{cri.pageNum}-1)*#{cri.amount} ROWS FETCH NEXT #{cri.amount} ROWS ONLY
-		]]>
-	</select>
-	<select id="getTotalCount" resultType="int">
-		select count(*) from
-		product where category_id like #{cateId}||'%'
+      ]]>
 	</select>
 
-	<select id="getPCate" resultType="com.hyundai.vo.CategoryDTO">
 
-		select ca.category_id catePid, ca.category_name catePname, cb.category_id
-		cateId, cb.category_name cateName
-		from categories ca
-		join categories cb
-		on ca.category_id=cb.category_pid
-		where ca.category_id like #{catePid}||'%'
-		order by cb.category_id
-
+	<select id="getCount" resultType="int">
+	<![CDATA[
+		SELECT COUNT(*)
+		FROM product p
+		inner join options o on (p.product_id = o.product_id and o.option_id = concat(p.product_id,'001') )
+		join categories c on p.category_id=c.category_id	
+		inner join brand b on (p.brand_id = b.brand_id)
+		where (o.option_market_price between #{minPrice} and #{maxPrice}) 
+            and (p.product_name like '%'||#{keyword}||'%'
+            or b.brand_name like '%'||#{keyword}||'%'
+            or c.category_id like '%'||#{keyword}||'%')
+	]]>
 	</select>
+
+	<select id="getCate" resultType="com.hyundai.vo.CategoryDTO">
+	<![CDATA[
+		select category_name cateName, category_id cateId,category_pid catePid
+		from categories where category_pid is null
+	]]>
+	</select>
+
 </mapper>

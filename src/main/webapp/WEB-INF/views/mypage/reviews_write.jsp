@@ -21,7 +21,7 @@
     <input type="hidden" id="gdasSort" name="gdasSort" value="recent">
     <div class="reviewN2_list_title">
       <div class="list_title">
-        <p>작성 가능 리뷰 건수 <span><c:out value="${pageMaker.cri.total }"/></span>건</p>
+        <p>작성 가능 리뷰 건수 <span><c:out value="${pageMaker.total }"/></span>건</p>
       </div>
     </div>
     <table class="board-list-2s mgT20 new">
@@ -67,25 +67,49 @@
 	          	data-goods-no="<c:out value="${review.productId }"/>"
 	          	data-option-no="<c:out value="${review.optionId }"/>"
 	          >
-	            <button type="button" data-order-id='<c:out value="${review.orderId}"/>' class="btn-review--small">리뷰 작성</button>
+	             <button type="button" class="btn-review--small"
+	            data-goods-no="<c:out value="${review.productId }"/>"  
+	            data-option-no="<c:out value="${review.optionId }"/>"
+	            data-ord-no="<c:out value="${review.orderId }"/>"
+	            data-content="<c:out value="${review.reviewContent}"/>"
+	            data-img="<c:out value="${review.reviewImg}"/>"
+	            data-score="<c:out value="${review.reviewScore}"/>"
+	            >리뷰작성</button>
 	          </td>
 	        </tr>
 		</c:forEach>
 
       </tbody>
     </table>
-    
+<div class="pageing">
+			<c:if test="${pageMaker.prev }">
+				<a class="prev" href="<c:out value="${pageMaker.startPage-1}"/>">다음 10 페이지</a>
+			</c:if>
+			<c:forEach var="num" begin="${pageMaker.startPage }"
+				end="${pageMaker.endPage }">
+				<c:if test="${num == pageMaker.cri.pageNum }">
+				 	<strong title="현재 페이지"><c:out value="${num }"/></strong>
+				</c:if>
+				<c:if test="${num != pageMaker.cri.pageNum }">
+				 	<a href="<c:out value="${num}"/>"><c:out value="${num}"/></a>
+				</c:if>
+			</c:forEach>
+			<c:if test="${pageMaker.next }">
+				<a class="next" href="<c:out value="${pageMaker.endPage+1}"/>">다음 10 페이지</a>
+			</c:if>
+	
+	</div>
   </div>
   </div>
   </div>
   </div>
   
   <form id="reviewForm" action="/mypage/reviews-write" method="post">
-  	<input type="hidden" name="reviewScore" >
   	<input type="hidden" name="orderId">
   	<input type="hidden" name="productId">
   	<input type="hidden" name="optionId">
   	<input type="hidden" name="reviewContent">
+  	<input type="hidden" name="reviewScore">
   	<input type="hidden" name="reviewImg">
   	<input type="hidden" name="redirect" value="/mypage/reviews-write">
   </form>
@@ -95,55 +119,101 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		const reviewForm = $('#reviewForm');
-		$('.btn-review--small').click(function(){
-			let td = $(this).closest('td');
-			let orderId = $(this).data('order-id');
-			let prodId = td.data('goods-no');
-			let optId = td.data('option-no')
+		$('.btn-review--small').click(function(e){
+			let prodId = $(this).data('goods-no');
+			let optId = $(this).data('option-no');
+			let ordId = $(this).data('ord-no');
+			
+			let content = $(this).data('content');
+			let img = $(this).data('img');
+			let score = $(this).data('score'); 
+			
+			console.log(prodId, optId, ordId);
 			productService.get({
 				productId : prodId, optionId: optId 
 			},function(data){
+				console.log(data);
 				let tmp = writeBase
-						.replaceAll('{prodId}',data.id)
-						.replaceAll('{prodThumb}',data.thumb)
-						.replaceAll('{brandName}', data.brandName)
-						.replaceAll('{prodName}',data.name)
-						.replaceAll('{optionName}',data.oname);
-						
+					.replaceAll('{prodId}',data.id)
+					.replaceAll('{prodThumb}',data.thumb)
+					.replaceAll('{brandName}', data.brandName)
+					.replaceAll('{prodName}',data.name)
+					.replaceAll('{optionName}',data.oname);
+				
 				$('body').prepend(tmp);
+				// content 붙이기
+				$('#txtGdasCont').val(content);
+				// star 세팅
+				$('.star').each(function(idx,item){
+					$(this).closest("ul").find('li').each(function(i,t){
+						if(i < score)
+							$(t).addClass('on');
+					})
+				})
+				//이미지 세팅
+				if(img != ''){
+					let path = '/api/image/display?fileName='+img;
+					let imgTag = '<img src="'+path+'"/>'
+					let removeBtn = `<button class="btn-del">삭제</button>`
+					
+					$('.imgArea1').append(imgTag);
+					$('.imgArea1').append(removeBtn);
+					$('.btn_img_add').css('display','none');
+					reviewForm.find('input[name="reviewImg"]').val(img);
+					
+					//사진 삭제 버튼을 누르면
+					$('.btn-del').click(function(){
+						$(this).siblings('img').remove();
+						$(this).siblings('button').css('display','block');
+						$('#tmpFile1').val(null);
+						img = null;
+						$(this).remove();
+					})
+				}
+				
+				
 				
 				$('.gdasWriteLayer').click(function(){
 					$(this).closest('.popup-contents').remove();
 				})
+				// 별 눌렀을 때
 				$('.star').each(function(idx,item){
 					$(item).val(idx+1);
-						
+					
 					$(item).click(function(e){
+						score = $(item).val();
 						$(this).closest("ul").find('li').each(function(i,t){
 							$(t).removeClass('on');
 							if(i <= idx)
 								$(t).addClass('on');
 						})
-						reviewForm.find('input[name="reviewScore"]').val($(this).val());
 					});
 				})
-				$('#btnGdasReg').click(function(e){
-					reviewForm.find('input[name="productId"]').val(data.id);
-					reviewForm.find('input[name="optionId"]').val(data.oid);
-					reviewForm.find('input[name="orderId"]').val(orderId);
-					reviewForm.find('input[name="reviewContent"]').val($('#txtGdasCont').val());
-
-					reviewForm.submit();
-				})
 				
+				// 리뷰 등록
+				$('#btnGdasReg').click(function(e){
+						console.log('submit review');
+						console.log("img : "+img);
+						reviewForm.find('input[name="productId"]').val(data.id);
+						reviewForm.find('input[name="optionId"]').val(data.oid);
+						reviewForm.find('input[name="orderId"]').val(ordId);
+						reviewForm.find('input[name="reviewContent"]').val($('#txtGdasCont').val());
+						reviewForm.find('input[name="reviewImg"]').val(img);
+						reviewForm.find('input[name="reviewScore"]').val(score);
+						
+						reviewForm.submit();
+				})
+				//사진 선택
 				$('.btn_img_add').click(function(){
 					console.log('add img');
 					$('#tmpFile1').click();
 				})
+				
+				//사진이 선택 되면
 				$('#tmpFile1').change(function(data){
 					if(data != null){
 						console.log(this.files[0]);
-						
+							
 						let formData = new FormData();
 						formData.append("uploadFile", this.files[0]);
 						$.ajax({
@@ -154,29 +224,29 @@
 							type:'POST',
 							success: function(result){
 								let path = '/api/image/display?fileName='+result;
-								let img = '<img src="'+path+'"/>'
+								let imgTag = '<img src="'+path+'"/>'
 								let removeBtn = `<button class="btn-del">삭제</button>`
-								
-								$('.imgArea1').append(img);
+									
+								$('.imgArea1').append(imgTag);
 								$('.imgArea1').append(removeBtn);
 								$('.btn_img_add').css('display','none');
-								reviewForm.find('input[name="reviewImg"]').val(result);
+								img = result;
 								
+								//사진 삭제 버튼을 누르면
 								$('.btn-del').click(function(){
 									$(this).siblings('img').remove();
 									$(this).siblings('button').css('display','block');
 									$('#tmpFile1').val(null);
-									reviewForm.find('input[name="productId"]').val(null);
+									img = null;
 									$(this).remove();
 								})
 							}
 						})
 					}
-					
+						
 				})
-			
+				
 			})
-			
 		})
 	})
 </script>

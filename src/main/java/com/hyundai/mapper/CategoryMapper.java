@@ -14,8 +14,6 @@ public interface CategoryMapper {
 	public List<ProductOptionDTO> getCategoryWithPaging(@Param("cri") Criteria cri, @Param("userId") String userId);
 	
 	public int getTotalCount(Criteria cri);
-	
-	public List<CategoryDTO> getCate(Criteria cri);
 
 	public List<CategoryDTO> getPCate(Criteria cri);
 }

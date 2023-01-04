@@ -3,12 +3,12 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!-- SQL Mapping -->
-<mapper namespace="com.hyundai.mapper.CategoryMapper">
+<mapper namespace="com.hyundai.mapper.BestMapper">
 
-	<select id="getCategoryWithPaging"
+	<select id="getBestList"
 		resultType="com.hyundai.vo.ProductOptionDTO">
 	<![CDATA[
-select
+      select
              p.product_id id, 
              p.product_name name, 
              p.product_thumb thumb, 
@@ -29,37 +29,21 @@ select
          left join wish_list w on (w.product_id = p.product_id and w.user_id = #{userId})
          inner join brand b on (p.brand_id = b.brand_id)
             join categories c on p.category_id=c.category_id
+            join (select product_id,sum(order_list_qty) best
+            from order_list 
+            group by product_id 
+            OFFSET 0 ROWS FETCH NEXT 100 ROWS ONLY) olq on p.product_id=olq.product_id
             where c.category_id like #{cri.cateId}||'%'
-            order by ]]>
-		<choose>
-			<when test="cri.sort =='01'.toString()">
-				(p.product_date)
-			</when>
-			<when test="cri.sort =='02'.toString()">
-				(o.option_market_price)
-			</when>
-			<otherwise>
-				o.option_market_price desc
-			</otherwise>
-		</choose>
-             <![CDATA[,p.product_id
-            OFFSET (#{cri.pageNum}-1)*#{cri.amount} ROWS FETCH NEXT #{cri.amount} ROWS ONLY
-		]]>
-	</select>
-	<select id="getTotalCount" resultType="int">
-		select count(*) from
-		product where category_id like #{cateId}||'%'
+            order by best desc, p.product_id
+	]]>
 	</select>
 
-	<select id="getPCate" resultType="com.hyundai.vo.CategoryDTO">
 
-		select ca.category_id catePid, ca.category_name catePname, cb.category_id
-		cateId, cb.category_name cateName
-		from categories ca
-		join categories cb
-		on ca.category_id=cb.category_pid
-		where ca.category_id like #{catePid}||'%'
-		order by cb.category_id
-
+	<select id="getCate" resultType="com.hyundai.vo.CategoryDTO">
+	<![CDATA[
+		select category_name cateName, category_id cateId,category_pid catePid
+		from categories where category_pid is null
+	]]>
 	</select>
+
 </mapper>

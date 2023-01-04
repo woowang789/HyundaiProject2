@@ -14,5 +14,6 @@ public class CategoryDTO {
 	private String cateName;
 	private String cateId;
 	private String catePid;
+	private String catePname;
 
 }
