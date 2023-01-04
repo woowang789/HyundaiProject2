@@ -127,9 +127,9 @@
 											console.log('수량');
 											let plus = $('#'+id +' .plus ').prev().val();
 											plus++;
-											if (plus >= 100) {
-												plus = 100;
-												alert('최대 100개까지만 구매할 수 있습니다.');
+											if (plus > 99) {
+												plus = 99;
+												alert('최대 99개까지만 구매할 수 있습니다.');
 											};
 
 											$('#'+id +' .plus').prev().val(plus);
@@ -142,7 +142,7 @@
 											      <span>\${name}</span>
 											      <span class="option_cnt_box" style="display: flex">  
 											      <button class="btnCalc minus" onclick="">수량 1감소</button> 
-											      <input type="text" id="cartCnt_A000000178430001" name="" value="1" class="tx_num" title="구매수량"> 
+											      <input type="text" id="cartCnt_\${id}" name="" value="1" maxlength='2' class="tx_num" title="구매수량"> 
 											      <button class="btnCalc plus" onclick="">수량 1증가</button>
 											      </span>
 											      </div><div class="cont_area">
@@ -158,11 +158,35 @@
 												$('.option_add_area #'+id).remove(); 
 											})
 											
-											
+											$('.prd_info').on("propertychange change keyup paste input click",function(){
+												 let sum=0;
+												 let lists = $(this).find('.prd_cnt_box ').each(function(){
+													 let cnt = $(this).find('.tx_num').val();
+													 let price = $(this).find('.tx_num').text().replace(',','');
+													 sum += cnt*(price);
+									
+												 });
+												 $('#totalPrcTxt').text(sum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')).html();
+												 
+											 });
+											/* $('.prd_info ').on('click','.option_add_area',function(){
+												 console.log("변동 감지3");
+												 let sum=0;
+												 let lists = $(this).children('.prd_cnt_box ').each(function(){
+													 let cnt = $(this).find('.tx_num').val();
+													 let price = $(this).find('.tx_num').text().replace(',','');
+													 sum += cnt*(price);
+									
+												 });
+												 $('#totalPrcTxt').text(sum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')).html();
+												 									
+											 }); */
 										}
 
-											$("#buy_option_box").removeClass(
-													"open");
+											$("#buy_option_box").removeClass("open");
+											
+											
+									
 										});
 
 						$('.option_add_area').on('click', '.minus', function() {
@@ -173,27 +197,23 @@
 								alert('1개 단위로 구매 가능한 상품입니다. 수량을 다시 선택해주세요.');
 							}
 							$(this).next().val(minus);
-							console.log($(this).next().val(minus));
+							/* console.log($(this).next().val(minus)); */
 
 						});
 
 						$('.option_add_area').on('click', '.plus', function() {
 							let plus = $(this).prev().val();
 							plus++;
-							if (plus > 100) {
-								plus = 100;
-								alert('최대 100개까지만 구매할 수 있습니다.');
+							if (plus > 99) {
+								plus = 99;
+								alert('최대 99개까지만 구매할 수 있습니다.');
 							}
 							;
 							$(this).prev().val(plus);
-							console.log($(this).prev().val(plus));
+							/* console.log($(this).prev().val(plus)); */
 
 						});
 						
-						/* $('.option_add_area').on('click', '.minus', function(){
-							let qty = $(this).next().val();
-							console.log(qty)
-						}); */
 						
 						
 					});
@@ -239,7 +259,7 @@
 		<div class="prd_detail_box renew">
 			<div class="left_area">
 				<div class="prd_img">
-					<span class="thumb_flag best">베스트</span> <img id="mainImg"
+					 <img id="mainImg"
 						src="<c:out value="${product_detail.pimg}" />" alt="상품명 이미지"
 						onerror="common.errorImg(this);" /> <input type="hidden"
 						id="mainImgSize" value="550" />

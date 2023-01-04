@@ -68,7 +68,6 @@
               data-ref-dispcatno="100000100010008" data-ref-itemno="001" data-trk="Drawer/Cat100000100010008_MID" data-impression="A000000117541^카테고리상세_검색결과상품_인기순^1"
               onclick="javascript: gtm.goods.callGoodsGtmInfo(&quot;A000000117541&quot;, &quot;&quot;, &quot;ee-productClick&quot;, &quot;카테고리상세_검색결과상품&quot;, &quot;1&quot;);" data-impression-visibility="1"
             >
-              <span class="thumb_flag best">베스트</span>
               <img src="<c:out value="${ctgy.thumb}" />
                      alt=" 우르오스 올인원 200ml 2종 택 1" onerror="common.errorImg(this);">
             </a>
