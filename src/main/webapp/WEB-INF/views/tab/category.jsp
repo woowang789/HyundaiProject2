@@ -202,6 +202,10 @@
 
 				})
 				$('.btn_zzim').click(function(e){
+					if(userId == ''){
+						alert("로그인이 필요한 서비스 입니다.");
+						return;
+					}
 					let btn = $(this);
 					let prodId = $(this).data('ref-goodsno');
 					console.log(prodId);

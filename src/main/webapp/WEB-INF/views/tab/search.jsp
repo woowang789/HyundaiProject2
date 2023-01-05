@@ -1,7 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ include file="../includes/header.jsp"%>
+
+<c:set var = "isContain" value = "${fn:contains(tags, pageMaker.cri.keyword)}"/>
+
 <script type="text/javascript">
 	function Price_Search() {
 
@@ -17,7 +21,18 @@
       <p class="resultTxt">
         <strong>${pageMaker.cri.keyword }</strong>검색결과 (전체
         <span>${pageMaker.total }개</span>
-        의 상품)
+        의 상품)    
+        <i class="fa-sharp fa-solid fa-star" 
+        style="display:inline-block;cursor:pointer; 
+        color:
+         <c:if test="${ isContain}">
+         	#9BCE26;
+         </c:if>
+         <c:if test="${not isContain}">
+         	 #ebebeb; 
+         </c:if>
+        margin:10px"
+        ></i>
       </p>
     </div>
     <!-- 상품 속성 정보 검색 서비스 개선 -->
@@ -96,7 +111,8 @@
             </div>
             <!--// 상품명  -->
             <!-- 찜버튼 -->
-            <button class="btn_zzim jeem <c:if test="${item.wished eq 'true'}">on</c:if>">
+            <button class="btn_zzim jeem <c:if test="${item.wished eq 'true'}">on</c:if>" 
+            	data-ref-goodsno="${item.id }">
               <span>찜하기전</span>
             </button>
             <!--// 찜버튼 -->
@@ -156,9 +172,18 @@
   <!-- //pageing end -->
   <!-- </div> -->
 </div>
+
+<script src="/resources/js/wishList.js" defer></script>
 <script type="text/javascript">
 	$(document).ready(
 			function() {
+				const userId =
+					<sec:authorize access="isAnonymous()">
+						"";
+					</sec:authorize>
+					<sec:authorize access="isAuthenticated()">
+						"<sec:authentication property="principal.user.user_id"/>";
+					</sec:authorize>
 				const actionForm = $('#actionForm');
 				$('.pageing a').click(
 						function(e) {
@@ -209,6 +234,30 @@
 						$(this).addClass('active')
 						$(".gtm_search_list").removeClass('list_type')
 					}
+				})
+				
+				$('.btn_zzim').click(function(e){
+					if(userId == ''){
+						alert("로그인이 필요한 서비스 입니다.");
+						return;
+					}
+					let btn = $(this);
+					let prodId = $(this).data('ref-goodsno');
+					console.log(prodId);
+			    	wishService.toggleWish({
+			    		userId: userId, 
+			    		prodId:prodId,
+			    		},function(data){
+			    			console.log("result : ",data);
+			    			if(data == 1){
+			    				btn.addClass('on');
+			    				alert('찜하기 완료')
+			    			}else if(data == 0){
+			    				btn.removeClass('on');
+			    				alert('찜하기 해제')
+			    			}
+			    		})
+					
 				})
 
 			})
