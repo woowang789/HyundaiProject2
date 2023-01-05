@@ -31,7 +31,6 @@ import lombok.extern.log4j.Log4j;
 public class MypageController {
 
 	private final OrderService orderService;
-
 	private final UserMapper userMapper;
 
 	@GetMapping
@@ -100,12 +99,12 @@ public class MypageController {
 		return "mypage/completion_change_info";
 	}
 	
-	@PostMapping("/info-remove")
+	@PostMapping("/deleteInfo")
 	public String deleteInfo(UserVO vo) {
 		userMapper.deleteAuth(vo.getUser_id());
 		userMapper.deleteUser(vo.getUser_id());
 		SecurityContextHolder.clearContext();
-		return "home";
+		return "redirect:/home";
 	}
 
 }

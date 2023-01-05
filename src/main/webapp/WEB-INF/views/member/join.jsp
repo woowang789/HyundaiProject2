@@ -5,7 +5,7 @@
 <script>
 $(document).ready(function(){
 	var csrfHeaderName="${_csrf.headerName}";
-	var csrfTokenValue="${_csrf.token}"
+	var csrfTokenValue="${_csrf.token}";
 	
 	$('#id').focusout(function(){
 		let id = $('#id').val();
