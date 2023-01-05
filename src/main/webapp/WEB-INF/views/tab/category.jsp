@@ -84,7 +84,7 @@
                 </p>
               </a>
             </div>
-            <button class="btn_zzim jeem <c:if test="${ctgy.wished eq true }"> on</c:if>" data-ref-goodsno="A000000117541">
+            <button class="btn_zzim jeem <c:if test="${ctgy.wished eq true }"> on</c:if>" data-ref-goodsno="<c:out value="${ctgy.id}" />">
               <span>찜하기전</span>
             </button>
             <p class="prd_price">
@@ -142,9 +142,17 @@
     </c:if>
   </div>
 </div>
+<script src="/resources/js/wishList.js" defer></script>
 <script type="text/javascript">
 	$(document).ready(
 			function() {
+				const userId =
+					<sec:authorize access="isAnonymous()">
+						"";
+					</sec:authorize>
+					<sec:authorize access="isAuthenticated()">
+						"<sec:authentication property="principal.user.user_id"/>";
+					</sec:authorize>
 				const actionForm = $('#actionForm');
 				$('.pageing a').click(
 						function(e) {
@@ -193,6 +201,25 @@
 					
 					actionForm.submit();
 
+				})
+				$('.btn_zzim').click(function(e){
+					let btn = $(this);
+					let prodId = $(this).data('ref-goodsno');
+					console.log(prodId);
+			    	wishService.toggleWish({
+			    		userId: userId, 
+			    		prodId:prodId,
+			    		},function(data){
+			    			console.log("result : ",data);
+			    			if(data == 1){
+			    				btn.addClass('on');
+			    				alert('찜하기 완료')
+			    			}else if(data == 0){
+			    				btn.removeClass('on');
+			    				alert('찜하기 해제')
+			    			}
+			    		})
+					
 				})
 
 			})
