@@ -3,7 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="../includes/header.jsp"%>
 <script>
+
 $(document).ready(function(){
+	
 	var csrfHeaderName="${_csrf.headerName}";
 	var csrfTokenValue="${_csrf.token}";
 	
@@ -20,10 +22,10 @@ $(document).ready(function(){
 				success:function(result){
 					if(result ==1){
 						$("#id_check").text('이미 사용중인 아이디입니다.');
-						$("#id_check").attr('color','#dc3545');
+						$("#joinBtn").attr("disabled", "disabled");
 					}else{
 						$("#id_check").text('사용할 수 있는 아이디입니다.');
-						$("#id_check").attr('color','2fb380');
+						$("#joinBtn").removeAttr("disabled");
 					}
 				},
 				error : function(){
@@ -32,7 +34,6 @@ $(document).ready(function(){
 			})
 		}
 		});
-		
 		$("#pwd2").focusout(function(){
 			let pwd1 = $("#pwd1").val();
 			let pwd2 = $("#pwd2").val();			
@@ -52,6 +53,7 @@ $(document).ready(function(){
 </script>
 <script type="text/javascript">
 function check(){
+	
 	if(joinForm.user_id.value==0){
 		alert("아이디를 입력해주세요");
 		joinForm.user_id.focus();
@@ -122,7 +124,7 @@ window.onload = function(){
               <tr>
                 <th scope="row">아이디</th>
                 <td><input type="text" name="user_id" style="width: 150px" title="아이디" id="id">
-                 <span id="id_check"></span>
+                 <span id="id_check" name="id_check"></span>
                 </td>
               </tr>
               <tr>
