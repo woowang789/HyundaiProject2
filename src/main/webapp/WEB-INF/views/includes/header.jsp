@@ -20,24 +20,24 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
 <script>
-$(document).ready(function() {
-	//카테고리 레이어 열기/닫기
-	$("#btnGnbOpen").click(function(e) {
-		e.preventDefault();
-		if ($(this).hasClass("active")) {
+	$(document).ready(function() {
+		//카테고리 레이어 열기/닫기
+		$("#btnGnbOpen").click(function(e) {
+			e.preventDefault();
+			if ($(this).hasClass("active")) {
+				$(this).removeClass("active");
+				$(".layer_all_menu").removeClass("active");
+			} else {
+				$(this).addClass("active");
+				$(".layer_all_menu").addClass("active");
+			}
+		});
+		$("#btnGnbClose").click(function(e) {
+			e.preventDefault();
 			$(this).removeClass("active");
 			$(".layer_all_menu").removeClass("active");
-		} else {
-			$(this).addClass("active");
-			$(".layer_all_menu").addClass("active");
-		}
+		});
 	});
-	$("#btnGnbClose").click(function(e) {
-		e.preventDefault();
-		$(this).removeClass("active");
-		$(".layer_all_menu").removeClass("active");
-	});
-});
 </script>
 <script type="text/javascript">
 	function search() {
@@ -46,8 +46,7 @@ $(document).ready(function() {
 	}
 </script>
 </head>
-<div class="popup-background" 
-style="display:none; background-color:none;width: 100%;height: 100%;z-index: 100;position: absolute;"></div>
+<div class="popup-background" style="display: none; background-color: none; width: 100%; height: 100%; z-index: 100; position: absolute;"></div>
 <body>
   <div id="Wrapper">
     <div id="Header">
