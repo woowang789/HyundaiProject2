@@ -85,12 +85,12 @@ function check(){
 		joinForm.tel.focus();
 		return false;
 	}
-	if(joinForm.address.value==0){
+	else if(joinForm.address.value==0){
 		alert("주소를 입력해주세요");
 		joinForm.address.focus();
 		return false;
 	}
-	if(joinForm.selYear.value==0 || joinForm.selMonth.value==0 || joinForm.selDay.value==0 ){
+	else if(joinForm.selYear.value==0 || joinForm.selMonth.value==0 || joinForm.selDay.value==0 ){
 		alert("생일을 입력해주세요");
 		joinForm.address.focus();
 		return false;
@@ -331,16 +331,17 @@ window.onload = function(){
           </table>
         </div>
         	<div class="wtype_comment pt10">
-            	<input type="checkbox">
+            	<input type="checkbox" id="check1">
                 <label for="ck1">이메일 아이디 적용</label>
              </div>
              <div class="wtype_comment pt5">
-             	<input type="checkbox">
+             	<input type="checkbox" id="check2">
                	<label for="emailReceiveYn">이메일을 통한 상품 및 이벤트 정보 수신에 동의합니다. (선택)</label>
               </div>
         <div class="btnwrap">
           <input type="button" value="취소" class="btn wt" id="cancleBtn">
           <input type="submit" value="회원가입" class="btn gray mr0" id="joinBtn">
+          <span id="check_text"></span>
         </div>
       </div>
       </form>
