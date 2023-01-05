@@ -102,6 +102,94 @@
 
 		}
 	};
+	var fnLayerTopCustomSet = function(layer, status){ //layer : 레이어 아이디 , status : open/close
+	    var _obj = $('#'+ layer);
+	    if(status == 'open'){
+	           
+	        _obj.show();
+	        
+	        var popPos = 0;
+	        var popWid = parseInt(_obj.width(), 10)/2;
+	        var popHgt = parseInt(_obj.height(), 10);
+	        
+	        if(popHgt == 0 && _obj.find('.popup-contents').length > 0){
+	            popHgt = _obj.find('.popup-contents').height();
+	        }
+	                
+	        popPos = parseInt($(window).scrollTop(), 10) + ((parseInt($(window).height(), 10) - popHgt)/2) ;
+	        
+	        if(popHgt > $(window).height()){
+	            popPos = parseInt($(window).scrollTop(), 10);
+	        }
+
+	        if(layer=='passwdLayer'||layer=='lockLayer'){
+	            popPos2 = _obj.height()/2;
+	            //_obj.css({'left':'50%' , 'margin-left':-(popWid) , 'top':'50%' , 'margin-top':-(popPos)}).show()
+	            _obj.css({'left':'50%' , 'margin-left':-(popWid) +'px' , 'top':'50%', 'margin-top':-(popPos2) +'px'});
+	            $('body').append('<div id="dim"></div>');
+	        }else{
+	            var popHgt = _obj.height();
+	            //_obj.removeClass('hide').css({'margin-top': -_obj.height()/2 +'px'});
+	            _obj.removeClass('hide');
+	            popHgt = parseInt(_obj.height(), 10);
+	            popWid = parseInt(_obj.width(), 10)/2;
+	            
+	            // 중간을 보여주는 포지션
+	            //popPos = parseInt($(window).scrollTop(), 10) + ((parseInt($(window).height(), 10) - popHgt)/2) ;
+	            
+	            // 팝업레이어의 탑을 보여주는 포지션
+	            if(_obj.height() > $(window).height()){
+	                popPos = $(window).scrollTop();
+	            }else{
+	                popPos = $(window).scrollTop() + ($(window).height() - _obj.height())/2;
+	            }
+	            
+	            _obj.css({'left':'50%' , 'margin-left':-(popWid) +'px' , 'top': popPos +'px'});
+	            $('body').append('<div class="dimm" style="\z-index:990;\"></div>');
+	            console.log(popPos, popHgt);
+	        }
+	        
+	    }else if(status == 'close'){
+	        if(common.zipcodequick.pop.quickYn == 'Y'){
+	            _obj.hide();
+	            _obj.addClass('hide');
+	            _obj.html("");
+	            if(layer=='passwdLayer'||layer=='lockLayer'){
+	                $('#dim').remove();
+	                $('#layer_pop_wrap').css('top','');
+	                $('#layer_pop_wrap').css('margin-left','');
+	                $('#layer_pop_wrap').css('margin-top','');
+	                $('body').append('<div class="dimm" style="\z-index:990;\"></div>');
+	            }else{
+	                $('.dimm').remove();
+	                $('#layer_pop_wrap').css('top','');
+	                $('#layer_pop_wrap').css('margin-left','');
+	                $('#layer_pop_wrap').css('margin-top','');
+	                $('body').append('<div class="dimm" style="\z-index:990;\"></div>');
+	            }
+	        } else {
+	            _obj.hide();
+	            _obj.addClass('hide');
+	            _obj.html("");
+	            if(layer=='passwdLayer'||layer=='lockLayer'){ 
+	                $('#dim').remove();
+	                $('#layer_pop_wrap').css('top','');
+	                $('#layer_pop_wrap').css('margin-left','');
+	                $('#layer_pop_wrap').css('margin-top','');
+	            }else{
+	                $('.dimm').remove();
+	                $('#layer_pop_wrap').css('top','');
+	                $('#layer_pop_wrap').css('margin-left','');
+	                $('#layer_pop_wrap').css('margin-top','');
+	            }
+	        }
+	        // 레코벨 추천상품을 장바구니에서 담든 안담든 레이어 닫을때 N 값으로 초기화
+	        common.cart.regCartRecoBellGoodsInCartYn = 'N';
+	    }else if(status == 'closeRecoBellGoodsInCart'){
+	        location.reload();
+	    }
+	};
+
 </script>
 
 <script>
@@ -250,6 +338,16 @@
 		$(this).parents().parents().remove();
 		//item.remove();
 	 } 
+	function popUpClose(){
+        
+        $(".layer_pop_wrap").hide();
+        $('.dimm').remove();
+    }
+	function popUpOpen(){
+        
+        $(".layer_pop_wrap").hide();
+        $('.dimm').remove();
+    }
 </script>
 
 
@@ -259,10 +357,9 @@
 		<div class="prd_detail_box renew">
 			<div class="left_area">
 				<div class="prd_img">
-					 <img id="mainImg"
-						src="<c:out value="${product_detail.pimg}" />" alt="상품명 이미지"
-						onerror="common.errorImg(this);" /> <input type="hidden"
-						id="mainImgSize" value="550" />
+					<img id="mainImg" src="<c:out value="${product_detail.pimg}" />"
+						alt="상품명 이미지" onerror="common.errorImg(this);" /> <input
+						type="hidden" id="mainImgSize" value="550" />
 					<!-- 20200526 상품개선 : 추가 / 발색비교 옵션 선택 시 옵션명 변경 및 관련 썸네일로 변경 -->
 					<div class="prd-option-name">
 						<!-- 노출 시 is-active class 추가 -->
@@ -402,7 +499,7 @@
 					<!-- 20191213 e -->
 					<div class="prd_btn_area new-style type1">
 						<button class="btnBasket dupItem goods_cart"
-							onclick="javascript:common.popLayer.todayDelivery.openTodayDeliveryNotice('goodsdetail.cart');"
+							onclick="javascript:fnLayerTopCustomSet('basketOption', 'open');;"
 							data-attr="상품상세^주문유형^장바구니">장바구니</button>
 						<!-- <button class="btnBuy goods_buy" id="cartBtn" onClick="javascript:goods.detail.bindBtnBuy();">구매하기</button> -->
 						<button class="btnBuy goods_buy" id="cartBtn"
@@ -1311,35 +1408,6 @@
 												</script>
 												<!-- 상품평 리스트 end -->
 											</div>
-										</div>
-									</div>
-								</div>
-								<div class="layer_pop_wrap w490" id="basketOption"
-									style="z-index: 999; display: block; left: 50%; margin-left: -245px; top: 140px;"
-									data-quick-yn="N">
-									<div class="popup-contents"
-										style="top: 70%; width: 534px; margin: -365px 0 0 -268px;">
-										<div class="pop-conts">
-											<h1 class="ptit">선택완료</h1>
-											<div class="popCont contPd01">
-												<p class="txt_onbag">
-												<p class="txt_onbag">장바구니에 추가되었습니다.</p>
-												</p>
-											</div>
-											<!-- popCont -->
-											<div class="area2sButton pdTz">
-												<button class="btnlG01 pdzero w130"
-													onclick="fnLayerSet('basketOption', 'close')">
-													<span>쇼핑계속하기</span>
-												</button>
-												<button class="btnG01 pdzero w130"
-													onclick="location.href='/cart'">
-													<span>장바구니 확인</span>
-												</button>
-											</div>
-											<button type="button" class="ButtonClose"
-												onclick="fnLayerSet('basketOption', 'close');">팝업창
-												닫기</button>
 										</div>
 									</div>
 								</div>
