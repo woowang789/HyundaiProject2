@@ -23,6 +23,7 @@ $(document).ready(function(){
 					if(result ==1){
 						$("#id_check").text('이미 사용중인 아이디입니다.');
 						$("#joinBtn").attr("disabled", "disabled");
+						$("#id").focus();
 					}else{
 						$("#id_check").text('사용할 수 있는 아이디입니다.');
 						$("#joinBtn").removeAttr("disabled");
@@ -61,6 +62,11 @@ function check(){
 	}
 	else if(joinForm.pwd1.value==0 || joinForm.pwd2.value==0){
 		alert("비밀번호를 입력해주세요");
+		joinForm.pwd1.focus();
+		return false;
+	}
+	else if(joinForm.pwd1.value !== joinForm.pwd2.value){
+		alert("비밀번호가 같지 않습니다.");
 		joinForm.pwd1.focus();
 		return false;
 	}
