@@ -75,5 +75,15 @@
 		user_tel = #{user_tel}
 		where user_id = #{user_id}
 	</update>
+	
+	<delete id="deleteAuth">
+		delete from authorities
+		where user_id = #{user_id}
+	</delete>
+	
+	<delete id="deleteUser">
+		delete from users
+		where user_id = #{user_id}
+	</delete>
 
 </mapper>

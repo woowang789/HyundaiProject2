@@ -1,5 +1,6 @@
 package com.hyundai.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,21 +23,18 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class CategoryController {
 	
-	private final String userId="user1@email.com";
 	
 	@Autowired
 	private CategoryMapper mapper;
 
 	@RequestMapping(value = "/category", method = RequestMethod.GET)
-	public String category(Criteria cri,Model model) {
+	public String category(Criteria cri,Model model, Principal principal) {
 		log.info("/category" +cri);
 		if(cri.getAmount()==10) 
 			cri.setAmount(24);
 		if(cri.getCatePid() == null) cri.setCatePid("100000100010008");
-//		cri.setCateId("100000100010008");
-
-
-
+		String userId = "";
+		if(principal!=null) userId = principal.getName();
 		model.addAttribute("p_categ",mapper.getPCate(cri));
 		int total =mapper.getTotalCount(cri);
 		model.addAttribute("categories", mapper.getCategoryWithPaging(cri,userId));

@@ -3,6 +3,18 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="../includes/header.jsp"%>
+<script>
+function check(){
+	if(loginForm.username.value==0){
+		alert("아이디를 입력해주세요");
+		return false;
+	}
+	else if(loginForm.password.value==0){
+		alert("비밀번호를 입력해주세요");
+		return false;
+	}
+}
+</script>
 <div id="Container" class="bgf6">
 	<div id="Contents">
 		<div class="loginArea new login">
@@ -10,9 +22,7 @@
 				<h2>로그인</h2>
 				<p>올리브영의 다양한 서비스와 혜택을 누리세요.</p>
 			</div>
-
-
-			<form action="/login" method="post">
+			<form action="/login" method="post" name="loginForm" onsubmit="return check();">
 				<div class="loginForm">
 					<ul>
 						<li><input type="text" id="loginId"
@@ -34,11 +44,15 @@
 								찾기</a>
 						</div>
 					</div>
-					<c:if test="${LoginFailMessage!=null}">
+					<%-- <c:if test="${LoginFailMessage!=null}">
 						<div>
-							<p style="color:red; font-size=10px;">${LoginFailMessage}</p>
+							<p style="color: red;">${LoginFailMessage}</p>
 						</div>
-					</c:if>
+					</c:if> --%>
+					<div>
+						<p style="color: red;" ><c:out value="${error}"/></p>
+						<p type="hidden" style="color: red;"></p>
+					</div>
 					<input type="hidden" name="${_csrf.parameterName}"
 						value="${_csrf.token}" />
 					<div class="btnArea">

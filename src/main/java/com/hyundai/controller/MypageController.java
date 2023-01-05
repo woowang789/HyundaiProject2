@@ -19,6 +19,7 @@ import com.hyundai.vo.Criteria;
 import com.hyundai.vo.PageDTO;
 import com.hyundai.vo.ReviewDTO;
 import com.hyundai.vo.ShowOrderDTO;
+import org.springframework.security.core.context.SecurityContextHolder;
 import com.hyundai.vo.UserVO;
 
 import lombok.RequiredArgsConstructor;
@@ -33,7 +34,6 @@ public class MypageController {
 	private final OrderService orderService;
 	private final ReviewService reviewService;
 	
-
 	private final UserMapper userMapper;
 
 	@GetMapping
@@ -125,4 +125,13 @@ public class MypageController {
 
 		return "mypage/completion_change_info";
 	}
+	
+	@PostMapping("/deleteInfo")
+	public String deleteInfo(UserVO vo) {
+		userMapper.deleteAuth(vo.getUser_id());
+		userMapper.deleteUser(vo.getUser_id());
+		SecurityContextHolder.clearContext();
+		return "redirect:/home";
+	}
+
 }
