@@ -23,9 +23,9 @@ public class UserController {
 	private UserService service;
 
 	@GetMapping("/login")
-	public String login() {
+	public String login(String error, Model model) {
 		log.info("login");
-
+		if(error != null) model.addAttribute("error","아이디 또는 비밀번호를 잘못 입력했습니다.");
 		return "member/login";
 	}
 
@@ -126,7 +126,6 @@ public class UserController {
 	public String resetPasswordPost(UserVO user) {
 		service.updatePwd(user);
 		return "member/login";
-
 	}
 
 }

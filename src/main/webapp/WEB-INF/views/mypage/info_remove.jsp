@@ -2,6 +2,16 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="./my_top.jsp"%>
+<script>
+function deleteUser(){
+	if(confirm("회원 탈퇴하시겠습니까?")==false){
+		return false;
+	}
+}
+</script>
+<form method="post" action="/mypage/deleteInfo" onsubmit="return confirm('회원 탈퇴하시겠습니까?');">
+<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+<input type="hidden" name="user_id" value="<sec:authentication property="principal.user.user_id"/>">
   <div class="mypage-conts">
     <div class="title-area">
       <h2 class="tit">회원탈퇴</h2>
@@ -15,8 +25,9 @@
       <li>진행 중인 전자상거래 이용내역(결제/배송/교환/반품 중인 상태)이 있거나 고객상담 및 이용하신 서비스가 완료되지 않은 경우 서비스 철회 하실 수 없습니다.</li>
     </ul>
     <p class="common2s-text">올리브영 회원 탈퇴(이용약관 동의 철회)를 하시겠습니까?</p>
-    <div class="area1sButton mgT10"><a class="btnGreen">회원 탈퇴</a></div>
+    <div class="area1sButton mgT10"><button type="submit" class="btnGreen" style="width:150px;">회원 탈퇴</button></div>
   </div>
+  </form>
 </div>
 </div>
 </div>

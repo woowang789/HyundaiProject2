@@ -23,8 +23,10 @@ $(document).ready(function(){
 				success:function(result){
 					if(result ==1){
 						$("#pwd_check").text('비밀번호가 일치합니다.');
+						$("#changeBtn").removeAttr("disabled");
 					}else{
 						$("#pwd_check").text('비밀번호가 일치하지 않습니다.');
+						$("#changeBtn").attr("disabled", "disabled");
 					}
 				},
 				error : function(){
@@ -49,10 +51,31 @@ window.onload = function(){
         }).open();
     });
 }
-
-//버튼 alert
-function btn(){
-	alert("회원 정보가 변경 적용됩니다.");
+</script>
+<script>
+function check(){
+	
+	if(changeForm.curPwd.value==0){
+		alert("현재 비밀번호를 입력해주세요");
+		changeForm.curPwd.focus();
+		return false;
+	}
+	else if(changeForm.pwd1.value==0){
+		alert("비밀번호를 입력해주세요");
+		changeForm.pwd1.focus();
+		return false;
+	}
+	else if(changeForm.pwd2.value==0){
+		alert("비밀번호를 입력해주세요");
+		changeForm.pwd2.focus();
+		return false;
+	}
+	else if(changeForm.pwd1.value !== changeForm.pwd2.value){
+		alert("새로운 비밀번호가 같지 않습니다.");
+		changeForm.pwd1.focus();
+		return false;
+	}
+	alert("회원정보가 변경됩니다.");
 }
 </script>
 <div class="mypage-conts">
@@ -63,7 +86,7 @@ function btn(){
 		<div class="title_wrap clearfix">
 			<h4 class="float_left">회원정보</h4>
 		</div>
-		<form method="post" action="/mypage/info-change">
+		<form method="post" action="/mypage/info-change" name="changeForm" onsubmit="return check();">
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 		<div class="tblwrap">
 			<table class="tbl_wtype1">
@@ -86,12 +109,12 @@ function btn(){
 					</tr>
 					<tr>
 						<th scope="row"><label for="pw">새 비밀번호</label></th>
-						<td><input type="password" id="pwc" style="width: 150px"
+						<td><input type="password" id="pwd1" style="width: 150px"
 							title="비밀번호 확인"></td>
 					</tr>
 					<tr>
 						<th scope="row"><label for="pw2">새 비밀번호 확인</label></th>
-						<td><input type="password" id="pwc" style="width: 150px" name="user_pwd"> 
+						<td><input type="password" id="pwd2" style="width: 150px" name="user_pwd"> 
 						<span class="guide_comment" id="pwcMsg"></span>
 							<span class="guide_comment" id="pwcCapsLockMsg"></span></td>
 					</tr>
@@ -140,7 +163,7 @@ function btn(){
 		</div>
 		<div class="btnwrap">
 			<input type="button" value="취소" class="btn wt" id="cancleBtn">
-			<input type="submit" value="회원가입" class="btn gray mr0" id="joinBtn" onclick="btn();">
+			<input type="submit" value="정보수정" class="btn gray mr0" id="changeBtn">
 		</div>
 		</form>
 	</div>
