@@ -143,8 +143,15 @@
 </div>
 <script src="/resources/js/wishList.js" defer></script>
 <script type="text/javascript">
-	$(document).ready(
-			function() {
+	$(document).ready(function() {
+		$.ajaxSetup({
+			  beforeSend: function(xhr) {
+			      xhr.setRequestHeader("AJAX", true);
+			      var csrfToken = '${_csrf.token}';
+			      xhr.setRequestHeader("X-CSRF-TOKEN", csrfToken);
+			  }
+		});
+		
 				const userId =
 					<sec:authorize access="isAnonymous()">
 						"";
@@ -202,6 +209,10 @@
 
 				})
 				$('.btn_zzim').click(function(e){
+					if(userId == ''){
+						alert("로그인이 필요한 서비스 입니다.");
+						return;
+					}
 					let btn = $(this);
 					let prodId = $(this).data('ref-goodsno');
 					console.log(prodId);
