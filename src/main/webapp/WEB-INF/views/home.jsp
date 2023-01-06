@@ -252,11 +252,15 @@
                               </div>
                               <p class="prd_price">
                                 <span class="tx_org">
-                                  <span class="tx_num">${item.originPrice }</span>
+                                  <span class="tx_num">
+                                    <fmt:formatNumber>${item.originPrice}</fmt:formatNumber>
+                                  </span>
                                   원
                                 </span>
                                 <span class="tx_cur">
-                                  <span class="tx_num">${item.marketPrice }</span>
+                                  <span class="tx_num">
+                                    <fmt:formatNumber> ${item.marketPrice }</fmt:formatNumber>
+                                  </span>
                                   원
                                 </span>
                               </p>
@@ -413,7 +417,7 @@
                     <a href="/product-detail?pid=${item.id }" name="Home_Recommand" class="prd_thumb goodsList" data-ref-goodsno="A000000177759" data-attr="홈^이상품어때요^클리오 킬커버 메쉬글로우 쿠션^1" data-ref-dispcatno="90000010001"
                       data-ref-itemno="008" data-trk="null" data-impression="A000000177759^홈_이상품어때요^1" data-impression-visibility="1" tabindex="0"
                     >
-                      <img src="https://image.oliveyoung.co.kr/uploads/images/goods/400/10/0000/0017/A00000017775906ko.jpg?l=ko" alt="클리오 킬커버 메쉬글로우 쿠션" onerror="common.errorImg(this);">
+                      <img src="${item.thumb }" alt="클리오 킬커버 메쉬글로우 쿠션" onerror="common.errorImg(this);">
                     </a>
                     <div class="prd_name">
                       <a href="javascript:;" name="Home_Recommand" class="goodsList" data-ref-goodsno="A000000177759" data-attr="홈^이상품어때요^클리오 킬커버 메쉬글로우 쿠션^1" data-ref-dispcatno="90000010001" data-ref-itemno="008" data-trk="null"
@@ -455,7 +459,8 @@
       </div>
     </div>
     <!--   66666주목해야할 브랜드 상품 -->
-    <h3 class="main_sub_tit" id="main_brand_wrap">
+    <div name="movepage"></div>
+    <h3 class="main_sub_tit">
       <strong>주목해야 할 브랜드</strong>
     </h3>
     <div class="main_brand_wrap">
@@ -463,23 +468,23 @@
         <div class="inner_unit">
           <div>
             <ul class="comm3sTabs sixSet" id="tabList">
-              <li class="on" data-ref-brndno="A003496">
-                <a href="javascript:location.href='/home?brandName=록시땅';" data-attr="">록시땅</a>
+              <li class="<c:if test="${brand[0].brandName eq '록시땅' }">on</c:if>" data-ref-brndno="A003496">
+                <a href="home?brandName=록시땅#tabList" data-attr="">록시땅</a>
               </li>
-              <li class="" data-ref-brndno="A003368">
-                <a href="javascript:;" data-attr="">베네피트 </a>
+              <li class="<c:if test="${brand[0].brandName eq '베네피트' }">on</c:if>" data-ref-brndno="A003368">
+                <a href="home?brandName=베네피트#tabList" data-attr="">베네피트 </a>
               </li>
-              <li class="" data-ref-brndno="A001316">
-                <a href="javascript:;" data-attr="">보다나 </a>
+              <li class="<c:if test="${brand[0].brandName eq '보다나' }">on</c:if>" data-ref-brndno="A001316">
+                <a href="home?brandName=보다나#tabList" data-attr="">보다나 </a>
               </li>
-              <li class="" data-ref-brndno="A005671">
-                <a href="javascript:;" data-attr="">바비브라운 </a>
+              <li class="<c:if test="${brand[0].brandName eq '바비브라운' }">on</c:if>" data-ref-brndno="A005671">
+                <a href="home?brandName=바비브라운#tabList" data-attr="">바비브라운 </a>
               </li>
-              <li class="" data-ref-brndno="A002992">
-                <a href="javascript:;" data-attr="">맥 </a>
+              <li class="<c:if test="${brand[0].brandName eq '맥' }">on</c:if>" data-ref-brndno="A002992">
+                <a href="home?brandName=맥#tabList" data-attr="">맥 </a>
               </li>
-              <li class="" data-ref-brndno="A001619">
-                <a href="javascript:;" data-attr="">톤28 </a>
+              <li class="<c:if test="${brand[0].brandName eq '톤28' }">on</c:if>" data-ref-brndno="A001619">
+                <a href="home?brandName=톤28#tabList" data-attr="">톤28 </a>
               </li>
             </ul>
             <div class="main_brand_tab main_brand brndList show" data-ref-brndno="A003496">
@@ -490,7 +495,7 @@
                       <a href="/product-detail?pid=${item.id }" name="Home_Recommand" class="prd_thumb goodsList" data-ref-goodsno="A000000177759" data-attr="홈^이상품어때요^클리오 킬커버 메쉬글로우 쿠션^1" data-ref-dispcatno="90000010001"
                         data-ref-itemno="008" data-trk="null" data-impression="A000000177759^홈_이상품어때요^1" data-impression-visibility="1" tabindex="0"
                       >
-                        <img src="https://image.oliveyoung.co.kr/uploads/images/goods/400/10/0000/0017/A00000017775906ko.jpg?l=ko" alt="클리오 킬커버 메쉬글로우 쿠션" onerror="common.errorImg(this);">
+                        <img src="${item.thumb }" alt="${item.name }" onerror="common.errorImg(this);">
                       </a>
                       <div class="prd_name">
                         <a href="javascript:;" name="Home_Recommand" class="goodsList" data-ref-goodsno="A000000177759" data-attr="홈^이상품어때요^클리오 킬커버 메쉬글로우 쿠션^1" data-ref-dispcatno="90000010001" data-ref-itemno="008" data-trk="null"
@@ -527,8 +532,8 @@
                 </c:forEach>
               </ul>
               <div class="brand_more">
-                <a href="javascript:common.link.moveBrandShop('A003496', 'Home_Brand_Banner');">
-                  <span>센시안</span>
+                <a href="/search?keyword=${brand[0].brandName}">
+                  <span> ${brand[0].brandName}</span>
                   브랜드 상품 전체보기
                 </a>
               </div>

@@ -70,7 +70,7 @@
 
 
 	<select id="getRecommendBrand"
-		resultType="com.hyundai.vo.CategoryDTO">
+		resultType="com.hyundai.vo.ProductOptionDTO">
 	<![CDATA[
 			select
 	             p.product_id id, 
@@ -83,22 +83,14 @@
 	             o.option_market_price marketPrice,
 	             b.brand_id bId,
 	             b.brand_name brandName,
-	             w.wish_date wDate,
-	             nvl2(wish_date, '1', '0') wished,
-	                c.category_id cId,
-	                c.category_name cName
-	         from product p
-	         inner join options o on (p.product_id = o.product_id and 
-	                     o.option_id = concat(p.product_id,'001') )
+	             w.wish_date wDate
+	             from product p
+	         inner join options o on (p.product_id = o.product_id and o.option_id = concat(p.product_id,'001') )
 	         left join wish_list w on (w.product_id = p.product_id and w.user_id = #{userId})
 	         inner join brand b on (p.brand_id = b.brand_id)
-	            join categories c on p.category_id=c.category_id	
-		  		where (o.option_market_price between #{cri.minPrice} and #{cri.maxPrice}) 
-	            and (p.product_name like '%'||#{cri.keyword}||'%'
-	            or b.brand_name like '%'||#{cri.keyword}||'%'
-	            or c.category_id like '%'||#{cri.keyword}||'%')
+	           	where b.brand_name = #{cri.brandName}
 	        order by p.product_id
-	        OFFSET (#{cri.pageNum}-1)*#{cri.amount} ROWS FETCH NEXT #{cri.amount} ROWS ONLY
+	        OFFSET 0 ROWS FETCH NEXT 4 ROWS ONLY
 	      ]]>
 	</select>
 
