@@ -3,9 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="../includes/header.jsp"%>
 <script>
+
 $(document).ready(function(){
+	
 	var csrfHeaderName="${_csrf.headerName}";
-	var csrfTokenValue="${_csrf.token}"
+	var csrfTokenValue="${_csrf.token}";
 	
 	$('#id').focusout(function(){
 		let id = $('#id').val();
@@ -20,10 +22,11 @@ $(document).ready(function(){
 				success:function(result){
 					if(result ==1){
 						$("#id_check").text('이미 사용중인 아이디입니다.');
-						$("#id_check").attr('color','#dc3545');
+						$("#joinBtn").attr("disabled", "disabled");
+						$("#id").focus();
 					}else{
 						$("#id_check").text('사용할 수 있는 아이디입니다.');
-						$("#id_check").attr('color','2fb380');
+						$("#joinBtn").removeAttr("disabled");
 					}
 				},
 				error : function(){
@@ -32,7 +35,6 @@ $(document).ready(function(){
 			})
 		}
 		});
-		
 		$("#pwd2").focusout(function(){
 			let pwd1 = $("#pwd1").val();
 			let pwd2 = $("#pwd2").val();			
@@ -52,6 +54,7 @@ $(document).ready(function(){
 </script>
 <script type="text/javascript">
 function check(){
+	
 	if(joinForm.user_id.value==0){
 		alert("아이디를 입력해주세요");
 		joinForm.user_id.focus();
@@ -59,6 +62,11 @@ function check(){
 	}
 	else if(joinForm.pwd1.value==0 || joinForm.pwd2.value==0){
 		alert("비밀번호를 입력해주세요");
+		joinForm.pwd1.focus();
+		return false;
+	}
+	else if(joinForm.pwd1.value !== joinForm.pwd2.value){
+		alert("비밀번호가 같지 않습니다.");
 		joinForm.pwd1.focus();
 		return false;
 	}
@@ -77,12 +85,12 @@ function check(){
 		joinForm.tel.focus();
 		return false;
 	}
-	if(joinForm.address.value==0){
+	else if(joinForm.address.value==0){
 		alert("주소를 입력해주세요");
 		joinForm.address.focus();
 		return false;
 	}
-	if(joinForm.selYear.value==0 || joinForm.selMonth.value==0 || joinForm.selDay.value==0 ){
+	else if(joinForm.selYear.value==0 || joinForm.selMonth.value==0 || joinForm.selDay.value==0 ){
 		alert("생일을 입력해주세요");
 		joinForm.address.focus();
 		return false;
@@ -122,7 +130,7 @@ window.onload = function(){
               <tr>
                 <th scope="row">아이디</th>
                 <td><input type="text" name="user_id" style="width: 150px" title="아이디" id="id">
-                 <span id="id_check"></span>
+                 <span id="id_check" name="id_check"></span>
                 </td>
               </tr>
               <tr>
@@ -323,16 +331,17 @@ window.onload = function(){
           </table>
         </div>
         	<div class="wtype_comment pt10">
-            	<input type="checkbox">
+            	<input type="checkbox" id="check1">
                 <label for="ck1">이메일 아이디 적용</label>
              </div>
              <div class="wtype_comment pt5">
-             	<input type="checkbox">
+             	<input type="checkbox" id="check2">
                	<label for="emailReceiveYn">이메일을 통한 상품 및 이벤트 정보 수신에 동의합니다. (선택)</label>
               </div>
         <div class="btnwrap">
           <input type="button" value="취소" class="btn wt" id="cancleBtn">
           <input type="submit" value="회원가입" class="btn gray mr0" id="joinBtn">
+          <span id="check_text"></span>
         </div>
       </div>
       </form>

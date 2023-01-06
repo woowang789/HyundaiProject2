@@ -23,8 +23,10 @@ public class Criteria {
 	private int minPrice;
 	private int maxPrice;
 
+	private String brandName;
+
 	public Criteria() {
-		this(1, 10, "01", "1000001", "100000100010008", "", 0, 999999999);
+		this(1, 10, "01", "1000001", "100000100010008", "", 0, 999999999, "록시땅");
 	}
 
 	public Criteria(int pageNum, int amount) {
@@ -34,7 +36,7 @@ public class Criteria {
 	}
 
 	public Criteria(int pageNum, int amount, String sort, String cateId, String catePid, String keyword, int minPrice,
-			int maxPrice) {
+			int maxPrice, String brandName) {
 		this.pageNum = pageNum;
 		this.amount = amount;
 		this.sort = sort;
@@ -43,5 +45,6 @@ public class Criteria {
 		this.minPrice = minPrice;
 		this.maxPrice = maxPrice;
 		this.keyword = keyword;
+		this.brandName = brandName;
 	}
 }

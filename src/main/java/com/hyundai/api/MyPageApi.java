@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hyundai.mapper.SearchMapper;
+import com.hyundai.service.TagService;
 import com.hyundai.service.WishListService;
 import com.hyundai.vo.ApiPageDTO;
 import com.hyundai.vo.Criteria;
@@ -26,6 +28,7 @@ import lombok.RequiredArgsConstructor;
 public class MyPageApi {
 
 	private final WishListService wishListService;
+	private final TagService tagService;
 	
 	@PostMapping("/getWishList/{pageNum}")
 	public ResponseEntity<ApiPageDTO<ProductOptionDTO>> getWishList(
@@ -43,6 +46,14 @@ public class MyPageApi {
 		if (result == -1)
 			return new ResponseEntity<>("error", HttpStatus.INTERNAL_SERVER_ERROR);
 		return new ResponseEntity<>(result+"", HttpStatus.OK);
+	}
+	@PostMapping("/updateTagList")
+	public ResponseEntity<Integer> updateTagList(
+			@RequestBody Map<String, String> body){
+		String keyword = body.get("keyword");
+		String userId = body.get("userId");
+		int result = tagService.toggleTag(userId, keyword);
+		return new ResponseEntity<Integer>(result, HttpStatus.OK);
 	}
 
 

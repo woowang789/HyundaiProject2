@@ -133,7 +133,16 @@
 <script src="/resources/js/cartService.js" defer></script>
 <script>
 	$(document).ready(function(){
-		const userId = 'user1@email.com';
+		$.ajaxSetup({
+			  beforeSend: function(xhr) {
+			      xhr.setRequestHeader("AJAX", true);
+			      var csrfToken = '${_csrf.token}';
+			      xhr.setRequestHeader("X-CSRF-TOKEN", csrfToken);
+			  }
+		});
+		
+		
+		const userId = "<sec:authentication property="principal.user.user_id"/>";
 		const tBody = $('tbody');
 		let baseTr = `
 			<tr goodsno="{prodId}" itemno="{optId}" >
@@ -230,7 +239,8 @@
 				let optId = tr.attr('itemno');
 				
 				cartService.deleteCart(
-						{userId : userId, prodId:prodId, optId : optId},
+						{
+							userId : userId, prodId:prodId, optId : optId},
 					function(data){
 						console.log("delete complete");
 						if ($('.chkSmall:checked').length === idx+1) {
@@ -244,6 +254,7 @@
 		*/
 		$('.order_btn').click(function(e){
 			let base = `
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 				<input type='hidden' name='list[{idx}].pid' value='{prodId}'>
 				<input type='hidden' name='list[{idx}].oid' value='{optId}'>
 				<input type='hidden' name='list[{idx}].qty' value='{qty}'>
@@ -274,7 +285,8 @@
 		*/
 		function getList(){
 			let str = '';
-			cartService.getList({userId:userId},function (list){
+			cartService.getList({		
+userId:userId},function (list){
 				$('.list_count').text(list.length ||0);
 				
 				list.forEach((el)=>{

@@ -21,15 +21,16 @@
 		access="hasRole('ROLE_ADMIN')"/> -->
 		
 		<security:access-denied-handler ref="customAccessDenied"/>	
-		<security:form-login login-page="/login" authentication-success-handler-ref=""
-			authentication-failure-handler-ref="MemberLoginFailService"/>
+		<!-- <security:form-login login-page="/login" 
+			authentication-failure-handler-ref="MemberLoginFailService"/> -->
+		<security:form-login login-page="/login" />
 				
 		<!-- 자동로그인 -->
 		<security:remember-me data-source-ref="dataSource" token-validity-seconds="604800"/>
 
 		<security:logout logout-url="/customLogout" invalidate-session="true" delete-cookies="remember-me,JSESSION_ID"/>
 
-		<security:csrf disabled="true"/>
+		<!-- <security:csrf disabled="true"/> -->
 	</security:http>
 
 	<security:authentication-manager>

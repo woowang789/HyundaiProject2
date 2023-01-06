@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="ko" class="-webkit-">
 <head>
@@ -19,6 +20,10 @@
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+<!--  font awesome -->
+<script src="https://kit.fontawesome.com/f5ed871e11.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script>
 	$(document).ready(function() {
 		//카테고리 레이어 열기/닫기
@@ -41,7 +46,7 @@
 </script>
 <script type="text/javascript">
 	function search() {
-		location.href = "search?keyword="
+		location.href = "/search?keyword="
 				+ encodeURIComponent($("#query").val())
 	}
 </script>
@@ -284,6 +289,14 @@
               <span>세일</span>
             </a>
           </li>
+        <c:forEach items="${tags }" var="tag">
+           <li style="">
+            <a href="/search?keyword=${tag }">
+              <span><c:out value="${tag }"/></span>
+            </a>
+          </li>  	
+        </c:forEach>
+          
         </ul>
       </div>
     </div>
