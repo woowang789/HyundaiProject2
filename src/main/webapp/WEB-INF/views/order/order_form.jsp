@@ -311,11 +311,10 @@
 										</div>
 										<div class="prd_name">
 											<span><c:out value="${orderItem.brandName}" /></span>
-											<!-- 2017-01-26 수정 : 브랜드명 분리 -->
 											<p><c:out value="${orderItem.name}"/></p>
 										</div>
 										<p class="prd_opt"></p>
-										<p class="prd_flag"></p>
+										<p class="prd_flag"><c:out value="${orderItem.optionName }"/></p>
 									</div>
 								</div>
 								<div class="tbl_cell w110">
@@ -323,15 +322,6 @@
 								</div>
 								<div class="tbl_cell w100">${orderItem.qty }</div>
 								<div class="tbl_cell w110">
-									<input type="hidden" name="couponList[0].promChk" value="Y">
-									<input type="hidden" name="couponList[0].goodsNo"value="A000000175772"> 
-									<input type="hidden" name="couponList[0].itemNo" value="001"> 
-									<input type="hidden" name="couponList[0].promNo" value="C000000109678"> 
-									<input type="hidden" name="couponList[0].promAplySeq" value=""> 
-									<input type="hidden" name="couponList[0].promKndCd" value="C101">
-									<input type="hidden" name="couponList[0].entrNo" value="">
-									<input type="hidden" name="couponList[0].immedGoods1DcAmt" value="2520"> 
-									<input type="hidden" name="couponList[0].immedOrdQty1" value="3"> 
 									<span class="org_price">
 										<span class="tx_num" id="normPrc_A000000175772/001"><fmt:formatNumber value="${orderItem.originPrice * orderItem.qty}" pattern="#,###" /></span>
 										원</span>
@@ -339,9 +329,6 @@
 									<span class="pur_price">
 										<span class="tx_num" id="salePrc_A000000175772/001"><fmt:formatNumber value="${orderItem.marketPrice * orderItem.qty }" pattern="#,###" /></span>원
 									</span> 
-									<input type="hidden" id="orgNormPrc_A000000175772/001" value="114000">
-									<input type="hidden" id="orgSalePrc_A000000175772/001" value="68040"> 
-									<input type="hidden" id="imdtDscntAmt_A000000175772/001" value="7560">
 								</div>
 							</div>
 						</td>
@@ -559,6 +546,7 @@
 	<!-- //#Contents -->
 </div>
 <form id="orderForm" action="/order-form" method="post">
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	<input type="hidden" name="receiverName">
 	<input type="hidden" name="receiverAddrRoad">
 	<input type="hidden" name="receiverAddrJibun">

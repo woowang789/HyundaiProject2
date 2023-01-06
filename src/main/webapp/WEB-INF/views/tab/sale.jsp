@@ -163,8 +163,15 @@
 </div>
 <script src="/resources/js/wishList.js" defer></script>
 <script type="text/javascript">
-	$(document).ready(
-			function() {
+	$(document).ready(function() {
+		$.ajaxSetup({
+			  beforeSend: function(xhr) {
+			      xhr.setRequestHeader("AJAX", true);
+			      var csrfToken = '${_csrf.token}';
+			      xhr.setRequestHeader("X-CSRF-TOKEN", csrfToken);
+			  }
+		});
+		
 				const userId =
 					<sec:authorize access="isAnonymous()">
 						"";
