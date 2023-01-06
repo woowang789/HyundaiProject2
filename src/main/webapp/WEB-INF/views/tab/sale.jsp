@@ -23,7 +23,7 @@
         </li>
         <!-- 그 외 -->
         <c:forEach var="cate" items="${categ}">
-          <li class="<c:if test="${pageMaker.cri.cateId eq cate.cateId }">on</c:if> ">
+          <li class="c ">
             <button type="button" data-cid="${cate.cateId}" data-attr="">
               <c:out value="${cate.cateName }" />
             </button>
