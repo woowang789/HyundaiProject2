@@ -26,6 +26,7 @@
 		    on (p.product_id = po.product_id)
 		inner join brand b 
 		    on (b.brand_id = p.brand_id)
+		    order by c.cart_date desc
 	</select>
 	
 	<delete id="deleteCart">
@@ -48,6 +49,11 @@
 		    insert (OPTION_ID, PRODUCT_ID, USER_ID, CART_QTY, CART_DATE)
 		    values (#{optId}, #{prodId},#{userId}, #{qty}, sysdate)
 	</update>
+	
+<!-- 	<insert id="insertCart">
+	insert  into cart_list(OPTION_ID, PRODUCT_ID, USER_ID, CART_QTY, CART_DATE) 
+	values (#{oid}, #{pid},#{userId}, #{qty}, sysdate)
+	</insert> -->
 	
 	
 </mapper>

@@ -56,7 +56,7 @@
 
 </div>
 <div class="layer_pop_wrap w490" id="basketOption"
-	style="z-index: 999; display: none; left: 50%; margin-left: -245px; top: 140px;"
+	style="z-index: 999; display: none; left: 50%; margin-left: -245px; top: 300px; box-shadow : rgba(0,0,0,0.5) 0 0 0 9999px;"
 	data-quick-yn="N">
 	<div class="popup-contents"
 		style="top: 70%; width: 534px; margin: -365px 0 0 -268px;">
@@ -70,7 +70,7 @@
 											<!-- popCont -->
 											<div class="area2sButton pdTz">
 												<button class="btnlG01 pdzero w130"
-					onclick="fnLayerSet('basketOption', 'close')">
+					onclick="#">
 													<span>쇼핑계속하기</span>
 												</button>
 												<button class="btnG01 pdzero w130"
