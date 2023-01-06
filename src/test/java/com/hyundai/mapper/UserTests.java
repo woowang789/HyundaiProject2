@@ -75,4 +75,12 @@ public class UserTests {
 		log.info("회원정보 수정");
 	}
 	
+	@Test
+	public void deleteUser() {
+		String user = "user7";
+		mapper.deleteAuth(user);
+		mapper.deleteUser(user);
+		log.info("회원 삭제");
+	}
+	
 }

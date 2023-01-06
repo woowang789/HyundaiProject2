@@ -37,7 +37,7 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 				response.sendRedirect("/home");
 				return;
 			}
-			response.sendRedirect("/");
+			response.sendRedirect("/login");
 		}
 
 	
