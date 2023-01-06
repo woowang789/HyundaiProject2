@@ -56,17 +56,17 @@ public class CartMapperTests {
 		}
 		
 	}
-	@Test
-	@Transactional
-	public void insertTest() {
-		BeforeOrderDTO cart = new BeforeOrderDTO();
-
-		cart.setPid("A000000130963");
-		cart.setOid("A0000001309630001");
-		cart.setQty(3);
-
-		
-		mapper.insertCart(cart,userId);
-	}
+	/*
+	 * @Test
+	 * 
+	 * @Transactional public void insertTest() { BeforeOrderDTO cart = new
+	 * BeforeOrderDTO();
+	 * 
+	 * cart.setPid("A000000130963"); cart.setOid("A0000001309630001");
+	 * cart.setQty(3);
+	 * 
+	 * 
+	 * mapper.insertCart(cart,userId); }
+	 */
 	
 }

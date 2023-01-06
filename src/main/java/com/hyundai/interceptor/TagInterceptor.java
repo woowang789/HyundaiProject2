@@ -11,12 +11,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.hyundai.mapper.SearchMapper;
 import com.hyundai.service.TagService;
 import com.hyundai.vo.CustomUser;
 
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 @Component
 @NoArgsConstructor
