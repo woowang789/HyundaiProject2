@@ -4,202 +4,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ include file="../includes/header.jsp"%>
-<script>
-	//레이어 팝업 공통(열기, 닫기) 퍼블리싱
-	var fnLayerSet = function(layer, status, removeYn) { //layer : 레이어 아이디 , status : open/close
-		var _obj = $('#' + layer);
 
-		if (status == 'open') {
-			_obj.show();
-
-			var popPos = 0;
-			var popWid = parseInt(_obj.width(), 10) / 2;
-			var popHgt = parseInt(_obj.height(), 10);
-
-			if (popHgt == 0 && _obj.find('.popup-contents').length > 0) {
-				popHgt = _obj.find('.popup-contents').height();
-			}
-
-			popPos = parseInt($(window).scrollTop(), 10)
-					+ ((parseInt($(window).height(), 10) - popHgt) / 2);
-
-			if (popHgt > $(window).height()) {
-				popPos = parseInt($(window).scrollTop(), 10);
-			}
-
-			if (layer == 'passwdLayer' || layer == 'lockLayer') {
-				popPos2 = _obj.height() / 2;
-				//_obj.css({'left':'50%' , 'margin-left':-(popWid) , 'top':'50%' , 'margin-top':-(popPos)}).show()
-				_obj.css({
-					'left' : '50%',
-					'margin-left' : -(popWid) + 'px',
-					'top' : '50%',
-					'margin-top' : -(popPos2) + 'px'
-				});
-				$('body').append('<div id="dim"></div>');
-			} else if (layer == 'basketOption'
-					&& $("#basketOption div").attr('class') == 'popup-contents') {
-				_obj.removeClass('hide');
-
-				if (popHgt > $(window).height()) {
-					popPos = parseInt($(window).scrollTop(), 10);
-				} else {
-					popPos = parseInt($(window).scrollTop(), 10)
-							+ ((parseInt($(window).height(), 10) - 747) / 2);
-				}
-
-				_obj.css({
-					'left' : '50%',
-					'margin-left' : -(popWid) + 'px',
-					'top' : popPos + 'px'
-				});
-				$('body').append(
-						'<div class="dimm" style="\z-index:990;\"></div>');
-			} else {
-				var popHgt = _obj.height();
-				//_obj.removeClass('hide').css({'margin-top': -_obj.height()/2 +'px'});
-				_obj.removeClass('hide');
-				popHgt = parseInt(_obj.height(), 10);
-				popWid = parseInt(_obj.width(), 10) / 2;
-
-				if (popHgt > $(window).height()) {
-					popPos = parseInt($(window).scrollTop(), 10) + 40;
-				} else {
-					popPos = parseInt($(window).scrollTop(), 10)
-							+ ((parseInt($(window).height(), 10) - popHgt) / 2);
-				}
-
-				_obj.css({
-					'left' : '50%',
-					'margin-left' : -(popWid) + 'px',
-					'top' : popPos + 'px'
-				});
-				$('body').append(
-						'<div class="dimm" style="\z-index:990;\"></div>');
-				console.log(popPos, popHgt);
-			}
-		} else if (status == 'close') {
-			_obj.hide();
-			_obj.addClass('hide');
-			_obj.html("");
-
-			console.log("jhbj")
-			if (layer == 'passwdLayer' || layer == 'lockLayer') {
-				$('#dim').remove();
-				$('#layer_pop_wrap').css('top', '');
-				$('#layer_pop_wrap').css('margin-left', '');
-				$('#layer_pop_wrap').css('margin-top', '');
-
-			} else {
-				$('.dimm').remove();
-				$('#layer_pop_wrap').css('top', '');
-				$('#layer_pop_wrap').css('margin-left', '');
-				$('#layer_pop_wrap').css('margin-top', '');
-
-			}
-
-			// 레코벨 추천상품을 장바구니에서 담든 안담든 레이어 닫을때 N 값으로 초기화
-
-		}
-	};
-	var fnLayerTopCustomSet = function(layer, status){ //layer : 레이어 아이디 , status : open/close
-	    var _obj = $('#'+ layer);
-	    if(status == 'open'){
-	           
-	        _obj.show();
-	        
-	        var popPos = 0;
-	        var popWid = parseInt(_obj.width(), 10)/2;
-	        var popHgt = parseInt(_obj.height(), 10);
-	        
-	        if(popHgt == 0 && _obj.find('.popup-contents').length > 0){
-	            popHgt = _obj.find('.popup-contents').height();
-	        }
-	                
-	        popPos = parseInt($(window).scrollTop(), 10) + ((parseInt($(window).height(), 10) - popHgt)/2) ;
-	        
-	        if(popHgt > $(window).height()){
-	            popPos = parseInt($(window).scrollTop(), 10);
-	        }
-
-	        if(layer=='passwdLayer'||layer=='lockLayer'){
-	            popPos2 = _obj.height()/2;
-	            //_obj.css({'left':'50%' , 'margin-left':-(popWid) , 'top':'50%' , 'margin-top':-(popPos)}).show()
-	            _obj.css({'left':'50%' , 'margin-left':-(popWid) +'px' , 'top':'50%', 'margin-top':-(popPos2) +'px'});
-	            $('body').append('<div id="dim"></div>');
-	        }else{
-	            var popHgt = _obj.height();
-	            //_obj.removeClass('hide').css({'margin-top': -_obj.height()/2 +'px'});
-	            _obj.removeClass('hide');
-	            popHgt = parseInt(_obj.height(), 10);
-	            popWid = parseInt(_obj.width(), 10)/2;
-	            
-	            // 중간을 보여주는 포지션
-	            //popPos = parseInt($(window).scrollTop(), 10) + ((parseInt($(window).height(), 10) - popHgt)/2) ;
-	            
-	            // 팝업레이어의 탑을 보여주는 포지션
-	            if(_obj.height() > $(window).height()){
-	                popPos = $(window).scrollTop();
-	            }else{
-	                popPos = $(window).scrollTop() + ($(window).height() - _obj.height())/2;
-	            }
-	            
-	            _obj.css({'left':'50%' , 'margin-left':-(popWid) +'px' , 'top': popPos +'px'});
-	            $('body').append('<div class="dimm" style="\z-index:990;\"></div>');
-	            console.log(popPos, popHgt);
-	        }
-	        
-	    }else if(status == 'close'){
-	        if(common.zipcodequick.pop.quickYn == 'Y'){
-	            _obj.hide();
-	            _obj.addClass('hide');
-	            _obj.html("");
-	            if(layer=='passwdLayer'||layer=='lockLayer'){
-	                $('#dim').remove();
-	                $('#layer_pop_wrap').css('top','');
-	                $('#layer_pop_wrap').css('margin-left','');
-	                $('#layer_pop_wrap').css('margin-top','');
-	                $('body').append('<div class="dimm" style="\z-index:990;\"></div>');
-	            }else{
-	                $('.dimm').remove();
-	                $('#layer_pop_wrap').css('top','');
-	                $('#layer_pop_wrap').css('margin-left','');
-	                $('#layer_pop_wrap').css('margin-top','');
-	                $('body').append('<div class="dimm" style="\z-index:990;\"></div>');
-	            }
-	        } else {
-	            _obj.hide();
-	            _obj.addClass('hide');
-	            _obj.html("");
-	            if(layer=='passwdLayer'||layer=='lockLayer'){ 
-	                $('#dim').remove();
-	                $('#layer_pop_wrap').css('top','');
-	                $('#layer_pop_wrap').css('margin-left','');
-	                $('#layer_pop_wrap').css('margin-top','');
-	            }else{
-	                $('.dimm').remove();
-	                $('#layer_pop_wrap').css('top','');
-	                $('#layer_pop_wrap').css('margin-left','');
-	                $('#layer_pop_wrap').css('margin-top','');
-	            }
-	        }
-	        // 레코벨 추천상품을 장바구니에서 담든 안담든 레이어 닫을때 N 값으로 초기화
-	        common.cart.regCartRecoBellGoodsInCartYn = 'N';
-	    }else if(status == 'closeRecoBellGoodsInCart'){
-	        location.reload();
-	    }
-	};
-
-</script>
 
 <script>
 	$(document)
 			.ready(
 					function() {
+						let count=0;
 						
 						$(".sel_option_list>li>a")
 								.click(
 										function() {
+											
 											let name = $(this).find(
 													'.option_value').attr('id');
 											let price = $(this).find('.tx_num')
@@ -223,15 +39,19 @@
 											$('#'+id +' .plus').prev().val(plus);
 											
 											}else{
+										
 											
 											console.log('아이템 리스트에 추가');
 											let text = `
 													<div class="prd_cnt_box no_prom \${id}" id="\${id}"}><div class="tit_area"> 
 											      <span>\${name}</span>
 											      <span class="option_cnt_box" style="display: flex">  
-											      <button class="btnCalc minus" onclick="">수량 1감소</button> 
-											      <input type="text" id="cartCnt_\${id}" name="" value="1" maxlength='2' class="tx_num" title="구매수량"> 
-											      <button class="btnCalc plus" onclick="">수량 1증가</button>
+											      <button type="button" class="btnCalc minus" onclick="">수량 1감소</button> 
+											      <input type="text" id="cartCnt_\${id}" name="list[\${count}].qty" value="1" maxlength='2' class="tx_num" title="구매수량"> 
+											      
+											      <button type="button" class="btnCalc plus" onclick="">수량 1증가</button>
+											      <input type="hidden" name="list[\${count}].oid" value="\${id}">
+											      <input type="hidden" name="list[\${count}].pid" value="pId\${count+1}">
 											      </span>
 											      </div><div class="cont_area">
 											      <span class="option_price"><span class="tx_num">\${price}</span>원</span>
@@ -239,6 +59,8 @@
 											      `;
 											console.log(name);
 											console.log(price);
+											
+											count++;
 											$(".option_add_area ").append(text);
 											$('.btn_opt_del').click(function(){
 											
@@ -302,7 +124,20 @@
 
 						});
 						
-						
+						$('.btnBasket').click(function(){
+							$('.layer_pop_wrap').show(); 
+							
+						});
+				 	$('.btnlG01').click(function(){
+							$('.layer_pop_wrap').hide();
+							
+							
+						});
+						$('.ButtonClose').click(function(){
+							$('.layer_pop_wrap').hide();
+							
+						}); 
+					
 						
 					});
 </script>
@@ -451,7 +286,9 @@
 							</c:forEach>
 						</ul>
 					</div>
-					<div class="option_add_area pkg_goods_n"></div>
+					<form action="/order-form" id="order-form">
+						<div class="option_add_area pkg_goods_n"></div>
+					</form>
 					<div class="prd_total_price">
 						<span class="tx_tit">상품금액 합계</span> <input type="hidden"
 							id="totalCnt" value="0" name="totalCnt" /> <input type="hidden"
@@ -503,8 +340,7 @@
 							onclick="javascript:fnLayerTopCustomSet('basketOption', 'open');;"
 							data-attr="상품상세^주문유형^장바구니">장바구니</button>
 						<!-- <button class="btnBuy goods_buy" id="cartBtn" onClick="javascript:goods.detail.bindBtnBuy();">구매하기</button> -->
-						<button class="btnBuy goods_buy" id="cartBtn"
-							onclick="javascript:common.popLayer.todayDelivery.openTodayDeliveryNotice('goodsdetail.order');"
+						<button class="btnBuy goods_buy" id="cartBtn"  type="submit" form="order-form"
 							data-attr="상품상세^주문유형^바로구매">바로구매</button>
 						<button class="btnSoldout dupItem goods_cart"
 							style="display: none" onclick="javascript:;">일시품절</button>
@@ -547,7 +383,7 @@
 				data-attr="상품상세^상품상세_SortingTab^구매정보">구매정보</a></li>
 			<li data-tab="reviewInfo"><a href="#tabList"
 				class="goods_reputation" data-attr="상품상세^상품상세_SortingTab^리뷰"> 리뷰
-					<span>(1,888)</span>
+					<span>${pageMaker.total}</span>
 			</a></li>
 			<li id="qnaInfo"></li>
 		</ul>
@@ -684,14 +520,21 @@
 				<!-- [D] 리뷰작성 영역 제거 review-write-delete 클래스 추가 -->
 				<div class="product_rating_area review-write-delete">
 					<div class="inner clrfix">
+						<div class="grade_img">
+							<p class="img_face">
 
+
+								<span class="grade grade${(averageInt)+1}"></span><em>최고</em>
+							</p>
+							<!-- grade5 : 최고, grade4 : 좋음, grade3 : 보통, grade2 : 별로, grade1 : 나쁨  -->
+						</div>
 						<div class="star_area">
 							<p class="total">
-								총 <em>24 </em>건
+								총 <em>${pageMaker.total} </em>건
 							</p>
 							<!-- ## 리뷰 고도화 2차 ## 리뷰 전체 건수(본상품+연관상품) -->
 							<p class="num">
-								<strong>4.8</strong><span>점</span>
+								<strong>${average }</strong><span>점</span>
 							</p>
 							<ul class="star_list">
 
@@ -779,7 +622,7 @@
 						<!-- // 리뷰 고도화 1차 : 항목 변경 -->
 					</div>
 
-					</div>
+				</div>
 
 				<!-- 상품평 등록제한 카테고리 안내 문구 -->
 
@@ -895,66 +738,94 @@
 				<!-- 상품평 리스트 start -->
 				<div class="review_list_wrap">
 					<ul class="inner_list" id="gdasList">
-						<li>
-							<div class="info">
-								<div class="user clrfix">
-									<a href="javascript:;"
-										onclick="goods.gdas.goReviewerProfile('ckZkQzZWQW5PbkRBSzRFa0dESXE1QT09')"
-										data-attr="상품상세^리뷰어프로필^프로필이미지 또는 닉네임 클릭">
-										<div class="thum">
-											<span class="bg"></span> <img
-												src="https://static.oliveyoung.co.kr/pc-static-root/image/comm/my_picture_base.jpg"
-												alt="">
-										</div>
-									</a>
-									<!--## 리뷰 고도화 1차 ## : top, id 위치 변경 및 마크업 변경 -->
-									<p class="info_user">
+
+						<c:forEach var="review" items="${reviews}">
+							<li>
+								<div class="info">
+									<div class="user clrfix">
 										<a href="javascript:;"
 											onclick="goods.gdas.goReviewerProfile('ckZkQzZWQW5PbkRBSzRFa0dESXE1QT09')"
-											class="id" data-attr="상품상세^리뷰어프로필^프로필이미지 또는 닉네임 클릭">ddalgi****</a>
-									</p>
-									<!--## 리뷰 고도화 2차 ## : 명성리뷰어 -->
-									<!--## 리뷰 고도화 1차 ## : 재구매/한달사용 리뷰 -->
-									<div class="badge"></div>
-								</div>
-							</div>
-							<div class="review_cont">
-								<div class="score_area">
-									<span class="review_point"><span class="point"
-										style="width: 100%">5점만점에 5점</span></span> <span class="date">2022.12.27</span>
-								</div>
-								<!--## 리뷰 고도화 1차 ## 위치변경 -->
-								<!--## 리뷰 고도화 1차 ## 위치변경 -->
-								<!--## 리뷰 고도화 1차 ## 위치변경 -->
-								<!--## 리뷰 고도화 1차 ## 위치변경 -->
-								<div class="txt_inner">
-									항상&nbsp;피지오겔인데.&nbsp;이번엔&nbsp;포켓몬&nbsp;콜라보라&nbsp;더&nbsp;맘에&nbsp;드네요.&nbsp;아이가&nbsp;너무&nbsp;좋아&nbsp;할&nbsp;것&nbsp;같아요.&nbsp;<br>여름나라&nbsp;한달&nbsp;살기&nbsp;동안&nbsp;아이에게&nbsp;찰떡일&nbsp;것&nbsp;같아여
-								</div>
-								<!-- ## 리뷰 고도화 1차 ## : 태그 추가 -->
-								<div class="review_thum type1">
-									<ul class="inner clrfix">
-										<li><a href="#" data-attr="상품상세^포토리뷰^포토 클릭^1"><span><img
-													src="https://image.oliveyoung.co.kr/uploads/images/gdasEditor/2022/12/27/1672109633131.png?RS=165x0&amp;CS=165x165"
-													onload="common.imgLoads(this,165);" data-value="16668530_1"
-													class="thum" alt=""
-													onerror="common.errorResizeImg(this,165)"></span></a></li>
-									</ul>
-								</div>
-								<div class="rw-photo-slide" style="display: none">
-									<div>
-										<img
-											src="https://image.oliveyoung.co.kr/uploads/images/gdasEditor/2022/12/27/1672109633131.png">
+											data-attr="상품상세^리뷰어프로필^프로필이미지 또는 닉네임 클릭">
+											<div class="thum">
+												<span class="bg"></span> <img
+													src="https://static.oliveyoung.co.kr/pc-static-root/image/comm/my_picture_base.jpg"
+													alt="">
+											</div>
+										</a>
+										<!--## 리뷰 고도화 1차 ## : top, id 위치 변경 및 마크업 변경 -->
+										<p class="info_user">
+											<a href="javascript:;"
+												onclick="goods.gdas.goReviewerProfile('ckZkQzZWQW5PbkRBSzRFa0dESXE1QT09')"
+												class="id" data-attr="상품상세^리뷰어프로필^프로필이미지 또는 닉네임 클릭">${review.userId}</a>
+										</p>
+										<!--## 리뷰 고도화 2차 ## : 명성리뷰어 -->
+										<!--## 리뷰 고도화 1차 ## : 재구매/한달사용 리뷰 -->
+										<div class="badge"></div>
 									</div>
 								</div>
-								<!--## 리뷰 고도화 2차 ## 연관상품 -->
-								<!--## 리뷰 고도화 1차 ## 위치변경 및 삭제-->
-								<!-- ## 리뷰 고도화 1차 ##  : 리뷰제한 카테고리 일경우 안보이게 -->
-							</div>
-						</li>
+								<div class="review_cont">
+									<div class="score_area">
+										<span class="review_point"><span class="point"
+											style="width: ${20*review.reviewScore}%">5점만점에 5점</span></span> <span
+											class="date"><fmt:formatDate
+												value="${ review.reviewDate}" /></span>
+									</div>
+									<!--## 리뷰 고도화 1차 ## 위치변경 -->
+									<!--## 리뷰 고도화 1차 ## 위치변경 -->
+									<!--## 리뷰 고도화 1차 ## 위치변경 -->
+									<!--## 리뷰 고도화 1차 ## 위치변경 -->
+									<div class="txt_inner">${review.reviewContent}</div>
+									<!-- ## 리뷰 고도화 1차 ## : 태그 추가 -->
+									<div class="review_thum type1">
+										<ul class="inner clrfix">
+											<li><a href="#" data-attr="상품상세^포토리뷰^포토 클릭^1"><span><img
+														src="https://image.oliveyoung.co.kr/uploads/images/gdasEditor/2022/12/27/1672109633131.png?RS=165x0&amp;CS=165x165"
+														onload="common.imgLoads(this,165);"
+														data-value="16668530_1" class="thum" alt=""
+														onerror="common.errorResizeImg(this,165)"></span></a></li>
+										</ul>
+									</div>
+									<div class="rw-photo-slide" style="display: none">
+										<div>
+											<img
+												src="https://image.oliveyoung.co.kr/uploads/images/gdasEditor/2022/12/27/1672109633131.png">
+										</div>
+									</div>
+									<!--## 리뷰 고도화 2차 ## 연관상품 -->
+									<!--## 리뷰 고도화 1차 ## 위치변경 및 삭제-->
+									<!-- ## 리뷰 고도화 1차 ##  : 리뷰제한 카테고리 일경우 안보이게 -->
+								</div>
+							</li>
+						</c:forEach>
+
 					</ul>
 				</div>
+				<form id="actionForm" action="/product-detail#searchType method="get">
+					<input type="hidden" name="pageNum"
+						value="${pageMaker.cri.pageNum }" /> <input type="hidden"
+						name="amount" value="${pageMaker.cri.amount }" /> <input
+						type="hidden" name="sort" value="${pageMaker.cri.sort }" /> <input
+						type="hidden" name="pid" value="${pageMaker.cri.pid }" />
 
+				</form>
 
+				<div class="pageing">
+					<c:if test="${pageMaker.prev }">
+						<a class="prev" href="${pageMaker.startPage-1 }">이전 10 페이지</a>
+					</c:if>
+					<c:forEach var="num" begin="${pageMaker.startPage }"
+						end="${pageMaker.endPage }">
+						<c:if test="${num eq pageMaker.cri.pageNum }">
+							<strong title="현재 페이지">${num }</strong>
+						</c:if>
+						<c:if test="${num ne pageMaker.cri.pageNum }">
+							<a href="${num }">${num }</a>
+						</c:if>
+					</c:forEach>
+					<c:if test="${pageMaker.next }">
+						<a class="next" href="${pageMaker.endPage+1 }">다음 10 페이지</a>
+					</c:if>
+				</div>
 
 
 			</div>
@@ -963,6 +834,14 @@
 
 	</div>
 </div>
-
+<script>
+const actionForm = $('#actionForm');
+$('.pageing a').click(
+		function(e) {
+			e.preventDefault();
+			actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+			actionForm.submit();
+		})
+</script>
 
 <%@ include file="../includes/footer.jsp"%>

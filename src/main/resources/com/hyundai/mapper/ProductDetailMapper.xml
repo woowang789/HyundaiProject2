@@ -27,16 +27,58 @@
 	</resultMap>
 
 	<select id="getProductDetail" resultMap="productDetailMap">
-		select p.product_id,b.brand_id, brand_name, product_name, product_content,
+		select
+		p.product_id,b.brand_id, brand_name, product_name, product_content,
 		product_img,
-		o.option_id, option_name, option_thumb, option_stock, option_origin_price,
+		o.option_id, option_name, option_thumb, option_stock,
+		option_origin_price,
 		option_market_price, c.category_name
-		from brand b join product p on b.brand_id= p.brand_id
-		join options o on p.product_id = o.product_id
+		from brand b
+		join product p on b.brand_id= p.brand_id
+		join options o on p.product_id
+		= o.product_id
 		join categories c on p.category_id = c.category_id
-		where p.product_id = #{product_id}
+		where
+		p.product_id = #{pid}
 	</select>
 
 
+	<select id="getReviewWithPaging"
+		resultType="com.hyundai.vo.ReviewDTO">
+	<![CDATA[
+	select rpad(substr(user_id,1,length(user_id)-4),length(user_id),'*') userId,
+		   review_score reviewScore, review_img reviewImg, review_date reviewDate, review_content reviewContent
+	from ORDER_LIST
+	where product_id = #{pid}
+	order by ]]>
+		<choose>
+			<when test="cri.sort =='01'.toString()">
+				review_score desc nulls last
+			</when>
+			<when test="cri.sort =='02'.toString()">
+				review_score nulls first
+			</when>
+			<otherwise>
+				review_date desc nulls last
+			</otherwise>
+		</choose>
+             <![CDATA[, user_id
+            OFFSET (#{cri.pageNum}-1)*#{cri.amount} ROWS FETCH NEXT #{cri.amount} ROWS ONLY
+		]]>
+	</select>
+	<select id="getReviewTotalCount" resultType="int">
+		select count(*) from order_list where product_id = #{pid}
+	</select>
+	
+	
+	<select id="getAverageScore" resultType="double">
+		select nvl(round(sum(review_score)/count(*),1),0) from order_list
+		where product_id = #{pid}
+	</select>
+	
+		<select id="getAverageScoreInt" resultType="int">
+		select nvl(round(sum(review_score)/count(*),1),0) from order_list
+		where product_id = #{pid}
+	</select>
 
 </mapper>

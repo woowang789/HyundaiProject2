@@ -9,7 +9,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.hyundai.vo.BeforeOrderDTO;
 import com.hyundai.vo.CartProductDTO;
+import com.hyundai.vo.InsertOrderDTO;
 import com.hyundai.vo.UpdateCartDTO;
 
 import lombok.Setter;
@@ -54,4 +56,17 @@ public class CartMapperTests {
 		}
 		
 	}
+	@Test
+	@Transactional
+	public void insertTest() {
+		BeforeOrderDTO cart = new BeforeOrderDTO();
+
+		cart.setPid("A000000130963");
+		cart.setOid("A0000001309630001");
+		cart.setQty(3);
+
+		
+		mapper.insertCart(cart,userId);
+	}
+	
 }

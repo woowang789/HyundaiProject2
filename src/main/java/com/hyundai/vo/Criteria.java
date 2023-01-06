@@ -17,6 +17,7 @@ public class Criteria {
 
 	private String cateId;
 	private String catePid;
+	private String pid;
 	private String sort;
 
 	private int minPrice;

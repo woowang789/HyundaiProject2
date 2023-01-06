@@ -105,6 +105,7 @@
   </div>
   
   <form id="reviewForm" action="/mypage/reviews-write" method="post">
+  	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
   	<input type="hidden" name="orderId">
   	<input type="hidden" name="productId">
   	<input type="hidden" name="optionId">
@@ -118,6 +119,14 @@
 <script type="text/javascript" src="/resources/js/review.js" defer> </script>
 <script type="text/javascript">
 	$(document).ready(function(){
+		$.ajaxSetup({
+			  beforeSend: function(xhr) {
+			      xhr.setRequestHeader("AJAX", true);
+			      var csrfToken = '${_csrf.token}';
+			      xhr.setRequestHeader("X-CSRF-TOKEN", csrfToken);
+			  }
+		});
+		
 		const reviewForm = $('#reviewForm');
 		$('.btn-review--small').click(function(e){
 			let prodId = $(this).data('goods-no');
