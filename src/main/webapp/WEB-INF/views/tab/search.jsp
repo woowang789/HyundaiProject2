@@ -17,12 +17,14 @@
     <input type="hidden" name="amount" value="${pageMaker.cri.amount }" />
     <input type="hidden" name="sort" value="${pageMaker.cri.sort }" />
     <input type="hidden" name="cateId" value="${pageMaker.cri.cateId }" />
+    <input type="hidden" name="keyword" value="${pageMaker.cri.keyword }" />
+    
     <div class="searchResultArea">
       <p class="resultTxt">
         <strong>${pageMaker.cri.keyword }</strong>검색결과 (전체
         <span>${pageMaker.total }개</span>
         의 상품)    
-        <i class="fa-sharp fa-solid fa-star" 
+        <i class="fa-sharp fa-solid fa-star tagBtn" 
         style="display:inline-block;cursor:pointer; 
         color:
          <c:if test="${ isContain}">
@@ -174,6 +176,7 @@
 </div>
 
 <script src="/resources/js/wishList.js" defer></script>
+<script src="/resources/js/tagService.js" defer></script>
 <script type="text/javascript">
 	$(document).ready(
 			function() {
@@ -259,7 +262,20 @@
 			    		})
 					
 				})
+				
+				$('.tagBtn').click(function(){
+					console.log('ttt');
+					if(userId == ''){
+						alert("로그인이 필요한 서비스입니다.");
+						return;
+					} 
+					tagService.toggleTag(
+						{userId : userId, keyword: '<c:out value="${pageMaker.cri.keyword }"/>'},function(data){
+							console.log(data)
+							window.location.reload();
+						})
+				})
 
-			})
+		})
 </script>
 <%@ include file="../includes/footer.jsp"%>

@@ -15,7 +15,5 @@ public interface SearchMapper {
 	int getCount(Criteria cri);
 
 	List<CategoryDTO> getCate(Criteria cri);
-	
-	List<String> getTagList(String userId);
 
 }

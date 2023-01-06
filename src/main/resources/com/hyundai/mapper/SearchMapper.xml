@@ -73,11 +73,5 @@
 	]]>
 	</select>
 	
-	<select id="getTagList" resultType="String" >
-		select keyword
-		from tag
-		where user_id = #{userId}
-		order by tag_date
-	</select>
 
 </mapper>

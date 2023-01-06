@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.hyundai.mapper.SearchMapper;
+import com.hyundai.service.TagService;
 import com.hyundai.vo.CustomUser;
 
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TagInterceptor extends HandlerInterceptorAdapter {
 
-	private final SearchMapper mapper;
+	private final TagService service;
 	
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
@@ -29,8 +30,8 @@ public class TagInterceptor extends HandlerInterceptorAdapter {
 		if(request.getMethod().equals("GET")) {
 			String url = request.getRequestURI();
 			if(user != null && !url.startsWith("/api") && !url.startsWith("/resources")) {
-				List<String> tags =  mapper.getTagList(user.getUsername());
-				System.out.println(user.getUsername()+" "+tags);
+				List<String> tags =  service.getTagList(user.getUsername());
+//				System.out.println(user.getUsername()+" "+tags);
 				modelAndView.getModelMap().addAttribute("tags", tags);
 			}
 		}
