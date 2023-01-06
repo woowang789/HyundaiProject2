@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
@@ -14,13 +15,15 @@ import com.hyundai.mapper.SearchMapper;
 import com.hyundai.service.TagService;
 import com.hyundai.vo.CustomUser;
 
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 @Component
-@RequiredArgsConstructor
+@NoArgsConstructor
 public class TagInterceptor extends HandlerInterceptorAdapter {
 
-	private final TagService service;
+	@Autowired
+	private TagService service;
 	
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
