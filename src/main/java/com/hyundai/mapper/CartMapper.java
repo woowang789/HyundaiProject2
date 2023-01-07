@@ -15,9 +15,7 @@ public interface CartMapper {
 	public int deleteCart(UpdateCartDTO dto);
 
 	public int updateCart(UpdateCartDTO dto);
-	
-	/*
-	 * public void insertCart(@Param("dto") BeforeOrderDTO dto, @Param("userId")
-	 * String userId);
-	 */
+
+	public int insertCart(@Param("dto") BeforeOrderDTO dto, @Param("userId") String userId);
+
 }

@@ -9,4 +9,5 @@ public class UpdateCartDTO {
 	private String prodId;
 	private String optId;
 	private int qty;
+	private boolean fromCart;
 }
