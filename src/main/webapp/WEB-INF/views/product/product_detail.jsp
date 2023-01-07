@@ -63,9 +63,7 @@
 											count++;
 											$(".option_add_area ").append(text);
 											$('.btn_opt_del').click(function(){
-											
 												$(this).closest('.prd_cnt_box').remove();
-												$('.option_add_area #'+id).remove(); 
 											})
 											
 											$('.prd_info').on("propertychange change keyup paste input click",function(){
@@ -136,7 +134,12 @@
 						$('.ButtonClose').click(function(){
 							$('.layer_pop_wrap').hide();
 							
-						}); 
+						});
+						
+						$('.is-layer').click(function(){
+							$('.is-layer').removeClass("on");
+							$(this).addClass("on");
+						});
 					
 						
 					});
@@ -185,6 +188,247 @@
         $('.dimm').remove();
     }
 </script>
+
+<script>
+$(document).ready(function(){
+	
+	var csrfHeaderName="${_csrf.headerName}";
+	var csrfTokenValue="${_csrf.token}";
+	
+	
+	/* let cri = $('#review_form').serialize(); */
+	let cri = 'pageNum=1&amount=3&sort=01&pid='+'${product_detail.pid}';
+	
+
+		
+ 	$('#reviewInfo1').on('click',function(){
+ 		$.ajax({
+ 			url:"/review",
+ 			type:"get",
+ 		/* 	beforeSend:function(xhr){
+ 				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+ 			}, */
+ 	        contentType: 'application/json; charset=utf-8', 
+ 			data: cri,
+ 			success:function(result){
+ 				for(review of result.reviews){
+ 					let text=`<li>
+ 						<div class="info">
+ 						<div class="user clrfix">
+ 							<a href="javascript:;"
+ 								onclick="goods.gdas.goReviewerProfile('ckZkQzZWQW5PbkRBSzRFa0dESXE1QT09')"
+ 								data-attr="상품상세^리뷰어프로필^프로필이미지 또는 닉네임 클릭">
+ 								<div class="thum">
+ 									<span class="bg"></span> <img
+ 										src="https://static.oliveyoung.co.kr/pc-static-root/image/comm/my_picture_base.jpg"
+ 										alt="">
+ 								</div>
+ 							</a>
+ 							<!--## 리뷰 고도화 1차 ## : top, id 위치 변경 및 마크업 변경 -->
+ 							<p class="info_user">
+ 								<a href="javascript:;"
+ 									onclick="goods.gdas.goReviewerProfile('ckZkQzZWQW5PbkRBSzRFa0dESXE1QT09')"
+ 									class="id" data-attr="상품상세^리뷰어프로필^프로필이미지 또는 닉네임 클릭">\${review.userId}</a>
+ 							</p>
+ 							<!--## 리뷰 고도화 2차 ## : 명성리뷰어 -->
+ 							<!--## 리뷰 고도화 1차 ## : 재구매/한달사용 리뷰 -->
+ 							<div class="badge"></div>
+ 						</div>
+ 					</div>
+ 					<div class="review_cont">
+ 						<div class="score_area">
+ 							<span class="review_point"><span class="point"
+ 								style="width: \${20*review.reviewScore}%">5점만점에 5점</span></span> <span
+ 								class="date">\${review.reviewDate}</span>
+ 						</div>
+ 						<!--## 리뷰 고도화 1차 ## 위치변경 -->
+ 						<!--## 리뷰 고도화 1차 ## 위치변경 -->
+ 						<!--## 리뷰 고도화 1차 ## 위치변경 -->
+ 						<!--## 리뷰 고도화 1차 ## 위치변경 -->
+ 						<div class="txt_inner">\${review.reviewContent}</div>
+ 						<!-- ## 리뷰 고도화 1차 ## : 태그 추가 -->
+ 						<div class="review_thum type1">
+ 							<ul class="inner clrfix">
+ 								<li><a href="#" data-attr="상품상세^포토리뷰^포토 클릭^1"><span><img
+ 											src="/api/image/display?fileName=\${review.reviewImg}"
+ 											onload="common.imgLoads(this,165);"
+ 											data-value="16668530_1" class="thum" alt=""
+ 											onerror="common.errorResizeImg(this,165)"></span></a></li>
+ 							</ul>
+ 						</div>
+ 						<div class="rw-photo-slide" style="display: none">
+ 							<div>
+ 								<img
+ 									src="https://image.oliveyoung.co.kr/uploads/images/gdasEditor/2022/12/27/1672109633131.png">
+ 							</div>
+ 						</div>
+ 						<!--## 리뷰 고도화 2차 ## 연관상품 -->
+ 						<!--## 리뷰 고도화 1차 ## 위치변경 및 삭제-->
+ 						<!-- ## 리뷰 고도화 1차 ##  : 리뷰제한 카테고리 일경우 안보이게 -->
+ 					</div>
+ 				</li>`;
+ 					$(".inner_list").append(text);
+			
+ 				}
+ 				//페이징 폼태그
+ 				let pageing =`<form id="review_form" action="/product-detail method="get">
+					<input type="hidden" name="pageNum"
+					value="\${result.pageMaker.cri.pageNum }" /> <input type="hidden"
+					name="amount" value="\${result.pageMaker.cri.amount }" /> <input
+					type="hidden" name="sort" value="\${result.pageMaker.cri.sort }" /> <input
+					type="hidden" name="pid" value="\${result.pageMaker.cri.pid }" /></form>
+					<div class="pageing">`;
+				
+				//페이징 버튼	
+				if(result.pageMaker.prev ){
+					pageing+=`<a class="prev" href="\${result.pageMaker.startPage-1 }">이전 10 페이지</a>`					
+				}
+				for(let i =1;i<=result.pageMaker.endPage;i++){
+					if(i==result.pageMaker.cri.pageNum ){
+						pageing+=`<strong title="현재 페이지">\${i}</strong>`
+					}
+					else{
+						pageing+=`<a href="javascript:void(0);">\${i} </a>`
+					}
+					
+				}
+				
+				if(result.pageMaker.next){
+					pageing+=`<a class="next" href="javascript:void(0);">다음 10 페이지</a>`
+				}
+				pageing+=`</div>`;
+					
+				
+				//붙이기
+ 				$(".review-reward-notice").append(pageing);
+					
+ 			},
+ 			error : function(){
+ 				alert("서버요청 실패");
+ 			}
+ 		});
+		
+	});
+ 	
+
+		
+})
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+let review_form = $('#review_form');
+	$(".pageing a").on("click", function () {
+		  console.log("페이징 클릭");
+		  e.preventDefault();
+		  review_form.find("input[name='pageNum']").val($(this).attr("href"));
+		  review_form.submit();
+
+		  let forms = $("#review_form").serialize();
+
+		  $.ajax({
+		    url: "/review",
+		    type: "get",
+		    /* 	beforeSend:function(xhr){
+		    xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+		  }, */
+		    contentType: "application/json; charset=utf-8",
+		    data: forms,
+		    success: function (result) {
+		      for (review of result.reviews) {
+		        let text = `<li>
+		        <div class="info">
+		        <div class="user clrfix">
+		          <a href="javascript:;"
+		            onclick="goods.gdas.goReviewerProfile('ckZkQzZWQW5PbkRBSzRFa0dESXE1QT09')"
+		            data-attr="상품상세^리뷰어프로필^프로필이미지 또는 닉네임 클릭">
+		            <div class="thum">
+		              <span class="bg"></span> <img
+		                src="https://static.oliveyoung.co.kr/pc-static-root/image/comm/my_picture_base.jpg"
+		                alt="">
+		            </div>
+		          </a>
+		          <!--## 리뷰 고도화 1차 ## : top, id 위치 변경 및 마크업 변경 -->
+		          <p class="info_user">
+		            <a href="javascript:;"
+		              onclick="goods.gdas.goReviewerProfile('ckZkQzZWQW5PbkRBSzRFa0dESXE1QT09')"
+		              class="id" data-attr="상품상세^리뷰어프로필^프로필이미지 또는 닉네임 클릭">\${review.userId}</a>
+		          </p>
+		          <!--## 리뷰 고도화 2차 ## : 명성리뷰어 -->
+		          <!--## 리뷰 고도화 1차 ## : 재구매/한달사용 리뷰 -->
+		          <div class="badge"></div>
+		        </div>
+		      </div>
+		      <div class="review_cont">
+		        <div class="score_area">
+		          <span class="review_point"><span class="point"
+		            style="width: \${20*review.reviewScore}%">5점만점에 5점</span></span> <span
+		            class="date">\${review.reviewDate}</span>
+		        </div>
+		        <!--## 리뷰 고도화 1차 ## 위치변경 -->
+		        <!--## 리뷰 고도화 1차 ## 위치변경 -->
+		        <!--## 리뷰 고도화 1차 ## 위치변경 -->
+		        <!--## 리뷰 고도화 1차 ## 위치변경 -->
+		        <div class="txt_inner">\${review.reviewContent}</div>
+		        <!-- ## 리뷰 고도화 1차 ## : 태그 추가 -->
+		        <div class="review_thum type1">
+		          <ul class="inner clrfix">
+		            <li><a href="#" data-attr="상품상세^포토리뷰^포토 클릭^1"><span><img
+		                  src="/api/image/display?fileName=\${review.reviewImg}"
+		                  onload="common.imgLoads(this,165);"
+		                  data-value="16668530_1" class="thum" alt=""
+		                  onerror="common.errorResizeImg(this,165)"></span></a></li>
+		          </ul>
+		        </div>
+		        <div class="rw-photo-slide" style="display: none">
+		          <div>
+		            <img
+		              src="https://image.oliveyoung.co.kr/uploads/images/gdasEditor/2022/12/27/1672109633131.png">
+		          </div>
+		        </div>
+		        <!--## 리뷰 고도화 2차 ## 연관상품 -->
+		        <!--## 리뷰 고도화 1차 ## 위치변경 및 삭제-->
+		        <!-- ## 리뷰 고도화 1차 ##  : 리뷰제한 카테고리 일경우 안보이게 -->
+		      </div>
+		    </li>`;
+		        $(".inner_list").append(text);
+		      }
+		      //페이징 폼태그
+		      let pageing = `<form id="review_form" action="/product-detail method="get">
+		     <input type="hidden" name="pageNum"
+		     value="\${result.pageMaker.cri.pageNum }" /> <input type="hidden"
+		     name="amount" value="\${result.pageMaker.cri.amount }" /> <input
+		     type="hidden" name="sort" value="\${result.pageMaker.cri.sort }" /> <input
+		     type="hidden" name="pid" value="\${result.pageMaker.cri.pid }" /></form>
+		     <div class="pageing">`;
+
+		      //페이징 버튼
+		      if (result.pageMaker.prev) {
+		        pageing += `<a class="prev" href="\${result.pageMaker.startPage-1 }">이전 10 페이지</a>`;
+		      }
+		      for (let i = 1; i <= result.pageMaker.endPage; i++) {
+		        if (i == result.pageMaker.cri.pageNum) {
+		          pageing += `<strong title="현재 페이지">\${i}</strong>`;
+		        } else {
+		          pageing += `<a href="javascript:void(0);">\${i} </a>`;
+		        }
+		      }
+
+		      if (result.pageMaker.next) {
+		        pageing += `<a class="next" href="javascript:void(0);">다음 10 페이지</a>`;
+		      }
+		      pageing += `</div>`;
+
+		      //붙이기
+		      $(".review-reward-notice").append(pageing);
+		    },
+		    error: function () {
+		      alert("서버요청 실패");
+		    },
+		  });
+		});
+	})
+</script>
+
 
 
 <div id="Container">
@@ -340,8 +584,8 @@
 							onclick="javascript:fnLayerTopCustomSet('basketOption', 'open');;"
 							data-attr="상품상세^주문유형^장바구니">장바구니</button>
 						<!-- <button class="btnBuy goods_buy" id="cartBtn" onClick="javascript:goods.detail.bindBtnBuy();">구매하기</button> -->
-						<button class="btnBuy goods_buy" id="cartBtn"  type="submit" form="order-form"
-							data-attr="상품상세^주문유형^바로구매">바로구매</button>
+						<button class="btnBuy goods_buy" id="cartBtn" type="submit"
+							form="order-form" data-attr="상품상세^주문유형^바로구매">바로구매</button>
 						<button class="btnSoldout dupItem goods_cart"
 							style="display: none" onclick="javascript:;">일시품절</button>
 						<button class="goods_buy btnReStock" style="display: none"
@@ -381,7 +625,7 @@
 			</li>
 			<li data-tab="buyInfo"><a href="#tabList" class="goods_buyinfo"
 				data-attr="상품상세^상품상세_SortingTab^구매정보">구매정보</a></li>
-			<li data-tab="reviewInfo"><a href="#tabList"
+			<li data-tab="reviewInfo" id="reviewInfo1"><a href="#tabList'"
 				class="goods_reputation" data-attr="상품상세^상품상세_SortingTab^리뷰"> 리뷰
 					<span>${pageMaker.total}</span>
 			</a></li>
@@ -611,12 +855,17 @@
 						<!-- 리뷰 고도화 1차 : 항목 변경 -->
 						<ul id="gdasSort">
 							<li class="is-layer on"><a href="javascript:;"
-								data-value="05" data-attr="상품상세^리뷰정렬^유용한순">평점순</a>
+								data-value="01" data-attr="상품상세^리뷰정렬^유용한순">평점 높은순</a>
+
+								<div class="comment-layer">리뷰의 글자수, '도움이 돼요'수 , 등록된 사진, 최신
+									작성일등을 점수화하여 올리브영이 추천하는 리뷰를 정렬합니다.</div></li>
+							<li class="is-layer"><a href="javascript:;" data-value="02"
+								data-attr="상품상세^리뷰정렬^유용한순">평점 낮은순</a>
 
 								<div class="comment-layer">리뷰의 글자수, '도움이 돼요'수 , 등록된 사진, 최신
 									작성일등을 점수화하여 올리브영이 추천하는 리뷰를 정렬합니다.</div></li>
 
-							<li><a href="javascript:;" data-value="02"
+							<li class="is-layer"><a href="javascript:;" data-value="03"
 								data-attr="상품상세^리뷰정렬^최신순">최신순</a></li>
 						</ul>
 						<!-- // 리뷰 고도화 1차 : 항목 변경 -->
@@ -628,118 +877,13 @@
 
 
 
-				<!-- <h3 class="tit_type thum_tit">리뷰 이미지</h3 -->
-				<!-- ## 리뷰 고도화 1차 ##  -->
-				<div class="review_thum">
-					<ul class="inner clrfix">
-
-						<li><a href="javascript:;" data-attr="상품상세^포토모아보기^포토 클릭^1">
-
-
-								<span> <!-- ## 리뷰 고도화 1차 ## onload , errorResizeImg --> <img
-									src="https://image.oliveyoung.co.kr/uploads/images/gdasEditor/2022/12/27/1672109633131.png?RS=120x0&amp;CS=120x120"
-									onload="common.imgLoads(this,120);" class="thum"
-									data-value="16668530_1" alt="" data-state=""
-									onerror="common.errorResizeImg(this,120)">
-							</span>
-
-						</a></li>
-
-						<li><a href="javascript:;" data-attr="상품상세^포토모아보기^포토 클릭^2">
-
-
-								<span> <!-- ## 리뷰 고도화 1차 ## onload , errorResizeImg --> <img
-									src="https://image.oliveyoung.co.kr/uploads/images/gdasEditor/2022/10/31/1667218952620.png?RS=240x0&amp;CS=90x90"
-									onload="common.imgLoads(this,120);" class="thum"
-									data-value="15673420_1" alt="" data-state=""
-									onerror="common.errorResizeImg(this,120)">
-							</span>
-
-						</a></li>
-
-						<li><a href="javascript:;" data-attr="상품상세^포토모아보기^포토 클릭^3">
-
-
-								<span> <!-- ## 리뷰 고도화 1차 ## onload , errorResizeImg --> <img
-									src="https://image.oliveyoung.co.kr/uploads/images/gdasEditor/2022/08/11/1660200974926_20220811_153718.jpg?RS=120x0&amp;CS=120x120"
-									onload="common.imgLoads(this,120);" class="thum"
-									data-value="14324468_1" alt="" data-state=""
-									onerror="common.errorResizeImg(this,120)">
-							</span>
-
-						</a></li>
-
-						<li><a href="javascript:;" data-attr="상품상세^포토모아보기^포토 클릭^4">
-
-
-								<span> <!-- ## 리뷰 고도화 1차 ## onload , errorResizeImg --> <img
-									src="https://image.oliveyoung.co.kr/uploads/images/gdasEditor/2022/08/03/1659490393805_20220706_165320.jpg?RS=240x0&amp;CS=90x90"
-									onload="common.imgLoads(this,120);" class="thum"
-									data-value="14211785_1" alt="" data-state=""
-									onerror="common.errorResizeImg(this,120)">
-							</span>
-
-						</a></li>
-
-						<li><a href="javascript:;" data-attr="상품상세^포토모아보기^포토 클릭^5">
-
-
-								<span> <!-- ## 리뷰 고도화 1차 ## onload , errorResizeImg --> <img
-									src="https://image.oliveyoung.co.kr/uploads/images/gdasEditor/2022/08/02/1659415245616.png?RS=120x0&amp;CS=120x120"
-									onload="common.imgLoads(this,120);" class="thum"
-									data-value="14199155_1" alt="" data-state=""
-									onerror="common.errorResizeImg(this,120)">
-							</span>
-
-						</a></li>
-
-						<li><a href="javascript:;" data-attr="상품상세^포토모아보기^포토 클릭^6">
-
-
-								<span> <!-- ## 리뷰 고도화 1차 ## onload , errorResizeImg --> <img
-									src="https://image.oliveyoung.co.kr/uploads/images/gdasEditor/2022/07/30/1659182159329.png?RS=120x0&amp;CS=120x120"
-									onload="common.imgLoads(this,120);" class="thum"
-									data-value="14163767_1" alt="" data-state=""
-									onerror="common.errorResizeImg(this,120)">
-							</span>
-
-						</a></li>
-
-						<li><a href="javascript:;" data-attr="상품상세^포토모아보기^포토 클릭^7">
-
-
-								<span> <!-- ## 리뷰 고도화 1차 ## onload , errorResizeImg --> <img
-									src="https://image.oliveyoung.co.kr/uploads/images/gdasEditor/2022/07/28/1659002213811.png?RS=120x0&amp;CS=120x120"
-									onload="common.imgLoads(this,120);" class="thum"
-									data-value="14142025_1" alt="" data-state=""
-									onerror="common.errorResizeImg(this,120)">
-							</span>
-
-						</a></li>
-
-						<li>
-							<!-- ## 리뷰 고도화 1차 ## --> <a href="javascript:;" class="more"
-							data-attr="상품상세^포토모아보기^포토더보기"> <span> <!-- ## 리뷰 고도화 1차 ## -->
-									<span><em>더보기</em></span> <!-- ## 리뷰 고도화 1차 ## onload , errorResizeImg -->
-									<img
-									src="https://image.oliveyoung.co.kr/uploads/images/gdasEditor/2022/07/07/1657203295557.png?RS=240x0&amp;CS=90x90"
-									onload="common.imgLoads(this,120);" class="thum"
-									data-value="13907325_1" alt="" data-state=""
-									onerror="common.errorResizeImg(this,120)">
-							</span>
-
-						</a>
-						</li>
-
-					</ul>
-				</div>
 
 
 				<!-- 상품평 리스트 start -->
 				<div class="review_list_wrap">
 					<ul class="inner_list" id="gdasList">
 
-						<c:forEach var="review" items="${reviews}">
+						<%-- <c:forEach var="review" items="${reviews}">
 							<li>
 								<div class="info">
 									<div class="user clrfix">
@@ -779,7 +923,7 @@
 									<div class="review_thum type1">
 										<ul class="inner clrfix">
 											<li><a href="#" data-attr="상품상세^포토리뷰^포토 클릭^1"><span><img
-														src="https://image.oliveyoung.co.kr/uploads/images/gdasEditor/2022/12/27/1672109633131.png?RS=165x0&amp;CS=165x165"
+														src="/api/image/display?fileName=${review.reviewImg}"
 														onload="common.imgLoads(this,165);"
 														data-value="16668530_1" class="thum" alt=""
 														onerror="common.errorResizeImg(this,165)"></span></a></li>
@@ -796,11 +940,11 @@
 									<!-- ## 리뷰 고도화 1차 ##  : 리뷰제한 카테고리 일경우 안보이게 -->
 								</div>
 							</li>
-						</c:forEach>
+						</c:forEach> --%>
 
 					</ul>
 				</div>
-				<form id="actionForm" action="/product-detail#searchType method="get">
+				<%-- <form id="review_form" action="/product-detail method="get">
 					<input type="hidden" name="pageNum"
 						value="${pageMaker.cri.pageNum }" /> <input type="hidden"
 						name="amount" value="${pageMaker.cri.amount }" /> <input
@@ -825,7 +969,7 @@
 					<c:if test="${pageMaker.next }">
 						<a class="next" href="${pageMaker.endPage+1 }">다음 10 페이지</a>
 					</c:if>
-				</div>
+				</div> --%>
 
 
 			</div>

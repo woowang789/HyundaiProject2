@@ -50,10 +50,10 @@
 		    values (#{optId}, #{prodId},#{userId}, #{qty}, sysdate)
 	</update>
 	
-<!-- 	<insert id="insertCart">
+	<insert id="insertCart">
 	insert  into cart_list(OPTION_ID, PRODUCT_ID, USER_ID, CART_QTY, CART_DATE) 
-	values (#{oid}, #{pid},#{userId}, #{qty}, sysdate)
-	</insert> -->
+	values (#{dto.oid}, #{dto.pid},#{userId}, #{dto.qty}, sysdate)
+	</insert>
 	
 	
 </mapper>
