@@ -336,7 +336,7 @@ userId:userId},function (list){
 					let qty = tr.find('.prd_cnt input').val();
 					console.log(qty);
 					cartService.updateCart(
-						{userId:userId, prodId:prodId, optId : optionId, qty:qty},
+						{userId:userId, prodId:prodId, optId : optionId, qty:qty, fromCart:true},
 						function(data){
 							console.log("update complete");
 							getList();
