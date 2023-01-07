@@ -5,11 +5,26 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ include file="../includes/header.jsp"%>
 
-
+<script src="/resources/js/cartService.js" defer></script>
+<script src="/resources/js/wishList.js" defer></script>
 <script>
 	$(document)
-			.ready(
-					function() {
+			.ready(function() {
+					$.ajaxSetup({
+						  beforeSend: function(xhr) {
+						      xhr.setRequestHeader("AJAX", true);
+						      var csrfToken = '${_csrf.token}';
+						      xhr.setRequestHeader("X-CSRF-TOKEN", csrfToken);
+						  }
+					});
+					const userId =
+						<sec:authorize access="isAnonymous()">
+							"";
+						</sec:authorize>
+						<sec:authorize access="isAuthenticated()">
+							"<sec:authentication property="principal.user.user_id"/>";
+						</sec:authorize>
+						
 						let count=0;
 						
 						$(".sel_option_list>li>a")
@@ -21,6 +36,7 @@
 											let price = $(this).find('.tx_num')
 													.attr('id').toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 											let id = $(this).data("opt-id");
+											let productId = $(this).data("prod-id");
 										// TODO : id 확인
 											console.log(id);
 											
@@ -51,7 +67,7 @@
 											      
 											      <button type="button" class="btnCalc plus" onclick="">수량 1증가</button>
 											      <input type="hidden" name="list[\${count}].oid" value="\${id}">
-											      <input type="hidden" name="list[\${count}].pid" value="pId\${count+1}">
+											      <input type="hidden" name="list[\${count}].pid" value="\${productId}">
 											      </span>
 											      </div><div class="cont_area">
 											      <span class="option_price"><span class="tx_num">\${price}</span>원</span>
@@ -77,18 +93,6 @@
 												 $('#totalPrcTxt').text(sum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')).html();
 												 
 											 });
-											/* $('.prd_info ').on('click','.option_add_area',function(){
-												 console.log("변동 감지3");
-												 let sum=0;
-												 let lists = $(this).children('.prd_cnt_box ').each(function(){
-													 let cnt = $(this).find('.tx_num').val();
-													 let price = $(this).find('.tx_num').text().replace(',','');
-													 sum += cnt*(price);
-									
-												 });
-												 $('#totalPrcTxt').text(sum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')).html();
-												 									
-											 }); */
 										}
 
 											$("#buy_option_box").removeClass("open");
@@ -105,7 +109,6 @@
 								alert('1개 단위로 구매 가능한 상품입니다. 수량을 다시 선택해주세요.');
 							}
 							$(this).next().val(minus);
-							/* console.log($(this).next().val(minus)); */
 
 						});
 
@@ -118,12 +121,52 @@
 							}
 							;
 							$(this).prev().val(plus);
-							/* console.log($(this).prev().val(plus)); */
 
 						});
-						
+						$('.btnZzim').click(function(e){
+							if(userId == ''){
+								alert("로그인이 필요한 서비스 입니다.");
+								return;
+							}
+							let btn = $(this);
+							let prodId = $(this).data('ref-goodsno');
+					    	wishService.toggleWish({
+					    		userId: userId, 
+					    		prodId:prodId,
+					    		},function(data){
+					    			console.log("result : ",data);
+					    			if(data == 1){
+					    				btn.addClass('zzimOn');
+					    				alert('찜하기 완료')
+					    			}else if(data == 0){
+					    				btn.removeClass('zzimOn');
+					    				alert('찜하기 해제')
+					    			}
+					    		})
+							
+						})
 						$('.btnBasket').click(function(){
-							$('.layer_pop_wrap').show(); 
+							let t = $('#order-form .prd_cnt_box').length;
+							if(t == 0){
+								alert('상품 옵션을 선택해주세요');
+								return ;
+							}else if(userId == ''){
+								alert('로그인이 필요한 서비스 입니다.')
+								return;
+							}
+							$('#order-form .prd_cnt_box').each(function(idx,item){
+								let qty = $(item).find('input[name="list['+idx+'].qty"]').val();
+								let oid = $(item).find('input[name="list['+idx+'].oid"]').val();
+								let pid = $(item).find('input[name="list['+idx+'].pid"]').val();
+							
+								cartService.updateCart(
+										{userId:userId, prodId:pid, optId : oid, qty:qty, fromCart:false},
+										function(data){
+											console.log("update complete");
+										}
+									)
+							})
+							$('.layer_pop_wrap').show();
 							
 						});
 				 	$('.btnlG01').click(function(){
@@ -146,7 +189,6 @@
 </script>
 <script>
 	$(document).ready(function() {
-
 		$('.prd_detail_tab li').click(function() {
 			var tab_id = $(this).attr('data-tab');
 			console.log(tab_id);
@@ -175,7 +217,6 @@
 		console.log(id);
 		let item = document.querySelector('#'+id);
 		$(this).parents().parents().remove();
-		//item.remove();
 	 } 
 	function popUpClose(){
         
@@ -277,34 +318,6 @@ $(document).ready(function () {
 	 					</div>
 				</li>`;
 
-  // const pageing = `<form id="review_form" action="/product-detail method="get">
-  // 			<input type="hidden" name="pageNum"
-  // 			value="\${result.pageMaker.cri.pageNum }" /> <input type="hidden"
-  // 			name="amount" value="\${result.pageMaker.cri.amount }" /> <input
-  // 			type="hidden" name="sort" value="\${result.pageMaker.cri.sort }" /> <input
-  // 			type="hidden" name="pid" value="\${result.pageMaker.cri.pid }" /></form>
-  // 			<div class="pageing">`;
-
-  // //페이징 버튼
-  // if (result.pageMaker.prev) {
-  //   pageing += `<a class="prev" href="\${result.pageMaker.startPage-1 }">이전 10 페이지</a>`;
-  // }
-  // for (let i = 1; i <= result.pageMaker.endPage; i++) {
-  //   if (i == result.pageMaker.cri.pageNum) {
-  //     pageing += `<strong title="현재 페이지">\${i}</strong>`;
-  //   } else {
-  //     pageing += `<a href="\${i}">\${i} </a>`;
-  //   }
-  // }
-
-  // if (result.pageMaker.next) {
-  //   pageing += `<a class="next" href="\${result.pageMaker.endPage+1 }">다음 10 페이지</a>`;
-  // }
-  // pageing += `</div>`;
-
-  //===========
-  //====================================================================================
-  //===============================================================================================
   showList(pageNum);
 
   pageingUL.on("click", "a", function (e) {
@@ -393,13 +406,8 @@ $(document).ready(function () {
 						<span class="txt" id="goodstxt">03. 얼모스트 핑크</span>
 					</div>
 				</div>
-				<!-- 202005 상품개선 : 위치 변경 및 마크업 변경 -->
-				<!-- 고객 만족도 및 공유, 재고확인 -->
 				<div class="prd_social_info">
-					<!-- 평점 및 리뷰 건수 추가 -->
-					<!-- 위치 변경 <p><a href="#" class="btn_off_store" data-rel="layer" data-target="offlineStore">올리브영 오프라인 매장 재고확인</a></p>-->
 				</div>
-				<!--// 고객 만족도 및 공유, 재고확인 -->
 			</div>
 			<div class="right_area">
 				<div class="prd_info">
@@ -452,7 +460,8 @@ $(document).ready(function () {
 								<li id="${option.oid}" class="option_id">
 									<!-- 혜택 아이콘 li 분기 끝 --> <!--//옵션 선택시 오늘드림 옵션 상품을 제어하기 위해서 오늘드림 여부 추가//-->
 									<a style="cursor: pointer" onclick=""
-									data-opt-id="<c:out value="${option.oid}" />"> <c:if
+									data-opt-id="<c:out value="${option.oid}" />"
+									data-prod-id="<c:out value="${product_detail.pid}" />"> <c:if
 											test="${not empty option.othumb}">
 											<span class="color"> <img
 												src="<c:out value='${option.othumb}'/>" alt=" "></span>
@@ -531,9 +540,11 @@ $(document).ready(function () {
 						<button class="btnBasket dupItem goods_cart"
 							onclick="javascript:fnLayerTopCustomSet('basketOption', 'open');;"
 							data-attr="상품상세^주문유형^장바구니">장바구니</button>
+
 						<!-- <button class="btnBuy goods_buy" id="cartBtn" onClick="javascript:goods.detail.bindBtnBuy();">구매하기</button> -->
 						<button class="btnBuy goods_buy" id="cartBtn" type="submit"
 							form="order-form" data-attr="상품상세^주문유형^바로구매">바로구매</button>
+
 						<button class="btnSoldout dupItem goods_cart"
 							style="display: none" onclick="javascript:;">일시품절</button>
 						<button class="goods_buy btnReStock" style="display: none"
@@ -624,13 +635,6 @@ $(document).ready(function () {
 					<p class="txt">고객님을 위한 상품 추천중이에요</p>
 				</div>
 			</div>
-			<!-- 				<div class="curation_area_a003_lead"></div> -->
-			<!-- 				<div id="recobell_area_a003" class="cura_pord curation_area_003 btm" style="display:none;"> -->
-			<!-- 					<h4 class="tit_h4">함께 보면 좋은 상품이에요</h4> -->
-			<!-- 					<div class="loading_box"> -->
-			<!-- 						<p class="txt">고객님을 위한 상품 추천중이에요</p> -->
-			<!-- 					</div> -->
-			<!-- 				</div> -->
 			<div id="relPlanShop_area" class="related_plan"></div>
 		</div>
 		<div class="tabConts prd_detail_cont" id="buyInfo" data-tab="buyInfo">

@@ -5,55 +5,60 @@
 <!-- SQL Mapping -->
 <mapper namespace="com.hyundai.mapper.CartMapper">
 
-	<select id="getCartList" resultType="com.hyundai.vo.CartProductDTO">
-		select 
-		    p.product_id id,
-		    p.product_name name,
-		    p.product_thumb thumb,
-		    po.option_id oid,
-		    po.option_name optionName,
-		    po.option_stock stock,
-		    po.option_origin_price originPrice,
-		    po.option_market_price marketPrice,
-		    b.brand_name brandName,
-		    b.brand_id bId,
-		    c.cart_qty qty,
-		    c.cart_date cDate
-		from cart_list c 
-		inner join options po 
-		    on (c.option_id = po.option_id and c.user_id = #{userId})
-		inner join product p 
-		    on (p.product_id = po.product_id)
-		inner join brand b 
-		    on (b.brand_id = p.brand_id)
-		    order by c.cart_date desc
+	<select id="getCartList"
+		resultType="com.hyundai.vo.CartProductDTO">
+		select
+		p.product_id id,
+		p.product_name name,
+		p.product_thumb thumb,
+		po.option_id oid,
+		po.option_name optionName,
+		po.option_stock stock,
+		po.option_origin_price originPrice,
+		po.option_market_price marketPrice,
+		b.brand_name brandName,
+		b.brand_id bId,
+		c.cart_qty qty,
+		c.cart_date cDate
+		from cart_list c
+		inner join options po
+		on (c.option_id = po.option_id and c.user_id = #{userId})
+		inner join
+		product p
+		on (p.product_id = po.product_id)
+		inner join brand b
+		on (b.brand_id = p.brand_id)
+		order by c.cart_date desc
 	</select>
-	
+
 	<delete id="deleteCart">
 		delete from cart_list c
 		where c.option_id = #{optId}
-		    and c.user_id = #{userId}
-		    and c.product_id = #{prodId}
+		and c.user_id = #{userId}
+		and c.product_id = #{prodId}
 	</delete>
-	
-	<update id="updateCart" >
-		merge into cart_list c 
+
+	<!-- 장바구니에서 수량 변경 시 #{qty} 상품상세에서 수량 변경 시 #{qty} + c.cart_qty -->
+	<update id="updateCart">
+		merge into cart_list c
 		using dual
 		on (c.option_id = #{optId}
-		    and c.product_id = #{prodId}
-		    and c.user_id = #{userId}
+		and c.product_id = #{prodId}
+		and c.user_id = #{userId}
 		)
 		when matched then
-		    update set c.cart_qty = #{qty}
+		<if test='!fromCart'>
+			update set c.cart_qty = #{qty} + c.cart_qty
+		</if>
+		<if test='fromCart'>
+			update set c.cart_qty = #{qty}
+		</if>
 		when not matched then
-		    insert (OPTION_ID, PRODUCT_ID, USER_ID, CART_QTY, CART_DATE)
-		    values (#{optId}, #{prodId},#{userId}, #{qty}, sysdate)
+		insert (OPTION_ID, PRODUCT_ID, USER_ID, CART_QTY, CART_DATE)
+		values (#{optId}, #{prodId},#{userId}, #{qty}, sysdate)
 	</update>
-	
-	<insert id="insertCart">
-	insert  into cart_list(OPTION_ID, PRODUCT_ID, USER_ID, CART_QTY, CART_DATE) 
-	values (#{dto.oid}, #{dto.pid},#{userId}, #{dto.qty}, sysdate)
-	</insert>
-	
-	
+
+
+
+
 </mapper>
