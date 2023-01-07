@@ -340,7 +340,7 @@ $(document).ready(function () {
         	
           str += text
             .replaceAll("{review.userId}", list[i].userId)
-            .replace("{20*review.reviewScore}%", 20 * list[i].reviewScore)
+            .replace("{20*review.reviewScore}%", 20 * list[i].reviewScore+"%")
             .replace("{review.reviewDate}", list[i].reviewDate)
             .replace("{review.reviewContent}", list[i].reviewContent)
             .replace("{review.reviewImg}", list[i].reviewImg);
