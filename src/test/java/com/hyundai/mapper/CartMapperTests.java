@@ -47,7 +47,7 @@ public class CartMapperTests {
 		dto.setOptId("A000000156839001");
 		dto.setProdId("A000000156839");
 		dto.setUserId(userId);
-		int result = mapper.updateCart(dto,true);
+		int result = mapper.updateCart(dto);
 		log.info(result);
 		
 		List<CartProductDTO> a = mapper.getCartList(userId);
