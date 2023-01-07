@@ -32,7 +32,6 @@ public class ProductController {
 	@Autowired
 	private CartService cartService;
 
-	/* private String pid = "A000000158874"; */
 
 	@RequestMapping(value = "/product-detail", method = RequestMethod.GET)
 	public String productDetail(@RequestParam String pid, Criteria cri, Model model) {
@@ -55,41 +54,15 @@ public class ProductController {
 	@ResponseBody
 	@RequestMapping(value = "/review", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Map<String, Object>> productDetail(Criteria cri) {
-		log.info("/review" + cri);
 
 		if (cri.getAmount() == 10)
 			cri.setAmount(2);
 		int total = mapper.getReviewTotalCount(cri);
 		Map<String, Object> map = new HashMap<String, Object>();
-		log.info("================================");
 		map.put("reviews", mapper.getReviewWithPaging(cri, cri.getPid()));
 		map.put("pageMaker", new PageDTO(cri, total));
-		log.info("total=" + total);
-
-		/*
-		 * rttr.addAttribute("reviews", mapper.getReviewWithPaging(cri, pid));
-		 * rttr.addAttribute("pageMaker", new PageDTO(cri, total));
-		 * rttr.addAttribute("averageInt", mapper.getAverageScoreInt(pid));
-		 */
 		return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
 	}
 
-	/*
-	 * @PostMapping("/product-detail") public String doCart(BeforeOrderDTO
-	 * cart,RedirectAttributes redirct,String userId) {
-	 * cartService.insertCart(cart,userId); redirct.addFlashAttribute("cart", cart);
-	 * return "redirect:/product-detail"; }
-	 */
-
-	/*
-	 * @ResponseBody
-	 * 
-	 * @RequestMapping(value="/product-detail2", method = RequestMethod.GET,
-	 * produces = MediaType.APPLICATION_JSON_VALUE) public List<ReviewDTO>
-	 * productDetail2(@RequestParam String pid,Criteria cri, Model model) {
-	 * log.info("/product-detail: " + pid);
-	 * 
-	 * return mapper.getReviewWithPaging(pid,cri); }
-	 */
 
 }
