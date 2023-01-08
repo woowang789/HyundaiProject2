@@ -275,10 +275,19 @@
 					if(userId == ''){
 						alert("로그인이 필요한 서비스입니다.");
 						return;
-					} 
+					}
+					if(${!isContain} && ${fn:length(tags)} == 5){
+						alert("최대 5개의 태그만 등록가능 합니다.");
+						return;
+					}
 					tagService.toggleTag(
 						{userId : userId, keyword: '<c:out value="${pageMaker.cri.keyword }"/>'},function(data){
 							console.log(data)
+							if(data == 1){
+								alert("태그 등록");
+							}else{
+								alert("태그 해제");
+							}
 							window.location.reload();
 						})
 				})
