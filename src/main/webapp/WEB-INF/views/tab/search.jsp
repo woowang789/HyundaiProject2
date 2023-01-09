@@ -114,10 +114,14 @@
             <!--// 찜버튼 -->
             <!-- 상품가격 영역 -->
             <p class="prd_price">
+               <c:if test="${item.originPrice ne item.marketPrice}">
               <span class="tx_org">
                 <span class="tx_num">
                   <fmt:formatNumber value="${item.originPrice }" />
                 </span>
+                원
+                </span>
+                </c:if>
                 <span class="tx_cur">
                   <span class="tx_num">
                     <fmt:formatNumber value="${item.marketPrice }" />

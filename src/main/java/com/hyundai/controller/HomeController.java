@@ -38,8 +38,8 @@ public class HomeController {
 	public String home(Locale locale, Criteria cri, Model model, Principal principal) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
-		/* String userId = principal != null ? principal.getName() : "not logined"; */
 
+		String userId = principal == null ? "" : principal.getName();
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
 

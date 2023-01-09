@@ -20,13 +20,13 @@
 	<annotation-driven />
 
 
-	<!-- <interceptors> 
+	<interceptors> 
 		<interceptor> 
 		<mapping path="/**"/> 
 			<beans:bean id="tagInterceptor" 
 			class="com.hyundai.interceptor.TagInterceptor"/> 
 		</interceptor>
-	</interceptors>  -->
+	</interceptors> 
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
 		up static resources in the ${webappRoot}/resources directory -->
