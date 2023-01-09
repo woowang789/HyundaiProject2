@@ -53,7 +53,7 @@ public class ImageApi {
 			header.add("Content-Type", Files.probeContentType(file.toPath()));
 			result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), header, HttpStatus.OK);
 		}catch(Exception e) {
-			e.printStackTrace();
+			
 		}
 		return result;
 	}

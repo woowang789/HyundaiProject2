@@ -223,6 +223,11 @@ $(document).ready(function(){
 			$('#btnGdasReg').click(function(e){
 					console.log('submit review');
 					console.log("img : "+img);
+					
+					if($('#txtGdasCont').val() == ''){
+						alert("내용을 입력해주세요");
+						return;
+					}
 					reviewForm.find('input[name="productId"]').val(data.id);
 					reviewForm.find('input[name="optionId"]').val(data.oid);
 					reviewForm.find('input[name="orderId"]').val(ordId);

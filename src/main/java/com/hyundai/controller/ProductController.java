@@ -46,7 +46,7 @@ public class ProductController {
 		/* model.addAttribute("reviews", mapper.getReviewWithPaging(cri, pid)); */
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
 
-		String id="";
+		String id="not login";
 		if(principal!=null) id = principal.getName();
 		model.addAttribute("average", mapper.getAverageScore(pid));
 		model.addAttribute("averageInt", mapper.getAverageScoreInt(pid));
