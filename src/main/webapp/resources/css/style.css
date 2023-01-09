@@ -53459,7 +53459,7 @@ span.gc-sub-title {
 
 .renew .cate_align_box .align_sort>ul>li.is-layer {
 	position: relative;
-	padding-right: 25px
+
 }
 
 .renew .cate_align_box .align_sort>ul>li.is-layer a {
@@ -53515,11 +53515,6 @@ span.gc-sub-title {
 	right: 10px;
 	bottom: 10px;
 	content: "";
-	width: 20px;
-	height: 20px;
-	background:
-		url("https://static.oliveyoung.co.kr/pc-static-root/image/product/ico_image_more.png")
-		0 0/20px auto no-repeat
 }
 
 .renew .inner_list .review_thum ul.inner li a.more>span>span {

@@ -24,7 +24,23 @@ public class HomeTests {
 	private String userId = "user1@email.com";
 
 	@Test
-	public void test() {
+	public void getRecommendForUserTest() {
+		Criteria cri = new Criteria();
+	
+		List<ProductOptionDTO> t = mapper.getRecommendBrand(cri, userId);
+		log.info(t);
+	}
+
+	@Test
+	public void getRecommendRandomTest() {
+		Criteria cri = new Criteria();
+
+		List<ProductOptionDTO> t = mapper.getRecommendBrand(cri, userId);
+		log.info(t);
+	}
+
+	@Test
+	public void getRecommendBrandTest() {
 		Criteria cri = new Criteria();
 		cri.setBrandName("록시땅");
 

@@ -97,6 +97,11 @@
 				wishUL.html(str);
 				showPaging(count);
 				
+				$('.goodsList').click(function(e){
+					e.preventDefault();
+					location.href= '/product-detail?pid='+$(this).data('ref-goodsno');
+				});
+				
 			    $('.prd_info .btn_zzim').click(function(e){
 			    	e.preventDefault();
 			    	

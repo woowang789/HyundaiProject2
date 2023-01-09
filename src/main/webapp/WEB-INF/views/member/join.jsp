@@ -9,7 +9,7 @@ $(document).ready(function(){
 	var csrfHeaderName="${_csrf.headerName}";
 	var csrfTokenValue="${_csrf.token}";
 	
-	$('#id').focusout(function(){
+	$('#id').keyup(function(){
 		let id = $('#id').val();
 		if(id !=''){
 			$.ajax({

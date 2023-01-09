@@ -176,7 +176,7 @@
 						})
 				$('.btn_list').click(function(e) {
 					if ($(this).hasClass('active')) {
-// 					} else {
+					} else {
 
 						$(".btn_thumb").removeClass('active')
 						$(this).addClass('active')
