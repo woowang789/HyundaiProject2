@@ -62,7 +62,7 @@
 	                <div class="rating">
 	                  <span class="txt">
 	                  </span>
-	                  <span class="point pt<c:out value="${reivew.reviewScore}"/>"></span>
+	                  <span class="point pt<c:out value="${review.reviewScore}"/>"></span>
 	                </div>
 	                <div class="review-flag-wrap">
 	                </div>
