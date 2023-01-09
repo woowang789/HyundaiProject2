@@ -590,7 +590,11 @@ $(document).ready(function () {
 							onclick="javascript:;"
 							data-attr="상품상세^재입고알림신청^브로앤팁스 네버오일리 올인원 120ML 기획(+바디워시100ML)_클릭"
 							data-trk="/Cat100000100010008_Small">재입고 알림신청</button>
-						<button class="btnZzim goods_wish"
+						<button class="btnZzim goods_wish 
+						<c:if test="${ wishList}">
+							zzimOn
+						</c:if>
+						"
 							data-ref-goodsno="<c:out value="${product_detail.pid}"/>"
 							data-attr="상품상세^상품좋아요^브로앤팁스 네버오일리 올인원 120ML 기획(+바디워시100ML)_0">찜하기전</button>
 					</div>

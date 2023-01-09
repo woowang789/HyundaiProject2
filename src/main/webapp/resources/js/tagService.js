@@ -1,5 +1,3 @@
-console.log('tagService.js loaded....');
-
 const tagService = (function() {
 	function toggleTag(param,callback,error){
 		$.ajax({
@@ -21,3 +19,10 @@ const tagService = (function() {
 	};
 	
 })();
+
+
+
+
+
+
+
