@@ -67,7 +67,7 @@
 			b.brand_name brandName
 		from (
             select 
-            /*+ INDEX(idx_order_date)  */
+            /*+ INDEX_DESC (idx_order_date)  */
                 rownum rn,
                 o.order_id orderId, 
                 o.order_date orderDate
@@ -75,6 +75,7 @@
             where o.user_id = #{userId}
             	and o.order_date between add_months(sysdate,#{cri.type}) and sysdate
                 and rownum<= #{cri.pageNum} * #{cri.amount}
+            order by order_date desc
         ) o
 		inner join order_list ol
 		    on (o.orderId = ol.order_id)
