@@ -67,18 +67,77 @@
 		]]>
 	</select>
 	<select id="getReviewTotalCount" resultType="int">
-		select count(*) from order_list where product_id = #{pid}
+		select count(*) from
+		order_list where product_id = #{pid} and review_date is not null
 	</select>
-	
-	
+
 	<select id="getAverageScore" resultType="double">
-		select nvl(round(sum(review_score)/count(*),1),0) from order_list
-		where product_id = #{pid}
+		select
+		nvl(round(sum(review_score)/count(*),1),0) from order_list
+		where
+		product_id = #{pid} and review_date is not null
 	</select>
-	
-		<select id="getAverageScoreInt" resultType="int">
-		select nvl(round(sum(review_score)/count(*),1),0) from order_list
-		where product_id = #{pid}
+
+	<select id="getAverageScoreInt" resultType="int">
+		select
+		nvl(round(sum(review_score)/count(*),1),0) from order_list
+		where
+		product_id = #{pid} and review_date is not null
 	</select>
+
+
+	<select id="getScoreFive" resultType="int">
+		select count(*)
+		from
+		order_list where product_id=#{pid} and review_score=5
+	</select>
+
+	<select id="getScoreFour" resultType="int">
+		select count(*)
+		from
+		order_list where product_id=#{pid} and review_score=4
+	</select>
+
+	<select id="getScoreThree" resultType="int">
+		select count(*)
+		from
+		order_list where product_id=#{pid} and review_score=3
+	</select>
+
+	<select id="getScoreTwo" resultType="int">
+		select count(*)
+		from
+		order_list where product_id=#{pid} and review_score=2
+	</select>
+
+	<select id="getScoreOne" resultType="int">
+		select count(*)
+		from
+		order_list where product_id=#{pid} and review_score=1
+	</select>
+
+	<select id="getRecommend"
+		resultType="com.hyundai.vo.ProductOptionDTO">
+		select
+		p.product_id id,
+		p.product_name name,
+		p.product_thumb thumb,
+		p.product_date pDate,
+		o.option_id oId,
+		o.option_stock stock,
+		o.option_origin_price originPrice,
+		o.option_market_price marketPrice
+
+		from product p
+		inner join options o on (p.product_id = o.product_id and
+		o.option_id = concat(p.product_id,'001') )
+		where p.category_id like (select category_id from product where
+		product_id=#{pid})||'%'
+		order by DBMS_RANDOM.RANDOM
+		OFFSET 0 ROWS FETCH NEXT 3 ROWS ONLY
+
+	</select>
+
+
 
 </mapper>
