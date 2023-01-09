@@ -202,17 +202,17 @@ ALTER TABLE wish_list ADD CONSTRAINT wish_list_pk PRIMARY KEY ( user_id,
 
 ALTER TABLE brand_category
     ADD CONSTRAINT brand_category_brand_fk FOREIGN KEY ( brand_id )
-        REFERENCES brand ( brand_id ) on delete cascade;
+        REFERENCES brand ( brand_id );
 
 ALTER TABLE brand_category
     ADD CONSTRAINT brand_category_categories_fk FOREIGN KEY ( category_id )
-        REFERENCES categories ( category_id ) on delete cascade;
+        REFERENCES categories ( category_id );
 
 ALTER TABLE cart_list
     ADD CONSTRAINT cart_list_option_fk FOREIGN KEY ( option_id,
                                                      product_id )
         REFERENCES options ( option_id,
-                             product_id ) on delete cascade;
+                             product_id );
 
 ALTER TABLE cart_list
     ADD CONSTRAINT cart_list_users_fk FOREIGN KEY ( user_id )
@@ -220,17 +220,17 @@ ALTER TABLE cart_list
 
 ALTER TABLE categories
     ADD CONSTRAINT categories_categories_fk FOREIGN KEY ( category_id )
-        REFERENCES categories ( category_id ) on delete cascade;
+        REFERENCES categories ( category_id );
 
 ALTER TABLE options
     ADD CONSTRAINT option_product_fk FOREIGN KEY ( product_id )
-        REFERENCES product ( product_id ) on delete cascade;
+        REFERENCES product ( product_id );
 
 ALTER TABLE order_list
     ADD CONSTRAINT order_list_option_fk FOREIGN KEY ( option_id,
                                                       product_id )
         REFERENCES options ( option_id,
-                             product_id ) on delete cascade;
+                             product_id );
 
 ALTER TABLE order_list
     ADD CONSTRAINT order_list_orders_fk FOREIGN KEY ( order_id,
@@ -244,11 +244,11 @@ ALTER TABLE orders
 
 ALTER TABLE product
     ADD CONSTRAINT product_brand_fk FOREIGN KEY ( brand_id )
-        REFERENCES brand ( brand_id ) on delete cascade;
+        REFERENCES brand ( brand_id );
 
 ALTER TABLE product
     ADD CONSTRAINT product_categories_fk FOREIGN KEY ( category_id )
-        REFERENCES categories ( category_id ) on delete cascade;
+        REFERENCES categories ( category_id );
 
 
 
@@ -256,11 +256,11 @@ ALTER TABLE sale_list
     ADD CONSTRAINT sale_list_option_fk FOREIGN KEY ( option_id,
                                                      product_id )
         REFERENCES options ( option_id,
-                             product_id ) on delete cascade;
+                             product_id );
 
 ALTER TABLE sale_list
     ADD CONSTRAINT sale_list_sale_fk FOREIGN KEY ( sale_id )
-        REFERENCES sale ( sale_id ) on delete cascade;
+        REFERENCES sale ( sale_id );
 
 ALTER TABLE tag
     ADD CONSTRAINT tag_users_fk FOREIGN KEY ( user_id )
@@ -268,7 +268,7 @@ ALTER TABLE tag
 
 ALTER TABLE wish_list
     ADD CONSTRAINT wish_list_product_fk FOREIGN KEY ( product_id )
-        REFERENCES product ( product_id ) on delete cascade;
+        REFERENCES product ( product_id );
 
 ALTER TABLE wish_list
     ADD CONSTRAINT wish_list_users_fk FOREIGN KEY ( user_id )
