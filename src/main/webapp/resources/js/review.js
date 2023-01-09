@@ -61,14 +61,6 @@ const writeBase = `
 							<textarea id="txtGdasCont" title="리뷰작성"></textarea>
 							<div class="line"></div>
 
-							<div class="bottom">
-
-								<!--  가이드문구 영역 -->
-								<div class="count fix_txtNum" style="color: red">
-									<!-- 25자 이하 입력 시 error class 추가 -->
-									<b class="txt_en" style="color: red">0</b> <span>/</span> 1,000
-								</div>
-							</div>
 						</div>
 					</div>
 				</li>
