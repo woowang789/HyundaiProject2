@@ -5,7 +5,6 @@ drop table cart_list cascade constraint purge;
 drop table wish_list cascade constraint purge;
 drop table categories cascade constraint purge;
 drop table brand cascade constraint purge;
-drop table brand_category cascade constraint purge;
 drop table sale cascade constraint purge;
 drop table sale_list cascade constraint purge;
 drop table product cascade constraint purge;
@@ -33,13 +32,6 @@ CREATE TABLE brand (
 
 ALTER TABLE brand ADD CONSTRAINT brand_pk PRIMARY KEY ( brand_id );
 
-CREATE TABLE brand_category (
-    brand_id         VARCHAR2(20) NOT NULL,
-    category_id VARCHAR2(30) NOT NULL
-);
-
-ALTER TABLE brand_category ADD CONSTRAINT brand_category_pk PRIMARY KEY ( category_id,
-                                                                          brand_id );
 
 CREATE TABLE cart_list (
     option_id          VARCHAR2(30) NOT NULL,
@@ -185,8 +177,8 @@ CREATE UNIQUE INDEX wish__idx ON
     
 create table authorities(
     user_id varchar2(20) not null,
-    authority varchar2(500) not null,
-    constraint fk_authorities_users foreign key(user_id) references users(user_id));
+    authority varchar2(500) not null
+    );
     
 create unique index ix_auth_user_name on authorities (user_id,authority);
     
@@ -199,14 +191,6 @@ last_used timestamp not null);
 
 ALTER TABLE wish_list ADD CONSTRAINT wish_list_pk PRIMARY KEY ( user_id,
                                                                 product_id );
-
-ALTER TABLE brand_category
-    ADD CONSTRAINT brand_category_brand_fk FOREIGN KEY ( brand_id )
-        REFERENCES brand ( brand_id );
-
-ALTER TABLE brand_category
-    ADD CONSTRAINT brand_category_categories_fk FOREIGN KEY ( category_id )
-        REFERENCES categories ( category_id );
 
 ALTER TABLE cart_list
     ADD CONSTRAINT cart_list_option_fk FOREIGN KEY ( option_id,
@@ -272,6 +256,11 @@ ALTER TABLE wish_list
 
 ALTER TABLE wish_list
     ADD CONSTRAINT wish_list_users_fk FOREIGN KEY ( user_id )
+        REFERENCES users ( user_id ) on delete cascade;
+
+ 
+ALTER TABLE authorities
+    ADD CONSTRAINT fk_authorities_users FOREIGN KEY ( user_id )
         REFERENCES users ( user_id ) on delete cascade;
 
 

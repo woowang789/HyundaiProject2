@@ -49,7 +49,7 @@
 	select rpad(substr(user_id,1,length(user_id)-4),length(user_id),'*') userId,
 		   review_score reviewScore, review_img reviewImg, review_date reviewDate, review_content reviewContent
 	from ORDER_LIST
-	where product_id = #{pid}
+	where product_id = #{pid} and review_date is not null
 	order by ]]>
 		<choose>
 			<when test="cri.sort =='01'.toString()">
