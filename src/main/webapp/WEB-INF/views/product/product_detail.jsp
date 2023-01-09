@@ -27,6 +27,16 @@
 						
 						let count=0;
 						
+						$('.btnBuy').click(function(e){
+							e.preventDefault();
+							if( count == 0){
+								alert('상품을 선택해주세요');
+								return;
+							}
+							$('#order-form').submit();
+							
+						})
+						
 						$(".sel_option_list>li>a")
 								.click(
 										function() {
@@ -340,7 +350,7 @@ $(document).ready(function () {
         	
           str += text
             .replaceAll("{review.userId}", list[i].userId)
-            .replace("{20*review.reviewScore}%", 20 * list[i].reviewScore)
+            .replace("{20*review.reviewScore}%", 20 * list[i].reviewScore+"%")
             .replace("{review.reviewDate}", list[i].reviewDate)
             .replace("{review.reviewContent}", list[i].reviewContent)
             .replace("{review.reviewImg}", list[i].reviewImg);
@@ -552,7 +562,7 @@ $(document).ready(function () {
 							data-attr="상품상세^재입고알림신청^브로앤팁스 네버오일리 올인원 120ML 기획(+바디워시100ML)_클릭"
 							data-trk="/Cat100000100010008_Small">재입고 알림신청</button>
 						<button class="btnZzim goods_wish"
-							data-ref-goodsno="A000000144535"
+							data-ref-goodsno="<c:out value="${product_detail.pid}"/>"
 							data-attr="상품상세^상품좋아요^브로앤팁스 네버오일리 올인원 120ML 기획(+바디워시100ML)_0">찜하기전</button>
 					</div>
 				</div>

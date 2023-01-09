@@ -33,7 +33,8 @@ public class TagInterceptor extends HandlerInterceptorAdapter {
 			if(!name.equals("anonymousUser") && !url.startsWith("/api") && !url.startsWith("/resources")) {
 				List<String> tags =  service.getTagList(name);
 //				System.out.println(user.getUsername()+" "+tags);
-				modelAndView.getModelMap().addAttribute("tags", tags);
+				if(modelAndView.getModelMap() != null)
+					modelAndView.getModelMap().addAttribute("tags", tags);
 			}
 		}
 	} 

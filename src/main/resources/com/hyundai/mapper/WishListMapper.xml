@@ -10,6 +10,7 @@
 		select id, name, thumb, pDate, oId, stock, originPrice, marketPrice, '1' wished, bId, brandName, wDate
 		from (
 			select 
+			/*+ INDEX (wish_list idx_wdate) */
 			    rownum rn,
 			    p.product_id id, 
 			    p.product_name name, 
@@ -28,8 +29,9 @@
 			inner join wish_list w on (w.product_id = p.product_id and w.user_id = #{userId})
 			inner join brand b on (p.brand_id = b.brand_id)
 			where rownum <= #{cri.pageNum} * #{cri.amount}
+			order by wish_date desc
 		)
-		where rn > (#{cri.pageNum} - 1) * #{cri.amount}
+		where rn > (#{cri.pageNum} - 1) * #{cri.amount} 
 		]]>
 	</select>
 	
