@@ -31,10 +31,10 @@
             join categories c on p.category_id=c.category_id
             join (select product_id,sum(order_list_qty) best
             from order_list 
-            group by product_id 
-            OFFSET 0 ROWS FETCH NEXT 100 ROWS ONLY) olq on p.product_id=olq.product_id
+            group by product_id) olq on p.product_id=olq.product_id
             where c.category_id like #{cri.cateId}||'%'
             order by best desc, p.product_id
+            OFFSET 0 ROWS FETCH NEXT 100 ROWS ONLY
 	]]>
 	</select>
 
