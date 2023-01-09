@@ -378,7 +378,7 @@
 							name="goodsAmt" value="169100"></li>
 						<li><span class="tx_tit">쿠폰할인금액</span> <!-- 2017-01-18 수정 : 문구수정 -->
 							<span class="tx_cont colorOrange"><span class="tx_num"
-								id="totDscntAmt_span">- 4,000</span>원</span> <input type="hidden"
+								id="totDscntAmt_span">- 0</span>원</span> <input type="hidden"
 							name="descentAmt" value="11560"> <input type="hidden"
 							id="imdtDscntAmt" value="7560"></li>
 

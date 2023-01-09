@@ -125,6 +125,9 @@
 											<span class="tit"><c:out value="${product.brandName }"/> </span> 
 											<span class="txt"><c:out value="${product.name }"/> </span>
 										</a>
+										
+										<span class="color1sSize">
+										<i class="tit">옵션</i><c:out value="${product.optionName }"/></span>
 									</div>
 								</div>
 							</td>
