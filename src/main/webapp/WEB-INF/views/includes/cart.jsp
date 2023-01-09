@@ -65,13 +65,13 @@
 					</button>
 				</div>
 				<div class="sum_price">
-					총 판매가 <span class="tx_num total_market">221,000</span> 원 <span
+					총 판매가 <span class="tx_num total_market"></span> 원 <span
 						class="tx_sign minus">-</span> 총 할인금액 <span
-						class="tx_num total_minus">59,460</span> 원 <span
+						class="tx_num total_minus"></span> 원 <span
 						class="tx_sign plus">+</span> 배송비 <span class="tx_num">0</span> 원
 					<span class="tx_sign equal">=</span> <span class="tx_total_price">
 						총 결제금액 <span class="tx_price"> <span
-							class="tx_num total_result">161,540</span> 원
+							class="tx_num total_result"></span> 원
 					</span>
 					</span>
 				</div>
@@ -108,17 +108,7 @@
 				<button type="button" class="btnOrange order_btn" name="allOrderBtn"
 					data-attr="장바구니^주문유형^전체주문">주문</button>
 			</div>
-			<!-- Y  -->
-			<div class="basket_btmBox" id="curation_area_a015">
-				<h4 class="tit_h4">최근 본 상품</h4>
-				<div class="loading_box">
-					<span class="icon"> <img
-						src="https://static.oliveyoung.co.kr/pc-static-root/image/comm/pc_loading.gif"
-						alt="로딩중" />
-					</span>
-					<p class="txt">고객님을 위한 상품 추천중이에요</p>
-				</div>
-			</div>
+
 			<!-- 2018-07-09 문구추가 -->
 			<div class="cart_comment">
 				<p>장바구니 상품은 90일동안, 판매종료 된 상품은 10일동안 보관됩니다.</p>
@@ -172,7 +162,7 @@
                 </div>
                 <div class="tbl_cell w110">
 					<span class="cur_price">
-						<span class="tx_num">{originPrice}</span>원
+						<span class="tx_num">{originPriceLocale}</span>원
 					</span>
 				</div>
                 <div class="tbl_cell w100">
@@ -183,12 +173,16 @@
 				<button type="button" class="btnSmall wGray" style="" name="btnQtyMod"><span>변경</span></button>
 				</div>
                 <div class="tbl_cell w110">
-                  <span class="org_price">
-                    <span class="tx_num">{totalOrigin}</span>
+                `
+                 
+                let a = `<span class="org_price">
+                    <span class="tx_num">{totalOriginLocale}</span>
                     원
                   </span>
+                 `
+                let b=  `
                   <span class="pur_price">
-                    <span class="tx_num">{totalMarket}</span>
+                    <span class="tx_num">{totalMarketLocale}</span>
                     원
                   </span>
                 </div>
@@ -277,6 +271,8 @@
 			str += `<input type='hidden' name='isCart' value="true">`
 			cartForm.html(str);
 			
+			
+			
 			cartForm.submit();
 		})
 		
@@ -290,7 +286,13 @@ userId:userId},function (list){
 				$('.list_count').text(list.length ||0);
 				
 				list.forEach((el)=>{
-					str += baseTr.replaceAll('{prodId}', el.id)
+					let t = baseTr;
+					if(el.originPrice != el.marketPrice)
+						t += a;
+					t+=b;
+					
+					str += t
+					.replaceAll('{prodId}', el.id)
 						.replaceAll('{optId}', el.oid)
 						.replaceAll('{prodName}', el.name)
 						.replace('{optName}', el.optionName)
@@ -301,9 +303,15 @@ userId:userId},function (list){
 						.replaceAll('{marketPrice}',el.marketPrice)
 						.replace('{stock}',el.stock)
 						.replace('{totalOrigin}', el.qty * el.originPrice)
-						.replace('{totalMarket}', el.qty * el.marketPrice);
+						.replace('{totalMarket}', el.qty * el.marketPrice)
+						
+						.replace('{originPriceLocale}', (el.originPrice).toLocaleString() )
+						.replace('{totalOriginLocale}', (el.qty * el.originPrice).toLocaleString() )
+						.replace('{totalMarketLocale}', ( el.qty * el.marketPrice).toLocaleString() )
+						
 				})
 				tBody.html(str);
+				
 				calTotal();
 				
 				/*
@@ -328,7 +336,7 @@ userId:userId},function (list){
 						})
 				})
 				
-				$('tr').on('click','button',function(e){
+				$('tr').on('click','button[name="btnQtyMod"]',function(e){
 					e.preventDefault();
 					let tr = $(this).closest('tr');
 					let prodId = tr.attr('goodsno');
@@ -355,9 +363,9 @@ userId:userId},function (list){
 					totalMarket += $(item).attr('originprice') * $(item).attr('ordqty');
 					totalMinus += ($(item).attr('originprice') - $(item).attr('marketPrice')) * $(item).attr('ordqty');
 			})
-			$('.total_market').text(totalMarket);
-			$('.total_minus').text(totalMinus);
-			$('.total_result').text(totalMarket - totalMinus);
+			$('.total_market').text(totalMarket.toLocaleString());
+			$('.total_minus').text(totalMinus.toLocaleString());
+			$('.total_result').text((totalMarket - totalMinus).toLocaleString() );
 		}
 		
 	})
