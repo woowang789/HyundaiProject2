@@ -1,5 +1,6 @@
 package com.hyundai.interceptor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,12 +27,17 @@ public class TagInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
+		/*회원 탈퇴 시, 로그아웃 시*/
+		if( SecurityContextHolder.getContext() == null || 
+				SecurityContextHolder.getContext().getAuthentication() == null) return;
 	
 		String name = SecurityContextHolder.getContext().getAuthentication().getName();
 		if(request.getMethod().equals("GET")) {
 			String url = request.getRequestURI();
 			if(!name.equals("anonymousUser") && !url.startsWith("/api") && !url.startsWith("/resources")) {
 				List<String> tags =  service.getTagList(name);
+				if(tags == null ) tags = new ArrayList<String>();
+				System.out.println("tags : "+ tags);
 //				System.out.println(user.getUsername()+" "+tags);
 				if(modelAndView != null && modelAndView.getModelMap() != null)
 					modelAndView.getModelMap().addAttribute("tags", tags);
