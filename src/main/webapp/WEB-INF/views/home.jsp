@@ -204,12 +204,14 @@
                                 <p class="tx_name">${item.name }</p>
                               </div>
                               <p class="prd_price">
+                              <c:if test="${item.originPrice ne item.marketPrice}">
                                 <span class="tx_org">
                                   <span class="tx_num">
                                     <fmt:formatNumber>${item.originPrice}</fmt:formatNumber>
                                   </span>
                                   원
                                 </span>
+                                </c:if>
                                 <span class="tx_cur">
                                   <span class="tx_num">
                                     <fmt:formatNumber> ${item.marketPrice }</fmt:formatNumber>
@@ -388,12 +390,14 @@
                       <span>찜하기전</span>
                     </button>
                     <p class="prd_price">
+                       <c:if test="${item.originPrice ne item.marketPrice}">
                       <span class="tx_org">
                         <span class="tx_num">
                           <fmt:formatNumber>${item.originPrice}</fmt:formatNumber>
                         </span>
                         원
                       </span>
+                      </c:if>
                       <span class="tx_cur">
                         <span class="tx_num">
                           <fmt:formatNumber>${item.marketPrice}</fmt:formatNumber>
@@ -470,12 +474,14 @@
                         <span>찜하기전</span>
                       </button>
                       <p class="prd_price">
+                         <c:if test="${item.originPrice ne item.marketPrice}">
                         <span class="tx_org">
                           <span class="tx_num">
                             <fmt:formatNumber>${item.originPrice}</fmt:formatNumber>
                           </span>
                           원
                         </span>
+                        </c:if>
                         <span class="tx_cur">
                           <span class="tx_num">
                             <fmt:formatNumber>${item.marketPrice}</fmt:formatNumber>
