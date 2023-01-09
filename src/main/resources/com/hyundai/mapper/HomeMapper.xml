@@ -65,6 +65,8 @@
 	            OFFSET 0 ROWS FETCH NEXT 100 ROWS ONLY) olq on p.product_id=olq.product_id
 	            where c.category_id like #{cri.cateId}||'%'
 	            order by DBMS_RANDOM.RANDOM
+	            OFFSET 0 ROWS FETCH NEXT 4 ROWS ONLY
+	            
 		]]>
 	</select>
 

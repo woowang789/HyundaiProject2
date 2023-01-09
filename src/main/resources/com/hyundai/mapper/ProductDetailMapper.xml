@@ -137,6 +137,12 @@
 		OFFSET 0 ROWS FETCH NEXT 3 ROWS ONLY
 
 	</select>
+	
+	<select id="getWish" resultType="boolean">
+	select  nvl2(wish_date, '1', '0') wished 
+	from wish_list
+	where user_id=#{id} and product_id=#{pid} 
+	</select>
 
 
 
