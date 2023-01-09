@@ -83,7 +83,7 @@
 	
 	<delete id="deleteUser">
 		delete from users
-		where user_id = #{user_id}
+		where user_id = #{user_id} cascade
 	</delete>
 
 </mapper>
