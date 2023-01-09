@@ -47,7 +47,12 @@ public class ProductController {
 
 		model.addAttribute("average", mapper.getAverageScore(pid));
 		model.addAttribute("averageInt", mapper.getAverageScoreInt(pid));
-
+		model.addAttribute("five",mapper.getScoreFive(pid));
+		model.addAttribute("four",mapper.getScoreFour(pid));
+		model.addAttribute("three",mapper.getScoreThree(pid));
+		model.addAttribute("two",mapper.getScoreTwo(pid));
+		model.addAttribute("one",mapper.getScoreOne(pid));
+		model.addAttribute("recommend",mapper.getRecommend(pid));
 		return "product/product_detail";
 	}
 

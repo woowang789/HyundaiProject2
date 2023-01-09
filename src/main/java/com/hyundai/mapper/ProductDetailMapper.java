@@ -6,7 +6,9 @@ import org.apache.ibatis.annotations.Param;
 
 import com.hyundai.vo.Criteria;
 import com.hyundai.vo.ProductDetailDTO;
+import com.hyundai.vo.ProductOptionDTO;
 import com.hyundai.vo.ReviewDTO;
+import com.hyundai.vo.ScoreDTO;
 
 public interface ProductDetailMapper {
 	
@@ -21,5 +23,13 @@ public interface ProductDetailMapper {
 	  public double getAverageScore(@Param("pid") String pid);
 	  
 	  public int getAverageScoreInt(@Param("pid") String pid);
+	  
+	  public int getScoreFive(@Param("pid") String pid);
+	  public int getScoreFour(@Param("pid") String pid);
+	  public int getScoreThree(@Param("pid") String pid);
+	  public int getScoreTwo(@Param("pid") String pid);
+	  public int getScoreOne(@Param("pid") String pid);
+	  
+	  public List<ProductOptionDTO> getRecommend(@Param("pid") String pid);
 	 
 }

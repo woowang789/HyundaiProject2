@@ -242,6 +242,25 @@
 
 
 <script type="text/javascript">
+function leftPad(value) {
+    if (value >= 10) {
+        return value;
+    }
+
+    return "0"+value;
+}
+
+function toStringByFormatting(source, delimiter = '.') {
+    const year = source.getFullYear();
+    const month = leftPad(source.getMonth() + 1);
+    const day = leftPad(source.getDate());
+
+    return [year, month, day].join(delimiter);
+}
+
+console.log(toStringByFormatting(new Date(2021, 0, 1)));
+
+
 const reviewService = (function () {
 	  function getReview(param, callback, error) {
 	    let page = param.page || 1;
@@ -249,6 +268,7 @@ const reviewService = (function () {
 	      pageNum:param.page,
 	      pid: param.pid,
 	      amount:3,
+	      sort:param.sort
 	    };
 
 	    $.ajax({
@@ -280,9 +300,11 @@ $(document).ready(function () {
   }); */
 
   let pageNum = 1;
+  let sort = "01";
   const pid = $("#pid").val();
   const reviewUL = $(".inner_list");
   const pageingUL = $(".pageing");
+  const sortUL = $(".is-layer");
   const text = `<li>
 						<div class="info">
 						<div class="user clrfix">
@@ -328,30 +350,38 @@ $(document).ready(function () {
 	 					</div>
 				</li>`;
 
-  showList(pageNum);
+  showList(pageNum,sort);
 
   pageingUL.on("click", "a", function (e) {
     e.preventDefault();
 
     let targetPageNum = $(this).attr("href");
     pageNum = targetPageNum;
-    showList(pageNum);
+    showList(pageNum,sort);
   });
+  sortUL.on("click", "a", function (e) {
+	    e.preventDefault();
 
-  function showList(page) {
+	    let sortParam = $(this).data("value");
+	    console.log(sortParam);
+	    sort = sortParam;
+	    showList(pageNum,sort);
+	  });
+
+  function showList(page,sort) {
     let str = "";
-
+	console.log("sort2"	+sort);
     reviewService.getReview(
-      { page: page || 1, pid: pid},
+      { page: page || 1, pid: pid, sort:sort||"01"},
       function (count, list) {
     	  console.log(count);
     	  console.log(list);
         for (let i = 0, len = list.length||0; i<len; i++) {
-        	
+        	let dt=new Date(list[i].reviewDate)
           str += text
             .replaceAll("{review.userId}", list[i].userId)
             .replace("{20*review.reviewScore}%", 20 * list[i].reviewScore+"%")
-            .replace("{review.reviewDate}", list[i].reviewDate)
+            .replace("{review.reviewDate}", toStringByFormatting(new Date(list[i].reviewDate)))
             .replace("{review.reviewContent}", list[i].reviewContent)
             .replace("{review.reviewImg}", list[i].reviewImg);
         }
@@ -416,8 +446,7 @@ $(document).ready(function () {
 						<span class="txt" id="goodstxt">03. 얼모스트 핑크</span>
 					</div>
 				</div>
-				<div class="prd_social_info">
-				</div>
+				<div class="prd_social_info"></div>
 			</div>
 			<div class="right_area">
 				<div class="prd_info">
@@ -579,12 +608,94 @@ $(document).ready(function () {
 				<c:out value="${product_detail.cname}" />
 				상품은 어떠세요?
 			</h4>
-			<div class="loading_box">
-				<span class="icon"> <img
-					src="https://static.oliveyoung.co.kr/pc-static-root/image/comm/pc_loading.gif"
-					alt="로딩중" />
-				</span>
-				<p class="txt">고객님을 위한 상품 추천중이에요</p>
+			<div class="inner_cont" role="toolbar">
+				<ul
+					class="curation_basket slide_list slick_slider slick-initialized slick-slider slick-dotted"
+					id="goods_curation_a002">
+
+					<div aria-live="polite" class="slick-list draggable"
+						style="width: 110%">
+						<c:forEach var="rec" items="${recommend}">
+							<li data-wlog_type="a002"
+								class="slick-slide slick-current slick-active"
+								data-slick-index="6" aria-hidden="false" style="width: 324px;"
+								tabindex="-1" role="option" aria-describedby="slick-slide06">
+								<div class="thum" data-ref-goodsno="A000000165738"
+									data-egrank="7" data-egcode="a002_n002" data-attr="null"
+									data-trk="null" data-impression="A000000165738^상품추천_동일카테고리추천^7"
+									data-ref-dispcatno="90000010001" data-ref-itemno="001"
+									data-impression-visibility="1">
+									<img src="<c:out value="${rec.thumb}"/>
+						"
+										alt="<c:out value="${rec.name}"/>"
+										onerror="common.errorImg(this);"
+										data-attr="상품상세^상품추천_동일카테고리추천^[선물추천] 달바 시그니처 오리지널 &amp; 프리미엄 비건 미스트 세럼 기프트 세트^7"
+										onclick=" location.href ='/product-detail?pid=${rec.id}'">
+									<div class="my" style="display: none;">
+										<button type="button" class="myCart cartBtnRecoBell"
+											data-ref-goodsno="A000000165738" name=""
+											data-ref-dispcatno="90000010001" data-ref-itemno="001"
+											data-rccode="pc_detail_01_c" tabindex="0">
+											<span>장바구니</span>
+										</button>
+										<button type="button" class="mySee btn_zzim"
+											data-ref-goodsno="A000000165738" tabindex="0">
+											<span>찜하기전</span>
+										</button>
+									</div>
+								</div>
+								<div class="info">
+									<a href="/product-detail?pid=${rec.id}" class="a_detail"
+										name="Curation1" data-ref-goodsno="A000000165738"
+										data-egrank="7" data-egcode="a002_n002"
+										data-attr="상품상세^상품추천_동일카테고리추천^[선물추천] 달바 시그니처 오리지널 &amp; 프리미엄 비건 미스트 세럼 기프트 세트^7"
+										data-trk="/" data-ref-dispcatno="90000010001"
+										data-ref-itemno="001" tabindex="0">
+										<dl>
+											<dt class="tit">
+												<c:out value="${rec.name}" />
+											</dt>
+											<dd class="price">
+												<c:if test="${rec.originPrice ne rec.marketPrice}">
+													<del>
+														<fmt:formatNumber value="${rec.originPrice}" />
+														원
+													</del>
+												</c:if>
+												<strong><fmt:formatNumber
+														value="${rec.marketPrice}" />원</strong>
+											</dd>
+											<c:if test="${rec.originPrice ne rec.marketPrice}">
+												<dd class="icon">
+													<span class="icon_flag sale">세일</span>
+												</dd>
+											</c:if>
+										</dl>
+									</a>
+								</div>
+
+							</li>
+						</c:forEach>
+					</div>
+
+					<ul class="slick-dots" style="display: block;" role="tablist">
+						<li class="" aria-hidden="true" role="presentation"
+							aria-selected="true" aria-controls="navigation00"
+							id="slick-slide00"><button type="button" data-role="none"
+								role="button" tabindex="0">1</button></li>
+						<li aria-hidden="true" role="presentation" aria-selected="false"
+							aria-controls="navigation01" id="slick-slide01" class=""><button
+								type="button" data-role="none" role="button" tabindex="0">2</button></li>
+						<li aria-hidden="false" role="presentation" aria-selected="false"
+							aria-controls="navigation02" id="slick-slide02"
+							class="slick-active"><button type="button" data-role="none"
+								role="button" tabindex="0">3</button></li>
+						<li aria-hidden="true" role="presentation" aria-selected="false"
+							aria-controls="navigation03" id="slick-slide03"><button
+								type="button" data-role="none" role="button" tabindex="0">4</button></li>
+					</ul>
+				</ul>
+				<input type="hidden" id="goodsCnt" name="goodsCnt" value="12">
 			</div>
 		</div>
 		<!-- 큐레이션 2차 E -->
@@ -717,136 +828,156 @@ $(document).ready(function () {
 
 			<div class="review_wrap renew review-reward-notice">
 				<!-- ## 리뷰 고도화 1차 : 영역 부모 div 추가 ## -->
+				<c:if test="${pageMaker.total ne 0}">
+
+
+					<!--평균별점집계 start-->
+
+
+					<!-- [D] 리뷰작성 영역 제거 review-write-delete 클래스 추가 -->
+					<div class="product_rating_area review-write-delete">
+						<div class="inner clrfix">
+							<div class="grade_img">
+								<p class="img_face">
+
+
+									<span class="grade grade${(averageInt)+1}"></span> <em> <c:choose>
+											<c:when test="${averageInt eq 4 }">최고</c:when>
+											<c:when test="${averageInt eq 3 }">좋음</c:when>
+											<c:when test="${averageInt eq 2 }">보통</c:when>
+											<c:when test="${averageInt eq 1 }">별로</c:when>
+											<c:otherwise>나쁨</c:otherwise>
+										</c:choose>
+									</em>
+								</p>
+								<!-- grade5 : 최고, grade4 : 좋음, grade3 : 보통, grade2 : 별로, grade1 : 나쁨  -->
+							</div>
+							<div class="star_area">
+								<p class="total">
+									총 <em>${pageMaker.total} </em>건
+								</p>
+								<!-- ## 리뷰 고도화 2차 ## 리뷰 전체 건수(본상품+연관상품) -->
+								<p class="num">
+									<strong>${average }</strong><span>점</span>
+								</p>
+								<ul class="star_list">
 
 
 
-				<!--평균별점집계 start-->
+
+									<li><span class="rating"
+										style="width: <c:if test="${average eq 0}">0%</c:if><c:if test="${average >=1}">100%</c:if><c:if test="${average <1&& average>0}">${average*100}%</c:if>;"></span><img
+										src="https://static.oliveyoung.co.kr/pc-static-root/image//product/bg_rating_star.png"></li>
 
 
-				<!-- [D] 리뷰작성 영역 제거 review-write-delete 클래스 추가 -->
-				<div class="product_rating_area review-write-delete">
-					<div class="inner clrfix">
-						<div class="grade_img">
-							<p class="img_face">
+									<li><span class="rating"
+										style="width: <c:if test="${average <=1}">0%</c:if><c:if test="${average >=2}">100%</c:if><c:if test="${average <2 && average>1}">${(average-1)*100}%</c:if>;"></span><img
+										src="https://static.oliveyoung.co.kr/pc-static-root/image//product/bg_rating_star.png"></li>
 
 
-								<span class="grade grade${(averageInt)+1}"></span><em>최고</em>
-							</p>
-							<!-- grade5 : 최고, grade4 : 좋음, grade3 : 보통, grade2 : 별로, grade1 : 나쁨  -->
+									<li><span class="rating"
+										style="width: <c:if test="${average <=2}">0%</c:if><c:if test="${average >=3}">100%</c:if><c:if test="${average <3 && average>2}">${(average-2)*100}%</c:if>;"></span><img
+										src="https://static.oliveyoung.co.kr/pc-static-root/image//product/bg_rating_star.png"></li>
+
+									<li><span class="rating"
+										style="width: <c:if test="${average <=3}">0%</c:if><c:if test="${average >=4}">100%</c:if><c:if test="${average <4 && average>3}">${(average-3)*100}%</c:if>;"></span><img
+										src="https://static.oliveyoung.co.kr/pc-static-root/image//product/bg_rating_star.png"></li>
+
+									<li><span class="rating"
+										style="width: <c:if test="${average <=4}">0%</c:if><c:if test="${average >=5}">100%</c:if><c:if test="${average <5 && average>4}">${(average-4)*100}%</c:if>;"></span><img
+										src="https://static.oliveyoung.co.kr/pc-static-root/image//product/bg_rating_star.png"></li>
+
+
+
+
+								</ul>
+							</div>
+							<div class="graph_area">
+								<ul class="graph_list">
+
+
+
+
+									<li><span class="per"><fmt:formatNumber
+												value="${five*100/pageMaker.total}" pattern="0" />%</span>
+										<div class="graph">
+											<span style="height: ${five*100/pageMaker.total}%;"></span>
+										</div> <span class="txt">5점</span></li>
+
+
+									<li><span class="per"><fmt:formatNumber
+												value="${four*100/pageMaker.total}" pattern="0" />%</span>
+										<div class="graph">
+											<span style="height: ${four*100/pageMaker.total}%;"></span>
+										</div> <span class="txt">4점</span></li>
+
+
+									<li><span class="per"><fmt:formatNumber
+												value="${three*100/pageMaker.total}" pattern="0" />%</span>
+										<div class="graph">
+											<span style="height: ${three*100/pageMaker.total}%;"></span>
+										</div> <span class="txt">3점</span></li>
+
+
+									<li><span class="per"><fmt:formatNumber
+												value="${two*100/pageMaker.total}" pattern="0" />%</span>
+										<div class="graph">
+											<span style="height: ${two*100/pageMaker.total}%;"></span>
+										</div> <span class="txt">2점</span></li>
+
+
+									<li><span class="per"><fmt:formatNumber
+												value="${one*100/pageMaker.total}" pattern="0" />%</span>
+										<div class="graph">
+											<span style="height: ${one*100/pageMaker.total}%;"></span>
+										</div> <span class="txt">1점</span></li>
+
+
+
+
+								</ul>
+							</div>
+
 						</div>
-						<div class="star_area">
-							<p class="total">
-								총 <em>${pageMaker.total} </em>건
-							</p>
-							<!-- ## 리뷰 고도화 2차 ## 리뷰 전체 건수(본상품+연관상품) -->
-							<p class="num">
-								<strong>${average }</strong><span>점</span>
-							</p>
-							<ul class="star_list">
-
-
-
-								<li><span class="rating"></span><img
-									src="https://static.oliveyoung.co.kr/pc-static-root/image//product/bg_rating_star.png"></li>
-
-								<li><span class="rating"></span><img
-									src="https://static.oliveyoung.co.kr/pc-static-root/image//product/bg_rating_star.png"></li>
-
-								<li><span class="rating"></span><img
-									src="https://static.oliveyoung.co.kr/pc-static-root/image//product/bg_rating_star.png"></li>
-
-								<li><span class="rating"></span><img
-									src="https://static.oliveyoung.co.kr/pc-static-root/image//product/bg_rating_star.png"></li>
-
-								<li><span class="rating" style="width: 80%;"></span><img
-									src="https://static.oliveyoung.co.kr/pc-static-root/image//product/bg_rating_star.png"></li>
-
-
-
-
-							</ul>
-						</div>
-						<div class="graph_area">
-							<ul class="graph_list">
-
-
-
-
-								<li><span class="per">83%</span>
-									<div class="graph">
-										<span style="height: 83%;"></span>
-									</div> <span class="txt">5점</span></li>
-
-
-								<li><span class="per">13%</span>
-									<div class="graph">
-										<span style="height: 13%;"></span>
-									</div> <span class="txt">4점</span></li>
-
-
-								<li><span class="per">0%</span>
-									<div class="graph">
-										<span style="height: 0%;"></span>
-									</div> <span class="txt">3점</span></li>
-
-
-								<li><span class="per">4%</span>
-									<div class="graph">
-										<span style="height: 4%;"></span>
-									</div> <span class="txt">2점</span></li>
-
-
-								<li><span class="per">0%</span>
-									<div class="graph">
-										<span style="height: 0%;"></span>
-									</div> <span class="txt">1점</span></li>
-
-
-
-
-							</ul>
-						</div>
-
 					</div>
-				</div>
 
 
-				<div class="cate_align_box prodLine review_N2" id="searchType">
-					<!-- ## 리뷰고도화 2차 ## 클래스 "
+					<div class="cate_align_box prodLine review_N2" id="searchType">
+						<!-- ## 리뷰고도화 2차 ## 클래스 "
 							review_N2" 추가-->
-					<div class="align_sort">
-						<!-- 리뷰 고도화 1차 : 항목 변경 -->
-						<ul id="gdasSort">
-							<li class="is-layer on"><a href="javascript:;"
-								data-value="01" data-attr="상품상세^리뷰정렬^유용한순">평점 높은순</a>
+						<div class="align_sort">
+							<!-- 리뷰 고도화 1차 : 항목 변경 -->
+							<ul id="gdasSort">
+								<li class="is-layer on"><a href="javascript:;"
+									data-value="01" data-attr="상품상세^리뷰정렬^유용한순">평점 높은순</a>
 
-								<div class="comment-layer">리뷰의 글자수, '도움이 돼요'수 , 등록된 사진, 최신
-									작성일등을 점수화하여 올리브영이 추천하는 리뷰를 정렬합니다.</div></li>
-							<li class="is-layer"><a href="javascript:;" data-value="02"
-								data-attr="상품상세^리뷰정렬^유용한순">평점 낮은순</a>
+									<div class="comment-layer">리뷰의 글자수, '도움이 돼요'수 , 등록된 사진,
+										최신 작성일등을 점수화하여 올리브영이 추천하는 리뷰를 정렬합니다.</div></li>
+								<li class="is-layer"><a href="javascript:;" data-value="02"
+									data-attr="상품상세^리뷰정렬^유용한순">평점 낮은순</a>
 
-								<div class="comment-layer">리뷰의 글자수, '도움이 돼요'수 , 등록된 사진, 최신
-									작성일등을 점수화하여 올리브영이 추천하는 리뷰를 정렬합니다.</div></li>
+									<div class="comment-layer">리뷰의 글자수, '도움이 돼요'수 , 등록된 사진,
+										최신 작성일등을 점수화하여 올리브영이 추천하는 리뷰를 정렬합니다.</div></li>
 
-							<li class="is-layer"><a href="javascript:;" data-value="03"
-								data-attr="상품상세^리뷰정렬^최신순">최신순</a></li>
-						</ul>
-						<!-- // 리뷰 고도화 1차 : 항목 변경 -->
+								<li class="is-layer"><a href="javascript:;" data-value="03"
+									data-attr="상품상세^리뷰정렬^최신순">최신순</a></li>
+							</ul>
+							<!-- // 리뷰 고도화 1차 : 항목 변경 -->
+						</div>
+
 					</div>
 
-				</div>
-
-				<!-- 상품평 등록제한 카테고리 안내 문구 -->
+					<!-- 상품평 등록제한 카테고리 안내 문구 -->
 
 
 
 
 
-				<!-- 상품평 리스트 start -->
-				<div class="review_list_wrap">
-					<ul class="inner_list" id="gdasList">
+					<!-- 상품평 리스트 start -->
+					<div class="review_list_wrap">
+						<ul class="inner_list" id="gdasList">
 
-						<%-- <c:forEach var="review" items="${reviews}">
+							<%-- <c:forEach var="review" items="${reviews}">
 							<li>
 								<div class="info">
 									<div class="user clrfix">
@@ -905,10 +1036,10 @@ $(document).ready(function () {
 							</li>
 						</c:forEach> --%>
 
-					</ul>
-				</div>
-				<div class="pageing"></div>
-				<%-- <form id="review_form" action="/product-detail method="get">
+						</ul>
+					</div>
+					<div class="pageing"></div>
+					<%-- <form id="review_form" action="/product-detail method="get">
 					<input type="hidden" name="pageNum"
 						value="${pageMaker.cri.pageNum }" /> <input type="hidden"
 						name="amount" value="${pageMaker.cri.amount }" /> <input
@@ -935,11 +1066,23 @@ $(document).ready(function () {
 					</c:if>
 				</div> --%>
 
+				</c:if>
+				<c:if test="${pageMaker.total eq 0}">
+					<div class="product_rating_none">
 
+						<div class="review_list_wrap">
+							<ul id="gdasList">
+								<li class="no_data"><p
+										style="display: flex; justify-content: center;">등록된 리뷰가
+										없습니다</p></li>
+							</ul>
+						</div>
+					</div>
+				</c:if>
 			</div>
+
+
 		</div>
-
-
 	</div>
 </div>
 
