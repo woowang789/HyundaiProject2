@@ -112,6 +112,9 @@
 </div>
 </div>
 </div>
+  <form id="actionForm" action="/mypage/reviews-completion" method="get">
+  	 	<input type="hidden" name="pageNum">
+  </form>
 
   <form id="reviewForm" action="/mypage/reviews-write" method="post">
   	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
@@ -135,6 +138,13 @@ $(document).ready(function(){
 		      xhr.setRequestHeader("X-CSRF-TOKEN", csrfToken);
 		  }
 	});
+	
+	$('.pageing a').click(function(e){
+		e.preventDefault();
+		let n = $(this).attr('href');
+		$('#actionForm input[name="pageNum"]').val(n);
+		$('#actionForm').submit();
+	})
 	
 	
 	const reviewForm = $('#reviewForm');

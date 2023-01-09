@@ -1,11 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ include file="../includes/header.jsp"%>
-
-<c:set var = "isContain" value = "${fn:contains(tags, pageMaker.cri.keyword)}"/>
-
+<c:set var="isContain" value="${fn:contains(tags, pageMaker.cri.keyword)}" />
 <script type="text/javascript">
 	function Price_Search() {
 
@@ -18,14 +16,12 @@
     <input type="hidden" name="sort" value="${pageMaker.cri.sort }" />
     <input type="hidden" name="cateId" value="${pageMaker.cri.cateId }" />
     <input type="hidden" name="keyword" value="${pageMaker.cri.keyword }" />
-    
     <div class="searchResultArea">
       <p class="resultTxt">
         <strong>${pageMaker.cri.keyword }</strong>검색결과 (전체
         <span>${pageMaker.total }개</span>
-        의 상품)    
-        <i class="fa-sharp fa-solid fa-star tagBtn" 
-        style="display:inline-block;cursor:pointer; 
+        의 상품) <i class="fa-sharp fa-solid fa-star tagBtn"
+          style="display:inline-block;cursor:pointer; 
         color:
          <c:if test="${ isContain}">
          	#9BCE26;
@@ -100,7 +96,6 @@
         <li class="flag li_result">
           <div class="prd_info">
             <a href="/product-detail?pid=${item.id }" name="Sale_Pop" class="prd_thumb goodsList">
-              <span class="thumb_flag best">베스트</span>
               <img src="${item.thumb }" alt="${item.name}" onerror="common.errorImg(this);">
             </a>
             <!--// 이미지 영역 -->
@@ -113,8 +108,7 @@
             </div>
             <!--// 상품명  -->
             <!-- 찜버튼 -->
-            <button class="btn_zzim jeem <c:if test="${item.wished eq 'true'}">on</c:if>" 
-            	data-ref-goodsno="${item.id }">
+            <button class="btn_zzim jeem <c:if test="${item.wished eq 'true'}">on</c:if>" data-ref-goodsno="${item.id }">
               <span>찜하기전</span>
             </button>
             <!--// 찜버튼 -->
@@ -174,7 +168,6 @@
   <!-- //pageing end -->
   <!-- </div> -->
 </div>
-
 <script src="/resources/js/wishList.js" defer></script>
 <script src="/resources/js/tagService.js" defer></script>
 <script type="text/javascript">
@@ -275,10 +268,19 @@
 					if(userId == ''){
 						alert("로그인이 필요한 서비스입니다.");
 						return;
-					} 
+					}
+					if(${!isContain} && ${fn:length(tags)} == 5){
+						alert("최대 5개의 태그만 등록가능 합니다.");
+						return;
+					}
 					tagService.toggleTag(
 						{userId : userId, keyword: '<c:out value="${pageMaker.cri.keyword }"/>'},function(data){
 							console.log(data)
+							if(data == 1){
+								alert("태그 등록");
+							}else{
+								alert("태그 해제");
+							}
 							window.location.reload();
 						})
 				})

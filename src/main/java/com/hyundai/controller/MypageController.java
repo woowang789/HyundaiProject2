@@ -63,7 +63,7 @@ public class MypageController {
 			Criteria cri,
 			Principal pricipal ,Model model) {
 		log.info("mypage/reviews-write");
-		
+		cri.setAmount(4);
 		int count = reviewService.getTotalCount(pricipal.getName(), false);
 		List<ReviewDTO> reviews = reviewService.getReviewByUserId(cri,pricipal.getName(), false);
 		model.addAttribute("reviews",reviews );
@@ -88,6 +88,7 @@ public class MypageController {
 			Criteria cri,
 			Principal pricipal ,Model model) {
 		log.info("mypage/reviews-completion");
+		cri.setAmount(4);
 		int count = reviewService.getTotalCount(pricipal.getName(), true);
 		List<ReviewDTO> reviews = reviewService.getReviewByUserId(cri,pricipal.getName(), true);
 		model.addAttribute("reviews",reviews );

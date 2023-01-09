@@ -43,6 +43,7 @@
 			</if>
 			<![CDATA[
 				and rownum <= #{cri.pageNum} * #{cri.amount}
+				order by order_date desc
 			)
 			where rn > (#{cri.pageNum} - 1) * #{cri.amount}
 		]]>

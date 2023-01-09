@@ -30,14 +30,7 @@
 
 
 			<!-- 배송지 정보 -->
-			<div class="title_wrap">
-				<h2 class="sub-title2">배송지정보</h2>
-				<p class="sub_area" id="pickupHide6">
-					<input type="checkbox" id="setBaseDlvpYn" name="baseDlvpYn"
-						value="Y" checked="checked" onclick="return false;"> <label
-						for="setBaseDlvpYn">기본 배송지 설정</label>
-				</p>
-			</div>
+
 			<table class="tbl_inp_form important" id="dlvpInfo">
 				<!-- 2017-01-18 클래스 추가 -->
 				<caption></caption>
@@ -47,124 +40,7 @@
 				</colgroup>
 				<tbody>
 
-					<tr>
-						<th scope="row">배송지선택</th>
-						<td>
-							<span class="chk_area mgzero"><input type="radio"
-								id="btn_dlvp_exist" name="inpAddrSel" value="" targetid="exist"
-								data-attr="배송지정보^1_배송지선택" disabled=""><label
-								for="btn_dlvp_exist">기존 배송지</label></span> <!-- 2020-08-04 o2oJJ 24H 화면 제어로 인한 주석 처리 -->
 
-							<span class="chk_area"><input type="radio"
-								id="btn_dlvp_new" name="inpAddrSel" value="" targetid="new"
-								data-attr="배송지정보^1_배송지선택"><label for="btn_dlvp_new">신규
-									배송지</label></span>
-						</td>
-					</tr>
-
-
-					<tr id="pickupHide1" type="exist" style="display: none;">
-						<th scope="row">받는분</th>
-						<td class="imp_data">
-							<!-- 2017-01-18 추가 : 필수입력사항 아이콘 추가 --> <input type="text"
-							id="rmitNm_exist" name="rmitNm" value="" orgvalue=""
-							class="inpH28" title="받는분 이름을 입력해주세요." style="width: 200px"
-							this="받는분 이름은" data-attr="배송지정보^1_받는분" disabled="disabled">
-							<span class="chk_area"><input type="checkbox"
-								id="copyToDlvp_exist" targetid="exist" disabled="disabled">
-								<label for="copyToDlvp_exist">주문자정보와 동일</label></span> <!-- 2017-01-18 수정 : 위치변경 -->
-						</td>
-					</tr>
-					<tr class="sumtr1" id="pickupHide2" type="exist"
-						style="display: none;">
-						<th scope="row">연락처1</th>
-						<td class="imp_data">
-							<!-- 2017-01-18 추가 : 필수입력사항 아이콘 추가 --> <select
-							id="rmitCellSctNo_exist" name="rmitCellSctNo" class="selH28"
-							title="연락처1 앞자리를 선택해주세요." style="width: 90px" orgvalue=""
-							data-attr="배송지정보^1_연락처1" disabled="disabled">
-								<option value="">선택</option>
-
-								<option value="010">010</option>
-
-								<option value="011">011</option>
-
-								<option value="02">02</option>
-
-						</select> 
-						- 
-						<input type="text" id="rmitCellTxnoNo_exist"
-							name="rmitCellTxnoNo" value="" orgvalue="" class="inpH28"
-							title="연락처1 가운데 자리를 입력해주세요." this="연락처1 가운데 자리는"
-							style="width: 90px" data-attr="배송지정보^1_연락처1" disabled="disabled">
-						- 
-						<input type="text" id="rmitCellEndNo_exist"
-							name="rmitCellEndNo" value="" orgvalue="" class="inpH28"
-							title="연락처1 마지막 4자리를 입력해주세요." this="연락처1 마지막 자리는"
-							style="width: 90px" data-attr="배송지정보^1_연락처1" disabled="disabled">
-							
-						</td>
-<!-- 					</tr> -->
-					<tr id="pickupHide4" type="exist" style="display: none;">
-						<th scope="row">주소</th>
-						<td class="imp_data">
-							<!-- 2017-01-25 수정 : 클래스 추가 --> <input type="text"
-							id="stnmRmitPostNo_exist" name="rmitPostNo" value=""
-							class="inpH28" title="우편번호를 검색해주세요." style="width: 90px"
-							readonly="readonly" disabled="disabled"> <input
-							type="hidden" id="rmitPostNo_exist" name="stnmRmitPostNo"
-							value="" title="우편번호를 검색해주세요." disabled="disabled"> <!-- // 2020-08-05 o2oJJ 24H에서의 우편번호 찾기 버튼 제어를 위해서 기존 버튼 hide 처리후 제어 버튼 추가 -->
-							<button type="button" class="btnSmall wGreen w100" 
-								id="search-zipcode-pop_exist" style="display: none;"
-								data-attr="배송지정보^1_주소">
-								<span>우편번호 찾기 (기존)</span>
-							</button>
-							<button type="button" class="btnSmall wGreen w100"
-								id="search-zipcode-pop_exist_r" data-attr="배송지정보^1_주소">
-								<span>우편번호 찾기</span>
-							</button>
-
-							<div class="addr_box">
-								<input type="hidden" id="stnmRmitPostAddr_exist"
-									name="stnmRmitPostAddr" value="" class="inpH28"
-									title="우편번호를 검색해주세요." readonly="readonly" disabled="disabled">
-								<input type="hidden" id="rmitBaseAddr_exist" name="rmitPostAddr"
-									value="" class="inpH28" title="우편번호를 검색해주세요."
-									readonly="readonly" disabled="disabled">
-								<!-- 주소 입력 시 보여지는 부분 -->
-								<p class="addr_new">
-									<span class="tx_tit">도로명</span> : <span class="tx_addr"
-										id="stnmPostAddr_exist"></span>
-									<!--  도로명주소를 넣어주세요 -->
-								</p>
-								<p class="addr_old">
-									<span class="tx_tit">지번</span> : <span class="tx_addr"
-										id="baseAddr_exist"></span>
-									<!--  지번주소를 넣어주세요 -->
-								</p>
-								<!--// 주소 입력 시 보여지는 부분 -->
-							</div> <input type="text" id="tempRmitDtlAddr_exist" value=""
-							class="inpH28" title="상세주소를 입력해주세요." style="width: 500px;"
-							this="상세 주소는" disabled="disabled"> <input type="hidden"
-							id="stnmRmitDtlAddr_exist" name="stnmRmitDtlAddr" value=""
-							orgvalue="" class="inpH28" title="상세주소를 입력해주세요."
-							style="width: 500px" this="상세 주소는" disabled="disabled"> <input
-							type="hidden" id="rmitDtlAddr_exist" name="rmitDtlAddr" value=""
-							orgvalue="" class="inpH28" title="상세주소를 입력해주세요."
-							style="width: 500px" disabled="disabled"> <input
-							type="hidden" id="emdNm_exist" name="emdNm" disabled="disabled">
-							<input type="hidden" id="admrNm_exist" name="admrNm"
-							disabled="disabled">
-						</td>
-					</tr>
-
-					<!-- 2017-01-18 추가 (신규 배송지 선택 시) -->
-					<tr type="new" class="new_order_area" style="">
-						<th scope="row">배송지명</th>
-						<td class="imp_data"><input type="text" id="dlvpNm_new"
-							name="dlvpNm" value="" class="inpH28" title="배송지명을 입력해주세요."
-							style="width: 200px;" this="배송지명은"></td>
-					</tr>
 					<!--// 2017-01-18 추가 -->
 					<tr type="new" class="new_order_area" style="">
 						<th scope="row">받는분</th>
@@ -367,7 +243,7 @@
 
 						</li>
 						<!-- 신용카드 선택 시 -->
-						<li paymethod="11" style="display: list-item;">
+						<li paymethod="11" class='payform' style="display: list-item;">
 							<table class="tbl_inp_form no_line">
 								<caption>카드 결제정보 입력 폼</caption>
 								<colgroup>
@@ -424,7 +300,7 @@
 						</li>
 						<!--// 신용카드 선택 시 -->
 						<!-- 계좌이체 선택 시 -->
-						<li paymethod="21" style="display: none;">
+						<li paymethod="21" class='payform' style="display: none;">
 							<table class="tbl_inp_form no_line">
 								<caption>계좌이체 안내</caption>
 								<colgroup>
@@ -455,7 +331,7 @@
 						</li>
 						<!--// 계좌이체 선택 시 -->
 						<!-- 휴대폰결제 선택 시 -->
-						<li paymethod="22" style="display: none;">
+						<li paymethod="22"  class='payform' style="display: none;">
 							<table class="tbl_inp_form no_line">
 								<caption>휴대폰결제 안내</caption>
 								<colgroup>
@@ -570,13 +446,55 @@
 		
 		$('#btnPay').click(function(e){
 			e.preventDefault();
+			
+			let isChecked = $('#agree_all').is(':checked');
+			if(!isChecked){
+				alert("동의가 필요합니다.");
+				return;
+			}
+			let n = $('input[name="payMethod"]:checked').val();
+			/* 신용카드 */
+			if(n == 11){
+				let c = $('#acqrCd option:selected').val();
+				console.log("c : "+c);
+				let m = $('#instMmCnt option:selected').val();
+				console.log("m : "+m);
+				if(c == ''){
+					alert('카드 종류를 선택해주세요');
+					return; 
+				}
+				
+			}
+			/* 휴대폰 결제 */
+			else if(n == 22){
+				
+			}
+			/* 계좌이체 */
+			else if(n == 21){
+				
+			}
+			
+			
 			let receiverName = $('#rmitNm_new').val();
 			let receiverAddrRoad = $('#stnmPostAddr_new').text() +" "+ $('#tempRmitDtlAddr_new').val();
 			let receiverAddrJibun = $('#baseAddr_new').text() + " "+$('#tempRmitDtlAddr_new').val();
 			let receiverTel = $('#rmitCellSctNo_new option:selected').attr('value') + "-"+
 								$('#rmitCellTxnoNo_new').val() +"-"+ $('#rmitCellEndNo_new').val();
-			let payment = 'payment';
+			let payment = n;
 			let totalPrice = '<c:out value="${totalPrice}"/>';
+			
+			if(receiverName == '' || receiverAddrRoad == ' ' || receiverAddrJibun == ' ' || receiverTel == '--'){
+				alert("주문 정보를 입력해주세요");
+				return;
+			}
+			/*
+			console.log('name  : ' + receiverName);
+			console.log('addrRoad : ' + receiverAddrRoad);
+			console.log('jibun : ' + receiverAddrJibun);
+			console.log('tel : ' + receiverTel);
+			console.log('payment : '+ payment);
+			*/
+		
 			
 			$('input[name="receiverName"]').val(receiverName);
 			$('input[name="receiverAddrRoad"]').val(receiverAddrRoad);
@@ -598,6 +516,14 @@
 				$('#rmitNm_new').val('');
 				$('#rmitCellSctNo_new option:selected').removeAttr('selected');
 			}
+		})
+		
+		$('input[name="payMethod"]').click(function(e){
+			let n = $(this).val();
+			console.log(n);
+			$('.payform').css('display','none');
+			$('li[paymethod="'+n+'"]').css('display',"list-item");
+			
 		})
 	})
     function execDaumPostcode() {

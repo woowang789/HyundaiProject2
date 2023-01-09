@@ -43,6 +43,7 @@ public class HomeController {
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
 
 		String formattedDate = dateFormat.format(date);
+		cri.setAmount(4);
 
 		model.addAttribute("serverTime", formattedDate);
 
