@@ -62,7 +62,7 @@
 	              </div>
 	            </div>
 	          </td>
-	          <td class="col777"><strong>~ 2022.12.30</strong></td>
+	          <td class="col777"><strong>~ 2023.12.30</strong></td>
 	          <td 
 	          	data-goods-no="<c:out value="${review.productId }"/>"
 	          	data-option-no="<c:out value="${review.optionId }"/>"

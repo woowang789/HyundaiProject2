@@ -40,7 +40,6 @@ public class HomeController {
 		
 		/* String userId = principal != null ? principal.getName() : "not logined"; */
 
-		String userId = principal == null ? "" : principal.getName();
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
 
