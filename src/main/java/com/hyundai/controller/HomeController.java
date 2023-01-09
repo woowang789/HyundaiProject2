@@ -1,5 +1,6 @@
 package com.hyundai.controller;
 
+import java.security.Principal;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -30,15 +31,14 @@ public class HomeController {
 	@Autowired
 	private HomeService service;
 
-	private String userId = "user1@email.com";
-
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	public String home(Locale locale, Criteria cri, Model model) {
+	public String home(Locale locale, Criteria cri, Model model, Principal principal) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 
+		String userId = principal == null ? "" : principal.getName();
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
 
