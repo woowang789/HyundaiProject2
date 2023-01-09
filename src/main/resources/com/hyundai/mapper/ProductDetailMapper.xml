@@ -141,7 +141,6 @@
 	<select id="getWish" resultType="boolean">
 	select nvl2(wish_date, '1', '0') wished 
 	from wish_list w right join product p on  (w.product_id = p.product_id and w.user_id = #{id})
-    left join users u on u.user_id = w.user_id
 	where p.product_id=#{pid}
 	</select>
 
