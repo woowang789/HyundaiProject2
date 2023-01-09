@@ -76850,7 +76850,7 @@ input.review-check--input[type="checkbox"]:checked {
 	color: #131518;
 }
 
-.review-reward-notice .review_list_wrap .inner_list>li.no_data {
+.review-reward-notice .review_list_wrap #gdasList>li.no_data {
 	background:
 		url("https://static.oliveyoung.co.kr/pc-static-root/css/../image/comm/ico_no_coupon2.png")
 		center 80px/100px 100px no-repeat;

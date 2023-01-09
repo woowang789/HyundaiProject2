@@ -29,6 +29,7 @@
       <!--// title_box -->
 
 
+<<<<<<< HEAD
          <!-- 배송지 정보 -->
          <div class="title_wrap">
             <h2 class="sub-title2">배송지정보</h2>
@@ -185,6 +186,40 @@
                      title="연락처1 앞자리를 선택해주세요." orgvalue="" style="width: 90px"
                      data-attr="배송지정보^1_연락처1">
                         <option value="">선택</option>
+=======
+			<!-- 배송지 정보 -->
+
+			<table class="tbl_inp_form important" id="dlvpInfo">
+				<!-- 2017-01-18 클래스 추가 -->
+				<caption></caption>
+				<colgroup>
+					<col style="width: 170px">
+					<col style="width: *">
+				</colgroup>
+				<tbody>
+
+
+					<!--// 2017-01-18 추가 -->
+					<tr type="new" class="new_order_area" style="">
+						<th scope="row">받는분</th>
+						<td class="imp_data">
+							<!-- 2017-01-18 추가 : 필수입력사항 아이콘 추가 --> <input type="text"
+							id="rmitNm_new" name="rmitNm" value="" orgvalue="" class="inpH28"
+							title="받는분 이름을 입력해주세요." style="width: 200px" this="받는분 이름은"
+							data-attr="배송지정보^1_받는분"> <span class="chk_area"><input
+								type="checkbox" id="copyToDlvp_new" targetid="new"> <label
+								for="copyToDlvp_new">주문자정보와 동일</label></span> <!-- 2017-01-18 수정 : 위치변경 -->
+						</td>
+					</tr>
+					<tr type="new" class="new_order_area" style="">
+						<th scope="row">연락처1</th>
+						<td class="imp_data">
+							<!-- 2017-01-18 추가 : 필수입력사항 아이콘 추가 --> <select
+							id="rmitCellSctNo_new" name="rmitCellSctNo" class="selH28"
+							title="연락처1 앞자리를 선택해주세요." orgvalue="" style="width: 90px"
+							data-attr="배송지정보^1_연락처1">
+								<option value="">선택</option>
+>>>>>>> 6d38ac1ea3c659a35566635024f7567d47439cef
 
                         <option value="010">010</option>
 
@@ -365,6 +400,7 @@
                         id="payMethodLabel_21" for="payMethod_21">계좌이체</label></span> <!-- 2017-01-18 수정 : 문화상품권/도서상품권 선택 삭제 -->
                      <!-- 2017-02-14 수정 : 문화상품권/도서상품권 선택 재추가 -->
 
+<<<<<<< HEAD
                   </li>
                   <!-- 신용카드 선택 시 -->
                   <li paymethod="11" style="display: list-item;">
@@ -384,6 +420,27 @@
                                        class="selH28" title="결제하실 카드를 선택해주세요."
                                        style="width: 200px" data-attr="결제수단선택^카드정보선택">
                                        <option value="">카드를 선택해주세요.</option>
+=======
+						</li>
+						<!-- 신용카드 선택 시 -->
+						<li paymethod="11" class='payform' style="display: list-item;">
+							<table class="tbl_inp_form no_line">
+								<caption>카드 결제정보 입력 폼</caption>
+								<colgroup>
+									<col style="width: 170px">
+									<col style="width: *">
+								</colgroup>
+								<tbody>
+									<tr>
+										<th scope="row">카드종류</th>
+										<td>
+											<div id="cardDscnt_div">
+												<input type="hidden" id="cardCouponIndex" value="" acqrcd=""
+													orgacqrcd=""> <select id="acqrCd" name="acqrCd"
+													class="selH28" title="결제하실 카드를 선택해주세요."
+													style="width: 200px" data-attr="결제수단선택^카드정보선택">
+													<option value="">카드를 선택해주세요.</option>
+>>>>>>> 6d38ac1ea3c659a35566635024f7567d47439cef
 
                                        <option value="BCC">BC카드</option>
 
@@ -414,6 +471,7 @@
                                        <option value="06" targetid="nint6MmYn">6개월</option>
                                     </select>
 
+<<<<<<< HEAD
                                  </div>
                               </td>
                               <input type="hidden" name="aplyNintInstYn" value="N">
@@ -467,6 +525,61 @@
                               <th scope="row">결제안내</th>
                               <td>
                                  <div class="info_dot_list_area">
+=======
+											</div>
+										</td>
+										<input type="hidden" name="aplyNintInstYn" value="N">
+									</tr>
+									
+								</tbody>
+							</table>
+						</li>
+						<!--// 신용카드 선택 시 -->
+						<!-- 계좌이체 선택 시 -->
+						<li paymethod="21" class='payform' style="display: none;">
+							<table class="tbl_inp_form no_line">
+								<caption>계좌이체 안내</caption>
+								<colgroup>
+									<col style="width: 170px">
+									<col style="width: *">
+								</colgroup>
+								<tbody>
+									<tr>
+										<th scope="row">결제안내</th>
+										<td>
+											<div>
+												<!-- 2017-01-18 수정 : 버튼 삭제 및 하단 문구 수정 -->
+												<div class="info_dot_list_area">
+
+													<ul>
+														<li>계좌이체로 결제 완료시 본인 계좌에서 즉시 이체 처리됩니다.</li>
+														<li>실시간 계좌이체는 은행별 이용시간이 다를 수 있습니다.</li>
+													</ul>
+												</div>
+												<!--
+											<p class="mgT10"><button class="btnSmall wGray w100"><span>은행별 이용시간</span></button></p>
+											 -->
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</li>
+						<!--// 계좌이체 선택 시 -->
+						<!-- 휴대폰결제 선택 시 -->
+						<li paymethod="22"  class='payform' style="display: none;">
+							<table class="tbl_inp_form no_line">
+								<caption>휴대폰결제 안내</caption>
+								<colgroup>
+									<col style="width: 170px">
+									<col style="width: *">
+								</colgroup>
+								<tbody>
+									<tr>
+										<th scope="row">결제안내</th>
+										<td>
+											<div class="info_dot_list_area">
+>>>>>>> 6d38ac1ea3c659a35566635024f7567d47439cef
 
                                     <ul>
                                        <li>휴대폰 결제는 100만원까지 결제가 가능합니다.</li>
@@ -565,6 +678,7 @@
 </form>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
+<<<<<<< HEAD
    $(document).ready(function(){
       $('#search-zipcode-pop_new').click(execDaumPostcode);
       
@@ -600,6 +714,93 @@
          }
       })
    })
+=======
+	$(document).ready(function(){
+		$('#search-zipcode-pop_new').click(execDaumPostcode);
+		
+		$('#btnPay').click(function(e){
+			e.preventDefault();
+			
+			let isChecked = $('#agree_all').is(':checked');
+			if(!isChecked){
+				alert("동의가 필요합니다.");
+				return;
+			}
+			let n = $('input[name="payMethod"]:checked').val();
+			/* 신용카드 */
+			if(n == 11){
+				let c = $('#acqrCd option:selected').val();
+				console.log("c : "+c);
+				let m = $('#instMmCnt option:selected').val();
+				console.log("m : "+m);
+				if(c == ''){
+					alert('카드 종류를 선택해주세요');
+					return; 
+				}
+				
+			}
+			/* 휴대폰 결제 */
+			else if(n == 22){
+				
+			}
+			/* 계좌이체 */
+			else if(n == 21){
+				
+			}
+			
+			
+			let receiverName = $('#rmitNm_new').val();
+			let receiverAddrRoad = $('#stnmPostAddr_new').text() +" "+ $('#tempRmitDtlAddr_new').val();
+			let receiverAddrJibun = $('#baseAddr_new').text() + " "+$('#tempRmitDtlAddr_new').val();
+			let receiverTel = $('#rmitCellSctNo_new option:selected').attr('value') + "-"+
+								$('#rmitCellTxnoNo_new').val() +"-"+ $('#rmitCellEndNo_new').val();
+			let payment = n;
+			let totalPrice = '<c:out value="${totalPrice}"/>';
+			
+			if(receiverName == '' || receiverAddrRoad == ' ' || receiverAddrJibun == ' ' || receiverTel == '--'){
+				alert("주문 정보를 입력해주세요");
+				return;
+			}
+			/*
+			console.log('name  : ' + receiverName);
+			console.log('addrRoad : ' + receiverAddrRoad);
+			console.log('jibun : ' + receiverAddrJibun);
+			console.log('tel : ' + receiverTel);
+			console.log('payment : '+ payment);
+			*/
+		
+			
+			$('input[name="receiverName"]').val(receiverName);
+			$('input[name="receiverAddrRoad"]').val(receiverAddrRoad);
+			$('input[name="receiverAddrJibun"]').val(receiverAddrJibun);
+			$('input[name="receiverTel"]').val(receiverTel);
+			$('input[name="payment"]').val(payment);
+			$('input[name="totalPrice"]').val(totalPrice);
+			
+			$('#orderForm').submit();
+		});
+		
+		$('#copyToDlvp_new').change(function(){
+			if($(this).prop('checked')){
+				$('#rmitNm_new').val('<c:out value="${userInfo.name}"/>');
+				$("#rmitCellSctNo_new option[value='<c:out value="${tels[0]}"/>']").prop('selected', true);
+				$("#rmitCellTxnoNo_new").val('<c:out value="${tels[1]}"/>')
+				$("#rmitCellEndNo_new").val('<c:out value="${tels[2]}"/>')
+			}else{
+				$('#rmitNm_new').val('');
+				$('#rmitCellSctNo_new option:selected').removeAttr('selected');
+			}
+		})
+		
+		$('input[name="payMethod"]').click(function(e){
+			let n = $(this).val();
+			console.log(n);
+			$('.payform').css('display','none');
+			$('li[paymethod="'+n+'"]').css('display',"list-item");
+			
+		})
+	})
+>>>>>>> 6d38ac1ea3c659a35566635024f7567d47439cef
     function execDaumPostcode() {
         new daum.Postcode({
             oncomplete: function(data) {

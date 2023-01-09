@@ -213,12 +213,21 @@
 				$('#btnGdasReg').click(function(e){
 						console.log('submit review');
 						console.log("img : "+img);
+						if($('#txtGdasCont').val() == ''){
+							alert("내용을 입력해주세요");
+							return;
+						}
+						if(score == ''){
+							alert('점수를 선택해주세요');
+							return;
+						}
 						reviewForm.find('input[name="productId"]').val(data.id);
 						reviewForm.find('input[name="optionId"]').val(data.oid);
 						reviewForm.find('input[name="orderId"]').val(ordId);
 						reviewForm.find('input[name="reviewContent"]').val($('#txtGdasCont').val());
 						reviewForm.find('input[name="reviewImg"]').val(img);
 						reviewForm.find('input[name="reviewScore"]').val(score);
+						
 						
 						reviewForm.submit();
 				})

@@ -72,7 +72,7 @@
                      alt=" 우르오스 올인원 200ml 2종 택 1" onerror="common.errorImg(this);">
             </a>
             <div class="prd_name">
-              <a href="javascript:;" name="Cat100000100010008_MID" class="goodsList" data-ref-goodsno="A000000117541" data-attr="카테고리상세^검색결과상품_인기순^우르오스 올인원 200ml 2종 택 1^1" data-ref-dispcatno="100000100010008" data-ref-itemno="001"
+              <a href="/product-detail?pid=<c:out value="${ctgy.id}"  /> name="Cat100000100010008_MID" class="goodsList" data-ref-goodsno="A000000117541" data-attr="카테고리상세^검색결과상품_인기순^우르오스 올인원 200ml 2종 택 1^1" data-ref-dispcatno="100000100010008" data-ref-itemno="001"
                 data-trk="Drawer/Cat100000100010008_MID" onclick="javascript: gtm.goods.callGoodsGtmInfo(&quot;A000000117541&quot;, &quot;&quot;, &quot;ee-productClick&quot;, &quot;카테고리상세_검색결과상품&quot;, &quot;1&quot;);"
               >
                 <span class="tx_brand">
@@ -107,7 +107,7 @@
                 <span class="icon_flag sale">세일</span>
               </c:if>
               <c:if test="${ctgy.originPrice eq ctgy.marketPrice}">
-                <span style="height: 20.65px"></span>
+                <span style="height: 20.31px"></span>
               </c:if>
             </p>
             <p class="prd_btn_area">

@@ -9,13 +9,13 @@
 <script>
 	$(document).ready(function() {
 		console.clear();
-/* 		$.ajaxSetup({
+ 		$.ajaxSetup({
 			  beforeSend: function(xhr) {
 			      xhr.setRequestHeader("AJAX", true);
 			      var csrfToken = '${_csrf.token}';
 			      xhr.setRequestHeader("X-CSRF-TOKEN", csrfToken);
 			  }
-		}); */
+		}); 
 		
 		const userId =
 					<sec:authorize access="isAnonymous()">
@@ -380,7 +380,11 @@
                         <p class="tx_name">${item.name }</p>
                       </a>
                     </div>
-                    <button class="btn_zzim jeem" data-ref-goodsno="A000000177759" tabindex="0">
+                    <button class="btn_zzim jeem 
+                    	<c:if test="${ item.wished}">
+                    	on
+                    	</c:if>
+                    " data-ref-goodsno="${item.id}" tabindex="0">
                       <span>찜하기전</span>
                     </button>
                     <p class="prd_price">
@@ -458,7 +462,11 @@
                           <p class="tx_name">${item.name }</p>
                         </a>
                       </div>
-                      <button class="btn_zzim jeem" data-ref-goodsno="A000000177759" tabindex="0">
+                      <button class="btn_zzim jeem
+                       	<c:if test="${ item.wished}">
+                    		on
+                    	</c:if>
+                      " data-ref-goodsno="${item.id}" tabindex="0">
                         <span>찜하기전</span>
                       </button>
                       <p class="prd_price">

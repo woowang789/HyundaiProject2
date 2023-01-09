@@ -1,5 +1,6 @@
 package com.hyundai.controller;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,7 +35,7 @@ public class ProductController {
 
 
 	@RequestMapping(value = "/product-detail", method = RequestMethod.GET)
-	public String productDetail(@RequestParam String pid, Criteria cri, Model model) {
+	public String productDetail(@RequestParam String pid, Criteria cri, Model model, Principal principal) {
 		log.info("/product-detail");
 		log.info(pid);
 		if (cri.getAmount() == 10)
@@ -45,9 +46,17 @@ public class ProductController {
 		/* model.addAttribute("reviews", mapper.getReviewWithPaging(cri, pid)); */
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
 
+		String id="not login";
+		if(principal!=null) id = principal.getName();
 		model.addAttribute("average", mapper.getAverageScore(pid));
 		model.addAttribute("averageInt", mapper.getAverageScoreInt(pid));
-
+		model.addAttribute("five",mapper.getScoreFive(pid));
+		model.addAttribute("four",mapper.getScoreFour(pid));
+		model.addAttribute("three",mapper.getScoreThree(pid));
+		model.addAttribute("two",mapper.getScoreTwo(pid));
+		model.addAttribute("one",mapper.getScoreOne(pid));
+		model.addAttribute("recommend",mapper.getRecommend(pid));
+		model.addAttribute("wishList",mapper.getWish(pid,id));
 		return "product/product_detail";
 	}
 
