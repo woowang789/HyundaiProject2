@@ -15,6 +15,10 @@
 			access="hasRole('ROLE_MEMBER')" /> 
 		<security:intercept-url pattern="/mypage/**"
 			access="hasRole('ROLE_MEMBER')" /> 
+		<security:intercept-url pattern="/order-form/**"
+			access="hasRole('ROLE_MEMBER')" /> 
+		<security:intercept-url pattern="/order-completion/**"
+			access="hasRole('ROLE_MEMBER')" /> 
 		<security:intercept-url pattern="/**"
 			access="permitAll"/>
 		<!-- <security:intercept-url pattern="/admin"

@@ -67,6 +67,7 @@
 			b.brand_name brandName
 		from (
             select 
+            /*+ INDEX(idx_order_date)  */
                 rownum rn,
                 o.order_id orderId, 
                 o.order_date orderDate
