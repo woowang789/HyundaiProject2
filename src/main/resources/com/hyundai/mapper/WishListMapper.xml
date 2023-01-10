@@ -28,10 +28,10 @@
 			            o.option_id = concat(p.product_id,'001') )
 			inner join wish_list w on (w.product_id = p.product_id and w.user_id = #{userId})
 			inner join brand b on (p.brand_id = b.brand_id)
-			where rownum <= #{cri.pageNum} * #{cri.amount}
+			
 			order by wish_date desc, p.product_id
 		)
-		where rn > (#{cri.pageNum} - 1) * #{cri.amount} 
+		 OFFSET (#{cri.pageNum}-1)*#{cri.amount} ROWS FETCH NEXT #{cri.amount} rows only
 		]]>
 	</select>
 	

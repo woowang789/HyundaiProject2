@@ -102,9 +102,9 @@
                 원
               </span>
             </p>
-            <p class="prd_flag">
+            <p class="prd_flag" style="height: 20.31px">
               <c:if test="${ctgy.originPrice ne ctgy.marketPrice}">
-                <span class="icon_flag sale">세일</span>
+                <span class="icon_flag sale" >세일</span>
               </c:if>
               <c:if test="${ctgy.originPrice eq ctgy.marketPrice}">
                 <span style="height: 20.31px"></span>
