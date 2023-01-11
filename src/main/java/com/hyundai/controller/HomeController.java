@@ -27,33 +27,33 @@ import lombok.extern.log4j.Log4j;
 @Controller
 public class HomeController {
 
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	@Autowired
-	private HomeService service;
+   private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+   @Autowired
+   private HomeService service;
 
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
-	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	public String home(Locale locale, Criteria cri, Model model, Principal principal) {
-		logger.info("Welcome home! The client locale is {}.", locale);
-		
-		/* String userId = principal != null ? principal.getName() : "not logined"; */
+   /**
+    * Simply selects the home view to render by returning its name.
+    */
+   @RequestMapping(value = "/home", method = RequestMethod.GET)
+   public String home(Locale locale, Criteria cri, Model model, Principal principal) {
+      logger.info("Welcome home! The client locale is {}.", locale);
+      
 
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+      String userId = principal == null ? "" : principal.getName();
+      Date date = new Date();
+      DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
 
-		String formattedDate = dateFormat.format(date);
-		cri.setAmount(4);
+      String formattedDate = dateFormat.format(date);
+      cri.setAmount(4);
 
-		model.addAttribute("serverTime", formattedDate);
+      model.addAttribute("serverTime", formattedDate);
 
-		model.addAttribute("for_user", service.getRecommendForUser(cri, userId));
-		model.addAttribute("random", service.getRecommendRandom(cri, userId));
+      model.addAttribute("for_user", service.getRecommendForUser(cri, userId));
+      model.addAttribute("random", service.getRecommendRandom(cri, userId));
 
-		model.addAttribute("brand", service.getRecommendBrand(cri, userId));
+      model.addAttribute("brand", service.getRecommendBrand(cri, userId));
 
-		return "home";
-	}
+      return "home";
+   }
 
 }
