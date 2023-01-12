@@ -1,0 +1,247 @@
+
+#Container.bgf6 {
+    background-color: #f6f6f6;
+}
+#Contents {
+    width: 1020px;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.loginArea.new.login {
+    padding: 92px 0 145px;
+}
+.loginArea.new {
+    width: 850px;
+    padding-bottom: 51px;
+    margin: 40px auto;
+    border-top: 0;
+    background-color: #fff;
+}
+.loginArea.new .loginTit {
+    width: 510px;
+    margin: 0 auto;
+    padding-top: 44px;
+    text-align: center;
+}
+.loginArea .loginTit h2 {
+    font-size: 30px;
+    line-height: 40px;
+    color: #000;
+}
+.loginArea.new .loginTit {
+    width: 510px;
+    margin: 0 auto;
+    padding-top: 44px;
+    text-align: center;
+}
+.loginArea.new .loginTit p {
+    margin-top: 6px;
+    font-size: 18px;
+    line-height: 20px;
+    color: #888;
+}
+input:disabled, input:read-only, select:disabled {
+    background-color: #f8f8f8;
+    color: #888;
+}
+input {
+    width: 100%;
+    height: 38px;
+    margin: 0;
+    padding: 0;
+    border: 1px solid #d0d0d0;
+    color: #888;
+    background: 0 0;
+    border-radius: 5px;
+    -ms-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -o-border-radius: 5px;
+    -moz-border-radius: 5px;
+    box-shadow: none;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    letter-spacing: .5px;
+    vertical-align: top;
+}
+.loginArea.new .loginForm {
+    width: 510px;
+    margin: 0 auto;
+}
+.loginArea.new .loginForm>ul {
+    margin-top: 18px;
+}
+.loginArea.new .loginForm>ul>li {
+    overflow: hidden;
+    margin-top: 0;
+}
+.loginArea.new .loginForm>ul>li:first-child input {
+    border-bottom: 0;
+    border-radius: 5px 5px 0 0;
+}
+.loginArea.new .loginForm>ul>li input {
+    padding: 0 20px;
+    width: 510px;
+    height: 60px;
+    line-height: 60px;
+    vertical-align: middle;
+    border-radius: 0 0 5px 5px;
+}
+.loginArea.new .loginForm>ul>li input {
+    padding: 0 20px;
+    width: 510px;
+    height: 60px;
+    line-height: 60px;
+    vertical-align: middle;
+    border-radius: 0 0 5px 5px;
+}
+.loginArea .loginForm .linkChk {
+    overflow: hidden;
+    margin-top: 20px;
+}
+.loginArea .loginForm .linkChk .save {
+    float: left;
+    width: 200px;
+    height: 20px;
+}
+input[type=checkbox]:checked:disabled, input[type=checkbox]:checked:read-only {
+    background: url("https://static.oliveyoung.co.kr/pc-static-root/image/comm/icon_chk_radio.png") 0 -20px no-repeat;
+}
+input[type=checkbox]:disabled, input[type=checkbox]:read-only {
+    background: url("https://static.oliveyoung.co.kr/pc-static-root/image/comm/icon_chk_radio.png") -20px -20px no-repeat;
+}
+input[type=checkbox]:checked {
+    background: url("https://static.oliveyoung.co.kr/pc-static-root/image/comm/icon_chk_radio.png") -20px 0 no-repeat;
+}
+input[type=checkbox] {
+    background: url("https://static.oliveyoung.co.kr/pc-static-root/image/comm/icon_chk_radio.png") no-repeat;
+}
+input[type=checkbox], input[type=radio] {
+    width: 20px;
+    height: 20px;
+    border: 0!important;
+    padding: 0;
+    font-size: 0;
+    line-height: 0;
+    margin-right: 8px;
+    vertical-align: top;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+}
+input:disabled, input:read-only, select:disabled {
+    background-color: #f8f8f8;
+    color: #888;
+}
+input[type=checkbox]:checked+label, input[type=radio]:checked+label {
+    color: #333;
+}
+button, input.button, input.image, input.submit, label {
+    cursor: pointer;
+}
+input:disabled, input:read-only, select:disabled {
+    background-color: #f8f8f8;
+    color: #888;
+}
+.loginArea .loginForm .linkChk .link {
+    float: right;
+    width: 200px;
+    text-align: right;
+}
+.loginArea .loginForm .linkChk .link a {
+    display: inline-block;
+    margin-left: 10px;
+    padding-left: 10px;
+    background: url("https://static.oliveyoung.co.kr/pc-static-root/image/comm/bar_1x14.png") 0 50% no-repeat;
+    font-size: 14px;
+    line-height: 20px;
+    color: #999;
+    vertical-align: top;
+}
+.loginArea .loginForm .linkChk .link a {
+    display: inline-block;
+    margin-left: 10px;
+    padding-left: 10px;
+    background: url("https://static.oliveyoung.co.kr/pc-static-root/image/comm/bar_1x14.png") 0 50% no-repeat;
+    font-size: 14px;
+    line-height: 20px;
+    color: #999;
+    vertical-align: top;
+}
+.loginArea .loginForm .btnArea {
+    margin-top: 20px;
+}
+.loginArea.new .loginForm .btnArea .btnGreen {
+    height: 60px;
+    border-radius: 0;
+    font-weight: 400;
+}
+.btnGreen, a.btnGreen {
+    width: 100%;
+    height: 50px;
+    background-color: #9bce26;
+    padding: 11px 0 9px;
+    font-size: 18px;
+    line-height: 30px;
+    border-radius: 5px;
+}
+button {
+    text-align: center;
+    color: #fff;
+}
+.loginArea .loginForm .btnGreen {
+    font-size: 24px;
+}
+.loginArea .loginForm .linkChk .link a:first-child {
+    background: 0 0;
+    margin: 0;
+    padding: 0;
+}
+.loginArea.new .loginForm .btnArea .btnGreen {
+    height: 60px;
+    border-radius: 0;
+    font-weight: 400;
+}
+button {
+    text-align: center;
+    color: #fff;
+}
+button, input[type=submit] {
+    border: 0;
+    padding: 0;
+    box-shadow: none;
+    cursor: pointer;
+}
+.loginArea.new .loginForm .btnArea .btnGreen {
+    height: 60px;
+    border-radius: 0;
+    font-weight: 400;
+}
+a {
+    color: #666;
+    text-decoration: none;
+}
+.loginArea.new .loginForm>ul>li input {
+    padding: 0 20px;
+    width: 510px;
+    height: 60px;
+    line-height: 60px;
+    vertical-align: middle;
+    border-radius: 0 0 5px 5px;
+}
+.loginArea.new .loginForm>ul>li:first-child input {
+    border-bottom: 0;
+    border-radius: 5px 5px 0 0;
+}
+.loginArea.new .loginForm>ul>li {
+    overflow: hidden;
+    margin-top: 0;
+}
+.loginArea.new .loginForm {
+    width: 510px;
+    margin: 0 auto;
+}
+.loginArea.new .loginForm>ul {
+    margin-top: 18px;
+}

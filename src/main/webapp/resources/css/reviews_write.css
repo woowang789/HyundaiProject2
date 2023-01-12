@@ -1,0 +1,344 @@
+a, address, blockquote, body, dd, div, dl, dt, em, fieldset, form, h1, h2, h3, h4, h5, h6, img, input, label, li, ol, p, pre, select, span, strong, textarea, ul {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+ol, ul {
+  list-style: none;
+}
+a {
+  color: #666;
+  text-decoration: none;
+}
+.mypage-conts {
+  float: left;
+  width: 850px;
+  min-height: 640px;
+  padding: 0 29px 40px;
+  background: #fff;
+}
+.mypage-conts .title-area {
+  padding-top: 25px;
+}
+.board-list-2s tr th {
+  padding: 11px 0 10px;
+  background: #fafafa;
+  color: #666;
+}
+.title-area {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  padding: 36px 0 7px;
+  border-bottom: 1px solid #666;
+  font-size: 0;
+  line-height: 0;
+}
+.linezero {
+  border: 0!important;
+}
+.comm1sTabs {
+  overflow: hidden;
+  width: 100%;
+  margin: 15px 0 0;
+}
+.mgzero {
+  margin: 0!important;
+}
+.comm1sTabs>li {
+  float: left;
+  width: 50%;
+  border-left: 1px solid #e3e3e3;
+  border-bottom: 2px solid #9bce26;
+  text-align: center;
+  background: #f6f6f6;
+}
+.comm1sTabs>li.on {
+  border-left: 2px solid #9bce26;
+  border-top: 2px solid #9bce26;
+  border-right: 2px solid #9bce26;
+  border-bottom: 0;
+  background: #fff;
+}
+.comm1sTabs>li {
+  float: left;
+  width: 50%;
+  border-left: 1px solid #e3e3e3;
+  border-bottom: 2px solid #9bce26;
+  text-align: center;
+  background: #f6f6f6;
+}
+.comm1sTabs>li.on+li {
+  border-left: 0;
+}
+.comm1sTabs>li {
+  float: left;
+  width: 50%;
+  border-left: 1px solid #e3e3e3;
+  border-bottom: 2px solid #9bce26;
+  text-align: center;
+  background: #f6f6f6;
+}
+.comm1sTabs>li>a {
+  display: block;
+  height: 50px;
+  padding-top: 15px;
+  color: #333;
+  font-size: 18px;
+}
+.mypage-conts .dot_list {
+  margin-top: 70px;
+}
+.mypage-conts .dot_list li {
+  padding: 0 0 0 10px;
+}
+.dot_list>li {
+  position: relative;
+  padding: 0 0 0 9px;
+  font-size: 14px;
+  color: #777;
+  line-height: 24px;
+}
+.reviewN2_list_title {
+  background-color: #fff;
+  color: #000;
+  height: 50px;
+  position: relative;
+}
+.board-list-2s {
+  table-layout: fixed;
+  width: 100%;
+  border-top: 2px solid #d6d6d6;
+  border-bottom: 1px solid #e6e6e6;
+}
+.mgT20 {
+  margin-top: 20px!important;
+}
+table {
+  border-spacing: 0;
+  border: 0;
+}
+caption {
+  width: 0;
+  height: 0;
+  text-indent: -9999px;
+}
+.board-list-2s tr th {
+  padding: 11px 0 10px;
+  background: #fafafa;
+  color: #666;
+}
+.board-list-2s tr td, .board-list-2s tr th {
+  font-size: 14px;
+  line-height: 18px;
+}
+.board-list-2s.new tr td.subject {
+  vertical-align: top;
+}
+.board-list-2s tr td .area {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+.board-list-2s tr td .area .thum {
+  float: left;
+  position: relative;
+  width: 85px;
+  height: 85px;
+  margin-right: 20px;
+  text-align: center;
+}
+.board-list-2s tr td .area .textus {
+  float: left;
+  width: 66%;
+  text-align: left;
+}
+.board-list-2s.new tr td .area .textus dl.data {
+  font-weight: 700;
+}
+.board-list-2s tr td .area .textus dl.data {
+  overflow: hidden;
+  margin-bottom: 7px;
+  text-indent: 0;
+}
+.board-list-2s.new tr td.subject .data {
+  padding-top: 0;
+}
+.board-list-2s tr td.subject .data {
+  padding: 5px 0 0;
+  text-indent: 0;
+  color: #888;
+}
+.board-list-2s tr td .data {
+  display: block;
+  text-indent: 10px;
+  color: #333;
+}
+.board-list-2s tr td .area .textus dl.data dt {
+  float: left;
+}
+.board-list-2s tr td .area .textus dl.data dd, .board-list-2s tr td .area .textus dl.data dt {
+  font-size: 13px;
+}
+.board-list-2s tr td .area .textus dl.data dd {
+  font-weight: 500;
+}
+.board-list-2s tr td .area .textus dl.data dd {
+  float: left;
+  margin: 0 0 0 10px;
+  padding-left: 10px;
+  background: url("https://static.oliveyoung.co.kr/pc-static-root/image/comm/bar_1x10.gif") 0 4px no-repeat;
+}
+.board-list-2s tr td .area .textus dl.data dd, .board-list-2s tr td .area .textus dl.data dt {
+  font-size: 13px;
+}
+.board-list-2s tr td .area .textus a {
+  display: block;
+}
+.board-list-2s tr td .area .textus a span {
+  overflow: hidden;
+  display: inline-block;
+  width: 100%;
+}
+.board-list-2s tr td .area .textus a span {
+  overflow: hidden;
+  display: inline-block;
+  width: 100%;
+}
+.board-list-2s tr td .area .thum img {
+  width: auto!important;
+  max-width: 85px;
+  height: auto!important;
+  max-height: 85px;
+}
+button, img, input, select, textarea {
+  border: 0;
+  vertical-align: top;
+  color: #666;
+}
+.board-list-2s tr td .area .textus dl.data {
+  overflow: hidden;
+  margin-bottom: 7px;
+  text-indent: 0;
+}
+.board-list-2s tr td .area .textus .tit {
+  overflow: hidden;
+  height: 20px;
+  color: #777;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 700;
+}
+.board-list-2s.new tr td .area .textus .txt.oneline {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.board-list-2s.new tr td .area .textus .txt_option {
+  font-size: 12px;
+  color: #888;
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.board-list-2s.new tr td .area .textus .txt_option em {
+  position: relative;
+  margin-right: 5px;
+  padding-right: 7px;
+  font-style: normal;
+}
+.board-list-2s.new tr td .area .textus .txt_option em:after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 2px;
+  right: 0;
+  width: 1px;
+  height: 11px;
+  background-color: #aaa;
+}
+.board-list-2s.new tr td .area .textus .txt.oneline {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.board-list-2s tr td .area .textus .txt {
+  overflow: hidden;
+  max-height: 36px;
+  color: #333;
+}
+.board-list-2s tr td .area .textus a span {
+  overflow: hidden;
+  display: inline-block;
+  width: 100%;
+}
+.board-list-2s tr td.subject {
+  padding-left: 20px;
+  text-align: left;
+}
+.board-list-2s tr td {
+  padding: 30px 5px;
+  color: #333;
+  text-align: center;
+  border-top: 1px solid #e6e6e6;
+}
+.reviewN2_list_title {
+  background-color: #fff;
+  color: #000;
+  height: 50px;
+  position: relative;
+  margin-top: 50px;
+}
+.reviewN2_list_title .list_title {
+  font-size: 20px;
+  font-weight: 700;
+  left: 0;
+}
+.reviewN2_list_title .list_title span {
+  color: #f27370;
+}
+.board-list-2s.new tr td.col777 {
+  color: #777;
+}
+.board-list-2s tr td {
+  padding: 30px 5px;
+  color: #333;
+  text-align: center;
+  border-top: 1px solid #e6e6e6;
+}
+.board-list-2s tr td {
+  padding: 30px 5px;
+  color: #333;
+  text-align: center;
+  border-top: 1px solid #e6e6e6;
+}
+.board-list-2s tr td, .board-list-2s tr th {
+  font-size: 14px;
+  line-height: 18px;
+}
+.btn-review--small {
+  width: 80px;
+  line-height: 28px;
+  border: 1px solid #dadde0;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #50585f;
+  font-size: 12px;
+  font-weight: 400;
+}
+button {
+  text-align: center;
+  color: #fff;
+}
+button, input[type=submit] {
+  border: 0;
+  padding: 0;
+  box-shadow: none;
+  cursor: pointer;
+}

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.hyundai.mapper.UserMapper">
+
+	<resultMap type="com.hyundai.vo.UserVO" id="memberMap">
+		<id property="user_id" column="user_id"/>
+		<result property="user_id" column="user_id"/>
+		<result property="user_pwd" column="user_pwd"/>
+		<result property="user_name" column="user_name"/>
+		<result property="user_address" column="user_address"/>
+		<result property="user_tel" column="user_tel"/>
+		<result property="user_birth" column="user_birth"/>
+		<collection property="authList" resultMap="authMap"/>
+	</resultMap>
+	
+	<resultMap type="com.hyundai.vo.AuthVO" id="authMap">
+		<result property="user_id" column="user_id"/>
+		<result property="authority" column="authority"/>
+	</resultMap>
+
+	<insert id="insert">
+		insert into users (user_id, user_password, user_name, user_address,user_tel,user_birth)
+		values(#{user_id},#{user_pwd},#{user_name},#{user_address},#{user_tel},#{user_birth})
+	</insert>
+	
+	<insert id="insertAuth">
+		insert into authorities (user_id, authority) values (#{user_id},#{authority})
+	</insert>
+	
+	<select id="idCheckSelect" parameterType="String" resultType="int">
+		select count(*) from users where user_id = #{user_id}
+	</select>
+	
+	<select id="read" resultMap="memberMap">
+		select  u.user_id, u.user_password user_pwd, u.user_name, u.user_address, u.user_tel, u.user_birth, auth.authority
+		from users u left outer join authorities auth 
+		on u.user_id = auth.user_id
+		where u.user_id = #{user_id}
+	</select>
+	
+	<select id="getInfoById" resultType="com.hyundai.vo.UserOrderInfoDTO">
+		select user_name name, user_tel tel
+		from users
+		where user_id = #{user_id}
+	</select>
+	
+	<select id="searchId" resultType="com.hyundai.vo.UserVO">	
+		select * from users
+		where user_tel = #{user_tel} and user_name=#{user_name} and user_birth=#{user_birth}
+	</select>
+	
+	<select id="searchPwd" resultType="int">
+		select count(*) from users
+		where user_id = #{user_id} and user_birth=#{user_birth} and user_tel=#{user_tel}
+	</select>
+	
+	<update id="updatePwd">
+		update users set user_password = #{user_pwd}
+		where user_id = #{user_id}
+	</update>
+	
+	<select id="checkCurPwd" resultType="String">
+		select user_password from users 
+		where user_id = #{user_id}
+	</select>
+	
+	<update id="updateUser">
+		update users
+		set
+		user_password = #{user_pwd},
+		user_name = #{user_name},
+		user_address  = #{user_address},
+		user_tel = #{user_tel}
+		where user_id = #{user_id}
+	</update>
+	
+	<delete id="deleteUser">
+		delete from users
+		where user_id = #{user_id}
+	</delete>
+	
+	<delete id="deletePersistence">
+		delete from persistent_logins
+		where username = #{user_id}
+	</delete>
+
+</mapper>

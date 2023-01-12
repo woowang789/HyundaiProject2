@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- SQL Mapping -->
+<mapper namespace="com.hyundai.mapper.CategoryMapper">
+
+	<select id="getCategoryWithPaging"
+		resultType="com.hyundai.vo.ProductOptionDTO">
+	<![CDATA[
+select
+             p.product_id id, 
+             p.product_name name, 
+             p.product_thumb thumb, 
+             p.product_date pDate,
+             o.option_id oId,
+             o.option_stock stock, 
+             o.option_origin_price originPrice, 
+             o.option_market_price marketPrice,
+             b.brand_id bId,
+             b.brand_name brandName,
+             w.wish_date wDate,
+             nvl2(wish_date, '1', '0') wished,
+                c.category_id cId,
+                c.category_name cName
+         from product p
+         inner join options o on (p.product_id = o.product_id and 
+                     o.option_id = concat(p.product_id,'001') )
+         left join wish_list w on (w.product_id = p.product_id and w.user_id = #{userId})
+         inner join brand b on (p.brand_id = b.brand_id)
+            join categories c on p.category_id=c.category_id
+            where c.category_id like #{cri.cateId}||'%'
+            order by ]]>
+		<choose>
+			<when test="cri.sort =='01'.toString()">
+				(p.product_date)
+			</when>
+			<when test="cri.sort =='02'.toString()">
+				(o.option_market_price)
+			</when>
+			<otherwise>
+				o.option_market_price desc
+			</otherwise>
+		</choose>
+             <![CDATA[,p.product_id
+            OFFSET (#{cri.pageNum}-1)*#{cri.amount} ROWS FETCH NEXT #{cri.amount} ROWS ONLY
+		]]>
+	</select>
+	<select id="getTotalCount" resultType="int">
+		select count(*) from
+		product where category_id like #{cateId}||'%'
+	</select>
+
+	<select id="getPCate" resultType="com.hyundai.vo.CategoryDTO">
+
+		select ca.category_id catePid, ca.category_name catePname, cb.category_id
+		cateId, cb.category_name cateName
+		from categories ca
+		join categories cb
+		on ca.category_id=cb.category_pid
+		where ca.category_id like #{catePid}||'%'
+		order by cb.category_id
+
+	</select>
+</mapper>

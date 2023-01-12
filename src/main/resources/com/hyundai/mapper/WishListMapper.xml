@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- SQL Mapping -->
+<mapper namespace="com.hyundai.mapper.WishListMapper">
+
+	<select id="getWishLists" resultType="com.hyundai.vo.ProductOptionDTO">
+	<![CDATA[
+		select id, name, thumb, pDate, oId, stock, originPrice, marketPrice, '1' wished, bId, brandName, wDate
+		from (
+			select 
+			/*+ INDEX (wish_list idx_wdate) */
+			    rownum rn,
+			    p.product_id id, 
+			    p.product_name name, 
+			    p.product_thumb thumb, 
+			    p.product_date pDate,
+			    o.option_id oId, 
+			    o.option_stock stock, 
+			    o.option_origin_price originPrice, 
+			    o.option_market_price marketPrice,
+			    b.brand_id bId,
+			    b.brand_name brandName,
+			    w.wish_date wDate
+			from product p
+			inner join options o on (p.product_id = o.product_id and 
+			            o.option_id = concat(p.product_id,'001') )
+			inner join wish_list w on (w.product_id = p.product_id and w.user_id = #{userId})
+			inner join brand b on (p.brand_id = b.brand_id)
+			
+			order by wish_date desc, p.product_id
+		)
+		 OFFSET (#{cri.pageNum}-1)*#{cri.amount} ROWS FETCH NEXT #{cri.amount} rows only
+		]]>
+	</select>
+	
+	<select id="getCount" resultType="int">
+		select count(*) 
+		from wish_list 
+		where user_id = #{userId}
+	</select>
+
+	<select id="isExist" resultType="boolean">
+		select count(*)
+		from wish_list
+		where user_id = #{userId}
+		and product_id = #{prodId}
+	</select>
+
+	<insert id="insertWishList">
+		insert into wish_list (USER_ID, PRODUCT_ID,
+		WISH_DATE)
+		values (#{userId},#{prodId}, sysdate)
+	</insert>
+
+	<delete id="removeWishList">
+		delete from wish_list
+		where user_id = #{userId}
+		and
+		product_id = #{prodId}
+	</delete>
+
+</mapper>

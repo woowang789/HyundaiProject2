@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- SQL Mapping -->
+<mapper namespace="com.hyundai.mapper.ProductDetailMapper">
+	<resultMap type="com.hyundai.vo.ProductDetailDTO"
+		id="productDetailMap">
+		<id property="pid" column="product_id" />
+		<result property="bid" column="brand_id" />
+		<result property="bname" column="brand_name" />
+		<result property="pname" column="product_name" />
+		<result property="pctnt" column="product_content" />
+		<result property="pimg" column="product_img" />
+		<result property="cid" column="category_id" />
+		<result property="cname" column="category_name" />
+		<collection property="optionList" resultMap="optionMap"></collection>
+	</resultMap>
+
+	<resultMap type="com.hyundai.vo.OptionDTO" id="optionMap">
+		<result property="oid" column="option_id" />
+		<result property="oname" column="option_name" />
+		<result property="othumb" column="option_thumb" />
+		<result property="stock" column="option_stock" />
+		<result property="originPrice" column="option_origin_price" />
+		<result property="marketPrice" column="option_market_price" />
+	</resultMap>
+
+	<select id="getProductDetail" resultMap="productDetailMap">
+		select
+		p.product_id,b.brand_id, brand_name, product_name, product_content,
+		product_img,
+		o.option_id, option_name, option_thumb, option_stock,
+		option_origin_price,
+		option_market_price, c.category_name
+		from brand b
+		join product p on b.brand_id= p.brand_id
+		join options o on p.product_id
+		= o.product_id
+		join categories c on p.category_id = c.category_id
+		where
+		p.product_id = #{pid}
+	</select>
+
+
+	<select id="getReviewWithPaging"
+		resultType="com.hyundai.vo.ReviewDTO">
+	<![CDATA[
+	select rpad(substr(user_id,1,length(user_id)-4),length(user_id),'*') userId,
+		   review_score reviewScore, review_img reviewImg, review_date reviewDate, review_content reviewContent
+	from ORDER_LIST
+	where product_id = #{pid} and review_date is not null
+	order by ]]>
+		<choose>
+			<when test="cri.sort =='01'.toString()">
+				review_score desc nulls last
+			</when>
+			<when test="cri.sort =='02'.toString()">
+				review_score nulls first
+			</when>
+			<otherwise>
+				review_date desc nulls last
+			</otherwise>
+		</choose>
+             <![CDATA[, user_id
+            OFFSET (#{cri.pageNum}-1)*#{cri.amount} ROWS FETCH NEXT #{cri.amount} ROWS ONLY
+		]]>
+	</select>
+	<select id="getReviewTotalCount" resultType="int">
+		select count(*) from
+		order_list where product_id = #{pid} and review_date is not null
+	</select>
+
+	<select id="getAverageScore" resultType="double">
+		select
+		nvl(round(sum(review_score)/count(*),1),0) from order_list
+		where
+		product_id = #{pid} and review_date is not null
+	</select>
+
+	<select id="getAverageScoreInt" resultType="int">
+		select
+		nvl(round(sum(review_score)/count(*),1),0) from order_list
+		where
+		product_id = #{pid} and review_date is not null
+	</select>
+
+
+	<select id="getScoreFive" resultType="int">
+		select count(*)
+		from
+		order_list where product_id=#{pid} and review_score=5
+	</select>
+
+	<select id="getScoreFour" resultType="int">
+		select count(*)
+		from
+		order_list where product_id=#{pid} and review_score=4
+	</select>
+
+	<select id="getScoreThree" resultType="int">
+		select count(*)
+		from
+		order_list where product_id=#{pid} and review_score=3
+	</select>
+
+	<select id="getScoreTwo" resultType="int">
+		select count(*)
+		from
+		order_list where product_id=#{pid} and review_score=2
+	</select>
+
+	<select id="getScoreOne" resultType="int">
+		select count(*)
+		from
+		order_list where product_id=#{pid} and review_score=1
+	</select>
+
+	<select id="getRecommend"
+		resultType="com.hyundai.vo.ProductOptionDTO">
+		select
+		p.product_id id,
+		p.product_name name,
+		p.product_thumb thumb,
+		p.product_date pDate,
+		o.option_id oId,
+		o.option_stock stock,
+		o.option_origin_price originPrice,
+		o.option_market_price marketPrice
+
+		from product p
+		inner join options o on (p.product_id = o.product_id and
+		o.option_id = concat(p.product_id,'001') )
+		where p.category_id like (select category_id from product where
+		product_id=#{pid})||'%'
+		order by DBMS_RANDOM.RANDOM
+		OFFSET 0 ROWS FETCH NEXT 3 ROWS ONLY
+
+	</select>
+	
+	<select id="getWish" resultType="boolean">
+	select nvl2(wish_date, '1', '0') wished 
+	from wish_list w right join product p on  (w.product_id = p.product_id and w.user_id = #{id})
+	where p.product_id=#{pid}
+	</select>
+
+
+
+</mapper>

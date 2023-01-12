@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.hyundai</groupId>
@@ -9,9 +10,9 @@
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
 		<java-version>11</java-version>
-		<org.springframework-version>5.3.19</org.springframework-version>
+		<org.springframework-version>5.3.24</org.springframework-version>
 		<org.aspectj-version>1.9.9.1</org.aspectj-version>
-		<org.slf4j-version>2.0.3</org.slf4j-version>
+		<org.slf4j-version>2.0.5</org.slf4j-version>
 	</properties>
 	<dependencies>
 
@@ -20,6 +21,13 @@
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
 			<version>2.14.1</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
+		<dependency>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1.1</version>
 		</dependency>
 
 		<!-- Spring -->
@@ -58,36 +66,35 @@
 		</dependency>
 
 		<!-- spring-security -->
-		<!-- 
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
-			<version>5.7.5</version>
+			<version>5.0.6.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-config</artifactId>
-			<version>5.7.5</version>
+			<version>5.0.6.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-core</artifactId>
-			<version>5.7.5</version>
+			<version>5.0.6.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-taglibs</artifactId>
-			<version>5.7.5</version>
+			<version>5.0.6.RELEASE</version>
 		</dependency>
-		 -->
 
 
-		<!-- Ojdbc 8 -->
+		<!-- Ojdbc 11 -->
 		<dependency>
 			<groupId>com.oracle.database.jdbc</groupId>
-			<artifactId>ojdbc8</artifactId>
+			<artifactId>ojdbc11</artifactId>
 			<version>21.5.0.0</version>
 		</dependency>
+
 
 		<!-- Oracle Cloud -->
 		<dependency>
@@ -296,5 +303,5 @@
 				</configuration>
 			</plugin>
 		</plugins>
-    </build>
+	</build>
 </project>

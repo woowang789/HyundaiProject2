@@ -1,0 +1,188 @@
+#Container.bgf6 {
+	background-color: #f6f6f6;
+}
+
+#Contents {
+	width: 1020px;
+	height: 100%;
+	margin: 0 auto;
+}
+
+.loginArea.new.login {
+	padding: 92px 0 145px;
+}
+
+.box_type_1 {
+	padding: 40px;
+	background: #fff;
+	border: none;
+}
+
+.title_wrap {
+	position: relative;
+	margin-bottom: 15px;
+	min-height: 25px;
+	overflow: hidden;
+}
+
+.title_wrap h4 {
+	font-size: 16px;
+	color: #222;
+}
+
+.btnwrap {
+	margin-top: 40px;
+    text-align: center;
+    display: flex;
+    width: 300px;
+    margin: 0 auto;
+    margin-top: 40px;
+}
+
+.tblwrap {
+	position: relative;
+}
+
+.tbl_wtype1 {
+	border-top: 1px solid #666;
+	color: #222;
+	font-size: 12px;
+	clear: both;
+}
+
+caption {
+	position: relative;
+	left: -5000px;
+	height: 0;
+	line-height: 0;
+	text-indent: -5000px;
+}
+
+.tbl_wtype1 th {
+	padding: 7px 0 7px 15px;
+	line-height: 30px;
+	background: #f5f5f5;
+	border-bottom: 1px solid #dfdfdf;
+	text-align: left;
+	vertical-align: top;
+}
+
+.tbl_wtype1 td {
+	padding: 7px 10px;
+	height: 30px;
+	line-height: 30px;
+	color: #444;
+	border-bottom: 1px solid #dfdfdf;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+.tbl_wtype1 th label {
+	display: inline-block;
+	line-height: 30px;
+}
+
+input[type=text], input[type=password], input[type=email], input[type=number],
+	input[type=search] {
+	margin-right: 5px;
+	height: 28px;
+	line-height: 30px;
+	text-indent: 5px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+}
+
+select {
+	margin: 2px 5px 0 0;
+	height: 30px;
+	border: 1px solid #ccc;
+	padding: 3px 8px 6px 8px;
+	vertical-align: top;
+	margin-top: 1px\9;
+	border-radius: 5px;
+}
+
+.btn.add_s {
+	min-width: 90px;
+	background: #f5f5f5;
+	line-height: 12px;
+	width: 90px;
+	height: 28px;
+	background: #fff;
+	border-radius: 5px;
+	border: 1px solid #9bce26;
+	color: #9bce26;
+	font-size: 12px;
+}
+
+.btn {
+	margin-left: 5px;
+	display: inline-block;
+	color: white;
+	font-size: 12px;
+	font-weight: bold;
+	text-align: center;
+	vertical-align: middle;
+	cursor: pointer;
+	border-radius: 5px;
+}
+
+.wtype_comment {
+	padding-left: 5px;
+	line-height: 22px;
+}
+
+.pt10 {
+	padding-top: 10px !important;
+}
+
+input[type=radio] {
+	width: 13px;
+	height: 13px;
+	margin: 3px 3px 0 0;
+	margin: 1px 3px 0 0\9;
+	border-radius: 5px;
+}
+
+.wtype_comment .email-prev-detail-btn {
+	font-size: 12px;
+	color: #888;
+	text-decoration: underline;
+	display: inline-block;
+	vertical-align: middle;
+	margin-left: 13px;
+}
+
+.btnwrap {
+	margin-top: 40px;
+	text-align: center;
+}
+
+.btn.wt {
+	padding: 8px 20px 10px;
+	min-width: 140px;
+	background: #888;
+	border: 1px solid #a3a3a3;
+	font-size: 14px;
+	color: white;
+}
+
+.btn.gray {
+	padding: 8px 20px 10px;
+	min-width: 140px;
+	background: #9bce26;
+	border: none;
+	color: #fff;
+	font-size: 14px;
+}
+#search-address{
+	cursor: pointer;
+    border: 1px solid #757d86;
+    border-radius: 5px;
+    padding: 5px;
+}
+}
