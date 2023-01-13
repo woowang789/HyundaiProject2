@@ -15,12 +15,20 @@ import com.hyundai.vo.ShowOrderDTO;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * 주문 관련 비스니스 로직을 처리하는 Service
+ * @author 왕종휘
+ */
 @Service
 @RequiredArgsConstructor
 public class OrderService {
 	private final ProductService prodcutService;
 	private final OrderMapper orderMapper;
 
+	/**
+	 * 주문한 상품 아이디를 받아 상품 정보를 가져오는 메서드 
+	 * @param BeforeOrderDTO
+	 */
 	public List<OrderProductDTO> getOrderProductList(BeforeOrderDTO before) {
 		return before.getList().stream().map(l -> {
 			OrderProductDTO p = prodcutService.getOrderProductById(l.getOid());
@@ -29,6 +37,10 @@ public class OrderService {
 		}).collect(Collectors.toList());
 	}
 
+	/**
+	 * 하나의 트랜잭션 단위로 주문과 주문 상품 정보를 삽입
+	 * @param InsertOrderDTO : 주문 정보
+	 */
 	@Transactional
 	public int insertOrder(String userId, InsertOrderDTO order) {
 		

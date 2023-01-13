@@ -2,9 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<!-- SQL Mapping -->
+<!-- 
+	리뷰 로직과 관련된 주문 상품(order_list) 테이블 관련 작업을 하는 Mapper
+	@author 왕종휘
+ -->
 <mapper namespace="com.hyundai.mapper.ReviewMapper">
 
+<!-- 
+	유저의 리뷰를 가져옴
+	@param 유저아이디(userId), 페이징 관련 객체(cri)
+		isWritten : 작성된 리뷰, 작성 가능한 리뷰 구분 flag
+ -->
 	<select id="getReviewByUserId" resultType="com.hyundai.vo.ReviewDTO">
 		<![CDATA[
 		select userId, userName, productId, productName, productThumb,
@@ -47,9 +55,12 @@
 			)
 			 OFFSET (#{cri.pageNum}-1)*#{cri.amount} ROWS FETCH NEXT #{cri.amount} rows only
 		]]>
-		
 	</select>
 	
+<!-- 
+	리뷰의 총 개수를 가져옴
+	@param 유저아이디(userId), isWritten
+ -->
 	<select id="getTotalCount" resultType="int">
 		select 
 		    count(*)
@@ -63,7 +74,12 @@
 			where ol.review_date is null
 		</if>
 	</select>
-	
+
+<!-- 
+	리뷰 정보를 입력
+	@param 주문아이디(orderId), 상품아이디(productId), 상품옵션아이디(optionId), 리뷰점수(reviewScore), 
+			리뷰내용(reviewContent), 리뷰사진(reviewImg)
+ -->
 	<update id="insertReview">
 		update order_list
 		set

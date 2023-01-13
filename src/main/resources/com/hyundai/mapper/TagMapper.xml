@@ -2,9 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<!-- SQL Mapping -->
+<!-- 
+	태그(tag) 테이블 관련 작업을 하는 Mapper
+	@author 왕종휘
+ -->
 <mapper namespace="com.hyundai.mapper.TagMapper">
 
+<!-- 
+	해당 키워드의 즐겨찾기 유무 확인
+	@param 유저아이디(userId), 키워드(keyword)
+ -->
 	<select id="isExist" resultType="boolean">
 		select count(*)
 		from tag
@@ -12,19 +19,31 @@
 		and keyword = #{keyword}
 	</select>
 
+<!-- 
+	해당 키워드의 즐겨찾기 삽입
+	@param 유저아이디(userId), 키워드(keyword)
+ -->
 	<insert id="insertTag">
 		insert into tag (USER_ID, keyword,
 		tag_date)
 		values (#{userId},#{keyword}, sysdate)
 	</insert>
 
+<!-- 
+	해당 키워드의 즐겨찾기 삭제
+	@param 유저아이디(userId), 키워드(keyword)
+ -->
 	<delete id="removeTag">
 		delete from tag
 		where user_id = #{userId}
 		and
 		keyword = #{keyword}
 	</delete>
-	
+
+<!-- 
+	유저의 즐겨찾기 리스트 조회
+	@param 유저아이디(userId)
+ -->
 	<select id="getTagList" resultType="String" >
 		select keyword
 		from tag

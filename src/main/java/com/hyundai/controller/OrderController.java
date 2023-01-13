@@ -22,6 +22,10 @@ import com.hyundai.vo.UserOrderInfoDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
+/**
+ * 주문 관련 요청을 처리하는 Controller
+ * @author 왕종휘
+ */
 @Log4j
 @Controller
 @RequiredArgsConstructor
@@ -31,17 +35,19 @@ public class OrderController {
 	private final CartService cartService;
 	private final UserMapper userMapper;
 	
+	/**
+	 * 주문할 상품정보, 유저 기본정보와 함께 주문 페이지 렌더링
+	 * @param isCart : 장바구니 주문인지 확인하는 flag
+	 * @param BeforeOrderDTO : 상품아이디(pId), 상품옵션아이디(oId), 수량(qty)
+	 * @param principal : 유저ID
+	 */
 	@GetMapping("/order-form")
 	public String orderForm(
 			@RequestParam(value = "isCart", defaultValue = "false") Boolean isCart , 
 			BeforeOrderDTO orderItems, 
 			Principal principal,
 			Model model) {
-		log.info("/order-form");
 		if(isCart == null) isCart = false;
-		
-		log.info(isCart);
-		log.info(orderItems);
 		
 		UserOrderInfoDTO userInfo = userMapper.getInfoById(principal.getName());
 		
@@ -54,6 +60,11 @@ public class OrderController {
 		return "order/order_form";
 	}
 	
+	/**
+	 * 요청된 상품 주문을 처리하고 리다이렉트 시 처리된 주문 정보를 넘김
+	 * @param isCart : 장바구니 주문인지 확인하는 flag
+	 * @param InsertOrderDTO : 이름, 도로명주소, 지번, 전화번호, 지불수단, 총 금액, 상품정보 리스트
+	 */
 	@PostMapping("/order-form")
 	public String doOrder(
 			@RequestParam("isCart") Boolean isCart,
@@ -71,6 +82,9 @@ public class OrderController {
 		
 	}
 	
+	/**
+	 * 주문 완료 페이지 렌더링
+	 */
 	@GetMapping("/order-completion")
 	public String orderCompletion() {
 		log.info("/order-completion");
@@ -78,14 +92,14 @@ public class OrderController {
 		return "order/order_completion";
 	}
 	
-	@GetMapping("/before-order")
-	public String beforeOrder() {
-		return "order/before_order";
-	}
+// 	주문 테스트 페이지 
+//	@GetMapping("/before-order")
+//	public String beforeOrder() {
+//		return "order/before_order";
+//	}
 	
-	/*
-	 * 장바구니에서 주문한 경우 주문한 장바구니 삭제
-	 * */
+
+	// 장바구니에서 주문한 경우 주문한 장바구니 삭제
 	private void deleteCart(InsertOrderDTO order,String userId) {
 		order.getList().stream().forEach(item ->{
 			UpdateCartDTO dto = new UpdateCartDTO();
