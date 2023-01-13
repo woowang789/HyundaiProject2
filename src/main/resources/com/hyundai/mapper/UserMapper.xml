@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
+<!-- UserMapper writer : 이한솔, 왕종휘 -->
+
 <mapper namespace="com.hyundai.mapper.UserMapper">
 
+	<!-- resultMap writer : 이한솔 -->  
 	<resultMap type="com.hyundai.vo.UserVO" id="memberMap">
 		<id property="user_id" column="user_id"/>
 		<result property="user_id" column="user_id"/>
@@ -19,20 +21,24 @@
 		<result property="user_id" column="user_id"/>
 		<result property="authority" column="authority"/>
 	</resultMap>
-
+	
+	<!-- insert writer : 이한솔 -->  
 	<insert id="insert">
 		insert into users (user_id, user_password, user_name, user_address,user_tel,user_birth)
 		values(#{user_id},#{user_pwd},#{user_name},#{user_address},#{user_tel},#{user_birth})
 	</insert>
 	
+	<!-- insertAuth writer : 이한솔 -->  
 	<insert id="insertAuth">
 		insert into authorities (user_id, authority) values (#{user_id},#{authority})
 	</insert>
 	
+	<!-- idCheckSelect writer : 이한솔 -->  
 	<select id="idCheckSelect" parameterType="String" resultType="int">
 		select count(*) from users where user_id = #{user_id}
 	</select>
 	
+	<!-- read writer : 이한솔 -->  
 	<select id="read" resultMap="memberMap">
 		select  u.user_id, u.user_password user_pwd, u.user_name, u.user_address, u.user_tel, u.user_birth, auth.authority
 		from users u left outer join authorities auth 
@@ -40,32 +46,38 @@
 		where u.user_id = #{user_id}
 	</select>
 	
+	<!-- getInfoById : 왕종휘 -->  
 	<select id="getInfoById" resultType="com.hyundai.vo.UserOrderInfoDTO">
 		select user_name name, user_tel tel
 		from users
 		where user_id = #{user_id}
 	</select>
 	
+	<!-- searchId writer : 이한솔 -->  
 	<select id="searchId" resultType="com.hyundai.vo.UserVO">	
 		select * from users
 		where user_tel = #{user_tel} and user_name=#{user_name} and user_birth=#{user_birth}
 	</select>
 	
+	<!-- searchPwd writer : 이한솔 -->  
 	<select id="searchPwd" resultType="int">
 		select count(*) from users
 		where user_id = #{user_id} and user_birth=#{user_birth} and user_tel=#{user_tel}
 	</select>
 	
+	<!-- updatePwd writer : 이한솔 -->  
 	<update id="updatePwd">
 		update users set user_password = #{user_pwd}
 		where user_id = #{user_id}
 	</update>
 	
+	<!-- checkCurPwd writer : 이한솔 -->  
 	<select id="checkCurPwd" resultType="String">
 		select user_password from users 
 		where user_id = #{user_id}
 	</select>
 	
+	<!-- updateUser writer : 이한솔 -->  
 	<update id="updateUser">
 		update users
 		set
@@ -76,11 +88,13 @@
 		where user_id = #{user_id}
 	</update>
 	
+	<!-- deleteUser writer : 이한솔 -->  
 	<delete id="deleteUser">
 		delete from users
 		where user_id = #{user_id}
 	</delete>
 	
+	<!-- deletePersistence writer : 이한솔 -->
 	<delete id="deletePersistence">
 		delete from persistent_logins
 		where username = #{user_id}

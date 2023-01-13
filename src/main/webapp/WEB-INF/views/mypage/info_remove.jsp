@@ -10,7 +10,7 @@ function deleteUser(){
 }
 </script>
 <form method="post" action="/mypage/deleteInfo" onsubmit="return confirm('회원 탈퇴하시겠습니까?');">
-<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+<%-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> --%>
 <input type="hidden" name="user_id" value="<sec:authentication property="principal.user.user_id"/>">
   <div class="mypage-conts">
     <div class="title-area">

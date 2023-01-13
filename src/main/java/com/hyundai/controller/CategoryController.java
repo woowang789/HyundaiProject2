@@ -21,12 +21,14 @@ import lombok.extern.log4j.Log4j;
 
 @Controller
 @Log4j
+
 public class CategoryController {
-	
+//소규석	
 	
 	@Autowired
 	private CategoryMapper mapper;
 
+	//카테고리별 상품 리스트 가져오기 
 	@RequestMapping(value = "/category", method = RequestMethod.GET)
 	public String category(Criteria cri,Model model, Principal principal) {
 		log.info("/category" +cri);
@@ -45,12 +47,4 @@ public class CategoryController {
 		return "tab/category";
 	}
 	
-	@ResponseBody
-	@RequestMapping(value="/category2", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<CategoryDTO> category2(Criteria cri, Model model) {
-		log.info("/cccc: ");
-		
-		return mapper.getPCate(cri);
-	}
-
 }

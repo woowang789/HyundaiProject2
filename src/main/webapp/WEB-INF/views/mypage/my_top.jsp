@@ -2,6 +2,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="../includes/header.jsp"%>
+<!-- 이승규 -->
+<!-- 마이페이지 네비게이션 -->
 <div id="Container">
   <div id="Contents">
     <div class="mypage-head rate_04">

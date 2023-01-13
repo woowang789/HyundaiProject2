@@ -4,7 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ include file="../includes/header.jsp"%>
-
+<!--소규석, 이승규-->
 <script src="/resources/js/cartService.js" defer></script>
 <script src="/resources/js/wishList.js" defer></script>
 <script>

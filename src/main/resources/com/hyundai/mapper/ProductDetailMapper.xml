@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
+<!--소규석-->
 <!-- SQL Mapping -->
+
+<!--resultMap을 사용하여 상품과 그에 해당하는 상품 옵션 정보들을 연결-->
 <mapper namespace="com.hyundai.mapper.ProductDetailMapper">
 	<resultMap type="com.hyundai.vo.ProductDetailDTO"
 		id="productDetailMap">
@@ -26,6 +28,7 @@
 		<result property="marketPrice" column="option_market_price" />
 	</resultMap>
 
+	<!--상품 아이디를 입력받아 상품별 상품 상세정보 가져오는 select문-->
 	<select id="getProductDetail" resultMap="productDetailMap">
 		select
 		p.product_id,b.brand_id, brand_name, product_name, product_content,
@@ -42,7 +45,9 @@
 		p.product_id = #{pid}
 	</select>
 
-
+	<!--상품 아이디를 입력과 평점 높은 순, 평점 낮은 순, 최신순 중 하나 입력,
+	 페이지번호, 페이지당 해당하는 상품 수령을 입력받아
+	상품별 리뷰 리스트 가져오는 select문-->
 	<select id="getReviewWithPaging"
 		resultType="com.hyundai.vo.ReviewDTO">
 	<![CDATA[
@@ -66,11 +71,14 @@
             OFFSET (#{cri.pageNum}-1)*#{cri.amount} ROWS FETCH NEXT #{cri.amount} ROWS ONLY
 		]]>
 	</select>
+	
+	<!--상품 아이디를 입력받아 상품별 리뷰의 총개수를 가져오는 select문 -->
 	<select id="getReviewTotalCount" resultType="int">
 		select count(*) from
 		order_list where product_id = #{pid} and review_date is not null
 	</select>
-
+	
+	<!--상품 아이디를 입력받아 상품별 리뷰의 평균 점수를 가져오는 select문 -->
 	<select id="getAverageScore" resultType="double">
 		select
 		nvl(round(sum(review_score)/count(*),1),0) from order_list
@@ -78,6 +86,7 @@
 		product_id = #{pid} and review_date is not null
 	</select>
 
+	<!--상품 아이디를 입력받아 소수점을 제거한 상품별 리뷰의 평균 점수를 가져오는 select문 -->
 	<select id="getAverageScoreInt" resultType="int">
 		select
 		nvl(round(sum(review_score)/count(*),1),0) from order_list
@@ -85,37 +94,42 @@
 		product_id = #{pid} and review_date is not null
 	</select>
 
-
+	<!--상품 아이디를 입력받아 상품별 리뷰의 별점 5점의 개수를 가져오는 select문 -->
 	<select id="getScoreFive" resultType="int">
 		select count(*)
 		from
 		order_list where product_id=#{pid} and review_score=5
 	</select>
 
+	<!--상품 아이디를 입력받아 상품별 리뷰의 별점 4점의 개수를 가져오는 select문 -->
 	<select id="getScoreFour" resultType="int">
 		select count(*)
 		from
 		order_list where product_id=#{pid} and review_score=4
 	</select>
 
+	<!--상품 아이디를 입력받아 상품별 리뷰의 별점 3점의 개수를 가져오는 select문 -->
 	<select id="getScoreThree" resultType="int">
 		select count(*)
 		from
 		order_list where product_id=#{pid} and review_score=3
 	</select>
 
+	<!--상품 아이디를 입력받아 상품별 리뷰의 별점 2점의 개수를 가져오는 select문 -->
 	<select id="getScoreTwo" resultType="int">
 		select count(*)
 		from
 		order_list where product_id=#{pid} and review_score=2
 	</select>
 
+	<!--상품 아이디를 입력받아 상품별 리뷰의 별점 1점의 개수를 가져오는 select문 -->
 	<select id="getScoreOne" resultType="int">
 		select count(*)
 		from
 		order_list where product_id=#{pid} and review_score=1
 	</select>
 
+	<!--입력한 상품 아이디의 카테고리에 해당하는 랜덤 물품 3개를 가져오는 select문 -->
 	<select id="getRecommend"
 		resultType="com.hyundai.vo.ProductOptionDTO">
 		select
@@ -135,9 +149,9 @@
 		product_id=#{pid})||'%'
 		order by DBMS_RANDOM.RANDOM
 		OFFSET 0 ROWS FETCH NEXT 3 ROWS ONLY
-
 	</select>
 	
+	<!--상품아이디를 입력받아 찜인지 구분하는 select문-->
 	<select id="getWish" resultType="boolean">
 	select nvl2(wish_date, '1', '0') wished 
 	from wish_list w right join product p on  (w.product_id = p.product_id and w.user_id = #{id})

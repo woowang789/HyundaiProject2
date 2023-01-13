@@ -9,7 +9,6 @@
 	<bean id="customAccessDenied" class="com.hyundai.security.CustomAccessDeniedHandler"></bean>
 	<bean id="customLoginSuccess" class="com.hyundai.security.CustomLoginSuccessHandler"></bean>
 	<bean id="CustomUserDetailsService" class="com.hyundai.security.CustomUserDetailsService"></bean>
-	<bean id="MemberLoginFailService" class="com.hyundai.security.MemberLoginFailService"></bean>
 	<security:http>
 		<security:intercept-url pattern="/cart"
 			access="hasRole('ROLE_MEMBER')" /> 

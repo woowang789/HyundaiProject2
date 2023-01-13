@@ -22,6 +22,10 @@ import com.hyundai.vo.ProductOptionDTO;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * 마이페이지 관련 API 요청을 처리하는 RestController
+ * @author 왕종휘
+ */
 @RestController
 @RequestMapping("/api/mypage")
 @RequiredArgsConstructor
@@ -30,6 +34,11 @@ public class MyPageApi {
 	private final WishListService wishListService;
 	private final TagService tagService;
 	
+	/**
+	 * 해당 유저의 Wish(찜) 목록을 불러옴 
+	 * @param body : 유저아이디(userId)
+	 * @param page : 찜 목록 페이징에 필요한 페이지 번호
+	 */
 	@PostMapping("/getWishList/{pageNum}")
 	public ResponseEntity<ApiPageDTO<ProductOptionDTO>> getWishList(
 			@RequestBody Map<String, String> body,
@@ -39,6 +48,10 @@ public class MyPageApi {
 		return new ResponseEntity<>(new ApiPageDTO<>(count, list), HttpStatus.OK);
 	}
 
+	/**
+	 * 해당 상품에 대한 찜 상태를 토글
+	 * @param body : 유저아이디 (userId), 상품아이디(prodId)
+	 */
 	@PostMapping("/updateWishList")
 	public ResponseEntity<String> updateWishList(
 			@RequestBody Map<String, String> body) {
@@ -47,6 +60,11 @@ public class MyPageApi {
 			return new ResponseEntity<>("error", HttpStatus.INTERNAL_SERVER_ERROR);
 		return new ResponseEntity<>(result+"", HttpStatus.OK);
 	}
+	
+	/**
+	 * 해당 검색어에 대한 즐겨찾기 상태(tag)를 토글
+	 * @param body : 검색어(keyword) ,유저아이디 (userId)
+	 */
 	@PostMapping("/updateTagList")
 	public ResponseEntity<Integer> updateTagList(
 			@RequestBody Map<String, String> body){

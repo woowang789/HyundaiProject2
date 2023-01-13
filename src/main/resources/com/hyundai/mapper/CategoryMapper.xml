@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
+<!--소규석-->
 <!-- SQL Mapping -->
 <mapper namespace="com.hyundai.mapper.CategoryMapper">
 
+<!--카테고리별로 order by 순서와 상품 카테고리 아이디를 입력받아
+ 카테고리별 상품 리스트를 가져오는 select문-->
 	<select id="getCategoryWithPaging"
 		resultType="com.hyundai.vo.ProductOptionDTO">
 	<![CDATA[
@@ -46,11 +48,15 @@ select
             OFFSET (#{cri.pageNum}-1)*#{cri.amount} ROWS FETCH NEXT #{cri.amount} ROWS ONLY
 		]]>
 	</select>
+	
+	<!--카테고리 아이디를 입력받아 카테고리별로 총 상품 개수가져오는 select문-->
 	<select id="getTotalCount" resultType="int">
 		select count(*) from
 		product where category_id like #{cateId}||'%'
 	</select>
 
+	<!--카테고리 테이블을 self하여 부모 카테고리 아이디를 만들어
+	 부모 카테고리를 입력하면 해당하는 자식 카테고리를 가져오는 select문-->
 	<select id="getPCate" resultType="com.hyundai.vo.CategoryDTO">
 
 		select ca.category_id catePid, ca.category_name catePname, cb.category_id

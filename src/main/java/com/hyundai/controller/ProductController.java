@@ -27,13 +27,12 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 @Controller
 public class ProductController {
-
+// 소규석
+	
 	@Autowired
 	private ProductDetailMapper mapper;
-	@Autowired
-	private CartService cartService;
-
-
+	
+	//상품 아이디를 받아 상품별 상세 페이지 정보 가져오기
 	@RequestMapping(value = "/product-detail", method = RequestMethod.GET)
 	public String productDetail(@RequestParam String pid, Criteria cri, Model model, Principal principal) {
 		log.info("/product-detail");
@@ -43,7 +42,6 @@ public class ProductController {
 		model.addAttribute("product_detail", mapper.getProductDetail(pid));
 
 		int total = mapper.getReviewTotalCount(cri);
-		/* model.addAttribute("reviews", mapper.getReviewWithPaging(cri, pid)); */
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
 
 		String id="not login";
@@ -60,6 +58,7 @@ public class ProductController {
 		return "product/product_detail";
 	}
 
+	//상품별 회원 리뷰 리스트 가져오기
 	@ResponseBody
 	@RequestMapping(value = "/review", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Map<String, Object>> productDetail(Criteria cri) {

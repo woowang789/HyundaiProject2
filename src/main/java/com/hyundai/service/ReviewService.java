@@ -10,6 +10,10 @@ import com.hyundai.vo.ReviewDTO;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * 리뷰 관련 비스니스 로직을 처리하는 Service
+ * @author 왕종휘
+ */
 @Service
 @RequiredArgsConstructor
 public class ReviewService {
