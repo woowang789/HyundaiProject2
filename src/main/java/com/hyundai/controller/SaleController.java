@@ -21,12 +21,14 @@ public class SaleController {
 
 	private final SaleMapper mapper;
 
+	// 이승규
+	// 세일 페이지 리스트 가져오기
 	@RequestMapping(value = "/sale", method = RequestMethod.GET)
 	public String sale(Criteria cri, Model model, Principal principal) {
 		int count = mapper.getCount(cri);
-		if (cri.getAmount() == 10) 
+		if (cri.getAmount() == 10)
 			cri.setAmount(24);
-		String userId = principal == null? "":principal.getName();
+		String userId = principal == null ? "" : principal.getName();
 		model.addAttribute("sale_list", mapper.getSaleListAll(cri, userId));
 		model.addAttribute("pageMaker", new PageDTO(cri, count));
 		model.addAttribute("categ", mapper.getCate(cri));

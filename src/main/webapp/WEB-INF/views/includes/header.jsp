@@ -53,6 +53,8 @@
 </head>
 <div class="popup-background" style="display: none; background-color: none; width: 100%; height: 100%; z-index: 100; position: absolute;"></div>
 <body>
+  <!-- 이승규 -->
+  <!-- 헤더 -->
   <div id="Wrapper">
     <div id="Header">
       <div class="top_util">
@@ -289,14 +291,15 @@
               <span>세일</span>
             </a>
           </li>
-        <c:forEach items="${tags }" var="tag">
-           <li style="">
-            <a href="/search?keyword=${tag }">
-              <span><c:out value="${tag }"/></span>
-            </a>
-          </li>  	
-        </c:forEach>
-          
+          <c:forEach items="${tags }" var="tag">
+            <li style="">
+              <a href="/search?keyword=${tag }">
+                <span>
+                  <c:out value="${tag }" />
+                </span>
+              </a>
+            </li>
+          </c:forEach>
         </ul>
       </div>
     </div>

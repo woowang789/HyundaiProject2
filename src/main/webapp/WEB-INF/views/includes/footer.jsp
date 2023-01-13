@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<!-- 이승규 -->
+<!-- 푸터 -->
 <div id="Footer" class="m2105">
 	<div class="twoConts">
 		<div class="conts">

@@ -10,6 +10,10 @@ import com.hyundai.vo.ProductOptionDTO;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * 찜(wish) 관련 비스니스 로직을 처리하는 Service
+ * @author 왕종휘
+ */
 @Service
 @RequiredArgsConstructor
 public class WishListService {
@@ -17,10 +21,9 @@ public class WishListService {
 	private final WishListMapper wishListMapper;
 	
 	/**
-	 * 이미 존재한다면 삭제, 존재하지 않는다면 제거
-	 * -1 : DB 에러 발생
-	 * 0 : 제거
-	 * 1 : 생성
+	 * 유저의 특정 상품에 대해 찜 상태를 확인 후, toggle  
+	 * @param 상품아이디(prodId), 유저아이디(userId)
+	 * @return -1: DB에러 발생 / 0: 찜 제거 / 1: 찜 생성 
 	 */
 	public int toggleWishList(String userId, String prodId) {
 		boolean isExist = wishListMapper.isExist(userId, prodId);
