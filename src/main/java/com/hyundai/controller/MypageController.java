@@ -128,27 +128,39 @@ public class MypageController {
 		
 		return "mypage/reviews_list";
 	}
-
+	
+	/**
+	 * @info-change
+	 * writer : 이한솔
+	 */
 	@GetMapping("/info-change")
 	public String mypageInfoChange() {
 		log.info("mypage/info-change");
 
 		return "mypage/info_change";
 	}
-
+	
+	/**
+	 * @info-remove
+	 * writer : 이한솔
+	 */
 	@GetMapping("/info-remove")
 	public String mypageInfoRemove(Model model) {
 		log.info("mypage/info-remove");
 
 		return "mypage/info_remove";
 	}
+	
 	@RequestMapping(value = "/reviews", method = RequestMethod.GET)
 	public String mypageReviews(Model model) {
 		log.info("mypage/reviews");
 
 		return "mypage/reviews_write";
 	}
-
+	/**
+	 * @info-change
+	 * writer : 이한솔
+	 */
 	@PostMapping("/info-change")
 	public String changeInfo(UserVO vo) throws Exception {
 		System.out.println(vo);
@@ -159,6 +171,10 @@ public class MypageController {
 		return "mypage/completion_change_info";
 	}
 	
+	/**
+	 * @deleteInfo
+	 * writer : 이한솔
+	 */
 	@PostMapping("/deleteInfo")
 	public String deleteInfo(UserVO vo) {
 		userMapper.deleteUser(vo.getUser_id());

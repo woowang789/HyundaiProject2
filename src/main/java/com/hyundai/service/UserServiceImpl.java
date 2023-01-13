@@ -1,3 +1,6 @@
+/**
+ * *UserServiceImpl writer : 이한솔 
+ * **/
 package com.hyundai.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +22,8 @@ public class UserServiceImpl implements UserService {
 	@Setter(onMethod_ = @Autowired)
 	private UserMapper mapper;
 	
-	@Transactional
 	@Override
+	@Transactional
 	public void register(UserVO uservo) {
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(); 
 		log.info(uservo.getUser_pwd()); 

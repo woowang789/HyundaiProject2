@@ -1,3 +1,7 @@
+/**
+ *  UserServiceTest writer : 이한솔
+ */
+
 package com.hyundai.service;
 
 import org.junit.Test;
