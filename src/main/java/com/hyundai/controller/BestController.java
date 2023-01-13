@@ -20,9 +20,11 @@ import lombok.extern.log4j.Log4j;
 public class BestController {
 	private final BestMapper mapper;
 
+	// 이승규
+	// 랭킹 페이지 리스트 가져오기
 	@RequestMapping(value = "/best", method = RequestMethod.GET)
 	public String best(Criteria cri, Model model, Principal principal) {
-		String userId = principal == null ? "":principal.getName(); 
+		String userId = principal == null ? "" : principal.getName();
 		cri.setAmount(100);
 		model.addAttribute("best_list", mapper.getBestList(cri, userId));
 		model.addAttribute("pageMaker", new PageDTO(cri, 100));

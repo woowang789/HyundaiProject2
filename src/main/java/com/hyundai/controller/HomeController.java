@@ -32,12 +32,16 @@ public class HomeController {
 	private HomeService service;
 
 	/**
-	 * Simply selects the home view to render by returning its name.
+	 * 이승규
+	 * 메인 페이지 리스트 가져오기
+	 * 세일 랜덤
+	 * 랭킹 랜덤
+	 * 브랜드별 랜덤
 	 */
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String home(Locale locale, Criteria cri, Model model, Principal principal) {
 		logger.info("Welcome home! The client locale is {}.", locale);
-		
+
 		String userId = principal == null ? "" : principal.getName();
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
@@ -46,10 +50,8 @@ public class HomeController {
 		cri.setAmount(4);
 
 		model.addAttribute("serverTime", formattedDate);
-
 		model.addAttribute("for_user", service.getRecommendForUser(cri, userId));
 		model.addAttribute("random", service.getRecommendRandom(cri, userId));
-
 		model.addAttribute("brand", service.getRecommendBrand(cri, userId));
 
 		return "home";

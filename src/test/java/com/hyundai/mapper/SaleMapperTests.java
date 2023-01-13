@@ -1,10 +1,16 @@
 package com.hyundai.mapper;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import com.hyundai.vo.CategoryDTO;
+import com.hyundai.vo.Criteria;
+import com.hyundai.vo.ProductOptionDTO;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -15,19 +21,37 @@ import lombok.extern.log4j.Log4j;
 public class SaleMapperTests {
 
 	@Setter(onMethod_ = @Autowired)
-	private SaleMapper saleMapper;
+	private SaleMapper mapper;
 
-	/*
-	 * @Test public void getTest() { // Criteria cri = new Criteria();
-	 * List<ProductOptionDTO> products = saleMapper.getSaleList();
-	 * System.out.println(products); for (ProductOptionDTO p : products) {
-	 * log.info(p); } }
-	 */
+	private String userId = "user1@mail.com";
+
+	@Test
+	public void getTest() {
+		Criteria cri = new Criteria();
+		cri.setAmount(36);
+		cri.setPageNum(1);
+		cri.setSort("02");
+		List<ProductOptionDTO> products = mapper.getSaleListAll(cri, userId);
+		System.out.println(products);
+		for (ProductOptionDTO p : products) {
+			log.info(p);
+		}
+	}
 
 	@Test
 	public void getCount() {
-		int result = saleMapper.getCount(null);
-		log.info(result);
+		Criteria cri = new Criteria();
+		List<CategoryDTO> result = mapper.getCate(cri);
+		result.forEach(item -> log.info(item));
+
+	}
+
+	@Test
+	public void getCate() {
+		Criteria cri = new Criteria();
+		List<CategoryDTO> result = mapper.getCate(cri);
+		log.info("카테고리:" + result);
+
 	}
 
 }
