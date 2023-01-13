@@ -1,3 +1,7 @@
+/**
+ *  UserTests writer : 이한솔
+ */
+
 package com.hyundai.mapper;
 
 import org.junit.Test;
