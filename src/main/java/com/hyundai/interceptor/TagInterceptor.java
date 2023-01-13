@@ -13,10 +13,13 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.hyundai.service.TagService;
-import com.hyundai.vo.CustomUser;
 
 import lombok.NoArgsConstructor;
 
+/**
+ * 모든 Get 요청 시 Header에 Tag 리스트를 보여주기 위한 인터셉터
+ * @author 왕종휘
+ */
 @Component
 @NoArgsConstructor
 public class TagInterceptor extends HandlerInterceptorAdapter {
@@ -37,8 +40,6 @@ public class TagInterceptor extends HandlerInterceptorAdapter {
 			if(!name.equals("anonymousUser") && !url.startsWith("/api") && !url.startsWith("/resources")) {
 				List<String> tags =  service.getTagList(name);
 				if(tags == null ) tags = new ArrayList<String>();
-				System.out.println("tags : "+ tags);
-//				System.out.println(user.getUsername()+" "+tags);
 				if(modelAndView != null && modelAndView.getModelMap() != null)
 					modelAndView.getModelMap().addAttribute("tags", tags);
 			}

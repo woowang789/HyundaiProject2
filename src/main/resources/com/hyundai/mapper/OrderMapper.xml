@@ -2,11 +2,99 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-
-
-<!-- SQL Mapping -->
+<!-- 
+	주문 (orders) 테이블 관련 작업을 하는 Mapper
+	@author 왕종휘
+ -->
 <mapper namespace="com.hyundai.mapper.OrderMapper">
 
+<!-- 
+	주문 정보를 저장
+	@param 이름(receiverName), 도로명주소(receiverAddrRoad), 지번(receiverAddrJibun), 전화번호(receiverTel), 
+			결제수단(payment), 결제금액 (totalPrice), 유저아이디(userId)
+	
+ -->
+	<insert id="insertOrder">
+		<selectKey keyProperty="order.orderId" order="BEFORE" resultType="String">
+			select sysdate from dual
+		</selectKey>
+		insert into orders 
+			(ORDER_ID, RECEIVER_NAME, 
+			RECEIVER_ADDRESS_ROAD, RECEIVER_ADDRESS_JIBUN, RECEIVER_TEL,
+			PAYMENT, ORDER_DATE, TOTAL_PRICE, USER_ID) 
+		values
+			(#{order.orderId},#{order.receiverName},
+			#{order.receiverAddrRoad}, #{order.receiverAddrJibun}, #{order.receiverTel},
+			#{order.payment}, sysdate, #{order.totalPrice}, #{userId})
+	</insert>
+
+<!-- 
+	주문 상품 정보를 저장
+	@param 유저아이디(userId), 주문아이디(orderId), 상품아이디(pid), 상품옵션아이디(oid), 
+			수량(qty), 판매가(marketPrice)
+ -->
+	<insert id="insertOrderList">
+		insert into order_list
+			(OPTION_ID, PRODUCT_ID, ORDER_ID,
+			ORDER_LIST_QTY, ORDERED_PRICE, USER_ID)
+		values 
+			(#{orderList.oid}, #{orderList.pid}, #{orderId},
+			#{orderList.qty}, #{orderList.marketPrice}, #{userId})
+	</insert>
+	
+<!-- 
+	주문이력 조회
+	@param 페이징 관련 객체 (cri) : n개월 간 (type)/ 페이지번호(pageNum)/ 상품 수(amount),
+			유저아이디(userId)
+ -->
+	<select id="getOrderListByUserId" resultMap="showOrderMap">
+	<![CDATA[
+		select 
+			o.orderId orderId,
+			o.orderDate orderDate,
+			p.product_id prodId,
+			p.product_name prodName,
+			p.product_thumb thumb,
+			po.option_id oid,
+			po.option_name optionName,
+			ol.ordered_price marketPrice,
+			ol.order_list_qty qty,
+			b.brand_id bId,
+			b.brand_name brandName
+		from (
+            select * from (
+            	select 
+	                rownum rn,
+	                o.order_id orderId, 
+	                o.order_date orderDate
+	            from orders o
+	            where o.user_id = #{userId}
+	            	and o.order_date between add_months(sysdate,#{cri.type}) and sysdate
+	            	 order by order_date desc)
+	                where rownum<= #{cri.pageNum} * #{cri.amount}
+        ) o
+		inner join order_list ol
+		    on (o.orderId = ol.order_id)
+		inner join options po
+		    on (po.option_id = ol.option_id)
+		inner join product p
+		    on (po.product_id = p.product_id)
+		inner join brand b
+		    on (p.brand_id = b.brand_id)
+        where rn > (#{cri.pageNum} - 1) * #{cri.amount}
+    ]]>
+	</select>
+	
+<!-- 
+	조회되는 주문 이력 총 개수
+	@param 유저아이디(userId)
+ -->
+	<select id="getOrderListCount" resultType="int">
+		select count(*)
+		from orders o
+		where o.user_id = #{userId}
+	</select>
+	
 	<resultMap type="com.hyundai.vo.ShowOrderDTO"
 		id="showOrderMap">
 		<id property="orderId" column="orderId" />
@@ -29,72 +117,4 @@
 		<result property="brandName" column="brandName" />
 		<result property="bId" column="bId" />
 	</resultMap>
-
-	<insert id="insertOrder">
-		<selectKey keyProperty="order.orderId" order="BEFORE" resultType="String">
-			select sysdate from dual
-		</selectKey>
-		insert into orders 
-			(ORDER_ID, RECEIVER_NAME, 
-			RECEIVER_ADDRESS_ROAD, RECEIVER_ADDRESS_JIBUN, RECEIVER_TEL,
-			PAYMENT, ORDER_DATE, TOTAL_PRICE, USER_ID) 
-		values
-			(#{order.orderId},#{order.receiverName},
-			#{order.receiverAddrRoad}, #{order.receiverAddrJibun}, #{order.receiverTel},
-			#{order.payment}, sysdate, #{order.totalPrice}, #{userId})
-	</insert>
-	
-	<insert id="insertOrderList">
-		insert into order_list
-			(OPTION_ID, PRODUCT_ID, ORDER_ID,
-			ORDER_LIST_QTY, ORDERED_PRICE, USER_ID)
-		values 
-			(#{orderList.oid}, #{orderList.pid}, #{orderId},
-			#{orderList.qty}, #{orderList.marketPrice}, #{userId})
-	</insert>
-	
-	<select id="getOrderListByUserId" resultMap="showOrderMap">
-	<![CDATA[
-		select 
-			o.orderId orderId,
-			o.orderDate orderDate,
-			p.product_id prodId,
-			p.product_name prodName,
-			p.product_thumb thumb,
-			po.option_id oid,
-			po.option_name optionName,
-			ol.ordered_price marketPrice,
-			ol.order_list_qty qty,
-			b.brand_id bId,
-			b.brand_name brandName
-		from (
-            select * from (select 
-            
-                rownum rn,
-                o.order_id orderId, 
-                o.order_date orderDate
-            from orders o
-            where o.user_id = #{userId}
-            	and o.order_date between add_months(sysdate,#{cri.type}) and sysdate
-            	 order by order_date desc)
-                where rownum<= #{cri.pageNum} * #{cri.amount}
-           
-        ) o
-		inner join order_list ol
-		    on (o.orderId = ol.order_id)
-		inner join options po
-		    on (po.option_id = ol.option_id)
-		inner join product p
-		    on (po.product_id = p.product_id)
-		inner join brand b
-		    on (p.brand_id = b.brand_id)
-        where rn > (#{cri.pageNum} - 1) * #{cri.amount}
-    ]]>
-	</select>
-	
-	<select id="getOrderListCount" resultType="int">
-		select count(*)
-		from orders o
-		where o.user_id = #{userId}
-	</select>
 </mapper>

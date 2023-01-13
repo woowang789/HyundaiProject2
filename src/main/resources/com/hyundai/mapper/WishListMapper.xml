@@ -2,9 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<!-- SQL Mapping -->
+<!-- 
+	찜(wish_list) 테이블 관련 작업을 하는 Mapper
+	@author 왕종휘
+ -->
 <mapper namespace="com.hyundai.mapper.WishListMapper">
 
+<!-- 
+	유저의 찜 목록 가져오기
+	@param 페이징 객체(cri), 유저아이디(userId)
+ -->
 	<select id="getWishLists" resultType="com.hyundai.vo.ProductOptionDTO">
 	<![CDATA[
 		select id, name, thumb, pDate, oId, stock, originPrice, marketPrice, '1' wished, bId, brandName, wDate
@@ -35,12 +42,20 @@
 		]]>
 	</select>
 	
+<!-- 
+	유저의 찜 개수 가져오기
+	@param 유저아이디(userId)
+ -->
 	<select id="getCount" resultType="int">
 		select count(*) 
 		from wish_list 
 		where user_id = #{userId}
 	</select>
 
+<!-- 
+	특정 상품에 대한 찜 상태 확인
+	@param 유저아이디(userId), 상품아이디(prodId)
+ -->
 	<select id="isExist" resultType="boolean">
 		select count(*)
 		from wish_list
@@ -48,12 +63,20 @@
 		and product_id = #{prodId}
 	</select>
 
+<!-- 
+	특정 상품에 대한 찜 삽입
+	@param 유저아이디(userId), 상품아이디(prodId)
+ -->
 	<insert id="insertWishList">
 		insert into wish_list (USER_ID, PRODUCT_ID,
 		WISH_DATE)
 		values (#{userId},#{prodId}, sysdate)
 	</insert>
 
+<!-- 
+	특정 상품에 대한 찜 삭제
+	@param 유저아이디(userId), 상품아이디(prodId)
+ -->
 	<delete id="removeWishList">
 		delete from wish_list
 		where user_id = #{userId}

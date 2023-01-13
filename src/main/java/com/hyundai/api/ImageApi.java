@@ -17,14 +17,24 @@ import org.springframework.web.multipart.MultipartFile;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * 이미지 관련 API 요청을 처리하는 RestController
+ * @author 왕종휘
+ */
 @RestController
 @RequestMapping("/api/image")
 @Slf4j
 public class ImageApi {
 	
+	
+	//이미지가 저장될 Path 
 	@Value("#{filepath['file.path']}")
 	private String uploadFolder;
 	
+	/**
+	 * 사용자가 업로드한 파일을 지정된 Path에 저장하고, 파일명을 리턴
+	 * @param MultipartFile : 사용자가 업로드한 첨부파일
+	 */
 	@PostMapping("/upload")
 	public ResponseEntity<String> uploadImg(MultipartFile uploadFile) {
 		log.info("upload img");
@@ -43,6 +53,10 @@ public class ImageApi {
 		
 	}
 	
+	/**
+	 * 브라우저 이미지 태그로 요청한 사진 파일을 전송 
+	 * @param fileName : 사용자가 요청한 파일명 
+	 */
 	@GetMapping("/display")
 	public ResponseEntity<byte[]> getFile(String fileName){
 		log.info(fileName);

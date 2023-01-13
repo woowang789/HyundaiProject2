@@ -2,50 +2,60 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<!-- SQL Mapping -->
+<!-- 
+	장바구니 (cart_list) 테이블 관련 작업을 하는 Mapper
+	@author 왕종휘
+ -->
 <mapper namespace="com.hyundai.mapper.CartMapper">
 
+<!-- 
+	유저가 장바구니에 담은 상품들의 정보를 가져옴	
+	@param 유저아이디(userId)
+ -->
 	<select id="getCartList"
 		resultType="com.hyundai.vo.CartProductDTO">
 		select
-		p.product_id id,
-		p.product_name name,
-		p.product_thumb thumb,
-		po.option_id oid,
-		po.option_name optionName,
-		po.option_stock stock,
-		po.option_origin_price originPrice,
-		po.option_market_price marketPrice,
-		b.brand_name brandName,
-		b.brand_id bId,
-		c.cart_qty qty,
-		c.cart_date cDate
+			p.product_id id,
+			p.product_name name,
+			p.product_thumb thumb,
+			po.option_id oid,
+			po.option_name optionName,
+			po.option_stock stock,
+			po.option_origin_price originPrice,
+			po.option_market_price marketPrice,
+			b.brand_name brandName,
+			b.brand_id bId,
+			c.cart_qty qty,
+			c.cart_date cDate
 		from cart_list c
-		inner join options po
-		on (c.option_id = po.option_id and c.user_id = #{userId})
-		inner join
-		product p
-		on (p.product_id = po.product_id)
-		inner join brand b
-		on (b.brand_id = p.brand_id)
+		inner join options po on (c.option_id = po.option_id and c.user_id = #{userId})
+		inner join product p on (p.product_id = po.product_id)
+		inner join brand b on (b.brand_id = p.brand_id)
 		order by c.cart_date desc
 	</select>
 
+<!-- 
+	특정 상품의 옵션에 해당하는 상품을 장바구니에서 삭제
+	@param 유저아이디(userId), 상품아이디(prodId), 상품옵션아이디(optId)
+ -->
 	<delete id="deleteCart">
 		delete from cart_list c
 		where c.option_id = #{optId}
-		and c.user_id = #{userId}
-		and c.product_id = #{prodId}
+			and c.user_id = #{userId}
+			and c.product_id = #{prodId}
 	</delete>
 
-	<!-- 장바구니에서 수량 변경 시 #{qty} 상품상세에서 수량 변경 시 #{qty} + c.cart_qty -->
+<!-- 
+	특정 상품의 옵션에 해당하는 상품을 장바구니에 담거나, 수량 변경
+	@param 유저아이디(userId), 상품아이디(prodId), 상품옵션아이디(optId), 수량(qty), 장바구니 플래그(fromCart)
+	fromCart : 장바구니에서 업데이트 시, 수량을 qty 로 변경 / 그렇지 않을 시, 수량을 qty 만큼 증가
+ -->
 	<update id="updateCart">
 		merge into cart_list c
 		using dual
 		on (c.option_id = #{optId}
-		and c.product_id = #{prodId}
-		and c.user_id = #{userId}
-		)
+			and c.product_id = #{prodId}
+			and c.user_id = #{userId} )
 		when matched then
 		<if test='!fromCart'>
 			update set c.cart_qty = #{qty} + c.cart_qty
