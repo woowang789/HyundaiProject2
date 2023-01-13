@@ -2,9 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
+<!-- 이승규 -->
 <!-- SQL Mapping -->
 <mapper namespace="com.hyundai.mapper.BestMapper">
-
+	<!-- 베스트 제품 리스트 -->
 	<select id="getBestList"
 		resultType="com.hyundai.vo.ProductOptionDTO">
 	<![CDATA[
@@ -31,14 +32,14 @@
             join categories c on p.category_id=c.category_id
             join (select product_id,sum(order_list_qty) best
             from order_list 
-            group by product_id 
-            OFFSET 0 ROWS FETCH NEXT 100 ROWS ONLY) olq on p.product_id=olq.product_id
+            group by product_id) olq on p.product_id=olq.product_id
             where c.category_id like #{cri.cateId}||'%'
             order by best desc, p.product_id
+            OFFSET 0 ROWS FETCH NEXT 100 ROWS ONLY
 	]]>
 	</select>
 
-
+	<!-- 카테고리 리스트 -->
 	<select id="getCate" resultType="com.hyundai.vo.CategoryDTO">
 	<![CDATA[
 		select category_name cateName, category_id cateId,category_pid catePid

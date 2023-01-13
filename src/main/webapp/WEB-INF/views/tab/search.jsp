@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ include file="../includes/header.jsp"%>
+<!-- 이승규 -->
 <c:set var="isContain" value="${fn:contains(tags, pageMaker.cri.keyword)}" />
 <script type="text/javascript">
 	function Price_Search() {
@@ -52,7 +53,6 @@
     <!-- // 상품 속성 정보 검색 서비스 개선 -->
   </form>
   <p class="cate_info_tx"></p>
-  <!-- bFirstSearch -->
   <!-- 상품 정렬 조건 영역 -->
   <div class="cate_align_box">
     <div class="align_sort">
@@ -89,7 +89,6 @@
   </div>
   <!--// 상품 정렬 조건 영역 -->
   <!-- 카테고리 상품 리스트 -->
-  <!-- 컬럼형 리스트 -->
   <div id="ajaxList">
     <ul class="cate_prd_list gtm_search_list">
       <c:forEach var="item" items="${search_list}">
@@ -114,16 +113,20 @@
             <!--// 찜버튼 -->
             <!-- 상품가격 영역 -->
             <p class="prd_price">
-              <span class="tx_org">
-                <span class="tx_num">
-                  <fmt:formatNumber value="${item.originPrice }" />
-                </span>
-                <span class="tx_cur">
+              <c:if test="${item.originPrice ne item.marketPrice}">
+                <span class="tx_org">
                   <span class="tx_num">
-                    <fmt:formatNumber value="${item.marketPrice }" />
+                    <fmt:formatNumber value="${item.originPrice }" />
                   </span>
                   원
                 </span>
+              </c:if>
+              <span class="tx_cur">
+                <span class="tx_num">
+                  <fmt:formatNumber value="${item.marketPrice }" />
+                </span>
+                원
+              </span>
             </p>
             <!--// 상품가격 영역 -->
             <!-- 상품 쿠폰 및 플러스 추가 영역 -->
@@ -188,6 +191,7 @@
 						"<sec:authentication property="principal.user.user_id"/>";
 					</sec:authorize>
 				const actionForm = $('#actionForm');
+				//페이징 버튼 클릭 시
 				$('.pageing a').click(
 						function(e) {
 							e.preventDefault();
@@ -195,7 +199,7 @@
 									$(this).attr("href"));
 							actionForm.submit();
 						})
-
+				//한 화면에서 보여지는 상품의 갯수
 				$('.count_sort>ul>li>a').click(
 						function(e) {
 							e.preventDefault();

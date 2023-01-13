@@ -139,6 +139,11 @@ $(document).ready(function(){
 		  }
 	});
 	
+	$('.thum').click(function(e){
+		e.preventDefault();
+		location.href='/product-detail?pid='+$(this).attr('href');
+	})
+	
 	$('.pageing a').click(function(e){
 		e.preventDefault();
 		let n = $(this).attr('href');

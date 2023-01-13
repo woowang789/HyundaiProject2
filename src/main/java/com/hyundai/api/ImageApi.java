@@ -2,6 +2,7 @@ package com.hyundai.api;
 
 import java.io.File;
 import java.nio.file.Files;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
@@ -29,7 +30,7 @@ public class ImageApi {
 		log.info("upload img");
 		log.info(uploadFolder);
 		
-		String fileName = "test_img.jpeg";
+		String fileName = UUID.randomUUID().toString().substring(8);
 		log.info(uploadFile+"");
 		try {
 			File saveFile = new File(uploadFolder,fileName);

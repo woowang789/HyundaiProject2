@@ -172,8 +172,8 @@
 </div>
 <div id="Container">
   <div id="Contents">
-    <!--   11111메인 베너 -->
-    <!--   22222고객님을 위한 추천 상품(세일 랜덤) -->
+    <!--   메인 베너 -->
+    <!--   고객님을 위한 추천 상품(세일 랜덤) -->
     <div class="curation_wrap">
       <div class="curation_area two" style="">
         <div class="inner">
@@ -204,12 +204,14 @@
                                 <p class="tx_name">${item.name }</p>
                               </div>
                               <p class="prd_price">
-                                <span class="tx_org">
-                                  <span class="tx_num">
-                                    <fmt:formatNumber>${item.originPrice}</fmt:formatNumber>
+                                <c:if test="${item.originPrice ne item.marketPrice}">
+                                  <span class="tx_org">
+                                    <span class="tx_num">
+                                      <fmt:formatNumber>${item.originPrice}</fmt:formatNumber>
+                                    </span>
+                                    원
                                   </span>
-                                  원
-                                </span>
+                                </c:if>
                                 <span class="tx_cur">
                                   <span class="tx_num">
                                     <fmt:formatNumber> ${item.marketPrice }</fmt:formatNumber>
@@ -233,7 +235,7 @@
         </div>
       </div>
     </div>
-    <!--   33333catch keyword -->
+    <!--   catch keyword -->
     <div class="catch_keyword_wrap">
       <h3 class="main_sub_tit">
         <strong>Catch Keyword</strong>
@@ -275,7 +277,7 @@
         </ul>
       </div>
     </div>
-    <!--   44444오직 올리브영에서만 -->
+    <!--   오직 올리브영에서만 -->
     <div class="main_onlyone_wrap">
       <h3 class="main_sub_tit">오직 올리브영에서만</h3>
       <div class="banner_wrap slick_slider slick-initialized slick-slider slick-dotted" id="OnlyoneSlider" role="toolbar">
@@ -354,7 +356,7 @@
         </div>
       </div>
     </div>
-    <!--   55555이 상품 어때요(베스트) -->
+    <!--   이 상품 어때요(베스트) -->
     <h3 class="main_sub_tit">
       <strong>이 상품 어때요?</strong>
     </h3>
@@ -388,12 +390,14 @@
                       <span>찜하기전</span>
                     </button>
                     <p class="prd_price">
-                      <span class="tx_org">
-                        <span class="tx_num">
-                          <fmt:formatNumber>${item.originPrice}</fmt:formatNumber>
+                      <c:if test="${item.originPrice ne item.marketPrice}">
+                        <span class="tx_org">
+                          <span class="tx_num">
+                            <fmt:formatNumber>${item.originPrice}</fmt:formatNumber>
+                          </span>
+                          원
                         </span>
-                        원
-                      </span>
+                      </c:if>
                       <span class="tx_cur">
                         <span class="tx_num">
                           <fmt:formatNumber>${item.marketPrice}</fmt:formatNumber>
@@ -415,7 +419,7 @@
         </div>
       </div>
     </div>
-    <!--   66666주목해야할 브랜드 상품 -->
+    <!--   주목해야할 브랜드 상품 -->
     <div name="movepage"></div>
     <h3 class="main_sub_tit">
       <strong>주목해야 할 브랜드</strong>
@@ -470,12 +474,14 @@
                         <span>찜하기전</span>
                       </button>
                       <p class="prd_price">
-                        <span class="tx_org">
-                          <span class="tx_num">
-                            <fmt:formatNumber>${item.originPrice}</fmt:formatNumber>
+                        <c:if test="${item.originPrice ne item.marketPrice}">
+                          <span class="tx_org">
+                            <span class="tx_num">
+                              <fmt:formatNumber>${item.originPrice}</fmt:formatNumber>
+                            </span>
+                            원
                           </span>
-                          원
-                        </span>
+                        </c:if>
                         <span class="tx_cur">
                           <span class="tx_num">
                             <fmt:formatNumber>${item.marketPrice}</fmt:formatNumber>

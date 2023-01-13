@@ -2,6 +2,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="../includes/header.jsp"%>
+<!-- 이승규 -->
 <div id="Container">
   <!-- #Contents -->
   <div class="title-best">
@@ -19,7 +20,7 @@
     <!-- 판매 베스트 필터-->
     <div class="common-menu">
       <ul>
-        <li class="<c:if test="${pageMaker.cri.cateId eq ''}">on</c:if>">
+        <li class="<c:if test="${empty pageMaker.cri.cateId ||pageMaker.cri.cateId eq'1000001'}">on</c:if>">
           <button type="button" data-ref-dispcatno="1000001" data-attr="세일^세일카테고리_핫인기세일^전체">전체</button>
         </li>
         <!-- 그 외 -->
@@ -76,12 +77,14 @@
                 <span>찜하기전</span>
               </button>
               <p class="prd_price">
-                <span class="tx_org">
-                  <span class="tx_num">
-                    <fmt:formatNumber value="${item.originPrice }" />
+                <c:if test="${item.originPrice ne item.marketPrice}">
+                  <span class="tx_org">
+                    <span class="tx_num">
+                      <fmt:formatNumber value="${item.originPrice }" />
+                    </span>
+                    원
                   </span>
-                  원
-                </span>
+                </c:if>
                 <span class="tx_cur">
                   <span class="tx_num">
                     <fmt:formatNumber value="${item.marketPrice }" />

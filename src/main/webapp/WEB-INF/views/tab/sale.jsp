@@ -2,6 +2,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="../includes/header.jsp"%>
+<!-- 이승규 -->
 <div id="Container">
   <div class="title-sale">
     <h1>
@@ -18,12 +19,12 @@
     <!-- 세일 베스트 필터-->
     <div class="common-menu">
       <ul>
-        <li class="<c:if test="${pageMaker.cri.cateId eq ''}">on</c:if>">
+        <li class="<c:if test="${empty pageMaker.cri.cateId ||pageMaker.cri.cateId eq'1000001'}">on</c:if>">
           <button type="button" data-ref-dispcatno="1000001" data-attr="세일^세일카테고리_핫인기세일^전체">전체</button>
         </li>
         <!-- 그 외 -->
         <c:forEach var="cate" items="${categ}">
-          <li class="c ">
+          <li class="<c:if test="${pageMaker.cri.cateId eq cate.cateId }">on</c:if> ">
             <button type="button" data-cid="${cate.cateId}" data-attr="">
               <c:out value="${cate.cateName }" />
             </button>
@@ -40,8 +41,7 @@
       </ul>
     </div>
     <!-- //세일 베스트 필터-->
-    <!-- 서브카테고리 상단 안내화면 -->
-    <!-- //서브카테고리 상단 안내화면 -->
+    <!-- 세일 상품 목록  -->
     <div class="TabsConts on">
       <p class="cate_info_tx"></p>
       <div class="cate_align_box">
@@ -82,9 +82,6 @@
           <li class="flag">
             <div class="prd_info ">
               <a href="/product-detail?pid=${item.id }" name="Sale_Pop" class="prd_thumb goodsList">
-                <span class="newOyflag today">
-                  <em>오특</em>
-                </span>
                 <span class="newOyflag time" style="display: none;">
                   <div class="main-today">
                     <div class="timer ready">
@@ -137,12 +134,14 @@
         </c:forEach>
       </ul>
     </div>
+    <!-- // 세일 상품 목록  -->
     <form id="actionForm" action="/sale" method="get">
       <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }" />
       <input type="hidden" name="amount" value="${pageMaker.cri.amount }" />
       <input type="hidden" name="sort" value="${pageMaker.cri.sort }" />
       <input type="hidden" name="cateId" value="${pageMaker.cri.cateId }" />
     </form>
+    <!-- 페이징 -->
     <div class="pageing">
       <c:if test="${pageMaker.prev }">
         <a class="prev" href="${pageMaker.startPage-1 }">이전 10 페이지</a>
@@ -159,6 +158,7 @@
         <a class="next" href="${pageMaker.endPage+1 }">다음 10 페이지</a>
       </c:if>
     </div>
+    <!-- //페이징 -->
   </div>
 </div>
 <script src="/resources/js/wishList.js" defer></script>

@@ -129,8 +129,8 @@ public class MypageController {
 	
 	@PostMapping("/deleteInfo")
 	public String deleteInfo(UserVO vo) {
-		/* userMapper.deleteAuth(vo.getUser_id()); */
 		userMapper.deleteUser(vo.getUser_id());
+		userMapper.deletePersistence(vo.getUser_id());
 		SecurityContextHolder.clearContext();
 		return "redirect:/home";
 	}

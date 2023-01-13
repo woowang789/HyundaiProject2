@@ -42,10 +42,10 @@
 				where ol.review_date is null
 			</if>
 			<![CDATA[
-				and rownum <= #{cri.pageNum} * #{cri.amount}
+				
 				order by order_date desc
 			)
-			where rn > (#{cri.pageNum} - 1) * #{cri.amount}
+			 OFFSET (#{cri.pageNum}-1)*#{cri.amount} ROWS FETCH NEXT #{cri.amount} rows only
 		]]>
 		
 	</select>
