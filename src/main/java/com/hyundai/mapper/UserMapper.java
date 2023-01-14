@@ -26,6 +26,7 @@ public interface UserMapper {
 	
 	public void updateUser(UserVO vo);
 	
+	public void deleteAuth(String user_id);
 	
 	public void deleteUser(String user_id);
 

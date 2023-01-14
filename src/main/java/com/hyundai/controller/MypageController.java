@@ -129,8 +129,11 @@ public class MypageController {
 	
 	@PostMapping("/deleteInfo")
 	public String deleteInfo(UserVO vo) {
+		log.info("회원탈퇴");
+		log.info("id=" + vo.getUser_id());
+		userMapper.deleteAuth(vo.getUser_id());
 		userMapper.deleteUser(vo.getUser_id());
-		userMapper.deletePersistence(vo.getUser_id());
+		log.info("삭제");
 		SecurityContextHolder.clearContext();
 		return "redirect:/home";
 	}

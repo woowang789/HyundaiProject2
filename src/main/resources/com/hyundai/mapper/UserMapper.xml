@@ -81,6 +81,11 @@
 		where user_id = #{user_id}
 	</delete>
 	
+	<delete id="deleteAuth">
+		delete from authorities
+		where user_id = #{user_id}
+	</delete>
+	
 	<delete id="deletePersistence">
 		delete from persistent_logins
 		where username = #{user_id}
